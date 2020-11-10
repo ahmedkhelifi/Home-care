@@ -1,8 +1,5 @@
 import React from 'react';
-
 import './style.css';
-
-import Logo from'./images/Leitlinienprogramm-Onkologie-Logo.svg';
 
 class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
   
@@ -61,8 +58,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                   <div className="row" style={{marginLeft: '0'}}>
                    <div className="col-12" style={{height:'100vh', background: 'rgba(242, 148, 0, 0.19)', paddingLeft: '70px'}}>
                       <div className="centerVertical" style={{textAlign:'center'}}>
-                      <img  src={Logo} alt="logo DKG" style={{width:'190px'}} className="logo_reveal"/>
-                        <h6 className="center_text marginTop" style={{color: 'white'}}>Abstimmungs- und Kommentierungsportal des OL</h6>
+                        <h6 className="center_text marginTop" style={{color: 'white'}}>Homecare App</h6>
                         <h5 style={{color:'white', marginTop:'50px'}}>Nutzername:</h5>
                         <form id="changePass">
                           <input type="text" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
