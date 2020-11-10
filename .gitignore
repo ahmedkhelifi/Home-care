@@ -1,0 +1,8 @@
+*.DS_Store
+node_modules/
+
+# Language
+* linguist-vendored
+*.js linguist-vendored=false
+
+server/Database/index.js

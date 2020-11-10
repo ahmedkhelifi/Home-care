@@ -1,2 +1,3 @@
-# Home-care
-Programmierpraktikum: Datenbankprojekt
+# Homecare App
+
+TODO
