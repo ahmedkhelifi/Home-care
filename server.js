@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
@@ -7,61 +8,48 @@ var db = require('./database');
 const WebSocket = require('ws');
 // const socket_request = require("./websocket/socket.js");
 
+const {createServer} = require('http');
 
-/*
-*
-* START: WEBSOCKET FOR LIVE CONCENSUS CONFERENCE
-*
-*/
-const wss = new WebSocket.Server({ port: 5001 })
-// socket_request.handle_request(wss, WebSocket)
-/*
-*
-* END: WEBSOCKET FOR LIVE CONCENSUS CONFERENCE
-*
-*/
+// Serve the static files from the React app
+// app.use(express.static(path.join(__dirname, 'client/build')));
+
+// An api endpoint that returns a short list of items
+// app.get('/api/getList', (req,res) => {
+//     var list = ["item1", "item2", "item3"];
+//     res.json(list);
+//     console.log('Sent list of items');
+// });
 
 
-app.use(express.json({limit: '50mb'}));
-// app.use(express.urlencoded({extended: false}));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'build')));
 
 
-// app.use(express.static(path.join(__dirname, 'build')));
-
-/*EXTERN API*/
-
-/*INTERN API*/
 app.use('/api/login', require('./routes/login'));
+app.use('/api/patient', require('./routes/patient'));
 
-// Handles any requests that don't match the ones above
-// app.get('*', (req,res) =>{
-//     res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './build', 'index.html'));
+});
+
+// socket_request.handle_request(wss, WebSocket)
+
+const port = process.env.PORT || 6000;
+const server = createServer(app);
+server.listen(port, () => console.info(`Server running on port: ${port}`));
+
+const wss = new WebSocket.Server({ server });
+// socket_request.handle_request(wss, WebSocket)
 
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, './build', 'index.html'));
-// });
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, './build', 'index.html'));
-// });
-
-// const server = createServer(app)
-// server.listen(process.env.PORT || 5000, err => {
-//   if(err) throw err
-//   console.log('server started')
-// })
-
-app.listen(process.env.PORT || 5000);
 
 // console.log('App is listening on port ' + process.env.PORT);
 db.query('SELECT NOW()', (err, res) => {
   if (err.error)
     return console.log(err.error);
-  console.log(`😎 PostgreSQL connected: ${res[0].now}.`);
+  console.log(`PostgreSQL connected: ${res[0].now}.`);
 
   /*
   *
@@ -85,6 +73,34 @@ db.query('SELECT NOW()', (err, res) => {
       let password = encryptPassword('123456', 'homecare')
       db.query('INSERT INTO Doctor (doctorID, firstName, lastName , EMAIL, adressID, username, password) VALUES ($1, $2, $3, $4, $5, $6, $7);',[doctorID, firstName, lastName, EMAIL, adressID, username, password], (err, res) => { })
       // var timestamp = new Date().valueOf().toString()
+    })
+  })
+
+  db.query('DROP TABLE IF EXISTS Patient;', (err, res) => {
+   if (err.error)
+     return console.log(err.error);
+    db.query('CREATE TABLE Patient ( patientID TEXT NOT NULL, firstName TEXT NOT NULL, lastName TEXT NOT NULL, birthdate TEXT NOT NULL, EMAIL TEXT NOT NULL);', (err, res) => {
+      // var timestamp = new Date().valueOf().toString()
+      let email = 'test@gmail.com'
+      let birthday = '01.01.2000'
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['003948941386', 'Kameron', 'Lyons', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['713593164867', 'Eryn', 'Whiteley', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['245468230922', 'Madelyn', 'Arias', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['597434560261', 'Cecelia', 'Lancaster', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['085838536014', 'Aliyah', 'Crane', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['602186601603', 'Hamaad', 'Brewer', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['754137830502', 'Niall', 'Chester', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['644876243155', 'Zach', 'John', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['468861804531', 'Elis', 'Knights', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['427922574351', 'Phillip', 'Flowers', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['490870301349', 'Phillip', 'Montes', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['631689197410', 'Danyl', 'Markham', birthday, email], (err, res) => { })  
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['618857891047', 'Annalise', 'Glenn', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['891628045547', 'Ariyah', 'Begum', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['316125513133', 'Leonardo', 'Forrest',birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['275102691872', 'Etienne', 'Adamson', birthday, email], (err, res) => { })
+      db.query('INSERT INTO Patient (patientID, firstName, lastName , birthdate, EMAIL) VALUES ($1, $2, $3, $4, $5);',['855062768563', 'Viktoria', 'Floyd', birthday, email], (err, res) => { })
+
     })
   })
 });

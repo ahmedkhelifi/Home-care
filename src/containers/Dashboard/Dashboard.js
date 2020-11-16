@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import Login         from  '../../components/Login';
 import Allgemein     from  '../../components/Allgemein';
+import PatientList     from  '../../components/PatientList';
 import AdminSidebar     from  '../../components/AdminSidebar';
 
 import './style.css';
@@ -29,8 +30,6 @@ export default class UserDashboard extends React.PureComponent {
     this.tabClicked        = this.tabClicked.bind(this)
     this.loggedIn          = this.loggedIn.bind(this)
     this.logout            = this.logout.bind(this)
-    this.addSurveyTab      = this.addSurveyTab.bind(this)
-    this.findSurveyID      = this.findSurveyID.bind(this)
     
     this.tabOpened         = <Allgemein refresh={false} />
   }
@@ -53,52 +52,18 @@ export default class UserDashboard extends React.PureComponent {
     switch (target) {
            case "Allgemein":
                //this.tabOpened = <Allgemein refresh={this.state.openedTab === target} />
-               this.setState({ openedTab: 'Allgemein', survey: {}});
+               this.setState({ openedTab: 'Allgemein'});
                break;
 
             case "UserList": 
                //this.tabOpened = <UserList refresh={this.state.openedTab === target} />
-               this.setState({ openedTab: 'UserList', survey: {}});
+               this.setState({ openedTab: 'PatientList'});
                break;
 
             default:
-               this.setState({ openedTab: 'Allgemein', survey: {}});
+               this.setState({ openedTab: 'Allgemein'});
                break;
     }
-  }
-
-  findSurveyID(id){
-    this.state.survey_tabs.forEach(survey => {
-      if(survey.id === id) {
-        this.setState({ openedTab: 'stickySurvey', survey: survey});
-        return
-      }
-        
-    })
-  }
-
-  addSurveyTab(survey){
-    //maximum 3 tabs open
-    if(this.state.survey_tabs.length < 4){
-
-        //if already exists, don't add
-        let bool = false
-        this.state.survey_tabs.forEach(temp => {
-          if (temp.id === survey.id) bool = true
-        })
-
-        if(!bool){
-          let survey_tabs = this.state.survey_tabs
-          survey_tabs.push(survey)
-          let settings = this.state.settings
-          settings.surveys.pinned = JSON.stringify(survey_tabs)
-          this.setState({survey_tabs: survey_tabs, settings: settings})
-          this.forceUpdate()
-        }
-
-    }
-   
-
   }
 
   loggedIn(user){
@@ -131,8 +96,8 @@ export default class UserDashboard extends React.PureComponent {
 
                       <div className="content">
 
-                          {this.state.openedTab === 'Allgemein'     ? (<Allgemein    refresh={this.state.refresh} />) : (null)}
-                          {/*this.state.openedTab === 'UserList'      ? (<UserList     refresh={this.state.refresh} />) : (null)*/}
+                          {this.state.openedTab === 'Allgemein'        ? (<Allgemein    refresh={this.state.refresh} />) : (null)}
+                          {this.state.openedTab === 'PatientList'      ? (<PatientList     refresh={this.state.refresh} />) : (null)}
 
 
                       </div>
