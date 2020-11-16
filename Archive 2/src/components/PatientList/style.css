@@ -1,0 +1,73 @@
+.header img {
+     width: 240px;
+     height: auto;
+     margin: 0 auto;
+     display: block;
+     float: right;
+     padding-top: 30px;
+     padding-bottom: 30px;
+}
+ .header .nav-bar {
+     text-align: center;
+}
+ .header .router-link {
+     display: inline-flex;
+     padding: 0.25em 2em;
+     margin: 1em;
+     text-decoration: none;
+     border-radius: 4px;
+     -webkit-font-smoothing: antialiased;
+     -webkit-touch-callout: none;
+     user-select: none;
+     cursor: pointer;
+     outline: 0;
+     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+     font-weight: bold;
+     font-size: 16px;
+     border: 2px solid #41addd;
+     color: #41addd;
+}
+ .header .router-link:active {
+     background: #41addd;
+     color: #fff;
+}
+ .userClickedContent {
+     padding-top: 20px;
+     border-radius: 12px;
+    /*background-color: white !important;
+    */
+}
+ .userinput {
+     background-color: transparent;
+     border: none;
+     border-bottom: 1px solid;
+}
+ .user_header {
+     padding: 20px 0px;
+     border-bottom-left-radius: 20px;
+     border-bottom-right-radius: 20px;
+}
+ .button_dkg {
+     background-color: transparent;
+     border: 2px solid #ffa500 a1;
+     color: #f29400;
+     border-radius: 15px;
+     padding: 3px 12px;
+}
+ .button_dkg:hover {
+     background-color: #f29400;
+     border-color: #f29400;
+     color: white;
+     border-radius: 15px;
+     padding: 3px 12px;
+}
+ .importbutton_dkg {
+     background-color: transparent;
+     border: none;
+     color: #f29400;
+     margin-left: 8px;
+}
+ .nomarginleft {
+     margin-left: 0;
+}
+ 
