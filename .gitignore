@@ -6,3 +6,5 @@ node_modules/
 *.js linguist-vendored=false
 
 server/Database/index.js
+
+.idea/
