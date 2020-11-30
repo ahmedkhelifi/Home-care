@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
-const encryptPassword = require('encrypt-password')
+const encryptPassword = require('encrypt-password');
 var db = require('./database');
 const WebSocket = require('ws');
 // const socket_request = require("./websocket/socket.js");
@@ -36,7 +36,7 @@ app.get('*', (req, res) => {
 
 // socket_request.handle_request(wss, WebSocket)
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 const server = createServer(app);
 server.listen(port, () => console.info(`Server running on port: ${port}`));
 
