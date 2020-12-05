@@ -5,6 +5,6 @@ node_modules/
 * linguist-vendored
 *.js linguist-vendored=false
 
-server/Database/index.js
+Database/index.js
 
 .idea/
