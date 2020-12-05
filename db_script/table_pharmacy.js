@@ -1,16 +1,10 @@
+  var db = require('../database');
+
   db.query('DROP TABLE IF EXISTS pharmacy;', (err, res) => {
    if (err.error)
      return console.log(err.error);
     db.query(
-	'CREATE TABLE pharmacy
-		(
-			pharmacyid serial NOT NULL,
-			username text NOT NULL,
-			password text NOT NULL,
-			name text NOT NULL,
-			addressid integer NOT NULL,
-			PRIMARY KEY (pharmacyid)
-		);'	
+	'CREATE TABLE pharmacy ( pharmacyid serial NOT NULL, username text NOT NULL, password text NOT NULL, name text NOT NULL, addressid integer NOT NULL, PRIMARY KEY (pharmacyid));'	
     db.query('INSERT INTO pharmacy (username, password, name, addressID) VALUES ($1, $2, $3, $4, $5);',
 		['ApothekeCharite', encryptPassword('apotheke1', 'homecare'), 'Apotheke am Klinikum', '21'], (err, res) => { })
 	db.query('INSERT INTO pharmacy (username, password, name, addressID) VALUES ($1, $2, $3, $4, $5);',

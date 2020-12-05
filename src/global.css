@@ -4311,99 +4311,7 @@
  .margin_top_10{
      margin-top: 10px;
 }
- .arrow_parent {
-     width: 50%;
-     margin: 0 auto;
-     position: relative;
-     height: 340px;
-     top: 50%;
-     -webkit-transform: translateY(-50%);
-     -ms-transform: translateY(-50%);
-     transform: translateY(-50%);
-}
- .arrow_parent_up {
-     width: 50%;
-     margin: 0 auto;
-     position: relative;
-     height: 70px;
-     top: 30%;
-     -webkit-transform: translateY(-50%);
-     -ms-transform: translateY(-50%);
-     transform: translateY(-50%);
-}
- .arrow_parent_down {
-     width: 50%;
-     margin: 0 auto;
-     position: relative;
-     height: 100%;
-     top: 50%;
-     -webkit-transform: translateY(-50%);
-     -ms-transform: translateY(-50%);
-     transform: translateY(-50%);
-}
- .vote_arrow_text{
-     text-align: center;
-     font-size: 13px;
-     padding-top: 4px;
-}
- .vote_arrow_text_gray{
-     text-align: center;
-     font-size: 13px;
-     padding-top: 4px;
-     opacity: 0.3;
-}
- .vote_arrow_text_gray:hover{
-     opacity: 1;
-}
- .pointer{
-     cursor: pointer;
-     position: relative;
-     top: 0;
-     width: 100px;
-     opacity: 0.3;
-}
- .vote_arrow_up {
-     position: relative;
-     left: 50px;
-     height: 60px;
-     width: 60px;
-     opacity: 0.3;
-}
- .vote_arrow_up_active {
-     position: relative;
-     top: 0;
-     left: 50px;
-     height: 70px;
-     width: 70px;
-     opacity: 0.3;
-     cursor: pointer;
-}
- .vote_arrow_neutral_active {
-     position: relative;
-     top: 0;
-     left: 50px;
-     height: 70px;
-     width: 70px;
-     opacity: 0.9;
-     cursor: pointer;
-}
- .vote_arrow_down {
-     position: relative;
-     top: 0;
-     left: 50px;
-     height: 60px;
-     width: 60px;
-     opacity: 0.3;
-     transform: rotate(175deg);
-     cursor: pointer;
-}
- .vote_arrow_down_active {
-     position: relative;
-     top: 0;
-     left: 90px;
-     height: 70px;
-     width: 70px;
-}
+.tox-statusbar{display: none;}
  .text_area_one {
      width:100%;
      min-height: 160px;
@@ -6494,3 +6402,378 @@
      display: inline-block;
      cursor: pointer;
  }
+
+
+
+
+
+ .blob_gray {
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    left: 50%;
+    transform: rotate(175deg);
+    width: 1550px;
+    height: 212px;
+    margin-top: 0vh;
+}
+
+.blob_orange {
+     z-index: 1;
+    position: absolute;
+    top: -7%;
+    left: 30%;
+    -ms-transform: rotate(175deg);
+    transform: rotate(175deg);
+    width: 1580px;
+    height: 212px;
+}
+
+/*@media Screen and (min-width: 700px) {
+     .blob_gray {
+          top: 130px;
+          left: -150px;
+          transform: rotate(-191deg);
+     }
+     .blob_orange {
+          top: 130px;
+          left: -390px;
+     }
+}
+
+@media Screen and (min-width: 700px) {
+     .blob_gray {
+          top: 130px;
+          left: -150px;
+          transform: rotate(-191deg);
+     }
+     .blob_orange {
+          top: 130px;
+          left: -390px;
+     }
+}
+
+@media Screen and (min-width: 830px) {
+     .blob_gray {
+          top: 160px;
+         left: -60px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-191deg);
+         width: 1680px;
+     }
+     .blob_orange {
+          top: 150px;
+          left: -370px;
+          width: 1680px;
+     }
+}*/
+
+
+@media Screen and (min-width: 280px) {
+     .blob_gray {
+         top: 270px;
+         left: -220px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-171deg);
+         width: 1620px;
+     }
+     .blob_orange {
+          top: 50px;
+         left: -660px;
+         width: 1620px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 375px) {
+     .blob_gray {
+          top: 440px;
+         left: -210px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1620px;
+     }
+     .blob_orange {
+          top: 180px;
+         left: -650px;
+         width: 1620px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 500px) {
+     .blob_gray {
+          top: 430px;
+         left: -220px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1620px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -660px;
+         width: 1620px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 600px) {
+     .blob_gray {
+          top: 480px;
+         left: -240px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1770px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -660px;
+         width: 1770px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 800px) {
+     .blob_gray {
+          top: 480px;
+         left: -190px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1880px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -660px;
+         width: 1880px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 990px) {
+     .blob_gray {
+          top: 480px;
+         left: -60px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1880px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -480px;
+         width: 1880px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 1100px) {
+     .blob_gray {
+         top: 490px;
+         left: 60px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1880px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -390px;
+         width: 1880px;
+         transform: rotate(45deg);
+     }
+}
+
+@media Screen and (min-width: 1275px) {
+     .blob_gray {
+          top: 390px;
+         left: 190px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+     .blob_orange {
+          top: 220px;
+         left: -350px;
+         width: 2020px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1414px) {
+     .blob_gray {
+          top: 440px;
+         left: 340px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+}
+
+@media Screen and (min-width: 1578px) {
+     .blob_gray {
+          top: 440px;
+         left: 450px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+     .blob_orange {
+          top: 220px;
+         left: -350px;
+         width: 2020px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1686px) {
+     .blob_gray {
+          top: 440px;
+         left: 540px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+     .blob_orange {
+          top: 220px;
+         left: -350px;
+         width: 2020px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1776px) {
+     .blob_gray {
+          top: 440px;
+         left: 540px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+     .blob_orange {
+         top: 260px;
+         left: -230px;
+         width: 2290px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1776px) {
+     .blob_gray {
+          top: 440px;
+         left: 720px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 320px;
+     }
+     .blob_orange {
+         top: 260px;
+         left: -230px;
+         width: 2290px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1776px) {
+     .blob_gray {
+          top: 440px;
+         left: 710px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 1910px;
+         height: 380px;
+     }
+     .blob_orange {
+         top: 260px;
+         left: -230px;
+         width: 2290px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+@media Screen and (min-width: 1956px) {
+     .blob_gray {
+         top: 440px;
+         left: 760px;
+         -ms-transform: rotate(-191deg);
+         transform: rotate(-151deg);
+         width: 2240px;
+         height: 420px;
+     }
+     .blob_orange {
+          top: 200px;
+         left: -220px;
+         width: 2410px;
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         height: 70px;
+     }
+}
+
+.teilnehmen-btn {
+    font-size: 23px;
+    color: white !important;
+    background-color: #ea8a5a;
+    padding: 10px 130px;
+    border-radius: 8px;
+    bottom: 80px;
+    z-index: 2;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer !important;
+}
+
+.teilnehmen-btn:hover {
+     background-color: #f18048;
+}
+
+ .centerVertical_konsensuskonferenz_2 {
+     position: relative;
+     top: 20%;
+     -webkit-transform: translateY(-50%);
+     -ms-transform: translateY(-50%);
+     transform: translateY(-50%);
+}
+
+@media Screen and (max-height: 720px) {
+      .centerVertical_konsensuskonferenz_2 {
+          top: 10%;
+     }
+}
+
+
+.appear_right{
+    animation: apear_right_transition 0.3s forwards;
+    z-index: 10;
+}
+
+ @keyframes apear_right_transition {
+     0% {
+         transform: translate(200vw, 0vh);
+    }
+     100% {
+         transform: translate(0px, 0px);
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+}

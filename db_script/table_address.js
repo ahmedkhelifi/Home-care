@@ -1,19 +1,9 @@
+  var db = require('../database');
+
   db.query('DROP TABLE IF EXISTS address;', (err, res) => {
    if (err.error)
      return console.log(err.error);
-    db.query(
-	'CREATE TABLE address
-		(
-			addressid serial NOT NULL,
-			street text NULL,
-			houseno text NOT NULL,
-			zip text NOT NULL,
-			city text NULL,
-			country text NOT NULL,
-			telephone text NOT NULL,
-			email text NOT NULL,
-			PRIMARY KEY (addressid)
-		);'	
+    db.query('CREATE TABLE address( addressid serial NOT NULL, street text NULL, houseno text NOT NULL, zip text NOT NULL, city text NULL, country text NOT NULL, telephone text NOT NULL, email text NOT NULL, PRIMARY KEY (addressid) );', (err, res) => { }	)
     db.query('INSERT INTO address (street, houseno, zip, city, country, telephone, email) VALUES ($1, $2, $3, $4, $5);',
 		['Charitéplatz', '1', '10117', 'Berlin', 'Germany', '004930123456', 'd.thiel@charite-test.de'], (err, res) => { })
 	db.query('INSERT INTO address (street, houseno, zip, city, country, telephone, email) VALUES ($1, $2, $3, $4, $5);',

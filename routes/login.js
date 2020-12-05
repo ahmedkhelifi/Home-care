@@ -21,6 +21,11 @@ router.post('/', (req, res) => {
       return res.json({'authenticated': false});
     }
 
+    // if( result.type === doctor){
+    //   zweite query then callback
+    // }
+
+
     if(result.length == 0) {
       return res.json({'authenticated': false});
     }

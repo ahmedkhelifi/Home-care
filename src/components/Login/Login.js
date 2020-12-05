@@ -48,31 +48,58 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
   render() { 
     document.title = "Einloggen - Survey Platform"
     return (
-            <div className="surveybody"> 
-                 <div className="blob_login"> 
-                     <svg viewBox="0 0 310 350">
-                        <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
-                      </svg>
-                  </div>                
+              <div className="surveybody"> 
 
-                  <div className="row" style={{marginLeft: '0'}}>
-                   <div className="col-12" style={{height:'100vh', background: 'rgba(242, 148, 0, 0.19)', paddingLeft: '70px'}}>
-                      <div className="centerVertical" style={{textAlign:'center'}}>
-                        <h6 className="center_text marginTop" style={{color: 'white'}}>Homecare App</h6>
-                        <h5 style={{color:'white', marginTop:'50px'}}>Nutzername:</h5>
-                        <form id="changePass">
-                          <input type="text" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
-                          <h5 style={{color:'white', marginTop:'30px'}}>Passwort:</h5>
-                          <input type="password" className="input_username" style={{marginBottom: '30px'}} autoComplete="on" value={this.state.password} onChange={this.handlePasswordChange}/> <br/>
-                          {this.state.wrong ? (<p style={{color: 'red'}}>Sie haben falsche Daten eingetragen</p>) : (null)}
-                            <a className="signupbtn button_login marginTop" style={{fontSize: '20px', marginTop: '50px'}}
-                           onClick={(e) => {this.logme(e)}}>Einloggen</a>
-                        </form>
+                             <div className="blob_gray"> 
+
+                                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="100%" id="blobSvg">
+                                  <path id="blob" d="M422.5,290.5Q403,331,352.5,328Q302,325,284,354Q266,383,219,419Q172,455,138,417.5Q104,380,61,343.5Q18,307,67,262Q116,217,138.5,194Q161,171,162.5,97.5Q164,24,216,62.5Q268,101,316,92.5Q364,84,409.5,113.5Q455,143,448.5,196.5Q442,250,422.5,290.5Z" fill="#e9dfd3c4"></path>
+                                </svg>
+
+                              </div>
+
+                             <div className="blob_orange"> 
+
+                                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="100%" id="blobSvg">
+                                  <path id="blob" d="M384.5,266Q312,282,307,304Q302,326,281,330.5Q260,335,240.5,331.5Q221,328,156,359.5Q91,391,127,331.5Q163,272,118,239Q73,206,68.5,145.5Q64,85,124,80.5Q184,76,224.5,99.5Q265,123,328,84.5Q391,46,414.5,99Q438,152,447.5,201Q457,250,384.5,266Z" fill="#ffca8fc9"></path>
+                                </svg>
+
+                            </div>
+
+
+         
+
+                    <div className="row" style={{marginLeft: '0'}}>
+                     <div className="col-12" style={{height:'100vh', backgroundColor: '#FAF4DC'}}>
+                              <div className="centerVertical_konsensuskonferenz_2 appear_right" style={{textAlign:'center', zIndex: '100'}}>
+                                {/*<img  src={Logo} alt="logo DKG" style={{width:'190px'}} className=""/>*/}
+                                <h6 className="center_text marginTop" style={{color: 'black', fontSize: '28px', textAlign: 'center'}}>Homecare App</h6>
+                                <p style={{fontSize: '20px'}}>Bitte geben Sie Ihre Daten ein:</p>
+
+
+                                    <div className="formular" style={{marginTop: '40px'}}>
+                                      <form style={{display: 'inline-block', width: '66vw'}}>
+                                          <div className="form-group col-12" style={{display: 'inline-block', padding: '0 10px'}}>
+                                            <label for="Firstname">Username or email:</label> <br/>
+                                            <input type="text" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
+                                          </div>
+
+                                          <div className="form-group col-xs-6" style={{display: 'inline-block', padding: '0 10px'}}>
+                                            <label for="E-Mail">Password</label>  <br/>
+                                            <input type="password" className="input_username" style={{marginBottom: '30px'}} autoComplete="on" value={this.state.password} onChange={this.handlePasswordChange}/> <br/>
+                                          </div>
+                                      </form>
+                                    </div>
+
+                              </div>
+
+                            <a className="teilnehmen-btn" style={{cursor: 'pointer'}} onClick={(e) => {this.logme(e)}}>Einloggen</a>
+                          
                       </div>
-                    </div>
 
-                  </div>
-            </div>
+                    </div>
+              </div>
+
     );
   }
 }

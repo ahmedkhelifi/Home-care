@@ -1,11 +1,12 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+import Signup from './Signup';
 
-import seachIcon from './images/search.png';
-import emptyStar from './images/emptystar.png';
-import yellowStar from './images/yellowstar.png';
-import expandArrow from './images/expandArrow.png';
+// import seachIcon from './images/search.png';
+// import emptyStar from './images/emptystar.png';
+// import yellowStar from './images/yellowstar.png';
+// import expandArrow from './images/expandArrow.png';
 
 class PatientList extends React.Component { 
     constructor(props) {
@@ -81,7 +82,9 @@ class PatientList extends React.Component {
         };
 
         this.baseState = this.state // preserve the initial state
-        this.patientClicked             = this.patientClicked.bind(this);
+        this.addPatientForm          = this.addPatientForm.bind(this);
+        this.closesignup             = this.closesignup.bind(this);
+        this.patientClicked          = this.patientClicked.bind(this);
         this.timeSince               = this.timeSince.bind(this);
         this.toggle                  = this.toggle.bind(this);
         this.myColor                 = this.myColor.bind(this);
@@ -355,7 +358,23 @@ class PatientList extends React.Component {
     this.setState({patientClickedExpand: !this.state.patientClickedExpand})
   }
 
+  addPatientForm(){
+    this.setState({ patientForm: true, patients: [] });
+  }
+
+  closesignup(){
+    this.setState({ patientForm: false });
+  }
+
   render() {
+
+        if(this.state.patientForm){
+          return (
+              <div className="container-fluid">
+                <Signup handleConsultationStart={this.handleConsultationStart} closesignup={this.closesignup} />
+              </div>
+            )
+        }
 
         if(this.state.errorPatientLoad){
             return (
@@ -482,7 +501,7 @@ class PatientList extends React.Component {
                  <div className="col-12" style={{padding: '10px 0px', }}>
                    <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ einfügen</button>
                     <input id='search-btn' type='checkbox'/>
-                    <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}><img alt="settings" src={seachIcon} style={{width: '18px', marginLeft: '30px'}}/>
+                    <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>
                     <input id='search-bar' type='text' placeholder='...' value={this.state.search} onChange={this.handleSearchChange}/>
                                     
