@@ -5502,19 +5502,7 @@
      z-index: 9999;
      cursor: pointer;
 }
- .survey_count{
-     color: #f29400;
-     text-align: center;
-     font-size: 70px;
-    /*margin-top: 10px;
-    */
-}
- .survey_count_underline{
-     text-align: center;
-     margin-bottom: 50px;
-     font-size: 20px;
-     margin-top: -10px;
-}
+
  .react-tabs{
      margin-top: 15px;
 }
@@ -5565,38 +5553,12 @@
  .results_button:hover{
      background-color: #f2940087;
 }
- .survey_opened {
-     height: 15px;
-     width: 15px;
-     border-radius: 50%;
-     display: inline-block;
-}
+
  .green {
      background-color: green;
 }
  .gray {
      background-color: gray;
-}
- .settings_gear{
-     float: right;
-     width: 20px;
-     margin-left: 10px;
-     cursor: pointer;
-     -webkit-transition: -webkit-transform .8s ease-in-out;
-     transition: transform .8s ease-in-out;
-}
- .settings_gear:hover{
-     -webkit-transform: rotate(180deg);
-     transform: rotate(180deg);
-}
- .export_icon{
-     padding-top: 8px;
-     float: right;
-     width: 30px;
-     margin-right: 10px;
-     cursor: pointer;
-     -webkit-transition: -webkit-transform .8s ease-in-out;
-     transition: transform .8s ease-in-out;
 }
  .loading {
      background: #dee2e6;
@@ -5929,14 +5891,6 @@
      padding-left: 10px;
      width: 97%;
 }
- .filter_icon{
-     width: 27px;
-     float: right;
-     cursor: pointer;
-     margin-top: -15px;
-     padding: 4px;
-     border-radius: 10px;
-}
  .userclicked_radius_transfer{
      background: white;
      border-radius: 30px;
@@ -6041,12 +5995,7 @@
      padding: 5px 10px;
      text-align: center;
 }
- .expandArrow{
-     width: 17px;
-     position: absolute;
-     left: -25px;
-     cursor: pointer;
-}
+
  .results_container {
      margin-top: -30px;
      margin-bottom: -30px;
@@ -6780,6 +6729,77 @@
 
 
 .patient_header{
-     height: 40vh;
-     background-color: red;
+    height: 55vh;
+    margin-top: -2px;
+    background-color: #e0eae1;
+    border: 9px solid white;
+    padding: 20px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.new_entry{
+     background-color: #ea8a5a;
+     padding: 20px 30px;
+     border-radius: 10px;
+     border-color: transparent;
+     width: 60vw;
+     color:white;
+     text-align: center;
+     cursor: pointer;
+}
+
+.new_entry:hover{
+     background-color: #ff8e56;
+}
+
+.patient_hello{
+     height: 4vh;
+     padding: 0;
+}
+
+.patient_status{
+     height: 20vh;
+     font-size: 44px;
+}
+
+@media Screen and (max-width: 378px) {
+     .patient_status {
+          font-size: 40px;
+     }
+}
+
+@media Screen and (max-width: 348px) {
+     .patient_status {
+          font-size: 37px;
+     }
+}
+
+.patient_med_number {
+     text-align: center;
+     color: #f28477;
+     font-size: 25px;
+     line-height: 23px;
+}
+
+.patient_med {
+    font-size: 21px;
+    color: #686868;
+    padding-top: 9px;
+    line-height: 14px;
+}
+
+.patient_med_type {
+     color: #f28477;
+     font-size: 12px;
+}
+
+.patient_logout {
+    width: 25px;
+    text-align: right;
+    float: right;
+    margin-top: -40px;
+    cursor: pointer;
 }

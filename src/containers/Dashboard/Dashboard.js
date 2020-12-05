@@ -112,7 +112,7 @@ export default class UserDashboard extends React.PureComponent {
             </section>
           )
         } else if(this.state.user.type === 'patient') {
-          return (<Patient/>)
+          return (<Patient user={this.state.user} logout={this.logout} />)
         }
       } else {
         return(<Login loggedIn={this.loggedIn}/>)
