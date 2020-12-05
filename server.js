@@ -6,14 +6,12 @@ Patient: API for patient to add new health stats, or modify existing ones
 Doctor: API to modify existing users medicationns and email. Type of  transplant and patients infos cannot be modified by the user
 
 Script, script that runs every 24 hours and adds nnew health stats (not medications yet)
-Example of heart rate input would look like: [{date: 'today', value: '45'},{date: 'yesterday', value: '75'},{date: 'some date', value: '50'}]
+Example of heart rate input would look like: 
+
+
+[{date: 'today', value: '45'}, {date: 'yesterday', value: '75'},{date: 'some date', value: '50'}]
 
 */
-
-
-
-
-
 
 
 const express = require('express');

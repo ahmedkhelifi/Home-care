@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
               return res.json({'authenticated': false});
             }
 
-            return res.json({'authenticated': true, user: {doctorid: resultt[0].doctorid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName }});
+            return res.json({'authenticated': true, type: 'doctor' ,user: {doctorid: resultt[0].doctorid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName }});
 
     })}
 
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
               return res.json({'authenticated': false});
           }
 
-          return res.json({'authenticated': true, user: {patientid: resultt[0].patientid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName }});
+          return res.json({'authenticated': true, type: 'patient', user: {patientid: resultt[0].patientid, username: resultt[0].username, name:resultt[0].firstname + ' ' + resultt[0].lastname }});
 
       })}
 
@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
               return res.json({'authenticated': false});
           }
 
-          return res.json({'authenticated': true, user: {pharmacyid: resultt[0].pharmacyid, username: resultt[0].username, name:resultt[0].name }});
+          return res.json({'authenticated': true, type: 'pharmacy', user: {pharmacyid: resultt[0].pharmacyid, username: resultt[0].username, name:resultt[0].name }});
 
       })}
 
