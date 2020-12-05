@@ -1,6 +1,9 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 
+import Patient         from  '../Patient';
+
+
 import Login         from  '../../components/Login';
 import Allgemein     from  '../../components/Allgemein';
 import PatientList     from  '../../components/PatientList';
@@ -67,7 +70,6 @@ export default class UserDashboard extends React.PureComponent {
   }
 
   loggedIn(user){
-    delete user['settings'];
     this.setState({authenticated: true, user: user})
     Cookies.set('user', user)
     Cookies.set('authenticated', true)
@@ -84,7 +86,8 @@ export default class UserDashboard extends React.PureComponent {
     var survey = this.state.survey
 
       if(this.state.authenticated && this.state.user !== {}) {
-        if(this.state.user.role !== 'pharmacist') {
+        console.log(this.state.user.type)
+        if(this.state.user.type === 'doctor') {
           return (
             <section>
 
@@ -108,8 +111,8 @@ export default class UserDashboard extends React.PureComponent {
 
             </section>
           )
-        } else {
-           // return (<pharmcist logout={this.logout} user={this.state.user}/>)
+        } else if(this.state.user.type === 'patient') {
+          return (<Patient/>)
         }
       } else {
         return(<Login loggedIn={this.loggedIn}/>)

@@ -6777,3 +6777,9 @@
 .form-group {
     margin-bottom: 15px;
 }
+
+
+.patient_header{
+     height: 40vh;
+     background-color: red;
+}
