@@ -51,4 +51,49 @@ router.post('/weight', (req, res) => {
   });
 });
 
+router.post('/bloodpres_dia', (req, res) => {
+
+  var bloodpres_dia = req.body.bloodpres_dia;
+
+  Patient.insert(bloodpres_dia, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+router.post('/bloodpres_sys', (req, res) => {
+
+  var bloodpres_sys = req.body.bloodpres_sys;
+
+  Patient.insert(bloodpres_sys, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+router.post('/temperature', (req, res) => {
+
+  var temperature = req.body.temperature;
+
+  Patient.insert(temperature, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+router.post('/medication', (req, res) => {
+
+  var medication = req.body.medication;
+
+  Patient.insert(medication, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+
 module.exports = router;
