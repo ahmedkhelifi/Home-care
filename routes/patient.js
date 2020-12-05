@@ -29,5 +29,26 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/puls', (req, res) => {
+
+  var puls = req.body.puls;
+
+  Patient.insert(puls, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
+
+router.post('/weight', (req, res) => {
+
+  var weight = req.body.weight;
+
+  Patient.insert(weight, (err, result) => {
+    if (err)
+      return res.json(err);
+    return res.json(result);
+  });
+});
 
 module.exports = router;
