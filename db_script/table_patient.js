@@ -5,23 +5,6 @@
    if (err.error)
      return console.log(err.error);
     db.query('CREATE TABLE patient(patientid serial NOT NULL,username text NOT NULL,password text NOT NULL,firstname text NOT NULL,lastname text NOT NULL,birthdate date NOT NULL,addressid integer,puls json,weight json,bloodpres_dia json,bloodpres_sys json,temperature json,medication json,PRIMARY KEY (patientid));', (err, res) => {
-	//'CREATE TABLE Patient ( patientID TEXT NOT NULL, firstName TEXT NOT NULL, lastName TEXT NOT NULL, birthdate TEXT NOT NULL, EMAIL TEXT NOT NULL);', (err, res) => {
-      // var timestamp = new Date().valueOf().toString()
-      //let email = 'test@gmail.com'
-      //let birthday = '01.01.2000'
-
-
-    //         db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
-    // ['K.Lyons', encryptPassword('lyons1980', 'homecare'), 'Kameron', 'Lyons', '1980-01-21', 4,  MEDICATION = [
-
-    // {medicine: 'anitirgendwas', history: {date: new Date().valueOf() , ammount: 1}, {date: new Date().valueOf() -1 day , ammount: 1}, {date: new Date().valueOf() - 1 week , ammount: 1}}
-
-    // ]], (err, res) => { })
-
-
-
-
-
       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
 		['K.Lyons', encryptPassword('lyons1980', 'homecare'), 'Kameron', 'Lyons', '1980-01-21', 4, ], (err, res) => { })
       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',

@@ -15,34 +15,63 @@ router.post('/', (req, res) => {
    return res.json({'authenticated': false});
  }
 
-  login.getUser(username, (err, result) => {
+  login.getType(username, (err, result) => {
     if (err.error) {
-      console.log('error')
+      console.log('error');
       return res.json({'authenticated': false});
     }
 
-    // if( result.type === doctor){
-    //   zweite query then callback
-    // }
+    /*doctor logs in*/
+    if(result.type === 'doctor'){
+        login.getDoctor(username, (err, resultt) => {
+            if (err.error) {
+                console.log('error');
+                return res.json({'authenticated': false});
+            }
+            console.log('check1')
 
+            if(encryptPassword(password, 'homecare') != resultt[0].password) {
+              return res.json({'authenticated': false});
+            }
 
-    if(result.length == 0) {
-      return res.json({'authenticated': false});
-    }
+            return res.json({'authenticated': true, user: {doctorid: resultt[0].doctorid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName }});
 
-    if(encryptPassword(password, 'homecare') != result[0].password) {
-      return res.json({'authenticated': false});
-    }
+    })}
 
-    return res.json({'authenticated': true, user: {doctorid: result[0].doctorid, username: result[0].username, name:result[0].firstName + ' ' + result[0].lastName }})
-    
-    
+      /*patient logs in*/
+     if( result.type === 'patient'){
+          login.getPatient(username, (err, resultt) => {
+              if (err.error) {
+                  console.log('error')
+                  return res.json({'authenticated': false});
+              }
+
+          if(encryptPassword(password, 'homecare') != resultt[0].password) {
+              return res.json({'authenticated': false});
+          }
+
+          return res.json({'authenticated': true, user: {patientid: resultt[0].patientid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName }});
+
+      })}
+
+      /*pharmacy logs in*/
+      if( result.type === 'pharmacy'){
+          login.getPharmacy(username, (err, resultt) => {
+              if (err.error) {
+                  console.log('error')
+                  return res.json({'authenticated': false});
+              }
+
+          if(encryptPassword(password, 'homecare') != resultt[0].password) {
+              return res.json({'authenticated': false});
+          }
+
+          return res.json({'authenticated': true, user: {pharmacyid: resultt[0].pharmacyid, username: resultt[0].username, name:resultt[0].name }});
+
+      })}
+
   });
 
 });
-
-
-
-
 
 module.exports = router;
