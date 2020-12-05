@@ -21,14 +21,15 @@ router.post('/', (req, res) => {
       return res.json({'authenticated': false});
     }
 
+      //console.log(result);
+
     /*doctor logs in*/
-    if(result.type === 'doctor'){
+    if(result[0].type === 'doctor'){
         login.getDoctor(username, (err, resultt) => {
             if (err.error) {
                 console.log('error');
                 return res.json({'authenticated': false});
             }
-            console.log('check1')
 
             if(encryptPassword(password, 'homecare') != resultt[0].password) {
               return res.json({'authenticated': false});
@@ -39,7 +40,7 @@ router.post('/', (req, res) => {
     })}
 
       /*patient logs in*/
-     if( result.type === 'patient'){
+     else if( result[0].type=== 'patient'){
           login.getPatient(username, (err, resultt) => {
               if (err.error) {
                   console.log('error')
@@ -55,7 +56,7 @@ router.post('/', (req, res) => {
       })}
 
       /*pharmacy logs in*/
-      if( result.type === 'pharmacy'){
+      else if( result[0].type === 'pharmacy'){
           login.getPharmacy(username, (err, resultt) => {
               if (err.error) {
                   console.log('error')
@@ -69,6 +70,8 @@ router.post('/', (req, res) => {
           return res.json({'authenticated': true, user: {pharmacyid: resultt[0].pharmacyid, username: resultt[0].username, name:resultt[0].name }});
 
       })}
+
+      else {return res.json({'authenticated': false});} // tritt nur ein, wenn nich vorhandener username eingegeben wurde
 
   });
 
