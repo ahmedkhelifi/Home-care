@@ -1,6 +1,7 @@
 var express = require('express');
 var Patient = require('../models/patient');
 var router = express.Router();
+const encryptPassword = require('encrypt-password');
 
 router.get('/', (req, res) => {
   Patient.retrieveAll((err, users) => {
@@ -19,10 +20,19 @@ router.post('/', (req, res) => {
   var birthdate    = req.body.birthdate;
   var username     = req.body.username;
   var password     = req.body.password;
-  var advice       = req.body.advice;
+  var medication  = req.body.medication;
+
+  var timestamp = new Date().valueOf().toString()
+  medication.forEach(medicament => {
+    if(!medicament.hasOwnProperty('assigned_on')){
+      medicament.assigned_on = timestamp
+    }
+  })
+
+  let medication_json = {medication: medication}
 
     //forward request to the model
-    Patient.insert(firstName, LastName, email, birthdate, username, password, (err, result) => {
+    Patient.insert(firstName, LastName, email, birthdate, username, encryptPassword(password, 'homecare'), medication_json, (err, result) => {
       if (err)
         return res.json(err);
       return res.json(result);

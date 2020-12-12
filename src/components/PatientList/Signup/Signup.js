@@ -18,6 +18,7 @@ class Signup extends React.Component {
       usersLoaded: false,
       transplants: [],
       selectedChapters: [],
+      medicaments: [],
 
 
       users: [],
@@ -51,10 +52,13 @@ class Signup extends React.Component {
     this.handleDisplayChange        = this.handleDisplayChange.bind(this);
     this.handleCheckbox             = this.handleCheckbox.bind(this);
     this.registerPatient            = this.registerPatient.bind(this);
-    this.checkChecked               = this.checkChecked.bind(this);
+    this.checkboxClassname          = this.checkboxClassname.bind(this)
+    this.checkChecked               = this.checkChecked.bind(this)
     this.weiter                     = this.weiter.bind(this);
     this.zuruck                     = this.zuruck.bind(this);
     this.handleAdviceChange         = this.handleAdviceChange.bind(this)
+    this.handleMedicineAmmount      = this.handleMedicineAmmount.bind(this)
+    this.handleMedicineDuration     = this.handleMedicineDuration.bind(this)
 
   }
 
@@ -122,21 +126,25 @@ class Signup extends React.Component {
   }
 
   handleCheckbox(item) {
-      if(item.target.getAttribute('class') !== 'tick'){
-        this.setState({
-          selectedTransplant: item.target.firstChild.nextSibling.getAttribute('title'),
-          selectedTransplantID: item.target.firstChild.nextSibling.id,
-          selectedTransplantUID: item.target.firstChild.nextSibling.getAttribute('uid')
-        });   
-      }  else {
-        this.setState({
-          selectedTransplant: item.target.parentNode.firstChild.nextSibling.getAttribute('title'),
-          selectedTransplantID: item.target.parentNode.firstChild.nextSibling.id,
-          selectedTransplantUID: item.target.parentNode.firstChild.nextSibling.getAttribute('uid')
-        });   
-      }
-
+    console.log(item)
+    let bool = this.state.medicaments.some(chapter => chapter.title === item.title)
+    if(bool) {
+            let medicaments = this.state.medicaments
+            const index = medicaments.findIndex(x => x.title === item.title);
+            if (index !== -1 && index !== undefined) 
+              medicaments.splice(index, 1);
+            this.setState({ medicaments: medicaments })
+            // this.props.handleSelectedChapters(selectedChapters)
+    } else {
+      let medicaments = this.state.medicaments
+      item.ammount = 0
+      item.duration = 0
+      item.history = []
+      medicaments.push(item)
+      this.setState({ medicaments: medicaments })
+      // this.props.handleSelectedChapters(selectedChapters)
     }
+  }
 
   checkChecked(created_on){
       var check = this.state.checkedUsers
@@ -177,80 +185,82 @@ class Signup extends React.Component {
         fetch('/api/patient', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ firstname: this.state.firstname, lastname: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, username: this.state.username, password: this.state.password, advice: this.state.advice
+                body: JSON.stringify({ firstname: this.state.firstname, lastname: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, username: this.state.username, password: this.state.password, medication: this.state.medicaments
               })
             })
         .then(res => console.log('response ', res.json()))
         .then(res => this.props.closesignup())
   }
 
-
-  render() {
-  let transplants = [
-    {title: 'Heart Transplant.'},
-    {title: 'Intestinal Transplant.'},
-    {title: 'Islet Cell Transplant.'},
-    {title: 'Kidney Transplant'},
-    {title: 'Liver Transplant'},
-    {title: 'Lung Transplant'},
-    {title: 'Pancreas Transplant'},
-    {title: 'Pediatric Transplant'},
-    {title: 'Cornea Transplant'},
-    {title: 'Trachea Transplant'},
-    {title: 'Skin Transplant'},
-    {title: 'Vascular tissues Transplant'}
-  ]
-  if (this.state.step === 1){
-    return (
-        <div id="test">
-
-                      <div className="row">
-                          <div className="col-12">
-                            <h4><b>Choose the type of transplant the patient received</b></h4>
-                          </div>
-                          <div className="col-12">
-                            <div id="checks" className="myBox height90">
-                            {transplants.map(item => (
-                               <span>
-                              { item.title === this.state.selectedTransplant ? 
-                                    (
-                                      <div className="radioholder activeradioholder">
-                                        <span className="tick"></span>
-                                        <input type="radio" id={item.id} uid={item.uid} title={item.title} value={item.title}
-                                        checked={this.state.selectedOption === item.title} style={{display: 'none'}}/> 
-                                        {item.title}
-                                      </div>
-                                  ) :
-                                  (
-                                  <div className="radioholder" onClick={this.handleCheckbox}>
-                                    <span className="tick"></span>
-                                    <input type="radio" id={item.id} uid={item.uid} title={item.title} value={item.title}
-                                    checked={this.state.selectedOption === item.title} style={{display: 'none'}}
-                                    /> {item.title}
-                                  </div>
-                                  )
-                             }
-                            </span>
-                            ))}
-                              <br/>
-                            </div>
-
-                           </div>
-                      </div>
-
-                    <div className="row">
-                      <div className="col margin_top" style={{textAlign: 'center'}}>
-                        <button className="importbutton_dkg" style={{display: 'inline-block'}} onClick={(e) => this.props.closesignup()}>Abrechen</button>
-                        <button type="submit"className="signupbtn margin_right button_dkg" style={{fontSize: '20px'}}
-                         onClick={this.weiter}>Weiter</button>
-                      </div>
-                    </div>
-      </div>
-
-    );
+  checkboxClassname(item){
+    if (this.state.medicaments.some(medicament => medicament.title === item.title))
+      return "radioholder activeradioholder"
+    else
+      return "radioholder"
   }
 
-  if (this.state.step === 2){
+  handleMedicineAmmount(e, item){
+    if(isNaN(e.target.value))
+      return
+    let medicaments = this.state.medicaments
+    medicaments.forEach(medicament => {
+      if(medicament.title === item.title){
+        medicament.ammount = Number(e.target.value)
+      }
+    })
+    this.setState({ medicaments: medicaments });
+  }
+
+  handleMedicineDuration(e, item){
+    if(isNaN(e.target.value))
+      return
+    let medicaments = this.state.medicaments
+    medicaments.forEach(medicament => {
+      if(medicament.title === item.title){
+        medicament.duration = Number(e.target.value)
+      }
+    })
+    this.setState({ medicaments: medicaments });
+  }
+
+
+  render() {
+  let allmedicaments = [
+    {title: 'Azathioprine'},
+    {title: 'Ciclosporin'},
+    {title: 'Mycophenolate mofetil'},
+    {title: 'Cyclophosphamide'},
+    {title: 'Azathioprine tablets'},
+    {title: 'Prednisone tablets'},
+    {title: 'Mycophenolate capsule'},
+    {title: 'Methotrexate'},
+    {title: 'Methotrexate injection'},
+    {title: 'Tacrolimus'},
+    {title: 'Cyclosporine'},
+    {title: 'Mycophenolate Mofetil'},
+    {title: 'Imuran'},
+    {title: 'Rapamune'},
+    {title: 'Cyclosporine'},
+    {title: 'Tacrolimus'},
+    {title: 'Prednisolone'},
+    {title: 'Budesonide'},
+    {title: 'Everolimus'},
+    {title: 'Sirolimus'},
+    {title: 'Adalimumab'},
+    {title: 'Anakinra'},
+    {title: 'Certolizumab'},
+    {title: 'Etanercept'},
+    {title: 'Golimumab'},
+    {title: 'Ixekizumab'},
+    {title: 'Natalizumab'},
+    {title: 'Rituximab'},
+    {title: 'Secukinumab'},
+    {title: 'Tocilizumab'},
+    {title: 'Ustekinumab'},
+    {title: 'Vedolizumab'},
+    {title: 'Basiliximab'}
+  ]
+
     return (
         <div className="row" style={{marginLeft: '0'}}>
           <div className="col-12">
@@ -281,30 +291,39 @@ class Signup extends React.Component {
                             <input className="userinput" type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handlePasswordChange} style={{width: '100%'}}/>
                           </div>
 
-       
-       
-                  <div className="row white_block" style={{marginTop: '20px'}}>
-                     <div  className="col-12">
-                       <h4><b>Medical Advice</b></h4>
-                       <p>You can add a medical advice to the  patient  here.</p>
-                           <Editor
-                             apiKey="f2d1xaum5q307ut8fc9k3jv4hzdnq2a671gaz9j6v17m6ioe"
-                             initialValue={this.state.advice}
-                             init={{
-                               height: "50vh",
-                               menubar: false,
-                               paste_as_text: true,
-                               plugins: [
-                                 'advlist autolink lists link paste'
-                               ],
-                               toolbar: 'bold italic underline strikethrough blockformats | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | ',
-                             }}
-                             onEditorChange={this.handleAdviceChange}
-                           />
-                        
-                       </div>
-                      </div>
 
+
+
+
+                      <div className="row">
+                          <div className="col-12">
+
+                                    <div id="checks" className="myBox" style={{height: '55vh', overflow: 'scroll'}}>
+                                    {allmedicaments.map(item => (
+                                       <span style={{display: 'block', paddingBottom: '20px'}}>
+
+                                              <div className={this.checkboxClassname(item)} onClick={e => this.handleCheckbox(item)}>
+                                                <span className="tick"></span>
+                                                <input type="radio" uid={item.uid} title={item.title} value={item.title}
+                                                checked={this.state.medicaments.some(medicament => medicament.title === item.title)} style={{display: 'none'}}/> 
+                                                {' ' + item.title}
+                                              </div>
+
+                                              {this.state.medicaments.some(medicament => medicament.title === item.title) ? (
+                                                <span style={{fontSize: '18px', paddingLeft:'60px'}}>
+                                                  <p style={{display: 'inline'}}>Take </p> 
+                                                  <input className="medicationinput" type="text" value={this.state.medicaments.filter(medicament => { return medicament.title === item.title})[0].ammount} onChange={ e => this.handleMedicineAmmount(e, item)}/> 
+                                                  <p style={{display: 'inline'}}> every </p> 
+                                                  <input className="medicationinput" type="text" value={this.state.medicaments.filter(medicament => { return medicament.title === item.title})[0].duration} onChange={ e => this.handleMedicineDuration(e, item)}/>  <p style={{display: 'inline'}}> days </p>
+                                                </span>) : (null)}
+
+
+                                    </span>
+                                    ))}
+                                      <br/>
+                                    </div>
+                           </div>
+                      </div>
 
 
 
@@ -325,8 +344,7 @@ class Signup extends React.Component {
         </div>
         </div>
 
-    );
-  }
+    )
 
   }
 }

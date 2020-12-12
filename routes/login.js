@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
     }
 
       //console.log(result);
-
+    console.log('result '+ result)
     /*doctor logs in*/
     if(result[0].type === 'doctor'){
         login.getDoctor(username, (err, resultt) => {
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     })}
 
       /*patient logs in*/
-     else if( result[0].type=== 'patient'){
+     else if( result[0].type === 'patient'){
           login.getPatient(username, (err, resultt) => {
               if (err.error) {
                   console.log('error')

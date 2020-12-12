@@ -26,9 +26,9 @@ class Patient {
   }
 
 
-  static insert (firstName, LastName, email, birthdate, username, password, callback) {
+  static insert (firstName, LastName, email, birthdate, username, password, medication, callback) {
     let addressid = new Date().valueOf().toString()
-      db.query('INSERT INTO patient (username, password, firstName, LastName , birthdate, addressid) VALUES ($1, $2,$3, $4, $5, $6)', [username, password, firstName, LastName , birthdate, "1"], (err, res) => {
+      db.query('INSERT INTO patient (username, password, firstName, LastName , birthdate, addressid, medication) VALUES ($1, $2,$3, $4, $5, $6, $7)', [username, password, firstName, LastName , birthdate, "1", medication], (err, res) => {
       //TODO error handling
       if (err.error)
         return callback(err);
