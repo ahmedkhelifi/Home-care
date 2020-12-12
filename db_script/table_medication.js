@@ -3,7 +3,7 @@
   db.query('DROP TABLE IF EXISTS medication;', (err, res) => {
    if (err.error)
      return console.log(err.error);
-    db.query('CREATE TABLE medication( name text, PRIMARY KEY(name));', (err, res) => { 
+    db.query('CREATE TABLE medication( name text, type text NULL, PRIMARY KEY(name));', (err, res) => { 
     db.query('INSERT INTO medication (name) VALUES ($1);',
 		['Methylprednisolon'], (err, res) => { })
 	db.query('INSERT INTO medication (name) VALUES ($1);',
