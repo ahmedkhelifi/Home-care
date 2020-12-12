@@ -334,9 +334,9 @@ class Signup extends React.Component {
           
                   <div className="row" style={{marginTop: '20px'}}>
                       <div className="col-12 margin_top" style={{textAlign: 'center'}}>
-                      <button className="importbutton_dkg" style={{display: 'inline-block'}} onClick={this.zuruck}>zurück</button>
+                      <button className="importbutton_dkg" style={{display: 'inline-block'}} onClick={this.zuruck}>back</button>
                         <button type="submit"className="signupbtn margin_right button_dkg" style={{fontSize: '20px'}}
-                         onClick={this.registerPatient}>Patient erstellen</button>
+                         onClick={this.registerPatient}>Add Patient</button>
                       </div>
                     </div>
 

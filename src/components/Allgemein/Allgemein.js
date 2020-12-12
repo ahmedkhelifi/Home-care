@@ -33,7 +33,7 @@ class Allgemein extends React.Component {
                             <div className="c3"></div>
                             <div className="c4"></div>
                           </div>
-                          <span>Patientendaten werden geladen..</span>
+                          <span>Loading patient's data..</span>
                         </div>
                     </div>
 
