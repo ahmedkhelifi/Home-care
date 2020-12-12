@@ -40,15 +40,15 @@ class AdminSidebar extends React.Component {
                 </div>
 
                 <ul className="menu">
-                  <li>Allgemein</li>
+                  <li>Patient Data</li>
                   <li id="Allgemein" className={this.isOpened("Allgemein")} onClick={(e) => this.props.tabClicked(e)}>Dashboard</li>
-                  <li id="UserList" className={this.isOpened("UserList")} onClick={(e) => this.props.tabClicked(e)}>Patienten</li>
+                  <li id="UserList" className={this.isOpened("UserList")} onClick={(e) => this.props.tabClicked(e)}>Patients</li>
                 </ul>
 
                 <ul className="menu">
-                  <li>nicht Allgemein</li>
-                  <li id="Medikamente" className={this.isOpened("Medikamente")} onClick={(e) => this.props.tabClicked(e)} >Medikamente</li>
-                  <li id="Pharmcists" className={this.isOpened("Pharmcists")} onClick={(e) => this.props.tabClicked(e)} >Pharmcists</li>
+                  <li>others</li>
+                  <li id="Medikamente" className={this.isOpened("Medikamente")} onClick={(e) => this.props.tabClicked(e)} >Medication</li>
+                  <li id="Pharmcists" className={this.isOpened("Pharmcists")} onClick={(e) => this.props.tabClicked(e)} >Pharmacies</li>
                 </ul>
 
                 <ul className="menu">

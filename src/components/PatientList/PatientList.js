@@ -378,7 +378,7 @@ class PatientList extends React.Component {
 
         if(this.state.errorPatientLoad){
             return (
-              <p>Fehler aufgetreten: Benutzer können nicht geladen werden</p>
+              <p>Error: Patients data cannot be loaded</p>
               )
         }
 
@@ -475,7 +475,7 @@ class PatientList extends React.Component {
                 {!this.state.patientClickedExpand ? (<h3>Patients</h3>) : (null)}
               </div>
               
-              {isLoading ? (<div><p>Benutzer werden geladen...</p></div>)
+              {isLoading ? (<div><p>Patient's data are loading...</p></div>)
                 : (null)
               }
 
@@ -483,7 +483,7 @@ class PatientList extends React.Component {
 
               {(!isLoading && noPatients && !patientForm) ? (
                 <div>
-                   <button className="button_dkg" onClick={(e) => this.addPatientForm(e)}>Patient erstellen</button>
+                   <button className="button_dkg" onClick={(e) => this.addPatientForm(e)}>Create new patient profile</button>
                 </div>)
                 : (null)
               }
@@ -499,7 +499,7 @@ class PatientList extends React.Component {
 
               {(!isLoading && !noPatients && !patientForm && simpleMode && !this.state.patientClickedExpand) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
-                   <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ einfügen</button>
+                   <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ create new</button>
                     <input id='search-btn' type='checkbox'/>
                     <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>
@@ -567,7 +567,7 @@ class PatientList extends React.Component {
                                           </div>
                                       </div>
                         ))}
-                        {currentPatients.length === 0 ? (<p>Keine Benutzer...</p>) : (null)}
+                        {currentPatients.length === 0 ? (<p>no user...</p>) : (null)}
                   </div>
                   {renderPageNumbers}
                   </div>
@@ -602,7 +602,7 @@ class PatientList extends React.Component {
                                 <div className="col-12">
                                       <p>{this.state.patientClicked.role}</p>
                                       <h2 style={{marginTop: '-15px'}}>{this.state.patientClicked.firstname + ' ' + this.state.patientClicked.lastname}</h2>
-                                      <p>EMail: {this.state.patientClicked.email === '' ? (<span>keine</span>) : (<span>{this.state.patientClicked.email}</span>)} </p>
+                                      <p>EMail: {this.state.patientClicked.email === '' ? (<span>none</span>) : (<span>{this.state.patientClicked.email}</span>)} </p>
                                 </div>
  
                                 <div className="col-12" style={{textAlign: 'center'}}>
