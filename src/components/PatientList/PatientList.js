@@ -475,7 +475,7 @@ class PatientList extends React.Component {
                 {!this.state.patientClickedExpand ? (<h3>Patients</h3>) : (null)}
               </div>
               
-              {isLoading ? (<div><p>Benutzer werden geladen...</p></div>)
+              {isLoading ? (<div><p>Loading user...</p></div>)
                 : (null)
               }
 
@@ -483,7 +483,7 @@ class PatientList extends React.Component {
 
               {(!isLoading && noPatients && !patientForm) ? (
                 <div>
-                   <button className="button_dkg" onClick={(e) => this.addPatientForm(e)}>Patient erstellen</button>
+                   <button className="button_dkg" onClick={(e) => this.addPatientForm(e)}>Add Patient</button>
                 </div>)
                 : (null)
               }
@@ -499,7 +499,7 @@ class PatientList extends React.Component {
 
               {(!isLoading && !noPatients && !patientForm && simpleMode && !this.state.patientClickedExpand) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
-                   <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ einfügen</button>
+                   <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ add</button>
                     <input id='search-btn' type='checkbox'/>
                     <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>

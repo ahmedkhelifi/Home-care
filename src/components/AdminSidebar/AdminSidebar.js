@@ -40,19 +40,19 @@ class AdminSidebar extends React.Component {
                 </div>
 
                 <ul className="menu">
-                  <li>Allgemein</li>
+                  <li>Patient Data</li>
                   <li id="Allgemein" className={this.isOpened("Allgemein")} onClick={(e) => this.props.tabClicked(e)}>Dashboard</li>
-                  <li id="UserList" className={this.isOpened("UserList")} onClick={(e) => this.props.tabClicked(e)}>Patienten</li>
+                  <li id="UserList" className={this.isOpened("UserList")} onClick={(e) => this.props.tabClicked(e)}>Add Patient</li>
                 </ul>
 
                 <ul className="menu">
-                  <li>nicht Allgemein</li>
-                  <li id="Medikamente" className={this.isOpened("Medikamente")} onClick={(e) => this.props.tabClicked(e)} >Medikamente</li>
-                  <li id="Pharmcists" className={this.isOpened("Pharmcists")} onClick={(e) => this.props.tabClicked(e)} >Pharmcists</li>
+                  <li>others</li>
+                  <li id="Medikamente" className={this.isOpened("Medikamente")} onClick={(e) => this.props.tabClicked(e)} >Medication</li>
+                  <li id="Pharmcists" className={this.isOpened("Pharmcists")} onClick={(e) => this.props.tabClicked(e)} >Chat</li>
                 </ul>
 
                 <ul className="menu">
-                  <li>Einstellungen</li>
+                  <li>Settings</li>
                   {/*<li>Profil</li>*/}
                   {<li id="Settings" className={this.isOpened("Settings")} onClick={(e) => this.props.tabClicked(e)}>Profil</li>}
                   <li className="log_me_out" onClick={(e) => this.props.logout(e)}>log out</li>
