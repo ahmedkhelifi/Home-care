@@ -9,8 +9,25 @@ class Patient {
     });
   }
 
-  static retrieveUser (patientID, callback) {
-    db.query('SELECT * from patient WHERE patientID = $1', [patientID], (err, res) => {
+  static retrieveUser (username, callback) {
+    db.query('SELECT * from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static retrieveUserMedication (username, callback) {
+    db.query('SELECT medication from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static saveUserMedication (username, medication, callback) {
+      db.query('UPDATE patient SET medication = $2 WHERE username = $1', [username, medication], (err, res) => {
+      //TODO error handling
       if (err.error)
         return callback(err);
       callback(res);

@@ -67,12 +67,12 @@ db.query('SELECT NOW()', (err, res) => {
   console.log(`PostgreSQL connected: ${res[0].now}.`);
 
 
-  const table_doctor = require("./db_script/table_doctor.js");
-  const table_patient = require("./db_script/table_patient.js");
-  const table_pharmacy = require("./db_script/table_pharmacy.js");
-  const table_medication = require("./db_script/table_medication.js");
-  const table_patientToDoctor = require("./db_script/table_patientToDoctor.js");
-  const table_address = require("./db_script/table_address.js");
+  // const table_doctor = require("./db_script/table_doctor.js");
+  // const table_patient = require("./db_script/table_patient.js");
+  // const table_pharmacy = require("./db_script/table_pharmacy.js");
+  // const table_medication = require("./db_script/table_medication.js");
+  // const table_patientToDoctor = require("./db_script/table_patientToDoctor.js");
+  // const table_address = require("./db_script/table_address.js");
 
   /*
   *

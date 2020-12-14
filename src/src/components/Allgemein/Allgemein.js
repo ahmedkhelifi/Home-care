@@ -18,7 +18,7 @@ class Allgemein extends React.Component {
   }
 
   render() {
-    document.title = "Dashboard"
+    document.title = "Dashboard -  Homecare"
 
     return (
               <div className="container-fluid">
@@ -33,7 +33,7 @@ class Allgemein extends React.Component {
                             <div className="c3"></div>
                             <div className="c4"></div>
                           </div>
-                          <span>Loading patient's data..</span>
+                          <span>Patientendaten werden geladen..</span>
                         </div>
                     </div>
 

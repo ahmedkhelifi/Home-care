@@ -46,7 +46,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
   }
 
   render() { 
-    document.title = "Login - HomeCareApp"
+    document.title = "Login - Homecare App"
     return (
               <div className="surveybody"> 
 
@@ -74,18 +74,18 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                               <div className="centerVertical_konsensuskonferenz_2 appear_right" style={{textAlign:'center', zIndex: '100'}}>
                                 {/*<img  src={Logo} alt="logo DKG" style={{width:'190px'}} className=""/>*/}
                                 <h6 className="center_text marginTop" style={{color: 'black', fontSize: '28px', textAlign: 'center'}}>Homecare App</h6>
-                                <p style={{fontSize: '20px'}}>Please enter:</p>
+                                <p style={{fontSize: '20px'}}>Bitte geben Sie Ihre Daten ein:</p>
 
 
                                     <div className="formular" style={{marginTop: '40px'}}>
                                       <form style={{display: 'inline-block', width: '66vw'}}>
                                           <div className="form-group col-12" style={{display: 'inline-block', padding: '0 10px'}}>
-                                            <label for="Firstname">Username:</label> <br/>
+                                            <label htmlFor="Firstname">Username or email:</label> <br/>
                                             <input type="text" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
                                           </div>
 
                                           <div className="form-group col-xs-6" style={{display: 'inline-block', padding: '0 10px'}}>
-                                            <label for="E-Mail">Password</label>  <br/>
+                                            <label htmlFor="E-Mail">Password</label>  <br/>
                                             <input type="password" className="input_username" style={{marginBottom: '30px'}} autoComplete="on" value={this.state.password} onChange={this.handlePasswordChange}/> <br/>
                                           </div>
                                       </form>
@@ -93,7 +93,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
 
                               </div>
 
-                            <a className="teilnehmen-btn" style={{cursor: 'pointer'}} onClick={(e) => {this.logme(e)}}>Login</a>
+                            <a className="teilnehmen-btn" style={{cursor: 'pointer'}} onClick={(e) => {this.logme(e)}}>Einloggen</a>
                           
                       </div>
 
