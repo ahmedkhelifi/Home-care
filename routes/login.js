@@ -25,9 +25,13 @@ router.post('/', (req, res) => {
       //console.log(result);
     console.log('result '+ result)
     /*doctor logs in*/
+     if(result[0].type === undefined){
+     	return res.json({'authenticated': false});
+     }
+
     if(result[0].type === 'doctor'){
-        login.getDoctor(username, (err, resultt) => {
-            if (err.error) {
+        login.getDoctor(username, (errr, resultt) => {
+            if (errr.error) {
                 console.log('error');
                 return res.json({'authenticated': false});
             }
@@ -42,8 +46,8 @@ router.post('/', (req, res) => {
 
       /*patient logs in*/
      else if( result[0].type === 'patient'){
-          login.getPatient(username, (err, resultt) => {
-              if (err.error) {
+          login.getPatient(username, (errr, resultt) => {
+              if (errr.error) {
                   console.log('error')
                   return res.json({'authenticated': false});
               }
@@ -58,8 +62,8 @@ router.post('/', (req, res) => {
 
       /*pharmacy logs in*/
       else if( result[0].type === 'pharmacy'){
-          login.getPharmacy(username, (err, resultt) => {
-              if (err.error) {
+          login.getPharmacy(username, (errr, resultt) => {
+              if (errr.error) {
                   console.log('error')
                   return res.json({'authenticated': false});
               }
