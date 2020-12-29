@@ -5,8 +5,10 @@
    if (err.error)
      return console.log(err.error);
     db.query('CREATE TABLE patient(patientid serial NOT NULL,username text NOT NULL,password text NOT NULL,firstname text NOT NULL,lastname text NOT NULL,birthdate date NOT NULL,addressid integer,puls json,weight json,bloodpres_dia json,bloodpres_sys json,temperature json,medication json,PRIMARY KEY (patientid));', (err, res) => {
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
-		['K.Lyons', encryptPassword('lyons1980', 'homecare'), 'Kameron', 'Lyons', '1980-01-21', 4, ], (err, res) => { })
+      
+      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, medication) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+		['K.Lyons', encryptPassword('lyons1980', 'homecare'), 'Kameron', 'Lyons', '1980-01-21', 4, {"medication":[]} ], (err, res) => { })
+
       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
 		['E.Whiteley', encryptPassword('whiteley2002', 'homecare'), 'Eryn', 'Whiteley', '2002-09-23', 5], (err, res) => { })
       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',

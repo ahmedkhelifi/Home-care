@@ -12,6 +12,7 @@ router.post('/', (req, res) => {
  // return res.json({'authenticated': true});
  
  if (password.length < 6) {
+    console.log('password.length < 6')
    return res.json({'authenticated': false});
  }
 

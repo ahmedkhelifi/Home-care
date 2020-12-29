@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
 //get health status of patient
 router.get('/health/:username', (req, res) => {
 
-  let health = {status: 'stable', backgroundColor: '#e0eae1', medication: [], missedMedication: [], pendingMedication: []}
+  let health = {birthdate: '', status: 'stable', backgroundColor: 'rgb(103 148 108)', medication: [], missedMedication: [], pendingMedication: [], temperature: []}
   console.log(req.params.username)
   Patient.retrieveUser(req.params.username, (result) => {
 
@@ -50,6 +50,8 @@ router.get('/health/:username', (req, res) => {
     // if (err)
     //   return res.json({error: true});
     console.log(result[0])
+    if(result[0].temperature != null ) health.temperature = result[0].temperature.temperature
+    health.birthdate = result[0].birthdate
     if(result[0].medication.medication.length == 0) { //patient doesn't need any medication
       return res.json(health)
     }
@@ -151,15 +153,33 @@ router.post('/bloodpres_sys', (req, res) => {
   });
 });
 
-router.post('/temperature', (req, res) => {
+router.post('/addTemprature/:username/', (req, res) => {
 
-  var temperature = req.body.temperature;
+  var user_temperature = req.body.temperature;
 
-  Patient.insert(temperature, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
+  console.log('user_temperature ' + user_temperature)
+
+  Patient.retrieveTemperature(req.params.username, (result) => {
+    
+    let temperatures = result[0].temperature
+    console.log('old temperatures ')
+    console.log(temperatures)
+    if(temperatures.temperature == null || temperatures.temperature == undefined) temperatures.temperature  = []
+
+
+    temperatures.temperature.push({temperature: user_temperature, date: new Date(), timestamp: (new Date()).valueOf() })
+  console.log('.... new .... ')
+    console.log(temperatures)
+
+    Patient.saveTemperature(req.params.username, temperatures, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(temperatures)
+
+      });
+
   });
+
 });
 
 router.post('/medication', (req, res) => {

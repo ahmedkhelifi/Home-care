@@ -6728,6 +6728,7 @@
 }
 
 
+
 .patient_header {
     height: 55vh;
     margin-top: -2px;
@@ -6756,13 +6757,122 @@
 }
 
 .patient_hello{
-     height: 4vh;
-     padding: 0;
+     padding: 20px;
+     font-size: 20px;
+     display: inline-block;
+}
+.patient_tasks{
+     margin-top: 60px;
+     font-size: 25px;
+     margin-left: 5px;
 }
 
+.patient_task_buble_container {
+    width: 280px; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
+
+.patient_task_buble_container:hover{
+     width: 300px;
+     transition: all .4s ease;
+     -webkit-transition: all .4s ease;
+}
+
+.patient_task_buble{
+     background-color: white;
+     border-radius: 10px;
+     padding: 20px;
+     cursor: pointer;
+}
+
+.patient_task_buble:hover{
+     box-shadow: 0px 0 20px -16px black;
+}
+
+.patient_tasks_title{
+     margin-top: 10px;
+     font-size: 21px;
+     text-align: center;
+}
+
+.patient_tasks_subtitle{
+     margin-top: -10px;
+     font-size: 15px;
+     color: #616060;
+     text-align: center;
+}
+
+.tasks_pill{
+     margin-top: 20px;
+     margin-bottom: 20px;
+     width: 40px;
+     height: auto;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+@media Screen and (max-width: 550px) {
+     .patient_task_buble_container {width: 170px;}  
+     .patient_task_buble_container:hover {width: 170px;}  
+     .patient_task_buble{padding: 15px;}
+     .patient_tasks_title{font-size: 20px;}
+     .patient_tasks_subtitle{font-size: 15px;}
+}
+
+.patient_birthday{
+    margin-top: -41px;
+    margin-left: 95px;
+    font-size: 15px;
+    display: block;
+    color: #616060;
+}
+
+.patient_health_status{
+    background-color: white;
+    margin-top: 60px;
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.user_icon{
+    width: 70px;
+    height: auto;
+    display: inline-block;
+    margin-top: 7px;
+    margin-left: 6px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+
 .patient_status{
-     height: 20vh;
-     font-size: 44px;
+     font-size: 23px;
+}
+
+.patient_status_task{
+     font-size: 15px;
+}
+
+.page_title{
+     margin-top: 20px;
+     position: relative;
+     font-size: 34px;
+     margin-bottom: 30px;
+}
+
+.view_history{
+     font-size: 16px;
+    color: black;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 @media Screen and (max-width: 378px) {
@@ -6800,8 +6910,17 @@
     width: 25px;
     text-align: right;
     float: right;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.patient_back {
+    width: 25px;
     margin-top: -40px;
     cursor: pointer;
+    font-size: 24px;
+    float: left;
+    transform: rotate(180deg);
 }
 
 .medicationinput{
@@ -6828,6 +6947,93 @@
     background-color: #ffffffad;
 }
 
+.navbar {
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-left: -15px;
+  cursor: pointer;
+  box-shadow: 1px 17px 20px 2px black;
+}
+
+.navbar a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-bottom: -15px;
+}
+
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.go {
+     font-size: 25px;
+     color:black;
+     float: right;
+     margin-top: 20px;
+     cursor: pointer;
+}
+
+.yes_im_sure{
+    border-radius: 20px;
+    width: 80vw;
+    position: absolute;
+    margin-left: -150px;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    height: 60px;
+    background-color: black;
+    color: white;
+    font-size: 24px;
+}
+
+.yes_im_sure_gray{
+    border-radius: 20px;
+    width: 80vw;
+    position: absolute;
+    margin-left: -150px;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    height: 60px;
+    background-color: black;
+    color: white;
+    font-size: 24px;
+    opacity: 0.2;
+}
+
+.add_temprature{
+    font-size: 16px;
+    color: black;
+    padding-top: 29px;
+    line-height: 14px;
+}
+
+.no_im_not{
+     border-color: black;
+    border-radius: 20px;
+    width: 80vw;
+    position: absolute;
+    margin-left: -150px;
+    left: 50%;
+    bottom: 95px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    height: 55px;
+    background-color: white;
+    color: black;
+    font-size: 24px;
+}
 
 
 .modal {
@@ -6877,7 +7083,16 @@
      border-radius: 20px;
 }
 
-
+.menu_logo{
+     width: 30px;
+     display: block;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -5px;
+    margin-top: 10px;
+}
 
 
 

@@ -17,6 +17,23 @@ class Patient {
     });
   }
 
+  static retrieveTemperature (username, callback) {
+    db.query('SELECT temperature from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static saveTemperature (username, temperature, callback) {
+      db.query('UPDATE patient SET temperature = $2 WHERE username = $1', [username, temperature], (err, res) => {
+      //TODO error handling
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
   static retrieveUserMedication (username, callback) {
     db.query('SELECT medication from patient WHERE username = $1', [username], (err, res) => {
       if (err.error)
