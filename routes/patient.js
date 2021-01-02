@@ -59,6 +59,7 @@ router.get('/health/:username', (req, res) => {
     health.medication = result[0].medication.medication
     let medication = health.medication
 
+
     medication.forEach(med => {
       if(med.history.length == 0){ // new patient about to start taking medication
         let current_date = Number(new Date().valueOf().toString())
