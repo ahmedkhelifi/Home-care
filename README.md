@@ -72,35 +72,35 @@ Furthermore, we story health data as JSON objects in the database.
 1. `medication` is saved in  the Database as follows:
 
    ```json
-     {medication: [
-          {title:Azathioprine,ammount:1,duration:1,history:[
-                {timestamp: 1609879883768, measured: true},
-				        {timestamp: 1609879883768, measured: true},
-				        {timestamp: 1609966283768, measured: true},
-				        {timestamp: 1610052683768, measured: true},
-				        {timestamp: 1610139083768, measured: true},
-				        {timestamp: 1610225483768, measured: true}
+     {"medication": [
+          {"title":"Azathioprine","ammount":1,"duration":1,"history":[
+                {"timestamp": 1609879883768, "measured": true},
+				        {"timestamp": 1609879883768, "measured": true},
+				        {"timestamp": 1609966283768, "measured": true},
+				        {"timestamp": 1610052683768, "measured": true},
+				        {"timestamp": 1610139083768, "measured": true},
+				        {"timestamp": 1610225483768, "measured": true}
                 ],
-            assigned_on: 1609707083768},
-          {title:Ciclosporin,ammount:1,duration:2,history:[
-                {timestamp: 1609707083768, measured: true},
-				        {timestamp: 1609879883768, measured: true},
-				        {timestamp: 1610052683768, measured: true},
-				        {timestamp: 1610225483768, measured: true},
-				        {timestamp: 1610311883768, measured: true}
+            "assigned_on": 1609707083768},
+          {"title":"Ciclosporin","ammount":1,"duration":2,"history":[
+                {"timestamp": 1609707083768, "measured": true},
+				        {"timestamp": 1609879883768, "measured": true},
+				        {"timestamp": 1610052683768, "measured": true},
+				        {"timestamp": 1610225483768, "measured": true},
+				        {"timestamp": 1610311883768, "measured": true}
                 ],
-				assigned_on: 1609707083768},
+				"assigned_on": 1609707083768},
      ]}
    ```
 2. `Temperature` is saved in  the Database as follows:
    
    ```json
-		{temperature:[
-			{temperature:36.9,timestamp: 1609707083768, measured: true},
-			{temperature:36.8,timestamp: 1609879883768, measured: true},
-			{temperature:36.5,timestamp: 1610052683768, measured: true},
-			{temperature:36.9,timestamp: 1610225483768, measured: true},
-			{temperature:37.1,timestamp: 1610311883768, measured: true}
+		{"temperature":[
+			{"temperature":36.9,"timestamp": 1609707083768, "measured": true},
+			{"temperature":36.8,"timestamp": 1609879883768, "measured": true},
+			{"temperature":36.5,"timestamp": 1610052683768, "measured": true},
+			{"temperature":36.9,"timestamp": 1610225483768, "measured": true},
+			{"temperature":37.1,"timestamp": 1610311883768, "measured": true}
 			]},
      ]}
    ```
@@ -108,12 +108,12 @@ Furthermore, we story health data as JSON objects in the database.
 3. `Weight` is saved in  the Database as follows:
    
    ```json
-		{weight:[
-			{weight:72,timestamp: 1609707083768, measured: true},
-			{weight:68,timestamp: 1609879883768, measured: true},
-			{weight:70,timestamp: 1610052683768, measured: true},
-			{weight:69,timestamp: 1610225483768, measured: true},
-			{weight:71,timestamp: 1610311883768, measured: true}
+		{"weight":[
+			{"weight":72,"timestamp": 1609707083768, "measured": true},
+			{"weight":68,"timestamp": 1609879883768, "measured": true},
+			{"weight":70,"timestamp": 1610052683768, "measured": true},
+			{"weight":69,"timestamp": 1610225483768, "measured": true},
+			{"weight":71,"timestamp": 1610311883768, "measured": true}
 			]},
      ]}
    ```
@@ -121,12 +121,12 @@ Furthermore, we story health data as JSON objects in the database.
 4. `pulse` is saved in  the Database as follows:
    
    ```json
-		{pulse:[
-			{pulse:46,timestamp: 1609707083768, measured: true},
-			{pulse:46,timestamp: 1609879883768, measured: true},
-			{pulse:46,timestamp: 1610052683768, measured: true},
-			{pulse:46,timestamp: 1610225483768, measured: true},
-			{pulse:47,timestamp: 1610311883768, measured: true}
+		{"pulse":[
+			{"pulse":46","timestamp": 1609707083768, "measured": true},
+			{"pulse":46","timestamp": 1609879883768, "measured": true},
+			{"pulse":46","timestamp": 1610052683768, "measured": true},
+			{"pulse":46","timestamp": 1610225483768, "measured": true},
+			{"pulse":47","timestamp": 1610311883768, "measured": true}
 			]},
      ]}
    ```
@@ -134,12 +134,12 @@ Furthermore, we story health data as JSON objects in the database.
 4. `blood_pressure` is saved in  the Database as follows:
    
    ```json
-		{blood_pressure:[
-			{bloodpres_dia: 120, bloodpres_sys: 80, timestamp: 1609707083768, measured: true},
-			{bloodpres_dia: 122, bloodpres_sys: 76, timestamp: 1609879883768, measured: true},
-			{bloodpres_dia: 110, bloodpres_sys: 83, timestamp: 1610052683768, measured: true},
-			{bloodpres_dia: 123, bloodpres_sys: 81, timestamp: 1610225483768, measured: true},
-			{bloodpres_dia: 115, bloodpres_sys: 77, timestamp: 1610311883768, measured: true}
+		{"blood_pressure":[
+			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": 1609707083768, "measured": true},
+			{"bloodpres_dia": 122, "bloodpres_sys": 76, "timestamp": 1609879883768, "measured": true},
+			{"bloodpres_dia": 110, "bloodpres_sys": 83, "timestamp": 1610052683768, "measured": true},
+			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": 1610225483768, "measured": true},
+			{"bloodpres_dia": 115, "bloodpres_sys": 77, "timestamp": 1610311883768, "measured": true}
 			]},
      ]}
    ```
