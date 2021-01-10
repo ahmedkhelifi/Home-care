@@ -28,15 +28,12 @@ Home-care$ npm run build
 Home-care$ node server
 ```
 # Built with
-Electron
-Menubar
-
-
-# Progress
 * Frontend: Reactjs + echarts.js
 * Server: Node.js
 * Database: Postgresql
 
+
+# Progress
 
 ### What's finished
 - [x] doctor’s interface: create new patient profile
@@ -58,6 +55,12 @@ The API consists of the following endpoints:
 
 - POST `/api/login`
 Checks if user exists and then return its type and wether login was successful
+
+when a user logs in successfully, the user receives the following JSON object:
+Case `patient`:
+   ```json
+{"authenticated": true, user: {"patientid": id, "username": username, "name": 'name', "type": 'patient'} }
+   ```
 
 # API - Patient
 
