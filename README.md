@@ -7,14 +7,14 @@ The app is developped by:
 * Wenwen Zhang 
 * Johanna Schicktanz
 
-### Run using the development build
+#### Run using the development build
 ```sh
 $ git clone https://github.com/ahmedkhelifi/Home-care.git
 $ cd Home-care
 Home-care$ npm start
 Home-care$ node server
 ```
-### Create a production build for server deployment
+#### Create a production build for server deployment
 ```sh
 $ git clone https://github.com/ahmedkhelifi/Home-care.git
 $ cd Home-care
