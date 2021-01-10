@@ -7,14 +7,14 @@ The app is developped by:
 * Wenwen Zhang 
 * Johanna Schicktanz
 
-# Run using the development build
+### Run using the development build
 ```sh
 $ git clone https://github.com/ahmedkhelifi/Home-care.git
 $ cd Home-care
 Home-care$ npm start
 Home-care$ node server
 ```
-# Create a production build for server deployment
+### Create a production build for server deployment
 ```sh
 $ git clone https://github.com/ahmedkhelifi/Home-care.git
 $ cd Home-care
@@ -24,12 +24,12 @@ Home-care$ node server
 
 # Progress
 
-## What's finished
+### What's finished
 - [x] doctor’s interface: create new patient profile
 - [x] patient’s interface: health page overview
 - [x] patient’s interface: enter health data
 
-## What we're currently working on
+### What we're currently working on
 - [ ] doctor’s interface: warnings when patients don't enter data
 - [ ] doctor’s interface: view a specific patient's data
 - [ ] patient’s interface: display health data using beautiful graphs
