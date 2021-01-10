@@ -1,6 +1,7 @@
 <h1 align="center">
   Homecare App
-  <img src="https://i.imgur.com/DvT9sTJ.png" alt="Aimeos logo" title="Aimeos" align="right" height="100%" />
+  <img src="https://i.imgur.com/DvT9sTJ.png" alt="Aimeos logo" title="Aimeos" align="right" height="200" />
+  <br>
 </h1>
 <h4 align="center">A remote patient monitoring system</h4>
 <br>
