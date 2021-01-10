@@ -2,7 +2,10 @@
 
 Homecare App is a remote patient monitoring system. The patient should be able to enter on a mobile phone vital infor- mation, such as temperature, puls, blood pressure, weight and medication intake. The data is requested from the patient once a day and then sent to a server where the information is stored in a database. 
 
----Unser Namen hier---
+The app is developped by: 
+* Ahmed Khelifi
+* Wenwen Zhang 
+* Johanna Schicktanz
 
 # Run
 
