@@ -1,6 +1,6 @@
 # Homecare App
 
-Programmierpraktikum
+Homecare App is a remote patient monitoring system. The patient should be able to enter on a mobile phone vital infor- mation, such as temperature, puls, blood pressure, weight and medication intake. The data is requested from the patient once a day and then sent to a server where the information is stored in a database. 
 
 ---Unser Namen hier---
 
@@ -12,7 +12,12 @@ Programmierpraktikum
 
 # API - Login
 
+All parties in the app share the same login API.
+
 The API consists of the following endpoints:
+
+- POST `/api/login`
+Checks if user exists and then return its type and wether login was successful
 
 # API - Patient
 
