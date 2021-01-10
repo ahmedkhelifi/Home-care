@@ -28,6 +28,10 @@ The API consists of the following endpoints:
 
 ## Health
 
+We've build an API call that gets a summary of the patient's health and multiple smaller API calls the patient uses to submit new data 
+
+<details><summary><b>Show API Calls</b></summary>
+
 - GET `/health/:username`
 Returns the health status of patient including medication, temperature, blood Pressure, pulse, weight and the patient's pending tasks.
 
@@ -60,6 +64,7 @@ Patient confirms that the weight was measure within the allowed timeframe
 
 - POST `/weight/missed/:username/:title/:timestamp`
 Patient either confirms that the weight was measured or forgotten once the allowed timeframe has passed
+</details>
 
 ## Settings
 
