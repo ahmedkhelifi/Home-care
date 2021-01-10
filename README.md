@@ -7,11 +7,34 @@ The app is developped by:
 * Wenwen Zhang 
 * Johanna Schicktanz
 
-# Run
+# Run using the development build
+```sh
+$ git clone https://github.com/ahmedkhelifi/Home-care.git
+$ cd Home-care
+Home-care$ npm start
+Home-care$ node server
+```
+# Create a production build for server deployment
+```sh
+$ git clone https://github.com/ahmedkhelifi/Home-care.git
+$ cd Home-care
+Home-care$ npm run build
+Home-care$ node server
+```
 
-- `Home-care $ npm install`
-- `npm start` (start client)
-- `node server` (start server)
+# Progress
+
+## What's finished
+- [x] doctor’s interface: create new patient profile
+- [x] patient’s interface: health page overview
+- [x] patient’s interface: enter health data
+
+## What we're currently working on
+- [ ] doctor’s interface: warnings when patients don't enter data
+- [ ] doctor’s interface: view a specific patient's data
+- [ ] patient’s interface: display health data using beautiful graphs
+- [ ] patient’s interface: change profile settings (name, address and password)
+
 
 # API - Login
 
@@ -122,11 +145,11 @@ Furthermore, we story health data as JSON objects in the database.
    
    ```json
 		{"pulse":[
-			{"pulse":46","timestamp": 1609707083768, "measured": true},
-			{"pulse":46","timestamp": 1609879883768, "measured": true},
-			{"pulse":46","timestamp": 1610052683768, "measured": true},
-			{"pulse":46","timestamp": 1610225483768, "measured": true},
-			{"pulse":47","timestamp": 1610311883768, "measured": true}
+			{"pulse":46,"timestamp": 1609707083768, "measured": true},
+			{"pulse":46,"timestamp": 1609879883768, "measured": true},
+			{"pulse":46,"timestamp": 1610052683768, "measured": true},
+			{"pulse":46,"timestamp": 1610225483768, "measured": true},
+			{"pulse":47,"timestamp": 1610311883768, "measured": true}
 			]},
      ]}
    ```
