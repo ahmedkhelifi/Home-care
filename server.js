@@ -44,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/login', require('./routes/login'));
 app.use('/api/patient', require('./routes/patient'));
+app.use('/api/doctor', require('./routes/doctor'));
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, './build', 'index.html'));
@@ -69,6 +70,7 @@ db.query('SELECT NOW()', (err, res) => {
 
   // const table_doctor = require("./db_script/table_doctor.js");
   // const table_patient = require("./db_script/table_patient.js");
+
   // const table_pharmacy = require("./db_script/table_pharmacy.js");
   // const table_medication = require("./db_script/table_medication.js");
   // const table_patientToDoctor = require("./db_script/table_patientToDoctor.js");

@@ -1,0 +1,26 @@
+import React, { PureComponent } from 'react';
+
+export default class MissedConfirmation extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pulse: ''
+    };
+  }
+
+  handlePulseChange = (e) => {
+    this.setState({ pulse: Number(e.target.value) })
+  }
+
+  render() {
+    return (
+    <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px', paddingTop: '30px', minHeight: '100vh'}}>
+      <p className="patient_back" style={{marginTop: '0px', marginLeft: '20px'}} onClick={() => this.props.goBack() }>&#10230;</p>
+      <p className="patient_tasks" style={{marginLeft: '25px'}}>Did you measured your pulse between {this.props.popupMissedTimestampFrom} and {this.props.popupMissedTimestampTo} ?</p>
+      <input className="userinput" type="text" placeholder="pulse" name="pulse" value={this.state.pulse} onChange={this.handlePulseChange} style={{width: '100%', marginTop: '30px'}}/>
+              <button className="no_im_not" onClick={e => this.props.addPulseMissed(this.state.pulse, false)}>I Forgot</button>
+              {this.state.pulse !== '' ? (<button className="yes_im_sure" onClick={e => this.props.addPulseMissed(this.state.pulse, true)}>Yes, my is pulse is {this.state.pulse}</button>) : (<button className="yes_im_sure_gray">Yes</button>)}
+    </div>
+    );
+  }
+}

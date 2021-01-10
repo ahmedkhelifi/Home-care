@@ -1,7 +1,9 @@
 import React from 'react';
-import AddHealthData from './AddHealthData';
-import Medication from './Medication';
-import Temperature from './Temperature';
+import Medication from '../../components/Patient/Medication';
+import Temperature from '../../components/Patient/Temperature';
+import Weight from '../../components/Patient/Weight';
+import Pulse from '../../components/Patient/Pulse';
+import BloodPressure from '../../components/Patient/BloodPressure';
 
 
 
@@ -31,6 +33,9 @@ export default class Patient extends React.PureComponent {
 
       medication_bool:   false,
       temprature_bool:   false,
+      weight_bool:       false,
+      blood_pressure_bool:false,
+      pulse_bool:        false,
 
 
       birthdate:         '',
@@ -39,7 +44,11 @@ export default class Patient extends React.PureComponent {
       medication:        [],
       missedMedication:  [],
       pendingMedication: [],
-      temperature:       []
+      temperature:       [],
+      temperatures:      {},
+      weights:           {},
+      pulses:            {},
+      blood_pressures:   {},
     };
 
     this.removeMedFromPending    = this.removeMedFromPending.bind(this)
@@ -47,11 +56,25 @@ export default class Patient extends React.PureComponent {
 
 
   componentDidMount() {
+    this.get_health()
+  }
+
+  get_health = () => {
     fetch('/api/patient/health/'+this.props.user.username)
       .then(blob => blob.json())
       .then(blob => {
+        
+        let missed = false
+        
+        blob.medication.forEach( med  => {
+          if(med.missed.length !== 0 )
+            missed = true
+        })
+
         console.log(blob)
-        this.setState({isLoaded: true, birthdate: blob.birthdate, status: blob.status, backgroundColor: blob.backgroundColor, medication: blob.medication, missedMedication: blob.missedMedication, pendingMedication: blob.pendingMedication, temperature: blob.temperature})
+
+        this.setState({isLoaded: true, birthdate: blob.birthdate, status: blob.status, backgroundColor: blob.backgroundColor, medication: blob.medication, missedMedication: missed, pendingMedication: blob.pendingMedication, temperature: blob.temperature, temperatures: blob.temperatures, weights: blob.weights, pulses: blob.pulses, blood_pressures: blob.blood_pressures }, () => this.forceUpdate())
+
       })
       .catch(error => this.setState({error: true}));
   }
@@ -61,7 +84,7 @@ export default class Patient extends React.PureComponent {
     const index = pendingMedication.findIndex(x => x.title === med_title);
     if (index !== -1 && index !== undefined) 
       pendingMedication.splice(index, 1);
-        this.setState({ pendingMedication: pendingMedication })
+      this.setState({ pendingMedication: pendingMedication })
   }
 
   render() {
@@ -73,11 +96,23 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.medication_bool) {
-      return(<Medication pendingMedication={this.state.pendingMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) }/>)
+      return(<Medication  medication={this.state.medication}  missedMedication={this.state.missedMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) } get_health={this.get_health}/>)
     }
 
     if(this.state.temprature_bool) {
-      return(<Temperature temperature={this.state.temperature} pendingMedication={this.state.pendingMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({temprature_bool: false}) }/>)
+      return(<Temperature temperature={this.state.temperature} temperatures={this.state.temperatures} pendingMedication={this.state.pendingMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({temprature_bool: false}) } get_health={this.get_health}/>)
+    }
+
+    if(this.state.weight_bool) {
+      return(<Weight weights={this.state.weights} username={this.props.user.username} backToDashboard={e => this.setState({weight_bool: false}) } get_health={this.get_health}/>)
+    }
+
+    if(this.state.blood_pressure_bool) {
+      return(<BloodPressure blood_pressures={this.state.blood_pressures} username={this.props.user.username} backToDashboard={e => this.setState({blood_pressure_bool: false}) } get_health={this.get_health}/>)
+    }
+
+    if(this.state.pulse_bool) {
+      return(<Pulse pulses={this.state.pulses} username={this.props.user.username} backToDashboard={e => this.setState({pulse_bool: false}) } get_health={this.get_health}/>)
     }
 
     return (
@@ -106,7 +141,8 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({medication_bool: true})}>
               <img  src={Tasks_pill} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Medication</p>
-              <p  className="patient_tasks_subtitle"> Task completed</p>
+              {this.state.missedMedication ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Pending task</p>)  : (<p  className="patient_tasks_subtitle"> Task completed</p>)}
+              
             </div>
           </div>
         </div>
@@ -125,7 +161,7 @@ export default class Patient extends React.PureComponent {
       <div className="row">
         <div className="col-6">
           <div className="patient_task_buble_container">
-            <div className=" patient_task_buble">
+            <div className=" patient_task_buble" onClick={e => this.setState({blood_pressure_bool: true})}>
               <img  src={Tasks_blood_pressure} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Blood Pressure</p>
               <p  className="patient_tasks_subtitle"> Task completed</p>
@@ -135,9 +171,9 @@ export default class Patient extends React.PureComponent {
 
         <div className="col-6">
           <div className="patient_task_buble_container">
-            <div className=" patient_task_buble">
+            <div className=" patient_task_buble" onClick={e => this.setState({pulse_bool: true})}>
               <img  src={Tasks_heart_rate} alt="logout" className="tasks_pill" />
-              <p className="patient_tasks_title"> Heart Rate</p>
+              <p className="patient_tasks_title">Pulse</p>
               <p  className="patient_tasks_subtitle"> Task completed</p>
             </div>
           </div>
@@ -147,7 +183,7 @@ export default class Patient extends React.PureComponent {
       <div className="row" style={{marginBottom: '20px'}}>
         <div className="col-6">
           <div className="patient_task_buble_container">
-            <div className=" patient_task_buble">
+            <div className=" patient_task_buble" onClick={e => this.setState({weight_bool: true})}>
               <img  src={Tasks_weight} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Weight</p>
               <p  className="patient_tasks_subtitle"> Task completed</p>
@@ -156,7 +192,7 @@ export default class Patient extends React.PureComponent {
         </div>
       </div>
 
-      <div className="row" style={{height: '60px'}}>
+      <div className="row" style={{height: '90px'}}>
         <div className="col-6">
           </div>
         </div>

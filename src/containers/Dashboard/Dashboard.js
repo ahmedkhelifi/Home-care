@@ -5,9 +5,9 @@ import Patient         from  '../Patient';
 
 
 import Login         from  '../../components/Login';
-import Allgemein     from  '../../components/Allgemein';
-import PatientList     from  '../../components/PatientList';
-import AdminSidebar     from  '../../components/AdminSidebar';
+import Allgemein     from  '../../components/Doctor/Allgemein';
+import PatientList     from  '../../components/Doctor/PatientList';
+import AdminSidebar     from  '../../components/Doctor/AdminSidebar';
 
 import './style.css';
 
@@ -22,12 +22,6 @@ export default class UserDashboard extends React.PureComponent {
 
       user: {},
       authenticated: false,
-
-
-      survey_tabs : [],
-      survey: {},
-      survey_data: {},
-      settings: {general: {}, surveys: {pinned: []}, votes: {}, consultations: {}}
     };
 
     this.tabClicked        = this.tabClicked.bind(this)
@@ -54,12 +48,10 @@ export default class UserDashboard extends React.PureComponent {
 
     switch (target) {
            case "Allgemein":
-               //this.tabOpened = <Allgemein refresh={this.state.openedTab === target} />
                this.setState({ openedTab: 'Allgemein'});
                break;
 
-            case "UserList": 
-               //this.tabOpened = <UserList refresh={this.state.openedTab === target} />
+            case "PatientList": 
                this.setState({ openedTab: 'PatientList'});
                break;
 
@@ -83,17 +75,16 @@ export default class UserDashboard extends React.PureComponent {
   }
 
   render() {
-    var survey = this.state.survey
 
       if(this.state.authenticated && this.state.user !== {}) {
-        console.log(this.state.user.type)
+        // console.log(this.state.user.type)
         if(this.state.user.type === 'doctor') {
           return (
             <section>
 
               <div className="wrapper">
 
-                  <AdminSidebar firstname={this.state.user.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout} survey_tabs={this.state.survey_tabs} survey={this.state.survey}/>
+                  <AdminSidebar firstname={this.state.user.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout}/>
 
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 
