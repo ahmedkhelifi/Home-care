@@ -56,12 +56,19 @@ The API consists of the following endpoints:
 - POST `/api/login`
 Checks if user exists and then return its type and wether login was successful
 
-when a user logs in successfully, the user receives the following JSON object:
-Case `patient`:
+If the user input correct login data, the user receives the following JSON object:
+1. Case `patient`:
    ```json
-{"authenticated": true, user: {"patientid": id, "username": username, "name": 'name', "type": 'patient'} }
+	{"authenticated": "true", "user": {"patientid": "id", "username": "username", "name": "name", "type": "patient"} }
    ```
-
+2. Case `doctor`:
+   ```json
+	{"authenticated": "true", "user": {"doctorid": "id", "username": "username", "name": "name", "type": "patient"} }
+   ```
+If the login data are wrong (either password is wronng or username not found), following reply is generated:
+   ```json
+	{"authenticated": "false" }
+   ```
 # API - Patient
 
 The API consists of the following endpoints:
