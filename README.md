@@ -1,11 +1,11 @@
 <h1 align="center">
   Homecare App
-  <img src="https://i.imgur.com/DvT9sTJ.png" alt="Aimeos logo" title="Aimeos" align="right" height="200" />
+  
   <br>
 </h1>
 <h4 align="center">A remote patient monitoring system</h4>
 <br>
-  
+  <p align="center"><img src="https://i.imgur.com/DvT9sTJ.png" height="200" /></p>
 Homecare App is a remote patient monitoring system. The patient should be able to enter on a mobile phone vital infor- mation, such as temperature, puls, blood pressure, weight and medication intake. The data is requested from the patient once a day and then sent to a server where the information is stored in a database. 
 
 The app is developed by: 
