@@ -67,7 +67,7 @@ If the user input correct login data, the user receives the following JSON objec
    ```json
 	{"authenticated": "true", "user": {"doctorid": "id", "username": "username", "name": "name", "type": "patient"} }
    ```
-If the login data are wrong (either password is wronng or username not found), following reply is generated:
+If the login data is wrong (either password is wrong or username not found), following reply is generated:
    ```json
 	{"authenticated": "false" }
    ```
@@ -115,33 +115,33 @@ Patient confirms that the weight was measure within the allowed timeframe
 Patient either confirms that the weight was measured or forgotten once the allowed timeframe has passed
 </details>
 
-Furthermore, we story health data as JSON objects in the database.
+Furthermore, we store health data as JSON objects in the database.
 <details><summary><b>Show Example of health data</b></summary>
 
-1. `medication` is saved in  the Database as follows:
+1. `medication` is saved in the Database as follows:
 
    ```json
      {"medication": [
           {"title":"Azathioprine","ammount":1,"duration":1,"history":[
                 {"timestamp": 1609879883768, "measured": true},
-				        {"timestamp": 1609879883768, "measured": true},
-				        {"timestamp": 1609966283768, "measured": true},
-				        {"timestamp": 1610052683768, "measured": true},
-				        {"timestamp": 1610139083768, "measured": true},
-				        {"timestamp": 1610225483768, "measured": true}
+		{"timestamp": 1609879883768, "measured": true},
+		{"timestamp": 1609966283768, "measured": true},
+		{"timestamp": 1610052683768, "measured": true},
+		{"timestamp": 1610139083768, "measured": true},
+		{"timestamp": 1610225483768, "measured": true}
                 ],
             "assigned_on": 1609707083768},
           {"title":"Ciclosporin","ammount":1,"duration":2,"history":[
                 {"timestamp": 1609707083768, "measured": true},
-				        {"timestamp": 1609879883768, "measured": true},
-				        {"timestamp": 1610052683768, "measured": true},
-				        {"timestamp": 1610225483768, "measured": true},
-				        {"timestamp": 1610311883768, "measured": true}
+		{"timestamp": 1609879883768, "measured": true},
+		{"timestamp": 1610052683768, "measured": true},
+		{"timestamp": 1610225483768, "measured": true},
+		{"timestamp": 1610311883768, "measured": true}
                 ],
-				"assigned_on": 1609707083768},
+	    "assigned_on": 1609707083768},
      ]}
    ```
-2. `Temperature` is saved in  the Database as follows:
+2. `Temperature` is saved in the Database as follows:
    
    ```json
 		{"temperature":[
@@ -151,10 +151,10 @@ Furthermore, we story health data as JSON objects in the database.
 			{"temperature":36.9,"timestamp": 1610225483768, "measured": true},
 			{"temperature":37.1,"timestamp": 1610311883768, "measured": true}
 			]},
-     ]}
+     		]}
    ```
    
-3. `Weight` is saved in  the Database as follows:
+3. `Weight` is saved in the Database as follows:
    
    ```json
 		{"weight":[
@@ -164,10 +164,10 @@ Furthermore, we story health data as JSON objects in the database.
 			{"weight":69,"timestamp": 1610225483768, "measured": true},
 			{"weight":71,"timestamp": 1610311883768, "measured": true}
 			]},
-     ]}
+     		]}
    ```
    
-4. `pulse` is saved in  the Database as follows:
+4. `pulse` is saved in the Database as follows:
    
    ```json
 		{"pulse":[
@@ -177,10 +177,10 @@ Furthermore, we story health data as JSON objects in the database.
 			{"pulse":46,"timestamp": 1610225483768, "measured": true},
 			{"pulse":47,"timestamp": 1610311883768, "measured": true}
 			]},
-     ]}
+     		]}
    ```
    
-4. `blood_pressure` is saved in  the Database as follows:
+4. `blood_pressure` is saved in the Database as follows:
    
    ```json
 		{"blood_pressure":[
@@ -190,18 +190,25 @@ Furthermore, we story health data as JSON objects in the database.
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": 1610225483768, "measured": true},
 			{"bloodpres_dia": 115, "bloodpres_sys": 77, "timestamp": 1610311883768, "measured": true}
 			]},
-     ]}
+     		]}
    ```
 </details>
 
 ## Settings
 
+We're currently working on implementing the settings API.
 
 # API - Doctor
 
 The API consists of the following endpoints:
 
+## Dashboard
+
+We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, bloos pressure and temperature).
+
 ## Patient
+
+The doctor uses the following API calls to get a list of all existinng patients or to add a new patient. We're workinng. at the moment on implementing new calls to receive more detailed information.
 
 - GET `/api/patient/`
 Return a list of all patients
@@ -211,7 +218,7 @@ Creates a new Patient
 
 ## Medication
 
-## Settings
+We're currently working on implementing the medication API.
 
 
 
