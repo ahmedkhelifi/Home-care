@@ -54,7 +54,7 @@ All parties in the app share the same login API.
 The API consists of the following endpoints:
 
 - POST `/api/login`
-Checks if user exists and then return its type and wether login was successful
+Checks if user exists and then return its type and whether login was successful
 
 If the user input correct login data, the user receives the following JSON object:
 1. Case `patient`:
