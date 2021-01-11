@@ -123,7 +123,7 @@ Furthermore, we store health data as JSON objects in the database.
    ```json
      {"medication": [
           {"title":"Azathioprine","ammount":1,"duration":1,"history":[
-                {"timestamp": 1609879883768, "measured": true},
+	  	{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1609966283768, "measured": true},
 		{"timestamp": 1610052683768, "measured": true},
@@ -132,7 +132,7 @@ Furthermore, we store health data as JSON objects in the database.
                 ],
             "assigned_on": 1609707083768},
           {"title":"Ciclosporin","ammount":1,"duration":2,"history":[
-                {"timestamp": 1609707083768, "measured": true},
+	  	{"timestamp": 1609707083768, "measured": true},
 		{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1610052683768, "measured": true},
 		{"timestamp": 1610225483768, "measured": true},
@@ -204,11 +204,11 @@ The API consists of the following endpoints:
 
 ## Dashboard
 
-We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, bloos pressure and temperature).
+We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
 
 ## Patient
 
-The doctor uses the following API calls to get a list of all existinng patients or to add a new patient. We're workinng. at the moment on implementing new calls to receive more detailed information.
+The doctor uses the following API calls to get a list of all existing patients or to add a new patient. We're working at the moment on implementing new calls to receive more detailed information.
 
 - GET `/api/patient/`
 Return a list of all patients
