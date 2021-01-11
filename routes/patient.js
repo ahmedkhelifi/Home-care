@@ -3,53 +3,16 @@ var Patient = require('../models/patient');
 var router = express.Router();
 const encryptPassword = require('encrypt-password');
 
-router.get('/', (req, res) => {
-  Patient.retrieveAll((err, users) => {
-    if (err)
-      return res.json(err);
-    return res.json(users);
-  });
-});
-
-router.post('/', (req, res) => {
-
-  // retrieve user information from request
-  var firstName    = req.body.firstname;
-  var LastName     = req.body.lastname;
-  var email        = req.body.email;
-  var birthdate    = req.body.birthdate;
-  var username     = req.body.username;
-  var password     = req.body.password;
-  var medication  = req.body.medication;
-
-  var timestamp = new Date().valueOf().toString()
-  medication.forEach(medicament => {
-    if(!medicament.hasOwnProperty('assigned_on')){
-      medicament.assigned_on = timestamp
-    }
-  })
-
-  let medication_json = {medication: medication}
-
-    //forward request to the model
-    Patient.insert(firstName, LastName, email, birthdate, username, encryptPassword(password, 'homecare'), medication_json, (err, result) => {
-      if (err)
-        return res.json(err);
-      return res.json(result);
-    });
-});
-
 //get health status of patient
 router.get('/health/:username', (req, res) => {
 
-  let health = {birthdate: '', status: 'stable', backgroundColor: 'rgb(103 148 108)', medication: [], missedMedication: [], pendingMedication: [], temperature: []}
+  let health = {birthdate: '', status: 'stable', backgroundColor: 'rgb(103 148 108)', medication: {}, missedMedication: false, pendingMedication: [], temperature: []}
   console.log(req.params.username)
   Patient.retrieveUser(req.params.username, (result) => {
 
 
     // if (err)
     //   return res.json({error: true});
-    console.log(result[0])
     if(result[0].temperature != null ) health.temperature = result[0].temperature.temperature
     health.birthdate = result[0].birthdate
     if(result[0].medication.medication.length == 0) { //patient doesn't need any medication
@@ -59,49 +22,28 @@ router.get('/health/:username', (req, res) => {
     health.medication = result[0].medication.medication
     let medication = health.medication
 
-
-    medication.forEach(med => {
-      if(med.history.length == 0){ // new patient about to start taking medication
-        let current_date = Number(new Date().valueOf().toString())
-        let assigned_on = new Date(med.assigned_on)
-        assigned_on.setHours(assigned_on.getHours()+ 24*med.duration)
-        //check if user exceeded the assigned period
-        if(assigned_on < current_date ){ //86400 is 24 hours in unix time
-          console.log('(if) duration exceeded ' + med.title)
-          health.missedMedication.push(med)
-        } else {
-          health.pendingMedication.push(med)
-        }
-
-      } else {
-        // let history_sorted = med.history.sort((a,b) => (Number(a.assigned_on) > Number(b.assigned_on)) ? 1 : ((Number(b.assigned_on)> Number(a.assigned_on)) ? -1 : 0))
-        // let last_entry =  Number(medication_sorted[medication_sorted.length - 1].assigned_on)
-        // let current_date = Number(new Date().valueOf().toString())
-        // last_entry = new Date(med.last_entry)
-        // if(current_date - last_entry > med.duration * 86400){ //86400 is 24 hours in unix time
-        //   console.log('(else) duration exceeded ' + med)
-        //   health.missedMedication.push(med)
-        // }
-      }
-      
-    })
+    health = get_medication(health, medication)
+    health = get_temperature(health, result[0].temperature.temperature)
+    health = get_weight(health, result[0].weight.weight)
+    health = get_pulse(health, result[0].pulse.pulse)
+    health = get_blood_pressure(health, result[0].blood_pressure.blood_pressure)
 
     return res.json(health)
   });
 });
 
-router.post('/medication/:username/:title', (req, res) => {
+/*    -------   */
 
+router.post('/medication/pending/:username/:title', (req, res) => {
   Patient.retrieveUserMedication(req.params.username, (result) => {
     let medication = result[0].medication.medication
     
-    let timestamp = new Date().valueOf().toString()
+    let timestamp = new Date().valueOf()
     medication.forEach(med => {
       if(med.title == req.params.title){
-        med.history.push(timestamp)
+        med.history.push({timestamp: timestamp, taken: true})
       }
     })
-    console.log(medication)
 
     Patient.saveUserMedication(req.params.username, {medication: medication}, (errr, resultt) => {
         return res.json({taken: true})
@@ -110,55 +52,31 @@ router.post('/medication/:username/:title', (req, res) => {
   });
 });
 
-router.post('/puls', (req, res) => {
+router.post('/medication/missed/:username/:title/:timestamp', (req, res) => {
+  Patient.retrieveUserMedication(req.params.username, (result) => {
+    let medication = result[0].medication.medication
+    
+    medication.forEach(med => {
+      if(med.title == req.params.title) {
+        med.history.push({timestamp: Number(req.params.timestamp), taken: false})
+        med.history = med.history.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
+      }
+    })
 
-  var puls = req.body.puls;
+    Patient.saveUserMedication(req.params.username, {medication: medication}, (errr, resultt) => {
+        return res.json({timestamp: req.params.timestamp, taken: true})
+    })
 
-  Patient.insert(puls, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
   });
 });
 
-router.post('/weight', (req, res) => {
+/*    -------   */
 
-  var weight = req.body.weight;
-
-  Patient.insert(weight, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
-  });
-});
-
-router.post('/bloodpres_dia', (req, res) => {
-
-  var bloodpres_dia = req.body.bloodpres_dia;
-
-  Patient.insert(bloodpres_dia, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
-  });
-});
-
-router.post('/bloodpres_sys', (req, res) => {
-
-  var bloodpres_sys = req.body.bloodpres_sys;
-
-  Patient.insert(bloodpres_sys, (err, result) => {
-    if (err)
-      return res.json(err);
-    return res.json(result);
-  });
-});
-
-router.post('/addTemprature/:username/', (req, res) => {
+router.post('/temperature/pending/:username/', (req, res) => {
 
   var user_temperature = req.body.temperature;
-
-  console.log('user_temperature ' + user_temperature)
+  var measured = req.body.measured;
+  var temperature = req.body.temperature
 
   Patient.retrieveTemperature(req.params.username, (result) => {
     
@@ -167,10 +85,8 @@ router.post('/addTemprature/:username/', (req, res) => {
     console.log(temperatures)
     if(temperatures.temperature == null || temperatures.temperature == undefined) temperatures.temperature  = []
 
-
-    temperatures.temperature.push({temperature: user_temperature, date: new Date(), timestamp: (new Date()).valueOf() })
-  console.log('.... new .... ')
-    console.log(temperatures)
+    temperatures.temperature.push({temperature: temperature, timestamp: (new Date()).valueOf(), measured: measured })
+    temperatures.temperature = temperatures.temperature.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
 
     Patient.saveTemperature(req.params.username, temperatures, (err, resultt) => {
         if (err)
@@ -180,7 +96,176 @@ router.post('/addTemprature/:username/', (req, res) => {
       });
 
   });
+});
 
+router.post('/temperature/missed/:username/:timestamp/', (req, res) => {
+  var measured = req.body.measured;
+  var temperature = req.body.temperature
+  console.log(measured)
+
+
+  Patient.retrieveTemperature(req.params.username, (result) => {
+    
+    let temperatures = result[0].temperature
+    console.log('old temperatures ')
+    console.log(temperatures)
+    if(temperatures.temperature == null || temperatures.temperature == undefined) temperatures.temperature  = []
+
+    temperatures.temperature.push({temperature: temperature, timestamp: Number(req.params.timestamp), measured: measured })
+
+    Patient.saveTemperature(req.params.username, temperatures, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(temperatures)
+
+      });
+
+  });
+});
+
+/*    -------   */
+
+router.post('/weight/pending/:username/', (req, res) => {
+  var measured = req.body.measured;
+  var weight = req.body.weight
+
+  Patient.retrieveWeight(req.params.username, (result) => {
+    
+    let weights = result[0].weight
+    console.log(weights)
+    if(weights.weight == null || weights.weight == undefined) weights.weight  = []
+
+    weights.weight.push({weight: weight, timestamp: (new Date()).valueOf(), measured: measured })
+    weights.weight = weights.weight.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
+
+    Patient.saveWeight(req.params.username, weights, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(weights)
+
+      });
+
+  });
+});
+
+router.post('/weight/missed/:username/:timestamp/', (req, res) => {
+  var measured = req.body.measured;
+  var weight = req.body.weight
+  console.log(measured)
+
+
+  Patient.retrieveWeight(req.params.username, (result) => {
+    
+    let weights = result[0].weight
+    if(weights.weight == null || weights.weight == undefined) weights.weight  = []
+
+    weights.weight.push({weight: weight, timestamp: Number(req.params.timestamp), measured: measured })
+
+    Patient.saveWeight(req.params.username, weights, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(weights)
+
+      });
+
+  });
+});
+
+/*    -------   */
+
+router.post('/blood_pressure/pending/:username/', (req, res) => {
+  var measured = req.body.measured;
+  var bloodpres_dia = req.body.bloodpres_dia
+  var bloodpres_sys = req.body.bloodpres_sys
+
+  Patient.retrieveBloodPressure(req.params.username, (result) => {
+    
+    let blood_pressures = result[0].blood_pressure
+
+    if(blood_pressures.blood_pressure == null || blood_pressures.blood_pressure == undefined) blood_pressures.blood_pressure  = []
+
+    blood_pressures.blood_pressure.push({"bloodpres_dia": bloodpres_dia, "bloodpres_sys": bloodpres_sys, timestamp: (new Date()).valueOf(), measured: measured })
+    blood_pressures.blood_pressure = blood_pressures.blood_pressure.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
+
+    Patient.saveBloodPressure(req.params.username, blood_pressures, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(blood_pressures)
+
+      });
+
+  });
+});
+
+router.post('/blood_pressure/missed/:username/:timestamp/', (req, res) => {
+  var measured = req.body.measured;
+  var bloodpres_dia = req.body.bloodpres_dia
+  var bloodpres_sys = req.body.bloodpres_sys
+
+
+  Patient.retrieveBloodPressure(req.params.username, (result) => {
+    
+    let blood_pressures = result[0].blood_pressure
+    if(blood_pressures.blood_pressure == null || blood_pressures.blood_pressure == undefined) blood_pressures.blood_pressure  = []
+
+    blood_pressures.blood_pressure.push({"bloodpres_dia": bloodpres_dia, "bloodpres_sys": bloodpres_sys, timestamp: Number(req.params.timestamp), measured: measured })
+
+    Patient.saveBloodPressure(req.params.username, blood_pressures, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(blood_pressures)
+
+      });
+
+  });
+});
+
+/*    -------   */
+
+router.post('/pulse/pending/:username/', (req, res) => {
+  var measured = req.body.measured;
+  var pulse = req.body.pulse
+
+  Patient.retrievePulse(req.params.username, (result) => {
+    
+    let pulses = result[0].pulse
+    console.log(pulses)
+    if(pulses.pulse == null || pulses.pulse == undefined) pulses.pulse  = []
+
+    pulses.pulse.push({pulse: pulse, timestamp: (new Date()).valueOf(), measured: measured })
+    pulses.pulse = pulses.pulse.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
+
+    Patient.savePulse(req.params.username, pulses, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(pulses)
+
+      });
+
+  });
+});
+
+router.post('/pulse/missed/:username/:timestamp/', (req, res) => {
+  var measured = req.body.measured;
+  var pulse = req.body.pulse
+  console.log(measured)
+
+
+  Patient.retrievePulse(req.params.username, (result) => {
+    
+    let pulses = result[0].pulse
+    if(pulses.pulse == null || pulses.pulse == undefined) pulses.pulse  = []
+
+    pulses.pulse.push({pulse: pulse, timestamp: Number(req.params.timestamp), measured: measured })
+
+    Patient.savePulse(req.params.username, pulses, (err, resultt) => {
+        if (err)
+          return res.json(err);
+        return res.json(pulses)
+
+      });
+
+  });
 });
 
 router.post('/medication', (req, res) => {
@@ -193,6 +278,308 @@ router.post('/medication', (req, res) => {
     return res.json(result);
   });
 });
+
+
+
+
+
+
+
+
+/*
+*
+* Hilf Funntkionen
+*
+*/
+
+function get_medication(health, medication){
+    medication.forEach(med => {
+      health.medication[med.title] = {}
+      let med_assigned_on = Number(med.assigned_on) //The patient must take med starting from this date
+      let med_duration = Number(med.duration) // The inerval in which med should be taken
+      let date_now =  Number(new Date().valueOf()) // Date right now
+      let intervals = []
+
+      //calculate intervals and save them in array as int
+      let till_when = med_assigned_on
+      while (till_when  <= date_now){
+        intervals.push(till_when)
+        till_when += (24 * 60 * 60 * 1000) *  med_duration
+      }
+      med.intervals = intervals
+      let missed = []
+      let pending = []
+
+      if(intervals.length == 1){
+        //first time patient takes this med
+        if(!med.history.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
+          let pending = (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf())
+          if(pending)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
+          else
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
+        }
+
+      } else if (intervals.length >= 2){
+        
+        for(let i = 0; i < intervals.length - 2; i++) {
+          if( !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[i] &&  Number(obj.timestamp) < intervals[i+1]}).length > 0 ){
+            // let pending = ( Number(new Date().valueOf()) - intervals[i+1] ) < (24 * 60 * 60 * 1000) *  med_duration
+            // if(pending)
+            //   pending.push({from: intervals[i], to: intervals[i+1], pending: pending  })
+            // else
+              missed.push({from: intervals[i], to: intervals[i+1], pending: pending  })
+          }
+        }
+        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf()) 
+          && !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
+           ) {
+            pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration), pending: true })
+        }
+
+      }
+      med.missed = missed.reverse()
+      med.pending = pending
+      health.medication[med.title]= med
+      // health[med.title] = .intervals = intervals
+      
+    })
+  return health
+}
+
+
+
+function get_temperature(health, temperature){
+    if(temperature.length === 0 ) return
+
+      let date_now =  Number(new Date().valueOf()) // Date right now
+      let intervals = []
+      let temperatures = {}
+      temperatures.history = temperature
+
+
+
+      let till_when = temperature.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      console.log(till_when)
+      till_when = Number(till_when.timestamp) - 1
+      //calculate intervals and save them in array as int
+
+      while (till_when  <= date_now){
+        intervals.push(till_when)
+        till_when += (24 * 60 * 60 * 1000)
+      }
+
+      temperatures.intervals = intervals
+      let missed = []
+      let pending = []
+
+      if(intervals.length == 1) {
+        //first time patient takes this med
+        if(!temperature.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
+          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          else
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+        }
+
+      } else if (intervals.length >= 2) {
+        
+        for(let i = 0; i < intervals.length - 2; i++) {
+          if( temperature.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length == 0 ){
+              missed.push({from: intervals[i], to: intervals[i+1]  })
+          }
+        }
+        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf()) 
+          && !temperature.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
+           ) {
+            pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) ) })
+        }
+
+      }
+
+
+      temperatures.missed = missed.reverse()
+      temperatures.pending = pending
+
+      health.temperatures  = temperatures
+
+  return health
+}
+
+function get_weight(health, weight){
+    if(weight.length === 0 ) return
+
+      let date_now =  Number(new Date().valueOf()) // Date right now
+      let intervals = []
+      let weights = {}
+      weights.history = weight
+
+
+
+      let till_when = weight.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      console.log(till_when)
+      till_when = Number(till_when.timestamp) - 1
+      //calculate intervals and save them in array as int
+
+      while (till_when  <= date_now){
+        intervals.push(till_when)
+        till_when += (24 * 60 * 60 * 1000)
+      }
+
+      weights.intervals = intervals
+      let missed = []
+      let pending = []
+
+      if(intervals.length == 1) {
+        //first time patient takes this med
+        if(!weight.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
+          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          else
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+        }
+
+      } else if (intervals.length >= 2) {
+        
+        for(let i = 0; i < intervals.length - 2; i++) {
+          if( weight.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length == 0 ){
+              missed.push({from: intervals[i], to: intervals[i+1]  })
+          }
+        }
+        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf()) 
+          && !weight.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
+           ) {
+            pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) ) })
+        }
+
+      }
+
+
+      weights.missed = missed.reverse()
+      weights.pending = pending
+
+      health.weights  = weights
+
+  return health
+}
+
+function get_pulse(health, pulse){
+    if(pulse.length === 0 ) return
+
+      let date_now =  Number(new Date().valueOf()) // Date right now
+      let intervals = []
+      let pulses = {}
+      pulses.history = pulse
+
+
+
+      let till_when = pulse.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      console.log(till_when)
+      till_when = Number(till_when.timestamp) - 1
+      //calculate intervals and save them in array as int
+
+      while (till_when  <= date_now){
+        intervals.push(till_when)
+        till_when += (24 * 60 * 60 * 1000)
+      }
+
+      pulses.intervals = intervals
+      let missed = []
+      let pending = []
+
+      if(intervals.length == 1) {
+        //first time patient takes this med
+        if(!pulse.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
+          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          else
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+        }
+
+      } else if (intervals.length >= 2) {
+        
+        for(let i = 0; i < intervals.length - 2; i++) {
+          if( pulse.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length == 0 ){
+              missed.push({from: intervals[i], to: intervals[i+1]  })
+          }
+        }
+        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf()) 
+          && !pulse.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
+           ) {
+            pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) ) })
+        }
+
+      }
+
+
+      pulses.missed = missed.reverse()
+      pulses.pending = pending
+
+      health.pulses  = pulses
+
+  return health
+}
+
+function get_blood_pressure(health, blood_pressure){
+    if(blood_pressure.length === 0 ) return
+
+      let date_now =  Number(new Date().valueOf()) // Date right now
+      let intervals = []
+      let blood_pressures = {}
+      blood_pressures.history = blood_pressure
+
+
+
+      let till_when = blood_pressure.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      console.log(till_when)
+      till_when = Number(till_when.timestamp) - 1
+      //calculate intervals and save them in array as int
+
+      while (till_when  <= date_now){
+        intervals.push(till_when)
+        till_when += (24 * 60 * 60 * 1000)
+      }
+
+      blood_pressures.intervals = intervals
+      let missed = []
+      let pending = []
+
+      if(intervals.length == 1) {
+        //first time patient takes this med
+        if(!blood_pressure.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
+          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          else
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+        }
+
+      } else if (intervals.length >= 2) {
+        
+        for(let i = 0; i < intervals.length - 2; i++) {
+          if( blood_pressure.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length == 0 ){
+              missed.push({from: intervals[i], to: intervals[i+1]  })
+          }
+        }
+        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf()) 
+          && !blood_pressure.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
+           ) {
+            pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) ) })
+        }
+
+      }
+
+
+      blood_pressures.missed = missed.reverse()
+      blood_pressures.pending = pending
+
+      health.blood_pressures  = blood_pressures
+
+  return health
+}
 
 
 module.exports = router;
