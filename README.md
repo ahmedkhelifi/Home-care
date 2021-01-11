@@ -28,7 +28,7 @@ Home-care$ npm run build
 Home-care$ node server
 ```
 # Built with
-* Frontend: Reactjs + echarts.js
+* Frontend: React.js + echarts.js
 * Server: Node.js
 * Database: Postgresql
 
