@@ -304,7 +304,7 @@ function get_medication(health, medication){
       let till_when = med_assigned_on
       while (till_when  <= date_now){
         intervals.push(till_when)
-        till_when += (24 * 60 * 60 * 1000) *  med_duration
+        till_when += (24 * 60 * 60 * 1000) *  med_duration - 1
       }
       med.intervals = intervals
       let missed = []
