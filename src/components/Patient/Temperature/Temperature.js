@@ -103,7 +103,7 @@ export default class Temperature extends React.PureComponent {
                           splitLine: {show: false},
                           axisTick: {show: false},
                           type: 'value' ,
-                          min: 33,
+                          min: extent => extent.min <=36 ? extent.min-1 : 35,
                           max: extent => extent.max > 37.5  ? extent.max : 37.5
                       },
                       series: [{
