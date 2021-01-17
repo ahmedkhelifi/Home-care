@@ -323,7 +323,6 @@ function get_medication(health, medication){
       } else if (intervals.length >= 2){
         
         for(let i = 0; i < intervals.length - 2; i++) {
-          if( !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length > 0 ){
           if( !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[i] &&  Number(obj.timestamp) < intervals[i+1]}).length > 0 ){
             // let pending = ( Number(new Date().valueOf()) - intervals[i+1] ) < (24 * 60 * 60 * 1000) *  med_duration
             // if(pending)
@@ -334,8 +333,6 @@ function get_medication(health, medication){
         }
         if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  >= Number(new Date().valueOf()) 
           && !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[intervals.length-1]}).length > 0
-        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf()) 
-          && !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length-1]}).length > 0
            ) {
             pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration), pending: true })
         }
