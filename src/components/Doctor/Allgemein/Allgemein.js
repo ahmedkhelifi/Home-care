@@ -11,17 +11,30 @@ class Allgemein extends React.Component {
   }
 
   componentDidMount(){
-
+        fetch('/api/doctor/getPatients/health/risk')
+            .then(blob => blob.json())
+            .then(
+                (blob) => {
+                    console.log(blob)
+                    this.setState({dataLoaded: true})
+                    // this.setState({ patients: blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; }), isLoaded: true });
+                    // this.baseState.patient = blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; })
+                    // this.baseState.isLoaded = true
+                    // if (blob.length > 0){
+                    //     this.setState({ noPatients: false });
+                    //     this.baseState.noPatients = true
+                    // }
+                }
+            ).catch(error => this.setState({errorPatientLoad: true}));
   }
 
   render() {
     document.title = "Dashboard"
-
+    if(!this.state.dataLoaded){
     return (
               <div className="container-fluid">
                 <div className="row">
 
-                  {(!this.state.dataLoaded) ? (
                     <div className="myBox height75" style={{marginLeft: '30px'}}>
                         <div className="loading">
                           <div>
@@ -34,13 +47,23 @@ class Allgemein extends React.Component {
                         </div>
                     </div>
 
-                  ) : (null)}
+
+
+                  </div> 
+              </div>
+    ); } else {
+      return (
+              <div className="container-fluid">
+                <div className="row">
+
+                    Loaded
 
 
 
                   </div> 
               </div>
-    );
+      )
+    }
   }
 }
 

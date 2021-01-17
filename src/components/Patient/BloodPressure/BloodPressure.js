@@ -47,12 +47,12 @@ export default class BloodPressure extends React.PureComponent {
   }
 
 
-  addBloodPressurePending = (blood_pressure) => {
+  addBloodPressurePending = (sys, dia) => {
 
         fetch('/api/patient/blood_pressure/pending/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({bloodpres_dia: blood_pressure, bloodpres_sys: blood_pressure, measured:true})
+                body: JSON.stringify({bloodpres_dia: dia, bloodpres_sys: sys, measured:true})
             })
         .then(blob => blob.json())
         .then(blob => {

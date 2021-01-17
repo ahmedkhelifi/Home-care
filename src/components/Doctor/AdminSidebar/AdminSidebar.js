@@ -18,7 +18,7 @@ class AdminSidebar extends React.Component {
             <div className="sidebar-wrapper-admin">
                 <div className="logo">
                     <a>
-                        Hallo Dr. {this.props.lastname}
+                        Hallo Doctor
                     </a>
                 </div>
 

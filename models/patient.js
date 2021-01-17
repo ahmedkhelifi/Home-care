@@ -34,6 +34,59 @@ class Patient {
     });
   }
 
+  static retrieveWeight (username, callback) {
+    db.query('SELECT weight from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static saveWeight (username, weight, callback) {
+      db.query('UPDATE patient SET weight = $2 WHERE username = $1', [username, weight], (err, res) => {
+      //TODO error handling
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static retrieveBloodPressure (username, callback) {
+    db.query('SELECT blood_pressure from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static saveBloodPressure (username, blood_pressure, callback) {
+      db.query('UPDATE patient SET blood_pressure = $2 WHERE username = $1', [username, blood_pressure], (err, res) => {
+      //TODO error handling
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static retrievePulse (username, callback) {
+    db.query('SELECT pulse from patient WHERE username = $1', [username], (err, res) => {
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+  static savePulse (username, pulse, callback) {
+      db.query('UPDATE patient SET pulse = $2 WHERE username = $1', [username, pulse], (err, res) => {
+      //TODO error handling
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
+
+
+
   static retrieveUserMedication (username, callback) {
     db.query('SELECT medication from patient WHERE username = $1', [username], (err, res) => {
       if (err.error)

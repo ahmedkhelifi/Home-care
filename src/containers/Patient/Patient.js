@@ -31,6 +31,8 @@ export default class Patient extends React.PureComponent {
       error:             false,
       isLoaded:          false,
 
+      finishedTasks:     true,
+
       medication_bool:   false,
       temprature_bool:   false,
       weight_bool:       false,
@@ -71,12 +73,42 @@ export default class Patient extends React.PureComponent {
             missed = true
         })
 
-        console.log(blob)
+        let finishedTasks = this.checkFinishedTasksStatus(blob)
 
-        this.setState({isLoaded: true, birthdate: blob.birthdate, status: blob.status, backgroundColor: blob.backgroundColor, medication: blob.medication, missedMedication: missed, pendingMedication: blob.pendingMedication, temperature: blob.temperature, temperatures: blob.temperatures, weights: blob.weights, pulses: blob.pulses, blood_pressures: blob.blood_pressures }, () => this.forceUpdate())
+        console.log(finishedTasks)
+
+
+        this.setState({isLoaded: true, birthdate: blob.birthdate, status: blob.status, backgroundColor: blob.backgroundColor, medication: blob.medication, temperature: blob.temperature, temperatures: blob.temperatures, weights: blob.weights, pulses: blob.pulses, blood_pressures: blob.blood_pressures, finishedTasks: finishedTasks }, () => this.forceUpdate())
 
       })
       .catch(error => this.setState({error: true}));
+  }
+
+  checkFinishedTasksStatus = (blob) => {
+    let finishedTasks =  {missed: false, pending : false}
+    blob.medication.forEach(med => {
+      if(med.missed.length > 0) finishedTasks.missed = true
+      if(med.pending.length > 0) finishedTasks.pending =  true
+    })
+
+    console.log(blob)
+
+    if(blob.temperatures.pending.length > 0) finishedTasks.pending = true
+    if(blob.temperatures.missed.length > 0) finishedTasks.missed = true
+
+      console.log(blob)
+
+    if(blob.blood_pressures.pending.length > 0) finishedTasks.pending = true
+    if(blob.blood_pressures.missed.length > 0) finishedTasks.missed = true
+
+    if(blob.weights.pending.length > 0) finishedTasks.pending = true
+    if(blob.weights.missed.length > 0) finishedTasks.missed = true
+
+    if(blob.pulses.pending.length > 0) finishedTasks.pending = true
+    if(blob.pulses.missed.length > 0) finishedTasks.missed = true
+   
+
+    return finishedTasks
   }
 
   removeMedFromPending(med_title){
@@ -124,14 +156,30 @@ export default class Patient extends React.PureComponent {
         <p className="patient_birthday">{ ("0" +(new Date(this.state.birthdate).getMonth() + 1 )).slice(-2) } - {new Date(this.state.birthdate).getFullYear()}</p>
       </div>
 
-        <div className="patient_health_status">
-            <h3 className="patient_status">your  health status is <span style={{color: this.state.backgroundColor}}>stable</span>.</h3>
-            <p className="patient_status_task">You have completed all your tasks for today</p>
-              {/*this.state.pendingMedication.length > 0 ? (
-                <button className="new_entry" onClick={e => this.setState({addHealthData: true})}>New Entry</button>
-              ) : (<p style={{fontSize: '18px'}}>All medication taken. Good Job!</p>)*/}
+        
+            {!this.state.finishedTasks.missed && !this.state.finishedTasks.pending ? (
+            <div className="patient_health_status">
+              <h3 className="patient_status">your  health status is <span style={{color: this.state.backgroundColor}}>stable</span>.</h3>
+              <p className="patient_status_task">You have completed all your tasks for today</p>
+            </div>
+            ) : (null)}
 
-        </div>
+            {this.state.finishedTasks.missed > 0 ? (
+            <div className="patient_health_status" style={{backgroundColor: '#ff918ba6'}}>
+              <h3 className="patient_status">You have missed to add some data.</h3>
+              <p className="patient_status_task">Make sure you add  your data at the right time!</p>
+            </div>
+            ) : (null)}
+
+            {this.state.finishedTasks.pending > 0 && !this.state.finishedTasks.missed ? (
+            <div className="patient_health_status">
+              <h3 className="patient_status">You have some pending tasks for today.</h3>
+              <p className="patient_status_task">Make sure you add  your data at the right time!</p>
+            </div>
+            ) : (null)}
+
+
+       
 
       <p className="patient_tasks">Tasks</p>
 
@@ -152,7 +200,9 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({temprature_bool: true})}>
               <img  src={Tasks_temperature} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title">Temperature</p>
-              <p  className="patient_tasks_subtitle"> Task completed</p>
+              {this.state.temperatures.missed.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
+              {this.state.temperatures.missed.length === 0 &&  this.state.temperatures.pending.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
+              {this.state.temperatures.missed.length === 0 &&  this.state.temperatures.pending.length === 0 ? ( <p  className="patient_tasks_subtitle"> Task completed</p>) : (null)}
             </div>
           </div>
         </div>
@@ -164,7 +214,9 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({blood_pressure_bool: true})}>
               <img  src={Tasks_blood_pressure} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Blood Pressure</p>
-              <p  className="patient_tasks_subtitle"> Task completed</p>
+              {this.state.blood_pressures.missed.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
+              {this.state.blood_pressures.missed.length === 0 &&  this.state.blood_pressures.pending.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
+              {this.state.blood_pressures.missed.length === 0 &&  this.state.blood_pressures.pending.length === 0 ? ( <p  className="patient_tasks_subtitle"> Task completed</p>) : (null)}
             </div>
           </div>
         </div>
@@ -174,7 +226,9 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({pulse_bool: true})}>
               <img  src={Tasks_heart_rate} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title">Pulse</p>
-              <p  className="patient_tasks_subtitle"> Task completed</p>
+              {this.state.pulses.missed.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
+              {this.state.pulses.missed.length === 0 &&  this.state.pulses.pending.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
+              {this.state.pulses.missed.length === 0 &&  this.state.pulses.pending.length === 0 ? ( <p  className="patient_tasks_subtitle"> Task completed</p>) : (null)}
             </div>
           </div>
         </div>
@@ -186,7 +240,9 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({weight_bool: true})}>
               <img  src={Tasks_weight} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Weight</p>
-              <p  className="patient_tasks_subtitle"> Task completed</p>
+              {this.state.weights.missed.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
+              {this.state.weights.missed.length === 0 &&  this.state.weights.pending.length > 0 ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
+              {this.state.weights.missed.length === 0 &&  this.state.weights.pending.length === 0 ? ( <p  className="patient_tasks_subtitle"> Task completed</p>) : (null)}
             </div>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+// colors: #466d95a1 (blue), #ffca8fc9 (orange)
+
 class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
   
   constructor(props) {
@@ -61,7 +63,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                              <div className="blob_orange"> 
 
                                 <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="100%" id="blobSvg">
-                                  <path id="blob" d="M384.5,266Q312,282,307,304Q302,326,281,330.5Q260,335,240.5,331.5Q221,328,156,359.5Q91,391,127,331.5Q163,272,118,239Q73,206,68.5,145.5Q64,85,124,80.5Q184,76,224.5,99.5Q265,123,328,84.5Q391,46,414.5,99Q438,152,447.5,201Q457,250,384.5,266Z" fill="#ffca8fc9"></path>
+                                  <path id="blob" d="M384.5,266Q312,282,307,304Q302,326,281,330.5Q260,335,240.5,331.5Q221,328,156,359.5Q91,391,127,331.5Q163,272,118,239Q73,206,68.5,145.5Q64,85,124,80.5Q184,76,224.5,99.5Q265,123,328,84.5Q391,46,414.5,99Q438,152,447.5,201Q457,250,384.5,266Z" fill="#466d9582"></path>
                                 </svg>
 
                             </div>
@@ -70,30 +72,30 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
          
 
                     <div className="row" style={{marginLeft: '0'}}>
-                     <div className="col-12" style={{height:'100vh', backgroundColor: '#FAF4DC'}}>
-                              <div className="centerVertical_fdsafsdfsdf appear_right" style={{textAlign:'center', zIndex: '100'}}>
+                     <div className="col-12" style={{height:'100vh', backgroundColor: 'rgb(250 244 220 / 47%)'}}>
+                              <div className="centerVertical_fdsafsdfsdf" style={{textAlign:'center', zIndex: '100'}}>
                                 {/*<img  src={Logo} alt="logo DKG" style={{width:'190px'}} className=""/>*/}
-                                <h6 className="center_text marginTop" style={{color: 'black', fontSize: '28px', textAlign: 'center'}}>Homecare App</h6>
-                                <p style={{fontSize: '20px'}}>Please enter:</p>
+                                <h6 className="center_text marginTop" style={{color: 'black', fontSize: '28px', textAlign: 'center', marginBottom:'40px'}}>Homecare App</h6>
+                                <p style={{fontSize: '20px'}}>Please enter your login details:</p>
 
 
-                                    <div className="formular" style={{marginTop: '40px'}}>
+                                    <div className="formular" style={{marginTop: '0px'}}>
                                       <form style={{display: 'inline-block', width: '66vw'}}>
                                           <div className="form-group col-12" style={{display: 'inline-block', padding: '0 10px'}}>
-                                            <label htmlFor="Firstname">Username:</label> <br/>
-                                            <input type="text" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
+                                            {/*<label htmlFor="Firstname">Username:</label> <br/>*/}
+                                            <input type="text" placeholder=" username" className="input_username" value={this.state.username} onChange={this.handleUsernameChange}/>
                                           </div>
 
                                           <div className="form-group col-xs-6" style={{display: 'inline-block', padding: '0 10px'}}>
-                                            <label htmlFor="E-Mail">Password</label>  <br/>
-                                            <input type="password" className="input_username" style={{marginBottom: '30px'}} autoComplete="on" value={this.state.password} onChange={this.handlePasswordChange}/> <br/>
+                                            {/*<label htmlFor="E-Mail">Password</label>  <br/>*/}
+                                            <input type="password" placeholder=" password" className="input_username" style={{marginBottom: '30px'}} autoComplete="on" value={this.state.password} onChange={this.handlePasswordChange}/> <br/>
                                           </div>
                                       </form>
                                     </div>
 
                               </div>
 
-                            <a className="teilnehmen-btn" style={{cursor: 'pointer'}} onClick={(e) => {this.logme(e)}}>Login</a>
+                            <a className="teilnehmen-btn" style={{cursor: 'pointer', marginTop: '40px', zIndex: '99999999', backgroundColor: '#000000'}} onClick={(e) => {this.logme(e)}}>Login</a>
                           
                       </div>
 
