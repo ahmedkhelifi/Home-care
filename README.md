@@ -6,7 +6,7 @@
 <h4 align="center">A remote patient monitoring system</h4>
 <br>
   <p align="center"><img src="https://i.imgur.com/o2AYbYJ_d.webp?maxwidth=760&fidelity=grand" height="600" /></p>
-Homecare App is a remote patient monitoring system. The patient should be able to enter on a mobile phone vital infor- mation, such as temperature, puls, blood pressure, weight and medication intake. The data is requested from the patient once a day and then sent to a server where the information is stored in a database. 
+Homecare App is a remote patient monitoring system. The patient should be able to enter on a mobile phone vital information, such as temperature, pulse, blood pressure, weight and medication intake. The data is requested from the patient once a day and then sent to a server where the information is stored in a database. 
 
 The app is developed by: 
 * Ahmed Khelifi
@@ -28,7 +28,7 @@ Home-care$ npm run build
 Home-care$ node server
 ```
 # Built with
-* Frontend: Reactjs + echarts.js
+* Frontend: React.js + echarts.js
 * Server: Node.js
 * Database: Postgresql
 
@@ -54,7 +54,7 @@ All parties in the app share the same login API.
 The API consists of the following endpoints:
 
 - POST `/api/login`
-Checks if user exists and then return its type and wether login was successful
+Checks if user exists and then return its type and whether login was successful
 
 If the user input correct login data, the user receives the following JSON object:
 1. Case `patient`:
@@ -123,7 +123,7 @@ Furthermore, we store health data as JSON objects in the database.
    ```json
      {"medication": [
           {"title":"Azathioprine","ammount":1,"duration":1,"history":[
-                {"timestamp": 1609879883768, "measured": true},
+	  	{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1609966283768, "measured": true},
 		{"timestamp": 1610052683768, "measured": true},
@@ -132,7 +132,7 @@ Furthermore, we store health data as JSON objects in the database.
                 ],
             "assigned_on": 1609707083768},
           {"title":"Ciclosporin","ammount":1,"duration":2,"history":[
-                {"timestamp": 1609707083768, "measured": true},
+	  	{"timestamp": 1609707083768, "measured": true},
 		{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1610052683768, "measured": true},
 		{"timestamp": 1610225483768, "measured": true},
@@ -204,11 +204,11 @@ The API consists of the following endpoints:
 
 ## Dashboard
 
-We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, bloos pressure and temperature).
+We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
 
 ## Patient
 
-The doctor uses the following API calls to get a list of all existinng patients or to add a new patient. We're workinng. at the moment on implementing new calls to receive more detailed information.
+The doctor uses the following API calls to get a list of all existing patients or to add a new patient. We're working at the moment on implementing new calls to receive more detailed information.
 
 - GET `/api/patient/`
 Return a list of all patients
