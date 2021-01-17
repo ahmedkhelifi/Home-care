@@ -189,8 +189,7 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({medication_bool: true})}>
               <img  src={Tasks_pill} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Medication</p>
-              {this.state.missedMedication ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Pending task</p>)  : (<p  className="patient_tasks_subtitle"> Task completed</p>)}
-              
+              <p  className="patient_tasks_subtitle" style={{color: 'red'}}> pending not correct :D</p>
             </div>
           </div>
         </div>
