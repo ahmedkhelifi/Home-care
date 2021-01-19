@@ -67,7 +67,11 @@ function get_medication(health, medication){
 
 
 function get_temperature(health, temperature){
-    if(temperature.length === 0 ) return
+    if(temperature.length === 0 ) {
+      let temperatures = {history: [], missed: [], pending: []}
+      health.temperatures = temperatures
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -120,12 +124,17 @@ function get_temperature(health, temperature){
       temperatures.pending = pending
 
       health.temperatures  = temperatures
+           console.log(missed)
 
   return health
 }
 
 function get_weight(health, weight){
-    if(weight.length === 0 ) return
+    if(weight.length === 0 ) {
+      let weight = {history: [], missed: [], pending: []}
+      health.weights = weight
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -183,7 +192,11 @@ function get_weight(health, weight){
 }
 
 function get_pulse(health, pulse){
-    if(pulse.length === 0 ) return
+    if(pulse.length === 0 ) {
+      let pulse = {history: [], missed: [], pending: []}
+      health.pulses = pulse
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -240,7 +253,11 @@ function get_pulse(health, pulse){
 }
 
 function get_blood_pressure(health, blood_pressure){
-    if(blood_pressure.length === 0 ) return
+    if(blood_pressure.length === 0 ) {
+      let blood_pressure = {history: [], missed: [], pending: []}
+      health.blood_pressures = blood_pressure
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -354,8 +371,61 @@ function get_medication_missed(health, medication){
       // health[med.title] = .intervals = intervals
       
     })
+
   return health
 }
 
+function calculate_points_first_Step(health){
+  let points = 0
 
-module.exports = {get_medication, get_temperature, get_weight, get_pulse, get_blood_pressure, get_medication_missed}
+  //Puls
+
+  //history of last 28 days
+  let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} ) 
+  puls_history.forEach(pulse => {
+    if(pulse.pulse >=50 && pulse.pulse <=60) points += 1 
+    if(pulse.pulse <50 || pulse.pulse > 100) points += 2 
+  })
+
+  //weight of last 90 days
+  let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf() )} )
+  let old_weight = weight_history[0]
+  let old_weight_10_percent = old_weight*0.1
+  let new_weight = weight_history[weight_history.length -  1]
+
+  if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent )
+    points += 3
+
+  //temperature of last 28 days
+  let temperature_history = health.temperatures.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
+  temperature_history.forEach(temperature => {
+    if( (temperature.temperature >=36 && temperature.temperature <=36.5) || (temperature.temperature >=37.5 && temperature.temperature <=38.5) ) points += 1 
+    if(temperature.temperature <36 || temperature.temperature > 38.5) points += 2 
+  })
+
+
+  //blood_pressure of last 28 days
+  let blood_pressure_history = health.blood_pressures.history.filter(blood_pressure => {return Number(blood_pressure.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
+  blood_pressure_history.forEach(blood_pressure => {
+    if( (blood_pressure.bloodpres_dia >= 140 && temperature.bloodpres_dia <=150 && blood_pressure.bloodpres_sys >= 90 && temperature.bloodpres_sys <=100) ) points += 1 
+    if(blood_pressure.bloodpres_dia < 150 || blood_pressure.bloodpres_sys > 100) points += 2 
+  })
+
+// console.log(points)
+  return points
+}
+
+function calculate_points_final(health, add_number){
+  let points = 0
+  for (var key in health.medication) {
+    if (health.medication.hasOwnProperty(key)) {
+      var val = health.medication[key];
+       points += val.missed.length * add_number
+    }
+  }
+
+  return points
+}
+
+
+module.exports = {get_medication, get_temperature, get_weight, get_pulse, get_blood_pressure, get_medication_missed, calculate_points_first_Step, calculate_points_final}

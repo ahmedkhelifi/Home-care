@@ -54,7 +54,7 @@ export default class Temperature extends React.PureComponent {
       //  currentDate
       var currentDate = new Date();
       // old7Datetimestample
-      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
       //console.log(days7before)    
       var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
       console.log(truejsonData)
@@ -72,7 +72,7 @@ export default class Temperature extends React.PureComponent {
       var timelist=[null,null,null,null,null,null,null];
       timelist.forEach(function(item, index,timelist){
           let currentDate = new Date();
-          let data = currentDate.setDate( currentDate.getDate() - index); 
+          let data = currentDate.setDate( currentDate.getDate() - index); 
           timelist[index]=timeformater(data)
       })
       timelist=timelist.reverse()
@@ -93,18 +93,6 @@ export default class Temperature extends React.PureComponent {
                       title: { 
                           left: 'center',
                           text: 'Temperature last 7 Days' },
-                      // tooltip: {
-                      //     trigger: 'axis',
-                      //     //falls tooptip ausser dem Fenster Groesse, dann diese fkt benutzen:
-                      //     // axisPointer: {
-                      //     //         type: 'shadow'
-                      //     //     },
-                      //     // show: true,
-                      //     // confine:true,
-                      //     // position: function(point, params, dom, rect, size){
-                      //     //     return [point[1],0];
-                      //     //     },
-                      //     },
                       xAxis: {
                           data: timelist,
                           
@@ -115,13 +103,25 @@ export default class Temperature extends React.PureComponent {
                           splitLine: {show: false},
                           axisTick: {show: false},
                           type: 'value' ,
-                          min: 33,
-                          max: extent => extent.max > 37.8  ? extent.max : 37.8
+                          min: extent => extent.min <=36 ? extent.min-1 : 35,
+                          max: extent => extent.max > 37.5  ? extent.max : 37.5
                       },
                       series: [{
                           name: 'temperature',
                           type: 'bar',
                           data: templist,
+                          itemStyle:{
+                            normal:{
+                                color:function(params){
+                                    if(params.value <36.5){
+                                        return "#FFA500";
+                                    }else if(params.value >=36.5 && params.value<=37.5){
+                                        return "#32CD32";
+                                    }
+                                    return "#DC143C";
+                                }
+                            }
+                        },
                           label: {
                               textStyle: {
                                   fonttemperature: "bolder",
@@ -149,16 +149,16 @@ export default class Temperature extends React.PureComponent {
                                               fontSize: "8",
                                           },
                                          position:'start',
-                                         formatter:"37.8°C"
+                                         formatter:"37.5°C"
                                      },
-                                     yAxis:37.8     
+                                     yAxis:37.5    
                                     
                                  },
                                  {
 
                                      lineStyle:{               //警戒线的样式  ，虚实  颜色
                                          type:"solid",
-                                         color:"#3398DB",
+                                         color:"green",
                                      },
                                      label:{
                                       textStyle: {
@@ -167,9 +167,9 @@ export default class Temperature extends React.PureComponent {
                                           fontSize: "8",
                                       },
                                          position:'start',
-                                         formatter:"36 °C",
+                                         formatter:"36.5 °C",
                                      },
-                                     yAxis:36    
+                                     yAxis:36.5
                                
                                  }
                                  ]

@@ -56,8 +56,7 @@ router.get('/getPatients/health/risk', (req, res) => {
 
     users.forEach( user => {
       let health = {medication: {}}
-
-      // console.log(user)
+      
       if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
       if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature)
       if(user.weight != null) health = PatientLogic.get_weight(health, user.weight.weight)
@@ -77,15 +76,31 @@ router.get('/getPatients/health/risk', (req, res) => {
 
 
 
-      user.health = health
 
+
+      let first_step_points
+      let medication_points
+
+      if(health != undefined ) first_step_points = PatientLogic.calculate_points_first_Step(health)
+      if(health != undefined ) {
+        if(first_step_points <= 1)  
+          medication_points = PatientLogic.calculate_points_final(health, 1)
+        if(first_step_points == 2 || first_step_points == 3)  
+          medication_points = PatientLogic.calculate_points_final(health, 2)
+        if(first_step_points > 3)  
+          medication_points = PatientLogic.calculate_points_final(health, 3)
+      }
+
+      if(health != undefined ) health.points = first_step_points + medication_points
+
+      user.health = health
 
       delete user['password']
       delete user['addressid']
     })
 
 
-    return res.json(users);
+    return res.json(users.filter(user => {return user.health.points > 1 }));
   });
 });
 

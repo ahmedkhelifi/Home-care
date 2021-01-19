@@ -6,7 +6,8 @@ class Allgemein extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataLoaded              :            false
+      dataLoaded       :     false,
+      rist_patients    :     [],                
     }
   }
 
@@ -16,7 +17,8 @@ class Allgemein extends React.Component {
             .then(
                 (blob) => {
                     console.log(blob)
-                    this.setState({dataLoaded: true})
+                    let patients = 
+                    this.setState({dataLoaded: true, rist_patients: blob.sort((a,b) => (a.health.points > b.health.points) ? 1 : ((b.health.points > a.health.points) ? -1 : 0)).reverse() })
                     // this.setState({ patients: blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; }), isLoaded: true });
                     // this.baseState.patient = blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; })
                     // this.baseState.isLoaded = true
@@ -56,7 +58,15 @@ class Allgemein extends React.Component {
               <div className="container-fluid">
                 <div className="row">
 
-                    Loaded
+                    {this.state.rist_patients.map(patient => {
+                      return (
+                        <div  className="col-12" style={{backgroundColor: 'white', marginTop: '20px'}}>
+                          <p> Patient name: {patient.firstname + ' ' + patient.lastname}</p>
+                          <p> Patient status: {patient.health.points > 3 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: 'yellow'}}>yellow</span>)}</p>
+                          <p> Points: {patient.health.points}</p>
+                        </div>
+                      )
+                    })}
 
 
 
