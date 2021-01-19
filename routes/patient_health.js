@@ -381,7 +381,7 @@ function calculate_points_first_Step(health){
   //Puls
 
   //history of last 28 days
-  let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} ) 
+  let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} ) 
   puls_history.forEach(pulse => {
     if(pulse.pulse >=50 && pulse.pulse <=60) points += 1 
     if(pulse.pulse <50 || pulse.pulse > 100) points += 2 
@@ -390,7 +390,7 @@ function calculate_points_first_Step(health){
   console.log('points after puls: ' + points)
 
   //weight of last 90 days
-  let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf() )} )
+  let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} )
   let old_weight = weight_history[0]
   let old_weight_10_percent = old_weight*0.1
   let new_weight = weight_history[weight_history.length -  1]
@@ -401,7 +401,7 @@ function calculate_points_first_Step(health){
   console.log('points after old_weight: ' + points)
 
   //temperature of last 28 days
-  let temperature_history = health.temperatures.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
+  let temperature_history = health.temperatures.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() ) && pulse.measured } )
   temperature_history.forEach(temperature => {
     if( (temperature.temperature >=36 && temperature.temperature <=36.4) || (temperature.temperature >=37.6 && temperature.temperature <=38.5) ) points += 1 
     if(temperature.temperature <36 || temperature.temperature > 38.5) points += 2 
@@ -411,7 +411,7 @@ function calculate_points_first_Step(health){
 
 
   //blood_pressure of last 28 days
-  let blood_pressure_history = health.blood_pressures.history.filter(blood_pressure => {return Number(blood_pressure.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
+  let blood_pressure_history = health.blood_pressures.history.filter(blood_pressure => {return Number(blood_pressure.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && blood_pressure.measured} )
   blood_pressure_history.forEach(blood_pressure => {
     if( (blood_pressure.bloodpres_dia >= 140 && blood_pressure.bloodpres_dia <=150 && blood_pressure.bloodpres_sys >= 90 && temperature.bloodpres_sys <=100) ) points += 1 
     if(blood_pressure.bloodpres_dia > 150 || blood_pressure.bloodpres_sys > 100) points += 2 
@@ -425,6 +425,7 @@ function calculate_points_first_Step(health){
 
 function calculate_points_final(health, add_number){
   let points = 0
+  console.log('Now check no data')
   for (var key in health.medication) {
     if (health.medication.hasOwnProperty(key)) {
       var val = health.medication[key];
@@ -433,6 +434,20 @@ function calculate_points_final(health, add_number){
        points += measured_false.length * add_number
     }
   }
+  // Now check no data
+   console.log('points after medication: ' + points)
+   points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length * add_number
+   points += health.temperatures.missed.length * add_number
+   console.log('points after temperatures: ' + points)
+   points += health.weights.history.filter(pulse => {return pulse.measured == false }).length * add_number
+   points += health.weights.missed.length * add_number
+   console.log('points after weights: ' + points)
+   points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length * add_number
+   points += health.blood_pressures.missed.length * add_number
+   console.log('points after blood_pressures: ' + points)
+   points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
+   points += health.pulses.missed.length * add_number
+   console.log('points pulses temperature: ' + points)
 
   return points
 }
