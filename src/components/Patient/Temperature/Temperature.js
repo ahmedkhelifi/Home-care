@@ -54,7 +54,7 @@ export default class Temperature extends React.PureComponent {
       //  currentDate
       var currentDate = new Date();
       // old7Datetimestample
-      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
       //console.log(days7before)    
       var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
       console.log(truejsonData)
@@ -72,7 +72,7 @@ export default class Temperature extends React.PureComponent {
       var timelist=[null,null,null,null,null,null,null];
       timelist.forEach(function(item, index,timelist){
           let currentDate = new Date();
-          let data = currentDate.setDate( currentDate.getDate() - index); 
+          let data = currentDate.setDate( currentDate.getDate() - index); 
           timelist[index]=timeformater(data)
       })
       timelist=timelist.reverse()
