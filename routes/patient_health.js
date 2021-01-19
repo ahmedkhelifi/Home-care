@@ -428,7 +428,9 @@ function calculate_points_final(health, add_number){
   for (var key in health.medication) {
     if (health.medication.hasOwnProperty(key)) {
       var val = health.medication[key];
+      var measured_false = val.history.filter(med => {return med.measured == false})
        points += val.missed.length * add_number
+       points += measured_false.length * add_number
     }
   }
 
