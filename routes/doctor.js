@@ -56,6 +56,11 @@ router.get('/getPatients/health/risk', (req, res) => {
 
     users.forEach( user => {
       let health = {medication: {}}
+
+      console.log('-----------------')
+      console.log('-----------------')
+      console.log('-----------------')
+      console.log(user. firstname)
       
       if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
       if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature)

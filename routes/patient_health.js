@@ -387,6 +387,8 @@ function calculate_points_first_Step(health){
     if(pulse.pulse <50 || pulse.pulse > 100) points += 2 
   })
 
+  console.log('points after puls: ' + points)
+
   //weight of last 90 days
   let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf() )} )
   let old_weight = weight_history[0]
@@ -396,6 +398,8 @@ function calculate_points_first_Step(health){
   if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent )
     points += 3
 
+  console.log('points after old_weight: ' + points)
+
   //temperature of last 28 days
   let temperature_history = health.temperatures.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
   temperature_history.forEach(temperature => {
@@ -403,13 +407,17 @@ function calculate_points_first_Step(health){
     if(temperature.temperature <36 || temperature.temperature > 38.5) points += 2 
   })
 
+  console.log('points after temperature: ' + points)
+
 
   //blood_pressure of last 28 days
   let blood_pressure_history = health.blood_pressures.history.filter(blood_pressure => {return Number(blood_pressure.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
   blood_pressure_history.forEach(blood_pressure => {
-    if( (blood_pressure.bloodpres_dia >= 140 && temperature.bloodpres_dia <=150 && blood_pressure.bloodpres_sys >= 90 && temperature.bloodpres_sys <=100) ) points += 1 
-    if(blood_pressure.bloodpres_dia < 150 || blood_pressure.bloodpres_sys > 100) points += 2 
+    if( (blood_pressure.bloodpres_dia >= 140 && blood_pressure.bloodpres_dia <=150 && blood_pressure.bloodpres_sys >= 90 && temperature.bloodpres_sys <=100) ) points += 1 
+    if(blood_pressure.bloodpres_dia > 150 || blood_pressure.bloodpres_sys > 100) points += 2 
   })
+
+  console.log('points after blood_pressure: ' + points)
 
 // console.log(points)
   return points
