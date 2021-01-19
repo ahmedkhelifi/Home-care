@@ -403,7 +403,7 @@ function calculate_points_first_Step(health){
   //temperature of last 28 days
   let temperature_history = health.temperatures.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() )} )
   temperature_history.forEach(temperature => {
-    if( (temperature.temperature >=36 && temperature.temperature <=36.5) || (temperature.temperature >=37.5 && temperature.temperature <=38.5) ) points += 1 
+    if( (temperature.temperature >=36 && temperature.temperature <=36.4) || (temperature.temperature >=37.6 && temperature.temperature <=38.5) ) points += 1 
     if(temperature.temperature <36 || temperature.temperature > 38.5) points += 2 
   })
 
