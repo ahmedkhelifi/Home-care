@@ -1645,25 +1645,25 @@
 				"assigned_on":new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()}
 			]} 
         ], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
-		['Z.John', encryptPassword('john1975', 'homecare'), 'Zach', 'John', '1979-05-19', 11], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
-		['E.Knights', encryptPassword('knights1998', 'homecare'), 'Elis', 'Knights', '1998-09-29', 12], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['P.Flowers', encryptPassword('flowers1990', 'homecare'), 'Phillip', 'Flowers', '1990-08-13', 13], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['P.Montes', encryptPassword('montes1972', 'homecare'), 'Phillip', 'Montes', '1972-11-20', 14], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['D.Markham', encryptPassword('markham1988', 'homecare'), 'Danyl', 'Markham', '1988-03-14', 15], (err, res) => { })  
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['A.Glenn', encryptPassword('glenn2000', 'homecare'), 'Annalise', 'Glenn', '2000-06-22', 16], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['A.Begum', encryptPassword('begum1960', 'homecare'), 'Ariyah', 'Begum', '1960-07-02', 17], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['L.Forrest', encryptPassword('forrest1959', 'homecare'), 'Leonardo', 'Forrest','1959-11-27', 18], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['E.Adamson', encryptPassword('adamson1971', 'homecare'), 'Etienne', 'Adamson', '1971-02-05', 19], (err, res) => { })
-      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
-		['V.Floyd', encryptPassword('floyd1969', 'homecare'), 'Viktoria', 'Floyd', '1969-09-03', 20], (err, res) => { })
+      //db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['Z.John', encryptPassword('john1975', 'homecare'), 'Zach', 'John', '1979-05-19', 11], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid) VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['E.Knights', encryptPassword('knights1998', 'homecare'), 'Elis', 'Knights', '1998-09-29', 12], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['P.Flowers', encryptPassword('flowers1990', 'homecare'), 'Phillip', 'Flowers', '1990-08-13', 13], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['P.Montes', encryptPassword('montes1972', 'homecare'), 'Phillip', 'Montes', '1972-11-20', 14], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['D.Markham', encryptPassword('markham1988', 'homecare'), 'Danyl', 'Markham', '1988-03-14', 15], (err, res) => { })  
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['A.Glenn', encryptPassword('glenn2000', 'homecare'), 'Annalise', 'Glenn', '2000-06-22', 16], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['A.Begum', encryptPassword('begum1960', 'homecare'), 'Ariyah', 'Begum', '1960-07-02', 17], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['L.Forrest', encryptPassword('forrest1959', 'homecare'), 'Leonardo', 'Forrest','1959-11-27', 18], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['E.Adamson', encryptPassword('adamson1971', 'homecare'), 'Etienne', 'Adamson', '1971-02-05', 19], (err, res) => { })
+     // db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid)  VALUES ($1, $2, $3, $4, $5, $6);',
+	//	['V.Floyd', encryptPassword('floyd1969', 'homecare'), 'Viktoria', 'Floyd', '1969-09-03', 20], (err, res) => { })
     })
   })
