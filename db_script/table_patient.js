@@ -7,7 +7,7 @@
     db.query('CREATE TABLE patient(patientid serial NOT NULL,username text NOT NULL,password text NOT NULL,firstname text NOT NULL,lastname text NOT NULL,birthdate date NOT NULL,addressid integer,pulse json,weight json,blood_pressure json,temperature json,medication json,PRIMARY KEY (patientid));', (err, res) => {
       // Patient Kameron Lyons added pulse, weight, blood_pressure, temperature, medication data for every day.
 	  // All data are within a health range, intermediate result = final result = 0 points = green.
-	       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, pulse, weight, blood_pressure, temperature, medication) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);',
+	    db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, pulse, weight, blood_pressure, temperature, medication) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);',
 		['K.Lyons', encryptPassword('lyons1980', 'homecare'), 'Kameron', 'Lyons', '1980-01-21', 4,
 		{ "pulse":[
 			{"pulse": 70 , "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -248,7 +248,7 @@
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
 				"assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
 			    {"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -541,7 +541,7 @@
 				{"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
                 ],
 				"assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
 				{"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -594,7 +594,7 @@
 		//Patient Madelyn Arias added pulse, weight, blood_pressure, temperature, medication NOT every data, all forgotten days (-2, -5, -11) have been confirmed.
 		// Today and yesterday fever (Temperatur 38.0, 38.1), intermediate result = 2 points = yellow,
 		// final result = 38 points (intermediate result  + 2 * ("measured: false" 3x pulse, 3x weight, 3 x blood_pressure, 3 x temperature, 6 x medication)) = red
-		      db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, pulse, weight, blood_pressure, temperature, medication) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);',
+		db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, pulse, weight, blood_pressure, temperature, medication) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);',
 		['M.Arias', encryptPassword('arias1965', 'homecare'), 'Madelyn', 'Arias', '1965-04-30', 6,
 		{ "pulse":[
 			{"pulse": 70 , "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -825,7 +825,7 @@
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
 				"assigned_on": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
                 {"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
@@ -1018,7 +1018,7 @@
             {"title":"Ciclosporin","ammount":1,"duration":2,"history":[
                 ],
 				"assigned_on": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
                 ],
 				"assigned_on":new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
             {"title":"Cyclophosphamide","ammount":1,"duration":7,"history":[
@@ -1079,7 +1079,7 @@
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
 				"assigned_on": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
                 {"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1328,7 +1328,7 @@
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
 				"assigned_on": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
                 {"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1592,7 +1592,7 @@
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
 				"assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
-            {"title":"Mycophenolate mofetil","ammount":2,"duration":1,"history":[
+            {"title":"Mycophenolatemofetil","ammount":2,"duration":1,"history":[
 			    {"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
