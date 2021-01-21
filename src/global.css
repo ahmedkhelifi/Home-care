@@ -5880,6 +5880,31 @@ body {
     margin-right: 10px;
 }
 
+.patient_health_status_doctor{
+    margin-top: 60px;
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+._days_7_left{
+    background-color: #808080bf;
+    padding: 7px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    margin-right: -4px;
+    cursor: pointer;
+}
+
+._days_7_right{
+    border: 1px solid #808080bf;
+    padding: 6px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    cursor: pointer;
+}
+
 .user_icon{
     width: 70px;
     height: auto;

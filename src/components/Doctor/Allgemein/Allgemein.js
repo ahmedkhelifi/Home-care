@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+import SelectedPatient from './SelectedPatient';
+
 import Tasks_blood_pressure from'../../../images/blood_pressure.png';
 import Tasks_temperature from'../../../images/tasks_temperature.png';
 import Tasks_heart_rate from'../../../images/heart_rate.png';
@@ -11,8 +13,20 @@ class Allgemein extends React.Component {
     this.state = {
       dataLoaded       :     false,
       rist_patients    :     [],
-      patientSelectedBool:   false,                
+      patientSelectedBool:   false,
+      selectedPatient:       {},                
     }
+  }
+
+  selectPatient = (patient) => {
+    this.setState({selectedPatient: patient, patientSelectedBool: true})
+  }
+
+  checkIfSelectedCss = (patient) => {
+    if(this.state.selectedPatient === patient)
+      return {backgroundColor: 'rgb(172 195 227 / 35%)', marginTop: '20px', borderRadius: '5px'}
+    else 
+      return {backgroundColor: 'white', marginTop: '20px', borderRadius: '5px'}
   }
 
   componentDidMount(){
@@ -115,20 +129,20 @@ class Allgemein extends React.Component {
                         {this.state.rist_patients.map(patient => {
                           return (
                             <div className="row">
-                              <div  className="col-12 hover_hightlight_patient_dashboard" style={{backgroundColor: 'white', marginTop: '20px', borderRadius: '5px'}}>
+                              <div  className="col-12 hover_hightlight_patient_dashboard" style={this.checkIfSelectedCss(patient)} onClick={e => this.selectPatient(patient)}>
                                 <p style={{marginTop: '10px', fontSize: '17px', fontWeight: 'bold'}} > {patient.firstname + ' ' + patient.lastname}</p>
                                  <p style={{marginTop: '-17px'}} > Points: {patient.health.points}</p>
 
                                 <p > Patient status: {patient.health.points > 3 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: 'yellow'}}>yellow</span>)}</p>
 
-                                <p style={{marginTop: '10px', fontSize: '14px', fontWeight: 'bold'}} > Current state overview: </p>
+                                <p style={{marginTop: '10px', fontSize: '14px', fontWeight: 'bold'}} > Patient's last entry overview: </p>
                                 <div className="row">
                                     <div className="col-4">
                                       <div className="patient_task_buble_container_doctor">
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_temperature} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor"> Temperature</p>
-                                           {patient.health.temperatures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[0].temperature} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>Keine Angabe</p>) }
+                                           {patient.health.temperatures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[0].temperature} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
@@ -137,8 +151,8 @@ class Allgemein extends React.Component {
                                       <div className="patient_task_buble_container_doctor">
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_blood_pressure} alt="logout" className="tasks_pill_doctor" />
-                                          <p className="patient_tasks_title_doctor"> Blood Pressure</p>
-                                           {patient.health.blood_pressures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.blood_pressures.history[0].bloodpres_dia}/{patient.health.blood_pressures.history[0].bloodpres_sys} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>Keine Angabe</p>) }
+                                          <p className="patient_tasks_title_doctor" style={{marginTop: '-12px'}} > Blood Pressure</p>
+                                           {patient.health.blood_pressures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.blood_pressures.history[0].bloodpres_dia}/{patient.health.blood_pressures.history[0].bloodpres_sys} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
@@ -148,7 +162,7 @@ class Allgemein extends React.Component {
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_heart_rate} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor"> Pulse</p>
-                                           {patient.health.pulses.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.pulses.history[0].pulse} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>Keine Angabe</p>) }
+                                           {patient.health.pulses.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.pulses.history[0].pulse} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
@@ -167,14 +181,12 @@ class Allgemein extends React.Component {
 
                   </div>
 
+
                   <div className="col-6">
 
                     <h3>Patient's health data</h3>
 
-                    <div className="col-12 full_height_patient_health_show">
-                            {!this.state.patientSelectedBool ? (<p className="vertical_horizontnal_center" style={{fontSize: '23px', textAlign: 'center'}}> Select Patient to see Data </p>) : (null)} 
-                    </div>
-
+                    <SelectedPatient patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} />
 
                   </div>
 

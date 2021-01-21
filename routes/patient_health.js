@@ -18,7 +18,7 @@ function get_medication(health, medication){
       let intervals = []
 
       //calculate intervals and save them in array as int
-      let till_when = med_assigned_on
+      let till_when = Number(med_assigned_on)+1
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000) *  med_duration
@@ -329,7 +329,7 @@ function get_medication_missed(health, medication){
       let intervals = []
 
       //calculate intervals and save them in array as int
-      let till_when = med_assigned_on
+      let till_when = Number(med_assigned_on)
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000) *  med_duration
@@ -350,22 +350,25 @@ function get_medication_missed(health, medication){
 
       } else if (intervals.length >= 2){
         
-        for(let i = 0; i < intervals.length - 2; i++) {
-          if( !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length > 0 ){
+        for(let i = 0; i <= intervals.length - 2; i++) {
+          if( !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) < intervals[i+1]}).length > 0 ){
             // let pending = ( Number(new Date().valueOf()) - intervals[i+1] ) < (24 * 60 * 60 * 1000) *  med_duration
             // if(pending)
             //   pending.push({from: intervals[i], to: intervals[i+1], pending: pending  })
             // else
-              missed.push({from: intervals[i], to: intervals[i+1], pending: pending  })
+              missed.push({from: intervals[i], to: intervals[i+1] })
           }
         }
-        if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  >= Number(new Date().valueOf()) 
-          && !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[intervals.length-1]}).length > 0
-           ) {
+        if( !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length - 1]}).length > 0 )
+        // if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  >= Number(new Date().valueOf()) 
+        //   && !med.history.filter( obj =>  { return Number(obj.timestamp)  intervals[intervals.length-1]}).length > 0) 
+        {
             pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration), pending: true })
         }
 
       }
+
+      med.interval = intervals
       med.missed = missed.reverse()
       health.medication[med.title]= med
       // health[med.title] = .intervals = intervals
