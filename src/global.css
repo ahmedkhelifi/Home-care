@@ -5792,10 +5792,24 @@ body {
      -webkit-transition: all .4s ease;
 }
 
+.patient_task_buble_container_doctor {
+    width: 100%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+
 .patient_task_buble{
      background-color: white;
      border-radius: 10px;
      padding: 20px;
+     cursor: pointer;
+}
+
+.patient_task_buble_doctor{
+     /*background-color: white;*/
+     border-radius: 10px;
+     /*padding: 20px;*/
      cursor: pointer;
 }
 
@@ -5806,6 +5820,11 @@ body {
 .patient_tasks_title{
      margin-top: 10px;
      font-size: 21px;
+     text-align: center;
+}
+.patient_tasks_title_doctor{
+     margin-top: -20px;
+     font-size: 15px;
      text-align: center;
 }
 
@@ -5820,6 +5839,16 @@ body {
      margin-top: 20px;
      margin-bottom: 20px;
      width: 40px;
+     height: auto;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.tasks_pill_doctor{
+     margin-top: 20px;
+     margin-bottom: 20px;
+     width: 30px;
      height: auto;
      display: block;
      margin-left: auto;
@@ -6126,13 +6155,59 @@ body {
 }
 
 
+.patient_at_risk_red{
+     background-color: #ff6565;
+     border-radius: 10px;
+     height: 100px;
+     padding: 10px;
+}
 
+.patient_at_risk_orange{
+     background-color: #ffc459;
+     border-radius: 10px;
+     height: 100px;
+     padding: 10px;
+}
 
+.vertical_center{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 
+.vertical_horizontnal_center{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 
+.full_height_patient_health{
+    height: calc(100vh - (212px));
+    /*background-color: red;*/
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: scroll;
+}
 
+.full_height_patient_health_show{
+    height: calc(100vh - (98px));
+    /*background-color: red;*/
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: scroll;
+    background-color: white;
+}
 
+.hover_hightlight_patient_dashboard{cursor: pointer;}
 
+.hover_hightlight_patient_dashboard:hover{
+     background-color:#acc3e338 !important;
+}
 
 
 
