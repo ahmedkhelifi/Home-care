@@ -102,7 +102,6 @@ export default class Pulse extends React.PureComponent {
                         position: function (pt) {
                             return [pt[0], '10%'];
                         },
-                        formatter: '{c}/min'
                     },
                     series: [{
                         connectNulls: true,
