@@ -36,7 +36,7 @@ export default class Weight extends React.PureComponent {
                 //  currentDate
                 var currentDate = new Date();
                 // old7Datetimestample
-                var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+                var days7before = currentDate.setDate( currentDate.getDate() - 90 );     //  最终获得的 old7Date 是时间戳 
                 //console.log(days7before)    
                   
                 var truejsonData=jsonData.weight.filter(obj => {return obj.timestamp>days7before});
@@ -72,18 +72,19 @@ export default class Weight extends React.PureComponent {
                         }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
                         if (i===0 && item.measured!==false){
                             hilfsweight=item.weight 
-                        }//first keine Aenderung erst ab zweite, wenn erste value hat dann hilfswert weist hinzu
+                        }
                         else if(item.measured!==false){
                             if (hilfsweight===null||hilfsweight===undefined){
                                 hilfsweight=((item.weight)).toFixed(2)
                             }
                             else {
                                 templist2[i]=((item.weight-hilfsweight)).toFixed(2)
-                                hilfsweight=item.weight}
+                            }
                         }
 
                     }
                 })
+                
 
                 var option ={
 
@@ -124,17 +125,6 @@ export default class Weight extends React.PureComponent {
                                     name: 'change',
                                     type: 'bar',
                                     data: templist2,
-                                    stack:'weightgain',
-                                
-                                    label: {
-                                        textStyle: {
-                                            fontWeight: "bolder",
-                                            fontSize: "8",
-                                        },
-                                        show: true,
-                                        position: 'inside',
-
-                                    },     
                                 },
                             ]
                             }
