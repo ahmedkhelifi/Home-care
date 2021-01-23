@@ -6234,6 +6234,15 @@ body {
      background-color:#acc3e338 !important;
 }
 
+.gray_background_radius_scroll {
+     overflow: scroll;
+     background-color: #80808036;
+     border-radius: 7px;
+     height: 300px;
+     display: inline-block;
+
+}
+
 
 
 

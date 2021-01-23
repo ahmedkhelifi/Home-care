@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import SelectedPatient from './SelectedPatient';
+import PatientProfile from '../PatientProfile';
 
 import Tasks_blood_pressure from'../../../images/blood_pressure.png';
 import Tasks_temperature from'../../../images/tasks_temperature.png';
@@ -14,7 +15,8 @@ class Allgemein extends React.Component {
       dataLoaded       :     false,
       rist_patients    :     [],
       patientSelectedBool:   false,
-      selectedPatient:       {},                
+      selectedPatient:       {},
+      patient_profile_bool:  false,                
     }
   }
 
@@ -95,7 +97,7 @@ class Allgemein extends React.Component {
 
                   </div> 
               </div>
-    ); } else {
+    ); } else if(!this.state.patient_profile_bool) {
       return (
               <div className="container-fluid">
                 <div className="row">
@@ -186,7 +188,7 @@ class Allgemein extends React.Component {
 
                     <h3>Patient's health data</h3>
 
-                    <SelectedPatient patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} />
+                    <SelectedPatient patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} openProfile={e => this.setState({patient_profile_bool: true}) } />
 
                   </div>
 
@@ -196,6 +198,10 @@ class Allgemein extends React.Component {
 
                   </div> 
               </div>
+      )
+    } else if(this.state.patient_profile_bool) {
+      return (
+        <PatientProfile patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} closeProfile={e =>this.setState({patient_profile_bool: false})} />
       )
     }
   }

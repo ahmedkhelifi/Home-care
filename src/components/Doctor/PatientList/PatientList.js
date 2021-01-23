@@ -35,15 +35,10 @@ class PatientList extends React.Component {
 
 
             simpleMode: true,
-            colPatientList: '12',
-            colKommentar: '2',
-            colName: '3',
             
-            loadPatientClicked: false,
             patientClicked: {},
             patientClickedExpand: false,
 
-            loadMultipleClicked: false,
             patientsClicked: [],
 
             active: null,
@@ -109,17 +104,8 @@ class PatientList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
-      // this.setState({edit: false})
-      console.log('back')
-        //{edit: false, colPatientList: '12', colName: '3', colKommentar: '2',  loadPatientClicked: false , patientClicked: {}})
     }
   }
-// componentWillReceiveProps(nextProps) {
-//   // You don't have to do this check first, but it can help prevent an unneeded render
-//   if (nextProps.refresh) {
-//     this.setState(this.baseState);
-//   }
-// }
     
   handleSearchChange(e) {
     this.setState({ search: e.target.value })
@@ -131,17 +117,8 @@ class PatientList extends React.Component {
 
 
   patientClicked(e, patient){
-
-      //deselect patient and back to normal view
-      if(this.state.loadPatientClicked) {
-        if(this.state.patientClicked.created_on === patient.created_on){
-          this.setState({ colPatientList: '12', colName: '3', colKommentar: '2',  loadPatientClicked: false , patientClicked: {}, active: null });
-          return
-        }
-      }
-
       //select different patient
-      this.setState({ colPatientList: '7', colName: '5', colKommentar: '2', loadPatientClicked: true , patientClicked: patient, patientsClicked: [], loadMultipleClicked: false, actives: [] });
+      this.setState({ patientClicked: patient, patientsClicked: [], loadMultipleClicked: false, actives: [] });
   }
 
   timeSince(UNIX_timestamp) {
@@ -423,48 +400,48 @@ class PatientList extends React.Component {
               }
 
 
-              {(!isLoading && !noPatients && !patientForm && simpleMode && !this.state.patientClickedExpand) ? (
-                 <div className={"col-"+this.state.colPatientList}>
+              {(!isLoading && !noPatients) ? (
+                 <div className={"col-12"}>
 
                  <div className="row" style={{boxShadow: '0 0 28px -16px #888888', marginBottom: '20px', padding : '20px 0', borderRadius: '30px'}}>
 
-                                <div className={"col-"+this.state.colName}>
+                                <div className={"col-3"}>
                                       <p>Name</p>
                                 </div>
-                                { !this.state.loadPatientClicked ?(
-                                  <div className={"col-"+this.state.colName}>
-                                        <p>Email</p>
+                                  <div className={"col-2"}>
+                                        <p>Temperature</p>
                                   </div>
-                                ):(null)}
-                                 <div className={"col-"+this.state.colKommentar}>
-                                      <p>Birthday</p>
+                                 <div className={"col-2"}>
+                                      <p>Pulse</p>
                                 </div>
-                                <div className={"col-"+this.state.colKommentar}>
-                                      <p>Last Visit</p>
+                                <div className={"col-2"}>
+                                      <p>Weight</p>
                                 </div>
-                                <div className={"col-"+this.state.colKommentar}>
-                                      <p>Status</p>
+                                <div className={"col-2"}>
+                                      <p>Blood Pressure</p>
                                 </div>
 
                         {currentPatients.map((patient, i) => (
                                       <div className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient); this.toggle(i)} } >
                                           <div className="row" style={{cursor: 'pointer'}}>
-                                              <div className={"col-"+this.state.colName}>
+                                              <div className={"col-3"}>
                                                   <p>{patient.firstname + ' ' + patient.lastname}</p>
                                               </div>
-                                              { !this.state.loadPatientClicked ?(
-                                                <div className={"col-"+this.state.colName}>
-                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>data here</p>
+                                                <div className={"col-2"}>
+                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.temperature.temperature.length > 0 ? (<span>{patient.temperature.temperature[patient.temperature.temperature.length-1].temperature}</span>) : (<span>-</span>)}</p>
                                                 </div>
-                                              ):(null)}
-                                              <div className={"col-"+this.state.colKommentar}>
-                                                  <p style={{color: '#00000061'}}>data here</p>
+                                              <div className={"col-2"}>
+                                                <div className={"col-2"}>
+                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.pulse.pulse.length > 0 ? (<span>{patient.pulse.pulse[patient.pulse.pulse.length-1].pulse}</span>) : (<span>-</span>)}</p>
+                                                </div>
                                               </div>
-                                              <div className={"col-"+this.state.colKommentar}>
-                                                  <p>data here</p>
+                                              <div className={"col-2"}>
+                                                <div className={"col-2"}>
+                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.weight.weight.length > 0 ? (<span>{patient.weight.weight[patient.weight.weight.length-1].weight}</span>) : (<span>-</span>)}</p>
+                                                </div>
                                               </div>
-                                              <div className={"col-"+this.state.colKommentar}>
-                                                  <p>data  here</p>
+                                              <div className={"col-2"}>
+                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.blood_pressure.blood_pressure.length > 0 ? (<span>{patient.blood_pressure.blood_pressure[patient.blood_pressure.blood_pressure.length-1].bloodpres_dia}/{patient.blood_pressure.blood_pressure[patient.blood_pressure.blood_pressure.length-1].bloodpres_sys}</span>) : (<span>-</span>)}</p>
                                               </div>
                                           </div>
                                       </div>
@@ -476,71 +453,6 @@ class PatientList extends React.Component {
                 )
                 : (null)
               }
-
-
-              {
-                /*
-                *
-                * Click Patient Profile
-                *
-                */
-              }
-
-               {(this.state.loadPatientClicked && !noPatients && !loadMultipleClicked) ? (
-               <div className="col-5">
-                  <div className="card userClickedCard">
-                              <div className="row" style={{marginRight: '0', marginLeft: 0, height: '400px'}}>
-                                <div className="col-12" style={{padding: '0'}}>
-                                <p style={{zIndex: '999999', top: '10px', left: '20px', position: 'absolute', fontSize: '12px'}}>patient</p>
-                                  <div className="audiobox">
-                                      <div className="wave one"></div>
-                                      <div className="wave two"></div>
-                                     <div className="wave three"></div>
-                                  </div>
-                                 </div>
-                                    {
-                                      //<p style={{display: 'inline'}} onClick={e => this.setState({profile: true, loadUserClicked: false, loadMultipleClicked: false})}>Verlauf</p>
-                                    }
-                                <div className="col-12">
-                                      <p>{this.state.patientClicked.role}</p>
-                                      <h2 style={{marginTop: '-15px'}}>{this.state.patientClicked.firstname + ' ' + this.state.patientClicked.lastname}</h2>
-                                      <p>EMail: {this.state.patientClicked.email === '' ? (<span>none</span>) : (<span>{this.state.patientClicked.email}</span>)} </p>
-                                </div>
- 
-                                <div className="col-12" style={{textAlign: 'center'}}>
-                                    <button className="button_dkg" style={{width: '90%'}} onClick={e => this.setState({loadUserClicked: false, edit: !this.state.edit})}>Edit profile</button>
-
-                                </div>
-                                <div className="col-12 userclicked_radius_transfer" ></div>
-                                <div className="col-12" style={{background: '#43494d', marginTop: '-20px'}} ></div>
-                              </div>
-                              <div className="row userclicked_34234234">
-                               <div className="col-12" style={{color: 'white'}}>
-                                <Tabs>
-                                    <TabList>
-                                      <Tab>Heath Data</Tab>
-                                      <Tab>Personal Data</Tab>
-                                    </TabList>
-                                 
-                                    <TabPanel>
-                                      <div className="col-12 userclicked_34234234_scroll" style={{paddingTop: '20px'}}>
-                                          <p>No data available</p>
-                                      </div>
-                                    </TabPanel>
-                                    <TabPanel>
-                                    <div style={{height: '42vh', overflow: 'overlay'}}>
-                                    </div>
-                                    </TabPanel>
-
-                                </Tabs>
-                              </div>
-                              </div>
-
-                  </div>
-                  
-                </div>
-
-                ) : (null)}
 
 
   </div>
