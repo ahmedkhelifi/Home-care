@@ -141,7 +141,7 @@ export default class Temperature extends React.PureComponent {
                            },
                                label:{
                                 textStyle: {
-                                    fonttemperature: "bolder",
+                                    fontWeight: "bolder",
                                     color:  'black',
                                     fontSize: "7",
                                 },
@@ -159,7 +159,7 @@ export default class Temperature extends React.PureComponent {
                            },
                            label:{
                             textStyle: {
-                                fonttemperature: "bolder",
+                                fontWeight: "bolder",
                                 color:  'black',
                                 fontSize: "7",
                             },

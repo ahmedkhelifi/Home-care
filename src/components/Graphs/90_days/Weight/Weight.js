@@ -40,7 +40,7 @@ export default class Weight extends React.PureComponent {
                 //console.log(days7before)    
                   
                 var truejsonData=jsonData.weight.filter(obj => {return obj.timestamp>days7before});
-                console.log(truejsonData)
+                //console.log(truejsonData)
 
                 function timeformater(ts){
                     let date = new Date(ts);
@@ -79,21 +79,21 @@ export default class Weight extends React.PureComponent {
                             }
                             else {
                                 templist2[i]=((item.weight-hilfsweight)).toFixed(2)
+                                //hilfsweight=((item.weight)).toFixed(2)//falls den Unterschied je zwei Tage sein solltet
                             }
                         }
 
                     }
                 })
-                
-
+                var pos=(hilfsweight*0.1).toFixed(2)
+                var neg=-(hilfsweight*0.1).toFixed(2)
+                console.log(pos)
                 var option ={
-
                                 title: { 
                                     left: 'center',
                                     text: 'Weightgain last 90 days'
                                 },
                                 xAxis: {
-                                    type: 'category',
 
                                     axisTick: {show: false},
                                     data: timelist
@@ -105,7 +105,8 @@ export default class Weight extends React.PureComponent {
                                     splitLine: {show: false},
                                     axisTick: {show: false},
                                     type: 'value' ,
-                                    
+                                    min:extent=> extent.min<=neg? extent.min : neg ,
+                                    max:extent=> extent.max>=pos? extent.max : pos
                                 },
                                 dataZoom: [{
                                     type: 'slider',
@@ -118,15 +119,49 @@ export default class Weight extends React.PureComponent {
                                         return [pt[0], '10%'];
                                     },
                                 },
-
-
                                 series: [
                                 {
                                     name: 'change',
                                     type: 'bar',
                                     data: templist2,
+                                    markLine:{
+                                        symbol:"none",
+                                        data:[{
+                                            lineStyle:{
+                                                type:"solid",
+                                                color:"FA3934",
+                                            },
+                                            label:{
+                                                textstyle:{
+                                                    fontWeight:"bolder",
+                                                    fontSize:"7",
+                                                    color:"#fff",
+                                                },
+                                            position:"start",  
+                                            formatter:"+10%"  
+                                            },
+                                            yAxis:pos
+                                        },
+                                        {
+                                            lineStyle:{
+                                                type:"solid",
+                                                color:"FA3934",
+                                            },
+                                            label:{
+                                                textstyle:{
+                                                    fontWeight:"bolder",
+                                                    fontSize:"7",
+                                                    color:"#fff",
+                                                },
+                                            position:"start",  
+                                            formatter:"-10%"  
+                                            },
+                                            yAxis:neg
+                                        }]
+                                    }
                                 },
-                            ]
+                                ],
+                                
                             }
 
         var myChart = echarts.init(document.getElementById('weight_graph'));
