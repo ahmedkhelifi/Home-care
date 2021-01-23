@@ -39,20 +39,20 @@ export default class Temperature extends React.PureComponent {
         let history = this.props.temperatures.history;
         let jsonData = {temperature: history}
         // old7Datetimestample
-        var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+        var days7before = currentDate.setDate( currentDate.getDate() - 28);     //  最终获得的 old7Date 是时间戳 
         //console.log(days7before)    
         var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
         // console.log(truejsonData)
         
         
-                        function timeformater(ts){
-                            let date = new Date(ts);
-                            let Y = date.getFullYear() + '.';
-                            let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
-                            let D = date.getDate() ;
-                            let result = Y+M+D
-                            return result; 
-                        }
+        function timeformater(ts){
+            let date = new Date(ts);
+            let Y = date.getFullYear() + '.';
+            let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
+            let D = date.getDate() ;
+            let result = Y+M+D
+            return result; 
+        }
         
         var timelist=new Array(28);
         for(let i=0;i<28;i++){
@@ -89,12 +89,12 @@ export default class Temperature extends React.PureComponent {
                 splitLine: {show: false},
                 axisTick: {show: false},
                 type: 'value' ,
-                min: extent => extent.min <=36 ? extent.min-1 : 35,
+                min: extent => extent.min <=34 ? extent.min-1 : 33,
                 max: extent => extent.max > 37.5  ? extent.max : 37.5
             },
             dataZoom: [{
                 type: 'slider',
-                start: 93,
+                start: 75,
                 end: 100,
             }],
             tooltip: {
@@ -119,17 +119,17 @@ export default class Temperature extends React.PureComponent {
                       }
                   }
               },
-                label: {
-                    textStyle: {
-                        fonttemperature: "bolder",
-                        fontSize: "8",
-                        color: "#fff"
-                    },
-                    show: true,
-                    position: 'inside',
-                    formatter: '{c}°C'//echarts selbst build in variable fuer valu
+                // label: {
+                //     textStyle: {
+                //         fonttemperature: "bolder",
+                //         fontSize: "8",
+                //         color: "#fff"
+                //     },
+                //     show: true,
+                //     position: 'inside',
+                //     formatter: '{c}°C'//echarts selbst build in variable fuer valu
                     
-                },
+                // },
                 markLine : {
                        symbol:"none",
                        data : [{
@@ -143,7 +143,7 @@ export default class Temperature extends React.PureComponent {
                                 textStyle: {
                                     fonttemperature: "bolder",
                                     color:  'black',
-                                    fontSize: "8",
+                                    fontSize: "7",
                                 },
                                position:'start',
                                formatter:"37.5°C"
@@ -161,7 +161,7 @@ export default class Temperature extends React.PureComponent {
                             textStyle: {
                                 fonttemperature: "bolder",
                                 color:  'black',
-                                fontSize: "8",
+                                fontSize: "7",
                             },
                                position:'start',
                                formatter:"36.5 °C",

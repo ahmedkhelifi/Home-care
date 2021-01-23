@@ -2,10 +2,12 @@ import React from 'react';
 
 // import ECharts
 import echarts from 'echarts/lib/echarts';
-import  'echarts/lib/chart/bar';
-import 'echarts/lib/component/tooltip';
+import  'echarts/lib/chart/line';
 import 'echarts/lib/component/title';
 import'echarts/lib/component/grid' 
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/dataZoom';
+import 'echarts/lib/component/tooltip';
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
@@ -36,7 +38,7 @@ export default class Pulse extends React.PureComponent {
         // old7Datetimestample
         let history = this.props.pulses.history;
         let jsonData = {pulse: history}
-        var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+        var days7before = currentDate.setDate( currentDate.getDate() - 28 );     //  最终获得的 old7Date 是时间戳 
         //console.log(days7before)    
         var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
         console.log(truejsonData)
@@ -72,7 +74,7 @@ export default class Pulse extends React.PureComponent {
 
     //graph infos
     var option ={
-                    color:  '#800000',
+                    color: '#800000',
                     title: { 
                         left: 'center',
                         text: 'pulse last 28 days' },
@@ -87,7 +89,7 @@ export default class Pulse extends React.PureComponent {
                         splitLine: {show: false},
                         axisTick: {show: false},
                         type: 'value' ,
-                        min: extent => extent.min <=70 ? extent.min-5 : 70,
+                        min: extent => extent.min <=30 ? extent.min-5 : 30,
                         // max: extent => extent.max >130 ? extent.max+1 : 130
                     },
                     dataZoom: [{
@@ -100,18 +102,14 @@ export default class Pulse extends React.PureComponent {
                         position: function (pt) {
                             return [pt[0], '10%'];
                         },
+                        formatter: '{c}/min'
                     },
                     series: [{
                         connectNulls: true,
                         name: 'pulse',
                         type: 'line',
                         data: templist,
-                        label: {
-                            show: true,
-                            position: 'top',
-                            formatter: '{c}/min'//echarts selbst build in variable fuer valu
-                            
-                        },　　
+
                     }]
                 }
 
