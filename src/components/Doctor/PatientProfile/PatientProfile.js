@@ -1,7 +1,7 @@
 import React from 'react';
-import Temperature from '../../Graphs/Temperature';
-import BloodPressure from '../../Graphs/BloodPressure';
-import Weight from '../../Graphs/Weight';
+import Temperature from '../../Graphs/28_days/Temperature';
+import BloodPressure from '../../Graphs/28_days/BloodPressure';
+import Weight from '../../Graphs/90_days/Weight';
 // import Medication from '../../components/Patient/Medication';
 // import Temperature from '../../components/Patient/Temperature';
 // import Weight from '../../components/Patient/Weight';

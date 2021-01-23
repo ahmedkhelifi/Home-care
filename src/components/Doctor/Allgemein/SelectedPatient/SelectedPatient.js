@@ -1,15 +1,14 @@
 import React from 'react';
 
-import Temperature from '../../../Graphs/Temperature';
-import BloodPressure from '../../../Graphs/BloodPressure';
-import Weight from '../../../Graphs/Weight';
-import Pulse from '../../../Graphs/Pulse';
+import Temperature from '../../../Graphs/28_days/Temperature';
+import BloodPressure from '../../../Graphs/28_days/BloodPressure';
+import Weight from '../../../Graphs/90_days/Weight';
+import Pulse from '../../../Graphs/28_days/Pulse';
 // import Medication from '../../components/Patient/Medication';
 // import Temperature from '../../components/Patient/Temperature';
 // import Weight from '../../components/Patient/Weight';
 // import Pulse from '../../components/Patient/Pulse';
 // import BloodPressure from '../../components/Patient/BloodPressure';
-
 
 
 // import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -48,7 +47,7 @@ export default class SelectedPatient extends React.PureComponent {
     if(!this.props.patientSelectedBool) {
       return (
         <div className="col-12 full_height_patient_health_show">
-          <p className="vertical_horizontnal_center" style={{fontSize: '23px', textAlign: 'center', color: 'gray'}}> Select Patient to see Data </p> 
+          <p className="vertical_horizontnal_center" style={{fontSize: '20px', textAlign: 'center', color: 'gray'}}> Select patient to see Data </p> 
         </div>
 
       )
@@ -56,7 +55,7 @@ export default class SelectedPatient extends React.PureComponent {
     else {
       return (
         <div className="col-12 full_height_patient_health_show">
-          <p style={{marginTop: '10px', fontSize: '19px', fontWeight: 'bold'}} >{this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname} <span style={{cursor: 'pointer'}} onClick={() => this.props.openProfile() }>&#10230;</span></p>
+          <p style={{marginTop: '10px', fontSize: '19px', fontWeight: 'bold'}} >{this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname} <span style={{cursor: 'pointer', color: 'gray', fontSize: '14px', fontWeight: '100'}} onClick={() => this.props.openProfile() }>(view profile &#10230;)</span></p>
 
           <p style={{marginTop: '30px', fontSize: '20px', textAlign: 'center'}} > Health Data </p>
 
@@ -76,13 +75,10 @@ export default class SelectedPatient extends React.PureComponent {
 
           <p style={{marginTop: '10px', fontSize: '15px', fontWeight: 'bold'}} >Physical State:</p>
 
-          <div style={{position: 'absolute', top:'14px', right: '10px'}}> <p style={{fontSize: '13px'}}>Time: <span className="_days_7_left"> 7 days</span> <span className="_days_7_right"> 30 days</span> </p> </div>
-
           <Temperature temperatures={this.props.selectedPatient.health.temperatures}/>
-
           <BloodPressure blood_pressures={this.props.selectedPatient.health.blood_pressures}/>
+		      <Pulse pulses={this.props.selectedPatient.health.pulses}/>
           <Weight weights={this.props.selectedPatient.health.weights}/>
-		  <Pulse pulses={this.props.selectedPatient.health.pulses}/>
 
         </div>
 
