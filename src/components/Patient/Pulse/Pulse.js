@@ -7,6 +7,10 @@ import History from './History';
 import Tasks_pulse from'../../../images/heart_rate.png';
 import My_History from'../../../images/my_history.png';
 
+//Aufruf von $ Zeichen 
+import $ from  'jquery';
+import 'jquery';
+
 // import ECharts
 import echarts from 'echarts/lib/echarts';
 import  'echarts/lib/chart/line';
