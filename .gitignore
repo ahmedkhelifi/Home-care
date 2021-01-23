@@ -5,6 +5,8 @@ node_modules/
 * linguist-vendored
 *.js linguist-vendored=false
 
+/Database/index.js
+./Database/index.js
 Database/index.js
 public/index.html
 
