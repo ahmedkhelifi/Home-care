@@ -12,10 +12,6 @@ import 'echarts/lib/component/markLine'
 import $ from  'jquery';
 import 'jquery';
 
-
-
-
-
 export default class Temperature extends React.PureComponent { 
 
   constructor(props) {
@@ -77,7 +73,7 @@ export default class Temperature extends React.PureComponent {
                       color:  'black',
                       title: { 
                           left: 'center',
-                          text: 'Temperature last 7 Days' },
+                          text: 'Temperature last 7 Days in °C' },
                       xAxis: {
                           data: timelist,
                           
@@ -115,7 +111,7 @@ export default class Temperature extends React.PureComponent {
                               },
                               show: true,
                               position: 'inside',
-                              formatter: '{c}°C'//echarts selbst build in variable fuer valu
+                              formatter: '{c}'//echarts selbst build in variable fuer valu
                               
                           },
                           markLine : {
@@ -242,8 +238,6 @@ export default class Temperature extends React.PureComponent {
               </div>
             </div>
            </div>
-
-
     </div>
     );
   }

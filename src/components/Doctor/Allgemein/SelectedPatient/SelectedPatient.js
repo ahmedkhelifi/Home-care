@@ -3,6 +3,7 @@ import React from 'react';
 import Temperature from '../../../Graphs/Temperature';
 import BloodPressure from '../../../Graphs/BloodPressure';
 import Weight from '../../../Graphs/Weight';
+import Pulse from '../../../Graphs/Pulse';
 // import Medication from '../../components/Patient/Medication';
 // import Temperature from '../../components/Patient/Temperature';
 // import Weight from '../../components/Patient/Weight';
@@ -81,6 +82,7 @@ export default class SelectedPatient extends React.PureComponent {
 
           <BloodPressure blood_pressures={this.props.selectedPatient.health.blood_pressures}/>
           <Weight weights={this.props.selectedPatient.health.weights}/>
+		  <Pulse pulses={this.props.selectedPatient.health.pulses}/>
 
         </div>
 

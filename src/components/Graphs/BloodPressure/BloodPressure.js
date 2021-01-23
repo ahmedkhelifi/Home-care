@@ -105,6 +105,7 @@ export default class BloodPressure extends React.PureComponent {
                     }],
                     series: [{
                         type: 'line',
+						connectNulls: true,
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
@@ -116,6 +117,7 @@ export default class BloodPressure extends React.PureComponent {
                         },
                         }, {
                         type: 'line',
+						connectNulls: true,
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,

@@ -72,17 +72,17 @@ export default class Weight extends React.PureComponent {
             templist1[i]=(item.weight*0.1).toFixed(2)   
             }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
             if (i===0 && item.measured!==false){
-                hilfsweight=item.weight
+                    hilfsweight=(item.weight).toFixed(2) 
             }//first keine Aenderung erst ab zweite, wenn erste value hat dann hilfswert weist hinzu
             else if(item.measured!==false){
                 if (hilfsweight===null){
-                    hilfsweight=item.weight
+                    hilfsweight=(item.weight).toFixed(2) 
                 }
                 else {
                     templist2[i]=((item.weight-hilfsweight)*10).toFixed(2)
-                    hilfsweight=item.weight}
+                    hilfsweight=(item.weight).toFixed(2) 
+                  }
             }
-
         }
     })
 
@@ -90,7 +90,7 @@ export default class Weight extends React.PureComponent {
 
                     title: { 
                         left: 'center',
-                        text: 'Weight last 7 Days'
+                        text: 'Weight last 7 Days in Kg'
                     },
                     legend: {
                         top:"6%",
@@ -127,7 +127,7 @@ export default class Weight extends React.PureComponent {
                             show: true,
                             position: 'inside',
                             formatter: function(params){
-                                return params.value*10+'kg'
+                                return (params.value *10).toFixed(2)
                             }                     
                         },     
                     },
@@ -145,7 +145,7 @@ export default class Weight extends React.PureComponent {
                             show: true,
                             position: 'inside',
                             formatter: function(params){
-                                return params.value/10+'kg'
+                                return (params.value/10).toFixed(2)
                             }
 
                         },     
