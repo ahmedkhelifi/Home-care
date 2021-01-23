@@ -111,7 +111,7 @@ class Allgemein extends React.Component {
                             <p className="vertical_center" style={{color: 'white'}}> High Risk: </p>
                           </div>
                          <div className="col-6 ">
-                            <p className="vertical_horizontnal_center" style={{fontSize: '50px', color: 'white', textAlign: 'center'}}> {this.state.rist_patients.filter( patient => {return patient.health.points > 3}).length} </p>
+                            <p className="vertical_horizontnal_center" style={{fontSize: '50px', color: 'white', textAlign: 'center'}}> {this.state.rist_patients.filter( patient => {return patient.health.points > 5}).length} </p>
                           </div>
                         </div>
                       </div>
@@ -121,7 +121,7 @@ class Allgemein extends React.Component {
                             <p className="vertical_center" style={{color: 'white'}}> Average Risk: </p>
                           </div>
                          <div className="col-6 ">
-                            <p className="vertical_horizontnal_center" style={{fontSize: '50px', color: 'white', textAlign: 'center'}}> {this.state.rist_patients.filter( patient => {return patient.health.points <= 3}).length} </p>
+                            <p className="vertical_horizontnal_center" style={{fontSize: '50px', color: 'white', textAlign: 'center'}}> {this.state.rist_patients.filter( patient => {return patient.health.points <= 5}).length} </p>
                           </div>
                         </div>
                       </div>
@@ -135,7 +135,7 @@ class Allgemein extends React.Component {
                                 <p style={{marginTop: '10px', fontSize: '17px', fontWeight: 'bold'}} > {patient.firstname + ' ' + patient.lastname}</p>
                                  <p style={{marginTop: '-17px'}} > Points: {patient.health.points}</p>
 
-                                <p > Patient status: {patient.health.points > 3 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: 'yellow'}}>yellow</span>)}</p>
+                                <p > Patient status: {patient.health.points > 5 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: 'yellow'}}>yellow</span>)}</p>
 
                                 <p style={{marginTop: '10px', fontSize: '14px', fontWeight: 'bold'}} > Patient's last entry overview: </p>
                                 <div className="row">

@@ -386,7 +386,7 @@ function calculate_points_first_Step(health){
   //history of last 28 days
   let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} ) 
   puls_history.forEach(pulse => {
-    if(pulse.pulse >=50 && pulse.pulse <=60) points += 1 
+    if ( (pulse.pulse >=50 && pulse.pulse <=60) || (pulse.pulse >=90 && pulse.pulse <=100) ) points += 1 
     if(pulse.pulse <50 || pulse.pulse > 100) points += 2 
   })
 
@@ -395,11 +395,18 @@ function calculate_points_first_Step(health){
   //weight of last 90 days
   let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} )
   let old_weight = weight_history[0]
-  let old_weight_10_percent = old_weight*0.1
-  let new_weight = weight_history[weight_history.length -  1]
+  
+  if(old_weight!= undefined){
+    let old_weight_10_percent = old_weight.weight*0.1
+    old_weight = old_weight.weight
+    let new_weight = weight_history[weight_history.length -  1].weight
+    console.log('|'+ old_weight + '-' + new_weight + '| < ' + old_weight_10_percent)
 
-  if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent )
-    points += 3
+
+    if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent )
+      points += 3
+  }
+
 
   console.log('points after old_weight: ' + points)
 

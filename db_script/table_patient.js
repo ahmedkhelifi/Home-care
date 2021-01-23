@@ -39,7 +39,7 @@
 			{"pulse": 74 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -134,7 +134,7 @@
 			{"weight": 74.9 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.8 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			],"assigned_on": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[
 			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -165,7 +165,7 @@
 			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 125, "bloodpres_sys": 81, "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -196,7 +196,7 @@
 			{"temperature":36.5,"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":37.1,"timestamp": new Date(Date.now() ).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 			    {"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -336,7 +336,7 @@
 			{"pulse": "" , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"pulse": "" , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"pulse": "" , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -430,7 +430,7 @@
 			{"weight": "" , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"weight": "" , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"weight": "", "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[
 			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -460,7 +460,7 @@
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -490,7 +490,7 @@
 			{"temperature":"","timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"temperature":"","timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"temperature":"","timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 				{"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -626,7 +626,7 @@
 			{"pulse": "" , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"pulse": 75 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -721,7 +721,7 @@
 			{"weight": "" , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"weight": 75.8 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[
 			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -752,7 +752,7 @@
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 125, "bloodpres_sys": 81, "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -783,7 +783,7 @@
 			{"temperature":"","timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"temperature":38,"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":38.1,"timestamp": new Date(Date.now() ).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 				{"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -883,7 +883,7 @@
 			{"pulse": 101 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -978,7 +978,7 @@
 			{"weight": 74.9 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.8 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[]},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1010,7 +1010,7 @@
 			{"temperature":36.5,"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":37.1,"timestamp": new Date(Date.now() ).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [            
 			{"title":"Azathioprine","ammount":1,"duration":1,"history":[
                 ],
@@ -1031,13 +1031,197 @@
 			], (err, res) => { })
 		//Patient Aliyah Crane added only medication data for every day, NO pulse, weight, blood_pressure, temperature.
 		// Intermediate result = 0 points = green,
-		// final result = 112 points (no data: 28x pulse, 28x weight, 28 x blood_pressure, 28 x temperature) = red
+		// final result = 3 points ("measured: false" 3 x medication (Azathioprine, day -1, day -7, day -14)) = yellow
       db.query('INSERT INTO Patient (username, password, firstName, lastName , birthdate, addressid, pulse, weight, blood_pressure, temperature, medication) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);',
 		['A.Crane', encryptPassword('crane1985', 'homecare'), 'Aliyah', 'Crane', '1985-02-12', 8,
-		{ "pulse":[]},
-		{ "weight":[]},
-		{ "blood_pressure":[]},
-		{"temperature":[]},
+		{ "pulse":[
+			{"pulse": 70 , "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 24 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 23 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 22 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 70 , "timestamp": new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 19 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 70 , "timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 70 , "timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 74 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"pulse": 75 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
+		{ "weight":[
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 89 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 88 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 87 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 86 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 85 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 84 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 83 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 82 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 81 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 80 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 79 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 78 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 77 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 76 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 75 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 74 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 73 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 72 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 71 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 70 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 69 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 68 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 67 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 66 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 65 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 64 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 63 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 62 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 61 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 59 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 58 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 57 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 56 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 55 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 54 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 53 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 52 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 51 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 49 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 48 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 47 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 46 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 44 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 43 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 42 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 41 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 39 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 38 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 37 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 36 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 35 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 34 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 33 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 32 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 29 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 24 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 23 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 22 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 19 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.0 , "timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.3 , "timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.7 , "timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.2 , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 74.9 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.8 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"weight": 75.1 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
+			],"assigned_on": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf()},
+		{ "blood_pressure":[
+			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 125, "bloodpres_sys": 87, "timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 130, "bloodpres_sys": 89, "timestamp": new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 122, "bloodpres_sys": 84, "timestamp": new Date(Date.now() - 24 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 23 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 22 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 125, "bloodpres_sys": 87, "timestamp": new Date(Date.now() - 19 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 130, "bloodpres_sys": 89, "timestamp": new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 122, "bloodpres_sys": 84, "timestamp": new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 125, "bloodpres_sys": 87, "timestamp": new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 130, "bloodpres_sys": 89, "timestamp": new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 122, "bloodpres_sys": 84, "timestamp": new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 125, "bloodpres_sys": 87, "timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 130, "bloodpres_sys": 89, "timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 122, "bloodpres_sys": 84, "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"bloodpres_dia": 125, "bloodpres_sys": 81, "timestamp": new Date(Date.now()).valueOf(), measured: true}
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
+		{"temperature":[
+			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.7,"timestamp": new Date(Date.now() - 26 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.8,"timestamp": new Date(Date.now() - 24 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.5,"timestamp": new Date(Date.now() - 23 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 22 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":37.0,"timestamp": new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.7,"timestamp": new Date(Date.now() - 19 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.8,"timestamp": new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.5,"timestamp": new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":37.0,"timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.7,"timestamp": new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.8,"timestamp": new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.5,"timestamp": new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":37.0,"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.7,"timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.8,"timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.5,"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":36.9,"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+			{"temperature":37.1,"timestamp": new Date(Date.now() ).valueOf(), measured: true}
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 				{"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1054,20 +1238,20 @@
 				{"timestamp": new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
-				{"timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+				{"timestamp": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 				{"timestamp": new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
-                {"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+                {"timestamp": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 				{"timestamp": new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 				{"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
-				{"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
+				{"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 				{"timestamp": new Date(Date.now() ).valueOf(), measured: true}
                 ],
             "assigned_on": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).valueOf()},
@@ -1137,7 +1321,7 @@
 			{"pulse": "" , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"pulse": 75 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": "" , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 75.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1230,7 +1414,7 @@
 			{"weight": "" , "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"weight": 75.1 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": "", "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[
 			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1259,7 +1443,7 @@
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"bloodpres_dia": 128, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": "", "bloodpres_sys": "", "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1288,7 +1472,7 @@
 			{"temperature":"","timestamp": new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), measured: false},
 			{"temperature":36.8,"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":"","timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: false}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 				{"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1383,7 +1567,7 @@
 			{"pulse": 74 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"pulse": 75 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "weight":[
 			{"weight": 72.0 , "timestamp": new Date(Date.now() - 92 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 72.1 , "timestamp": new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1478,7 +1662,7 @@
 			{"weight": 86.9 , "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 87.8 , "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"weight": 87.1 , "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
 		{ "blood_pressure":[
 			{"bloodpres_dia": 120, "bloodpres_sys": 80, "timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 123, "bloodpres_sys": 81, "timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1509,7 +1693,7 @@
 			{"bloodpres_dia": 126, "bloodpres_sys": 76, "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 128, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 125, "bloodpres_sys": 81, "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
@@ -1540,7 +1724,7 @@
 			{"temperature":36.5,"timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":37.1,"timestamp": new Date(Date.now() ).valueOf(), measured: true}
-			]},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
         {"medication": [
             {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 			    {"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
