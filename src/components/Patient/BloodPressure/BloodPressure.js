@@ -129,6 +129,7 @@ export default class BloodPressure extends React.PureComponent {
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
+                        connectNulls: true,
                         label: {
                             normal: {
                                 show: true,
@@ -140,6 +141,7 @@ export default class BloodPressure extends React.PureComponent {
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,
+                        connectNulls: true,
                         label: {
                             normal: {
                                 show: true,
