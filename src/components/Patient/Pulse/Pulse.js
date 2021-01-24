@@ -3,6 +3,7 @@ import Confirmation from './Confirmation';
 import MissedConfirmation from './MissedConfirmation';
 import History from './History';
 
+import PulseGraph from '../../Graphs/7_days/Pulse';
 
 import Tasks_pulse from'../../../images/heart_rate.png';
 import My_History from'../../../images/my_history.png';
@@ -248,7 +249,9 @@ if(myChart !== null && myChart !== undefined){
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
 
-          {this.props.pulses.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
+        <PulseGraph pulses={this.props.pulses.history}  />
+
+          {/*this.props.pulses.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)  
            <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
@@ -256,6 +259,7 @@ if(myChart !== null && myChart !== undefined){
               </div>
             </div>
            </div>
+          */}
 
 
     </div>

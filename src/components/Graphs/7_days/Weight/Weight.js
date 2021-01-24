@@ -179,17 +179,13 @@ export default class Weight extends React.PureComponent {
   render() {
 
     return (
-    <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px',borderRadius: '7px'}}>
-           <div className="patient_health_status_doctor" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
+           <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
                  <div id="weight_graph" style={{ width:'100%', minHeight: '400px' }}></div>
               </div>
             </div>
            </div>
-
-
-    </div>
     );
   }
 }

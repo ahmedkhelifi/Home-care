@@ -3,6 +3,7 @@ import Confirmation from './Confirmation';
 import MissedConfirmation from './MissedConfirmation';
 import History from './History';
 
+import BloodPressureGraph from '../../Graphs/7_days/BloodPressure';
 
 import Tasks_blood_pressure from'../../../images/blood_pressure.png';
 import My_History from'../../../images/my_history.png';
@@ -289,7 +290,9 @@ export default class BloodPressure extends React.PureComponent {
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
 
-          {this.props.blood_pressures.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
+        <BloodPressureGraph blood_pressures={this.props.blood_pressures}  />
+
+          {/*this.props.blood_pressures.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
            <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
@@ -298,7 +301,7 @@ export default class BloodPressure extends React.PureComponent {
             </div>
            </div>
 
-
+          */}
     </div>
     );
   }

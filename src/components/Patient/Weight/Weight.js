@@ -3,6 +3,7 @@ import Confirmation from './Confirmation';
 import MissedConfirmation from './MissedConfirmation';
 import History from './History';
 
+import WeightGraph from '../../Graphs/7_days/Weight';
 
 import Tasks_weight from'../../../images/weight-clipart-black-and-white-3.png';
 import My_History from'../../../images/my_history.png';
@@ -304,7 +305,9 @@ export default class Weight extends React.PureComponent {
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
 
-          {this.props.weights.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
+        <WeightGraph weights={this.props.weights}  />
+
+          {/*this.props.weights.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
            <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
@@ -312,7 +315,7 @@ export default class Weight extends React.PureComponent {
               </div>
             </div>
            </div>
-
+        */}
 
     </div>
     );

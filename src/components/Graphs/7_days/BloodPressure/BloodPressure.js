@@ -2,13 +2,15 @@ import React from 'react';
 
 // import ECharts
 import echarts from 'echarts/lib/echarts';
-import  'echarts/lib/chart/line';
+import  'echarts/lib/chart/bar';
+import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
-import'echarts/lib/component/grid' ;
-import 'echarts/lib/component/legend';
+import'echarts/lib/component/grid' 
+import 'echarts/lib/component/markLine'
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
+
 import 'jquery';
 
 
@@ -33,6 +35,8 @@ export default class BloodPressure extends React.PureComponent {
                 var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
                 let history = this.props.blood_pressures.history;
                 let jsonData = {bloodpres: history}
+
+                // console.log(jsonData)
                   
                 var truejsonData=jsonData.bloodpres.filter(obj => {return obj.timestamp>days7before});
 
@@ -160,18 +164,13 @@ export default class BloodPressure extends React.PureComponent {
 
   render() {
     return (
-    <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px',borderRadius: '7px'}}>
-
-           <div className="patient_health_status_doctor" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
+           <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
                  <div id="blood_pressure_graph" style={{ width:'100%', minHeight: '400px' }}></div>
               </div>
             </div>
            </div>
-
-
-    </div>
     );
   }
 }
