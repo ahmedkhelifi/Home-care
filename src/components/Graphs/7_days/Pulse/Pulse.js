@@ -78,6 +78,7 @@ var option ={
       text: 'pulse last 7 Days per minute' },
   xAxis: {
       data: timelist,
+      axisTick:{show:false}
       
   },
   yAxis: {

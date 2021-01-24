@@ -101,7 +101,7 @@ var option ={
       splitLine: {show: false},
       axisTick: {show: false},
       type: 'value' ,
-      // min: extent => extent.min <=70 ? extent.min-5 : 70,
+      min: extent => extent.min <=30 ? extent.min-2 : 28,
       // max: extent => extent.max >130 ? extent.max+1 : 130
   },
   series: [{
@@ -112,7 +112,7 @@ var option ={
       label: {
           show: true,
           position: 'top',
-          formatter: '{c} /min'//echarts selbst build in variable fuer valu
+          formatter: '{c}/min'//echarts selbst build in variable fuer valu
           
       },　　
   }]

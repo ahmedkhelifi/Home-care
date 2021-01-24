@@ -135,7 +135,7 @@ class Allgemein extends React.Component {
                                 <p style={{marginTop: '10px', fontSize: '17px', fontWeight: 'bold'}} > {patient.firstname + ' ' + patient.lastname}</p>
                                  <p style={{marginTop: '-17px'}} > Points: {patient.health.points}</p>
 
-                                <p > Patient status: {patient.health.points > 5 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: 'yellow'}}>yellow</span>)}</p>
+                                <p > Patient status: {patient.health.points > 5 ? (<span style={{color: 'red'}}>red</span>) : (<span style={{color: '#ffc459'}}>orange</span>)}</p>
 
                                 <p style={{marginTop: '10px', fontSize: '14px', fontWeight: 'bold'}} > Patient's last entry overview: </p>
                                 <div className="row">
