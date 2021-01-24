@@ -507,7 +507,7 @@ function calculate_points_final(health, add_number){
    points += health.pulses.missed.length * add_number
    pulse_points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
    pulse_points += health.pulses.missed.length * add_number
-   health.detailed_final_step_points.blood_pressure = blood_pressure_points
+   health.detailed_final_step_points.pulse = pulse_points
    console.log('points pulses : ' + points)
 
   return points
