@@ -94,7 +94,7 @@ export default class Temperature extends React.PureComponent {
             },
             dataZoom: [{
                 type: 'slider',
-                start: 75,
+                start: 0,
                 end: 100,
             }],
             tooltip: {

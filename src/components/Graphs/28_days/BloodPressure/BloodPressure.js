@@ -74,23 +74,23 @@ export default class BloodPressure extends React.PureComponent {
                 var option = {
                     title: [{
                         left: 'center',
-                        text: '(sys.) blood pressure'
+                        text: '(sys.) blood pressure last 28 days'
                         }, {
                         top: '45%',
                         left: 'center',
-                        text: '(dia. ) blood pressure'
+                        text: '(dia. ) blood pressure last 28 days'
                     }],
                     dataZoom: [
                         {
                             show: true,
                             realtime: true,
-                            start: 75,
+                            start: 0,
                             end: 100,
                             xAxisIndex: [0, 1]
                         },
                         {
                             type: 'slider',
-                            start: 75,
+                            start: 0,
                             end: 100,
                             xAxisIndex: [0, 1]
                         }

@@ -110,7 +110,7 @@ export default class Weight extends React.PureComponent {
                                 },
                                 dataZoom: [{
                                     type: 'slider',
-                                    start: 80,
+                                    start: 0,
                                     end: 100,
                                 }],
                                 tooltip: {
