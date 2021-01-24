@@ -110,11 +110,11 @@ export default class PointsOverview extends React.PureComponent {
                     <div className="col-12">
                       <p style={{fontSize: '15px', color: 'black'}}> - {med.title} {this.get_total_med_missed(med)} times
 
-                          {med.history.filter( entry => {return !entry.measured}).length > 0 && this.props.health.first_step_points > 5 ? (<span style={{color: 'red', fontSize: '12px'}} > (3 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
+                          {this.props.health.first_step_points > 5 ? (<span style={{color: 'red', fontSize: '12px'}} > (3 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
 
-                          {med.history.filter( entry => {return !entry.measured}).length > 0 && this.props.health.first_step_points >= 2 && this.props.health.first_step_points <= 5 ? (<span style={{color: '#ffc459', fontSize: '12px'}} > (2 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
+                          {this.props.health.first_step_points >= 2 && this.props.health.first_step_points <= 5 ? (<span style={{color: '#ffc459', fontSize: '12px'}} > (2 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
 
-                          {med.history.filter( entry => {return !entry.measured}).length > 0 && this.props.health.first_step_points < 2 ? (<span style={{color: 'green', fontSize: '12px'}} > (1 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
+                          {this.props.health.first_step_points < 2 ? (<span style={{color: 'green', fontSize: '12px'}} > (1 x {this.get_total_med_missed(med)} points)</span>) : (null)} 
                       </p>
                       
                     </div>
