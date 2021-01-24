@@ -9,7 +9,7 @@ export default class PointsOverview extends React.PureComponent {
   has_missed_medication = (medication) => {
     let bool = false
     Object.values(medication).forEach( med => {
-      if (med.missed.length.length > 0) bool =  true
+      if (med.missed.length > 0) bool =  true
     })
 
     Object.values(medication).forEach( med => {
