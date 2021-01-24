@@ -1,6 +1,7 @@
 import React from 'react';
 import Temperature from '../../Graphs/28_days/Temperature';
 import BloodPressure from '../../Graphs/28_days/BloodPressure';
+import Pulse from '../../Graphs/28_days/Pulse';
 import Weight from '../../Graphs/90_days/Weight';
 // import Medication from '../../components/Patient/Medication';
 // import Temperature from '../../components/Patient/Temperature';
@@ -88,8 +89,8 @@ export default class PatientProfile extends React.PureComponent {
                   </div>
                 </div>
                 <div className="col-6">
-                  <p style={{color: 'black'}} >Missed dates:</p>
-                  <div className="row gray_background_radius_scroll" >
+                  <p style={{color: 'black'}}>Missed dates:</p>
+                  <div className="row gray_background_radius_scroll">
                     {this.getMissed(med).map(obj => {return (
                       <p> - Missed from {this.beautify_timestamp(obj.from)} to {this.beautify_timestamp(obj.from)}. </p>
                     )})}
@@ -103,7 +104,9 @@ export default class PatientProfile extends React.PureComponent {
           <p style={{marginTop: '10px', fontSize: '19px'}} >Physical State:</p>
           <Temperature temperatures={this.props.selectedPatient.health.temperatures}/>
           <BloodPressure blood_pressures={this.props.selectedPatient.health.blood_pressures}/>
+          <Pulse pulses={this.props.selectedPatient.health.pulses}/>
           <Weight weights={this.props.selectedPatient.health.weights}/>
+
 
         </div>
       </div>

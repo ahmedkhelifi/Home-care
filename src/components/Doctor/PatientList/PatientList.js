@@ -2,6 +2,10 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import Signup from './Signup';
+import Pulse from './Graphs/Pulse';
+import Temperature from './Graphs/Temperature';
+import Weight from './Graphs/Weight';
+import BoodPressure from './Graphs/BoodPressure';
 
 // import seachIcon from './images/search.png';
 // import emptyStar from './images/emptystar.png';
@@ -378,7 +382,7 @@ class PatientList extends React.Component {
               {(!isLoading && !noPatients && !patientForm && simpleMode && !this.state.patientClickedExpand) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
 
-                   <button className="button_dkg" style={{display: 'inline-block'}} onClick={(e) => this.addPatientForm(e)}>+ add</button>
+                   <button className="add_new_patient" onClick={(e) => this.addPatientForm(e)}>+ add new patient</button>
                     <input id='search-btn' type='checkbox'/>
                     <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>
@@ -405,7 +409,7 @@ class PatientList extends React.Component {
 
                  <div className="row" style={{boxShadow: '0 0 28px -16px #888888', marginBottom: '20px', padding : '20px 0', borderRadius: '30px'}}>
 
-                                <div className={"col-3"}>
+                                <div className={"col-2"}>
                                       <p>Name</p>
                                 </div>
                                   <div className={"col-2"}>
@@ -420,28 +424,34 @@ class PatientList extends React.Component {
                                 <div className={"col-2"}>
                                       <p>Blood Pressure</p>
                                 </div>
+                                <div className={"col-1"}>
+                                      <p>Status</p>
+                                </div>
 
                         {currentPatients.map((patient, i) => (
                                       <div className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient); this.toggle(i)} } >
                                           <div className="row" style={{cursor: 'pointer'}}>
-                                              <div className={"col-3"}>
+                                              <div className={"col-2"}>
                                                   <p>{patient.firstname + ' ' + patient.lastname}</p>
                                               </div>
                                                 <div className={"col-2"}>
-                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.temperature.temperature.length > 0 ? (<span>{patient.temperature.temperature[patient.temperature.temperature.length-1].temperature}</span>) : (<span>-</span>)}</p>
+                                                   <Temperature temperatures={patient.temperature.temperature} id={patient.addressid}/>
                                                 </div>
                                               <div className={"col-2"}>
                                                 <div className={"col-2"}>
-                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.pulse.pulse.length > 0 ? (<span>{patient.pulse.pulse[patient.pulse.pulse.length-1].pulse}</span>) : (<span>-</span>)}</p>
+                                                    <Pulse pulses={patient.pulse.pulse} id={patient.addressid}/>
                                                 </div>
                                               </div>
                                               <div className={"col-2"}>
                                                 <div className={"col-2"}>
-                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.weight.weight.length > 0 ? (<span>{patient.weight.weight[patient.weight.weight.length-1].weight}</span>) : (<span>-</span>)}</p>
+                                                    <Weight weights={patient.weight.weight} id={patient.addressid}/>
                                                 </div>
                                               </div>
                                               <div className={"col-2"}>
-                                                    <p style={{fontSize: '13px', paddingTop: '2px'}}>{patient.blood_pressure.blood_pressure.length > 0 ? (<span>{patient.blood_pressure.blood_pressure[patient.blood_pressure.blood_pressure.length-1].bloodpres_dia}/{patient.blood_pressure.blood_pressure[patient.blood_pressure.blood_pressure.length-1].bloodpres_sys}</span>) : (<span>-</span>)}</p>
+                                                    <BoodPressure blood_pressures={patient.blood_pressure.blood_pressure} id={patient.addressid}/>
+                                              </div>
+                                              <div className={"col-1"}>
+                                                    <p>Status</p>
                                               </div>
                                           </div>
                                       </div>
