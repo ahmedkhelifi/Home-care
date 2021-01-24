@@ -112,7 +112,7 @@ var option ={
       label: {
           show: true,
           position: 'top',
-          formatter: '{c}/min'//echarts selbst build in variable fuer valu
+          // formatter: '{c}/min'//echarts selbst build in variable fuer valu
           
       },　　
   }]
