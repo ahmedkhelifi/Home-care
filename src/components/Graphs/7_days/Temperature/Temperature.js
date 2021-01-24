@@ -32,7 +32,7 @@ export default class Temperature extends React.PureComponent {
   }
 
   create_graph = () => {
-    let history = this.props.temperatures.history;
+    let history = this.props.temperatures;
     let jsonData = {temperature: history}
       //  currentDate
       var currentDate = new Date();
