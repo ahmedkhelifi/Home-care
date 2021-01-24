@@ -484,29 +484,29 @@ function calculate_points_final(health, add_number){
    let temperature_points = 0
    points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.temperatures.missed.length * add_number
-   temperature_points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length * add_number
-   temperature_points += health.temperatures.missed.length * add_number
+   temperature_points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length
+   temperature_points += health.temperatures.missed.length
    health.detailed_final_step_points.temperature = temperature_points
    console.log('points after temperatures: ' + points)
    let weight_points = 0
    points += health.weights.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.weights.missed.length * add_number
-   weight_points += health.weights.history.filter(pulse => {return pulse.measured == false }).length * add_number
-   weight_points += health.weights.missed.length * add_number
+   weight_points += health.weights.history.filter(pulse => {return pulse.measured == false }).length
+   weight_points += health.weights.missed.length
    health.detailed_final_step_points.weight = weight_points
    console.log('points after weights: ' + points)
    let blood_pressure_points = 0
    points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.blood_pressures.missed.length * add_number
-   blood_pressure_points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length * add_number
-   blood_pressure_points += health.blood_pressures.missed.length * add_number
+   blood_pressure_points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length
+   blood_pressure_points += health.blood_pressures.missed.length
    health.detailed_final_step_points.blood_pressure = blood_pressure_points
    console.log('points after blood_pressures: ' + points)
    let pulse_points = 0
    points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.pulses.missed.length * add_number
-   pulse_points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
-   pulse_points += health.pulses.missed.length * add_number
+   pulse_points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length
+   pulse_points += health.pulses.missed.length
    health.detailed_final_step_points.pulse = pulse_points
    console.log('points pulses : ' + points)
 
