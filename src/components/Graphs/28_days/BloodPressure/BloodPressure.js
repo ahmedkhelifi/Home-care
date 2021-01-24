@@ -118,7 +118,7 @@ export default class BloodPressure extends React.PureComponent {
                         axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.max : 100
+                        min: extent => extent.min < 100  ? extent.min : 100
                         }, {
                         axisLine:{show:false},
                         axisLabel: {show: false},
@@ -126,7 +126,7 @@ export default class BloodPressure extends React.PureComponent {
                         axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.max : 70
+                        min: extent => extent.min < 70  ? extent.min : 70
                     }],
                     grid: [{
                         bottom: '60%'

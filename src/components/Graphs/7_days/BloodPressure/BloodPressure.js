@@ -26,10 +26,8 @@ export default class BloodPressure extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
       this.create_graph()
   }
-
     create_graph = ()  => {
                 //  currentDate
-
                 var currentDate = new Date();
                 // old7Datetimestample
                 var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
@@ -80,23 +78,31 @@ export default class BloodPressure extends React.PureComponent {
                         text: '(dia. ) blood pressure'
                     }],
                     xAxis: [{
+                        axisTick:{show:false},
                         data: timelist,
                         gridIndex: 0
                         }, 
                         {
+                        axisTick:{show:false},
                         data: timelist,
                         gridIndex: 1
                     }],
                     yAxis: [{
+                        axisLine:{show:false},
+                        axisLabel: {show: false},
                         splitLine: {show: false},
+                        axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.max : 100
+                        min: extent => extent.min < 100  ? extent.min : 100
                         }, {
+                        axisLine:{show:false},
+                        axisLabel: {show: false},
                         splitLine: {show: false},
+                        axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.max : 70
+                        min: extent => extent.min < 70  ? extent.min : 70
                     }],
                     grid: [{
                         bottom: '60%'
