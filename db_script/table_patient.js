@@ -958,7 +958,7 @@
 			{"bloodpres_dia": 137, "bloodpres_sys": 86, "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 138, "bloodpres_sys": 85, "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"bloodpres_dia": 133, "bloodpres_sys": 85, "timestamp": new Date(Date.now()).valueOf(), measured: true}
-			], "assigned_on": new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()},
+			], "assigned_on": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()},
 		{"temperature":[
 			{"temperature":37.0,"timestamp": new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
 			{"temperature":36.9,"timestamp": new Date(Date.now() - 27 * 24 * 60 * 60 * 1000).valueOf(), measured: true},
