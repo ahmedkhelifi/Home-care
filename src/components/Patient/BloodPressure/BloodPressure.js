@@ -102,27 +102,35 @@ export default class BloodPressure extends React.PureComponent {
                     }],
                     xAxis: [{
                         data: timelist,
-                        gridIndex: 0
+                        gridIndex: 0,
+                        axisTick:{show:false}
                         }, 
                         {
                         data: timelist,
-                        gridIndex: 1
+                        gridIndex: 1,
+                        axisTick:{show:false}
                     }],
                     yAxis: [{
+                        axisLine:{show:false},
+                        axisLabel: {show: false},
                         splitLine: {show: false},
+                        axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.max : 100
+                        min: extent => extent.min < 100  ? extent.min : 100
                         }, {
+                        axisLine:{show:false},
+                        axisLabel: {show: false},
                         splitLine: {show: false},
+                        axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.max : 70
+                        min: extent => extent.min < 70  ? extent.min : 70
                     }],
                     grid: [{
                         bottom: '60%'
                         }, {
-                        top: '60%'
+                        top: '70%'
                     }],
                     series: [{
                         type: 'line',
