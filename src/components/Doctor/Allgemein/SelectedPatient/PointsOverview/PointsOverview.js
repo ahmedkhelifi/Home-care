@@ -71,7 +71,7 @@ export default class PointsOverview extends React.PureComponent {
                       </span>
                       ) : (null)}
 
-                      { this.props.health.detailed_first_step_points.weight > 0 ? (
+                      { this.props.health.detailed_first_step_points.blood_pressure_low > 0 ? (
                       <span>
                         <p style={{color: 'black'}}>Weight</p>
                         {this.props.health.detailed_first_step_points.weight > 0 ? ( <p style={{fontSize: '15px', fontStyle: 'italic', marginTop: '-15px', paddingLeft: '20px'}} > - Weight change of more than 10% of total weight in the last 90 days <span style={{fontSize: '12px'}} > (3 points)</span>. </p>) : (null)}
