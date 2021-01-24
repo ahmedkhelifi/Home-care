@@ -66,12 +66,12 @@ function get_medication(health, medication){
 
 
 
-function get_temperature(health, temperature){
-    if(temperature.length === 0 ) {
-      let temperatures = {history: [], missed: [], pending: []}
-      health.temperatures = temperatures
-      return health
-    }
+function get_temperature(health, temperature, assigned_on){
+    // if(temperature.length === 0 ) {
+    //   let temperatures = {history: [], missed: [], pending: []}
+    //   health.temperatures = temperatures
+    //   return health
+    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -80,9 +80,9 @@ function get_temperature(health, temperature){
 
 
 
-      let till_when = temperature.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      // let till_when = temperature.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
 
-      till_when = Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1 //Number(till_when.timestamp) - 1
       //calculate intervals and save them in array as int
 
       while (till_when  <= date_now){
@@ -126,15 +126,16 @@ function get_temperature(health, temperature){
       health.temperatures  = temperatures
            console.log(missed)
 
+  console.log(assigned_on)
   return health
 }
 
-function get_weight(health, weight){
-    if(weight.length === 0 ) {
-      let weight = {history: [], missed: [], pending: []}
-      health.weights = weight
-      return health
-    }
+function get_weight(health, weight, assigned_on){
+    // if(weight.length === 0 ) {
+    //   let weight = {history: [], missed: [], pending: []}
+    //   health.weights = weight
+    //   return health
+    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -143,9 +144,9 @@ function get_weight(health, weight){
 
 
 
-      let till_when = weight.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      // let till_when = weight.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
 
-      till_when = Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
       //calculate intervals and save them in array as int
 
       while (till_when  <= date_now){
@@ -191,12 +192,12 @@ function get_weight(health, weight){
   return health
 }
 
-function get_pulse(health, pulse){
-    if(pulse.length === 0 ) {
-      let pulse = {history: [], missed: [], pending: []}
-      health.pulses = pulse
-      return health
-    }
+function get_pulse(health, pulse, assigned_on){
+    // if(pulse.length === 0 ) {
+    //   let pulse = {history: [], missed: [], pending: []}
+    //   health.pulses = pulse
+    //   return health
+    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -205,8 +206,8 @@ function get_pulse(health, pulse){
 
 
 
-      let till_when = pulse.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
-      till_when = Number(till_when.timestamp) - 1
+      // let till_when = pulse.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
       //calculate intervals and save them in array as int
 
       while (till_when  <= date_now){
@@ -252,12 +253,12 @@ function get_pulse(health, pulse){
   return health
 }
 
-function get_blood_pressure(health, blood_pressure){
-    if(blood_pressure.length === 0 ) {
-      let blood_pressure = {history: [], missed: [], pending: []}
-      health.blood_pressures = blood_pressure
-      return health
-    }
+function get_blood_pressure(health, blood_pressure, assigned_on){
+    // if(blood_pressure.length === 0 ) {
+    //   let blood_pressure = {history: [], missed: [], pending: []}
+    //   health.blood_pressures = blood_pressure
+    //   return health
+    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -266,9 +267,9 @@ function get_blood_pressure(health, blood_pressure){
 
 
 
-      let till_when = blood_pressure.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
+      // let till_when = blood_pressure.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
 
-      till_when = Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
       //calculate intervals and save them in array as int
 
       while (till_when  <= date_now){

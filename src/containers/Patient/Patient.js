@@ -91,12 +91,8 @@ export default class Patient extends React.PureComponent {
       if(med.pending.length > 0) finishedTasks.pending =  true
     })
 
-    console.log(blob)
-
     if(blob.temperatures.pending.length > 0) finishedTasks.pending = true
     if(blob.temperatures.missed.length > 0) finishedTasks.missed = true
-
-      console.log(blob)
 
     if(blob.blood_pressures.pending.length > 0) finishedTasks.pending = true
     if(blob.blood_pressures.missed.length > 0) finishedTasks.missed = true
@@ -107,6 +103,8 @@ export default class Patient extends React.PureComponent {
     if(blob.pulses.pending.length > 0) finishedTasks.pending = true
     if(blob.pulses.missed.length > 0) finishedTasks.missed = true
    
+   if(this.is_there_missed_med().pending) finishedTasks.pending = true
+    if(this.is_there_missed_med().missed) finishedTasks.missed = true
 
     return finishedTasks
   }
@@ -117,6 +115,18 @@ export default class Patient extends React.PureComponent {
     if (index !== -1 && index !== undefined) 
       pendingMedication.splice(index, 1);
       this.setState({ pendingMedication: pendingMedication })
+  }
+
+  is_there_missed_med = () => {
+    let bool_missed = false
+    let bool_pending = false
+
+    this.state.medication.forEach( med => {
+      if(med.pending.length > 0) bool_pending = true
+      if(med.missed.length > 0) bool_missed = true
+    })
+
+    return {missed: bool_missed, pending: bool_pending}
   }
 
   render() {
@@ -157,12 +167,12 @@ export default class Patient extends React.PureComponent {
       </div>
 
         
-            {!this.state.finishedTasks.missed && !this.state.finishedTasks.pending ? (
+            {/*!this.state.finishedTasks.missed && !this.state.finishedTasks.pending ? (
             <div className="patient_health_status">
               <h3 className="patient_status">your  health status is <span style={{color: this.state.backgroundColor}}>stable</span>.</h3>
               <p className="patient_status_task">You have completed all your tasks for today</p>
             </div>
-            ) : (null)}
+            ) : (null)*/}
 
             {this.state.finishedTasks.missed > 0 ? (
             <div className="patient_health_status" style={{backgroundColor: '#ff918ba6'}}>
@@ -189,7 +199,9 @@ export default class Patient extends React.PureComponent {
             <div className=" patient_task_buble" onClick={e => this.setState({medication_bool: true})}>
               <img  src={Tasks_pill} alt="logout" className="tasks_pill" />
               <p className="patient_tasks_title"> Medication</p>
-              <p  className="patient_tasks_subtitle" style={{color: 'red'}}> pending not correct :D</p>
+              {this.is_there_missed_med().missed ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
+              {!this.is_there_missed_med().missed &&  this.is_there_missed_med().pending ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
+              {!this.is_there_missed_med().missed &&  !this.is_there_missed_med().pending ? ( <p  className="patient_tasks_subtitle"> Task completed</p>) : (null)}
             </div>
           </div>
         </div>

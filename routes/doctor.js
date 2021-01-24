@@ -97,9 +97,9 @@ router.get('/getPatients/health/risk', (req, res) => {
       console.log(user. firstname)
       
       if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
-      if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature)
-      if(user.weight != null) health = PatientLogic.get_weight(health, user.weight.weight)
-      if(user.pulse != null) health = PatientLogic.get_pulse(health, user.pulse.pulse)
+      if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature, user.temperature.assigned_on)
+      if(user.weight != null) health = PatientLogic.get_weight(health, user.weight.weight, user.weight.assigned_on)
+      if(user.pulse != null) health = PatientLogic.get_pulse(health, user.pulse.pulse, user.pulse.assigned_on)
       if(user.blood_pressure != null) health = PatientLogic.get_blood_pressure(health, user.blood_pressure.blood_pressure, user.blood_pressure.assigned_on)
 
 
