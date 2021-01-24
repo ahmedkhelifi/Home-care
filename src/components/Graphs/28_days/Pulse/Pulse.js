@@ -17,14 +17,6 @@ export default class Pulse extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      pendingMedication:        this.props.pendingMedication,
-      confirmPopupPending:      false,
-      confirmPopupMissed:       false,
-      popupMissedTimestampFrom: '',
-      popupMissedTimestampTo:   '',
-      history_bool:             false,
-    };
   }
 
 
