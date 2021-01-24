@@ -138,7 +138,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.medication_bool) {
-      return(<Medication  medication={this.state.medication}  missedMedication={this.state.missedMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) } get_health={this.get_health}/>)
+      return(<Medication  medication={this.state.medication}  missedMedication={this.state.missedMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) } get_health={this.get_health} is_there_missed_med={this.is_there_missed_med}/>)
     }
 
     if(this.state.temprature_bool) {
