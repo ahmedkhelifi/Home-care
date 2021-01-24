@@ -32,6 +32,10 @@ export default class Pulse extends React.PureComponent {
     window.scrollTo({ top: 0 });
     this.create_graph()
   }
+  componentDidUpdate(prevProps, prevState) {
+      this.create_graph()
+  }
+
 
    create_graph = ()  => {
         var currentDate = new Date();
