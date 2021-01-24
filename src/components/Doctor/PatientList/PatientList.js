@@ -2,6 +2,8 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import Signup from './Signup';
+import PatientProfile from '../PatientProfile';
+
 import Pulse from './Graphs/Pulse';
 import Temperature from './Graphs/Temperature';
 import Weight from './Graphs/Weight';
@@ -41,9 +43,7 @@ class PatientList extends React.Component {
             simpleMode: true,
             
             patientClicked: {},
-            patientClickedExpand: false,
-
-            patientsClicked: [],
+            patientClickedBool: false,
 
             active: null,
             actives: [],
@@ -58,12 +58,6 @@ class PatientList extends React.Component {
             currentPage: 1,
             sort: "alphabetisch",
 
-            sync:  false,
-            sync_loaded: false,
-            sync_log:   false,
-            showLog: false,
-            sync_response: {},
-
             showSearch: false,
             search: '', 
 
@@ -76,16 +70,13 @@ class PatientList extends React.Component {
         this.closesignup             = this.closesignup.bind(this);
         this.patientClicked          = this.patientClicked.bind(this);
         this.timeSince               = this.timeSince.bind(this);
-        this.toggle                  = this.toggle.bind(this);
         this.myColor                 = this.myColor.bind(this);
         this.handlePageChange        = this.handlePageChange.bind(this);
         this.sort                    = this.sort.bind(this);
-        this.sync                    = this.sync.bind(this);
         this.admin_display           = this.admin_display.bind(this);
         this.handleSearchChange      = this.handleSearchChange.bind(this);
         this.clearSearch             = this.clearSearch.bind(this);
         this.timeConverter           = this.timeConverter.bind(this)
-        this.handlePatientClickedExpand = this.handlePatientClickedExpand.bind(this);
 
     }
 
@@ -122,35 +113,12 @@ class PatientList extends React.Component {
 
   patientClicked(e, patient){
       //select different patient
-      this.setState({ patientClicked: patient, patientsClicked: [], loadMultipleClicked: false, actives: [] });
+      this.setState({ patientClicked: patient, patientClickedBool: true });
   }
 
   timeSince(UNIX_timestamp) {
     var date = new Date(Number(UNIX_timestamp));
     return ( date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()  ).toString();
-  }
-
-  toggle (position){
-    if(!this.state.loadMultipleClicked){
-        if (this.state.active === position) {
-          this.setState({active : null, actives: []})
-        } else {
-          this.setState({active : position, actives: []})
-        }
-    } else {
-
-      var temp = [...this.state.actives]
-      for(var i = 0; i < temp.length; i++) {
-            if(temp[i] === position) {
-              temp.splice(i, 1);
-              this.setState({actives: temp, active: null})
-              return;
-            }
-      }
-      
-      this.state.actives.push(position)
-        // this.setState({active : null})
-    }
   }
 
   myColor(position) {
@@ -203,41 +171,6 @@ class PatientList extends React.Component {
       }
   }
 
-  sync(e){
-    this.setState({sync : true})
-
-        fetch('/api/sync')
-            .then(blob => blob.json())
-            .then(
-                (blob) => {
-                    this.setState({sync_response: blob, sync_loaded: true, sync: false}, () => {
-                        fetch('/api/patient/')
-                        .then(blob => blob.json())
-                        .then(
-                            (blob) => {
-                                this.setState({ patients: blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; }), isLoaded: true, currentPage: 1 });
-                                if (blob.length > 0)
-                                    this.setState({ noPatients: false });
-                            },
-                            // Note: it's important to handle errors here
-                            // instead of a catch() block so that we don't swallow
-                            // exceptions from actual bugs in components.
-                            (error) => {
-                                this.setState({
-                                    isLoaded: true,
-                                    error
-                                });
-                            }
-                        )
-                    })
-                    console.log(blob)
-                    if(blob.new_sync > 0 || blob.modified > 0){
-                      this.setState({sync_log: true})
-                    }
-                }
-            )
-  }
-
   admin_display(){
     if(!this.state.admin_display)
       return "col-4 half_transparent"
@@ -258,10 +191,6 @@ class PatientList extends React.Component {
     return time;
   }
 
-  handlePatientClickedExpand(){
-    this.setState({patientClickedExpand: !this.state.patientClickedExpand})
-  }
-
   addPatientForm(){
     this.setState({ patientForm: true, patients: [] });
   }
@@ -272,11 +201,9 @@ class PatientList extends React.Component {
 
   render() {
 
-        if(this.state.patientForm){
+        if(this.state.patientClickedBool){
           return (
-              <div className="container-fluid">
-                <Signup handleConsultationStart={this.handleConsultationStart} closesignup={this.closesignup} />
-              </div>
+              <PatientProfile selectedPatient={this.state.patientClicked} goBack={e => this.setState({patientClickedBool: false})} />
             )
         }
 
@@ -353,7 +280,7 @@ class PatientList extends React.Component {
              <div className="row"  style={{marginLeft: '0'}}>
 
               <div className="col-8" style={{marginBottom: '20px', marginLeft: '-10px'}}>
-                {!this.state.patientClickedExpand ? (<h3>Patients</h3>) : (null)}
+                <h3>Patients</h3>
               </div>
 
               {isLoading ? (<div><p>Loading user...</p></div>)
@@ -429,10 +356,10 @@ class PatientList extends React.Component {
                                 </div>
 
                         {currentPatients.map((patient, i) => (
-                                      <div className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient); this.toggle(i)} } >
+                                      <div className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient)} } >
                                           <div className="row" style={{cursor: 'pointer'}}>
                                               <div className={"col-2"}>
-                                                  <p>{patient.firstname + ' ' + patient.lastname}</p>
+                                                  <p style={{marginTop: '60px'}} >{patient.firstname + ' ' + patient.lastname}</p>
                                               </div>
                                                 <div className={"col-2"}>
                                                    <Temperature temperatures={patient.temperature.temperature} id={patient.addressid}/>
@@ -451,7 +378,9 @@ class PatientList extends React.Component {
                                                     <BoodPressure blood_pressures={patient.blood_pressure.blood_pressure} id={patient.addressid}/>
                                               </div>
                                               <div className={"col-1"}>
-                                                    <p>Status</p>
+                                                  {patient.health.points <= 2 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: 'green'}} >green</span> </p>) : null}
+                                                  {patient.health.points === 3 || patient.health.points === 4 || patient.health.points === 5 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: '#ffc459'}} >orange</span> </p>) : null}
+                                                  {patient.health.points > 5 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: 'red'}} >red</span> </p>) : null}
                                               </div>
                                           </div>
                                       </div>

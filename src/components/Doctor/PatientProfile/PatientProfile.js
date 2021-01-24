@@ -69,6 +69,7 @@ export default class PatientProfile extends React.PureComponent {
       return (
       <div className="row">
         <div className="col-12">
+          <p className="goback" onClick={() => this.props.goBack() }> &#10230;</p>
           <p style={{marginTop: '10px', fontSize: '19px', fontWeight: 'bold'}} >{this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname}</p>
 
           <p style={{marginTop: '10px', fontSize: '19px'}} >Medication:</p>
@@ -92,7 +93,7 @@ export default class PatientProfile extends React.PureComponent {
                   <p style={{color: 'black'}}>Missed dates:</p>
                   <div className="row gray_background_radius_scroll">
                     {this.getMissed(med).map(obj => {return (
-                      <p> - Missed from {this.beautify_timestamp(obj.from)} to {this.beautify_timestamp(obj.from)}. </p>
+                      <p> - Missed on {this.beautify_timestamp(obj.from)}. </p>
                     )})}
                   </div>
                 </div>

@@ -6261,7 +6261,23 @@ body {
 
 
 
+.user_cion_next_to_name {
+     width: 30px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: -8px;
+}
 
+.goback {
+     transform: rotate(180deg);
+    cursor: pointer;
+    color: rgb(74, 122, 173);
+    font-size: 20px;
+    font-weight: 100;
+    /* float: left; */
+    margin-bottom: 70px;
+    display: block;
+}
 
 
 

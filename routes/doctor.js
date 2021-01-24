@@ -5,9 +5,43 @@ const encryptPassword = require('encrypt-password');
 const PatientLogic = require("./patient_health.js");
 
 router.get('/getPatients', (req, res) => {
-  Patient.retrieveAll((err, users) => {
-    if (err)
-      return res.json(err);
+  Patient.retrieveAll((users) => {
+
+    users.forEach( user => {
+      let health = {medication: {}}
+      
+      if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
+      if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature)
+      if(user.weight != null) health = PatientLogic.get_weight(health, user.weight.weight)
+      if(user.pulse != null) health = PatientLogic.get_pulse(health, user.pulse.pulse)
+      if(user.blood_pressure != null) health = PatientLogic.get_blood_pressure(health, user.blood_pressure.blood_pressure, user.blood_pressure.assigned_on)
+
+
+      let first_step_points
+      let medication_points
+
+      if(health != undefined ) {
+        health.detailed_first_step_points = {}
+        first_step_points = PatientLogic.calculate_points_first_Step(health)
+        health.first_step_points = first_step_points
+      }
+      if(health != undefined ) {
+        health.detailed_final_step_points = {}
+        if(first_step_points <= 1)  
+          medication_points = PatientLogic.calculate_points_final(health, 1)
+        if(first_step_points == 2 || first_step_points == 3)  
+          medication_points = PatientLogic.calculate_points_final(health, 2)
+        if(first_step_points > 3)  
+          medication_points = PatientLogic.calculate_points_final(health, 3)
+      }
+
+      if(health != undefined ) health.points = first_step_points + medication_points
+
+      user.health = health
+
+      delete user['password']
+    })
+
     return res.json(users);
   });
 });

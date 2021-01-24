@@ -203,7 +203,7 @@ class Allgemein extends React.Component {
       )
     } else if(this.state.patient_profile_bool) {
       return (
-        <PatientProfile patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} closeProfile={e =>this.setState({patient_profile_bool: false})} />
+        <PatientProfile patientSelectedBool={this.state.patientSelectedBool} selectedPatient={this.state.selectedPatient} goBack={e =>this.setState({patient_profile_bool: false})}  />
       )
     }
   }
