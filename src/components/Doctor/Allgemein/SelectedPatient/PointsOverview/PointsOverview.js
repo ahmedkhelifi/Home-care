@@ -20,7 +20,7 @@ export default class PointsOverview extends React.PureComponent {
   }
 
   was_this_med_missed = (med) => {
-    if (med.missed.length.length > 0) return true
+    if (med.missed.length > 0) return true
     if (med.history.filter( entry => {return !entry.measured}).length > 0 ) return true
 
     return false
