@@ -92,7 +92,7 @@ export default class Temperature extends React.PureComponent {
                       color:  'black',
                       title: { 
                           left: 'center',
-                          text: 'Temperature last 7 Days' },
+                          text: 'Temperature last 7 days in °C' },
                       xAxis: {
                           data: timelist,
                           
@@ -130,7 +130,7 @@ export default class Temperature extends React.PureComponent {
                               },
                               show: true,
                               position: 'inside',
-                              formatter: '{c}°C'//echarts selbst build in variable fuer valu
+                              //formatter: '{c}°C'//echarts selbst build in variable fuer valu
                               
                           },
                           markLine : {
@@ -149,7 +149,7 @@ export default class Temperature extends React.PureComponent {
                                               fontSize: "8",
                                           },
                                          position:'start',
-                                         formatter:"37.5°C"
+                                         formatter:"37.5"
                                      },
                                      yAxis:37.5    
                                     
@@ -167,7 +167,7 @@ export default class Temperature extends React.PureComponent {
                                           fontSize: "8",
                                       },
                                          position:'start',
-                                         formatter:"36.5 °C",
+                                         formatter:"36.5",
                                      },
                                      yAxis:36.5
                                

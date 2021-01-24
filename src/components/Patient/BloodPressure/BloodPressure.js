@@ -94,11 +94,11 @@ export default class BloodPressure extends React.PureComponent {
                 var option = {
                     title: [{
                         left: 'center',
-                        text: '(sys.) blood pressure'
+                        text: '(sys.) blood pressure in mmHg'
                         }, {
                         top: '55%',
                         left: 'center',
-                        text: '(dia. ) blood pressure'
+                        text: '(dia. ) blood pressure in mmHg'
                     }],
                     xAxis: [{
                         data: timelist,

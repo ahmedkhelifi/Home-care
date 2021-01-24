@@ -91,7 +91,7 @@ var option ={
   color: '#800000',
   title: { 
       left: 'center',
-      text: 'pulse last 7 Days' },
+      text: 'pulse last 7 days in per minute' },
   xAxis: {
       data: timelist,
       

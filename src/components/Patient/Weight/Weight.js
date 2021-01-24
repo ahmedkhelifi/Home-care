@@ -111,7 +111,7 @@ export default class Weight extends React.PureComponent {
 
                     title: { 
                         left: 'center',
-                        text: 'Weight last 7 Days'
+                        text: 'Weight last 7 days in kg'
                     },
                     legend: {
                         top:"6%",
