@@ -32,7 +32,7 @@ export default class Temperature extends React.PureComponent {
   }
 
   create_graph = () => {
-    let history = this.props.temperatures.history;
+    let history = this.props.temperatures;
     let jsonData = {temperature: history}
       //  currentDate
       var currentDate = new Date();
@@ -230,15 +230,13 @@ export default class Temperature extends React.PureComponent {
   render() {
 
     return (
-    <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px',borderRadius: '7px'}}>
-           <div className="patient_health_status_doctor" style={{marginTop: '50px'}}>
+    <div className="patient_health_status" style={{marginTop: '50px'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12'>
                  <div id="history_graph" style={{ width:'100%', minHeight: '400px' }}></div>
               </div>
             </div>
            </div>
-    </div>
     );
   }
 }

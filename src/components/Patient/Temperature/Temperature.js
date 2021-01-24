@@ -3,6 +3,8 @@ import Confirmation from './Confirmation';
 import MissedConfirmation from './MissedConfirmation';
 import History from './History';
 
+import TemperatureGraph from '../../Graphs/7_days/Temperature';
+
 // import ECharts
 import echarts from 'echarts/lib/echarts';
 import  'echarts/lib/chart/bar';
@@ -307,7 +309,7 @@ export default class Temperature extends React.PureComponent {
                      <div className="patient_health_status" style={{marginTop: '40px', backgroundColor: '#ff00000a'}}>
                        <div className="row">
                         <div className="col-9">
-                                <p className="" style={{fontSize: '18px'}}>Temprature from {this.beautify_timestamp(missed_temp.from)} to {this.beautify_timestamp(missed_temp.to)} not taken</p>
+                                <p className="" style={{fontSize: '18px'}}>Temprature on {this.beautify_timestamp(missed_temp.from)} not measured.</p>
                         </div>
                         <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true,popupMissedTimestampFrom: this.beautify_timestamp(missed_temp.from), popupMissedTimestampTo: this.beautify_timestamp(missed_temp.to), popupMissedTimestamp: ( (Number(missed_temp.to)+ Number(missed_temp.from) ) / 2 )  })}> 
                           <span className="go">&#10230;</span>
@@ -321,6 +323,10 @@ export default class Temperature extends React.PureComponent {
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
 
           {this.props.temperature.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
+
+          <TemperatureGraph temperatures={this.props.temperature}  />
+
+        {/*
            <div className="patient_health_status" style={{marginTop: '50px'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12'>
@@ -328,6 +334,7 @@ export default class Temperature extends React.PureComponent {
               </div>
             </div>
            </div>
+        */}
 
 
     </div>
