@@ -92,9 +92,7 @@ export default class Medication extends React.PureComponent {
              <div className="row">
               <div className="col-12">
                       <h3 className="patient_status">My Medication</h3>
-              {this.props.is_there_missed_med().missed ? (<p  className="patient_tasks_subtitle" style={{color: 'red'}}>Missed tasks</p>) : (null)}
-              {!this.props.is_there_missed_med().missed &&  this.props.is_there_missed_med().pending ? (<p  className="patient_tasks_subtitle" style={{color: '#f58900'}}>Pending task</p>) : (null)}
-              {!this.props.is_there_missed_med().missed &&  !this.props.is_there_missed_med().pending ? (<p className="patient_status_task">You have completed all your tasks for today</p>) : (null)}
+                      {this.props.missedMedication ? (<p className="patient_status_task" style={{color: 'red'}}>You have some opened Tasks..</p>) : (<p className="patient_status_task">You have completed all your tasks for today</p>)}
                       
               </div>
             </div>
