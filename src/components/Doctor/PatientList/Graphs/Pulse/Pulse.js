@@ -77,14 +77,55 @@ class Pulse extends Component {
                         splitLine: {show: false},
                         axisTick: {show: false},
                         type: 'value' ,
-                        min: extent => extent.min <=30 ? extent.min-5 : 30,
-                        // max: extent => extent.max >130 ? extent.max+1 : 130
+                        min: extent => extent.min <=60 ? extent.min-5 : 50,
+                        max: extent => extent.max >90 ? extent.max+1 : 92
                     },
                     series: [{
                         connectNulls: true,
                         name: 'pulse',
                         type: 'line',
                         data: templist,
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                 
+        
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fonttemperature: "bolder",
+                                         color:  'black',
+                                         fontSize: "4",
+                                     },
+                                    position:'start',
+                                    formatter:"90"
+                                },
+                                yAxis:90  
+                               
+                            },
+                            {
+ 
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"green",
+                                },
+                                label:{
+                                 textStyle: {
+                                     fonttemperature: "bolder",
+                                     color:  'black',
+                                     fontSize: "4",
+                                 },
+                                    position:'start',
+                                    formatter:"60 ",
+                                },
+                                yAxis:60   
+                          
+                            }
+                            ]
+                        }　　
                     }]
                 }
 

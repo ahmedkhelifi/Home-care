@@ -116,8 +116,6 @@ var option ={
                     markLine : {
                            symbol:"none",
                            data : [{
-                                
-       
                                lineStyle:{               //警戒线的样式  ，虚实  颜色
                                    type:"solid",
                                    color:"#FA3934",
@@ -126,10 +124,10 @@ var option ={
                                     textStyle: {
                                         fonttemperature: "bolder",
                                         color:  'black',
-                                        fontSize: "8",
+                                        fontSize: "4",
                                     },
-                                   position:'start',
-                                   formatter:"37.5°C"
+                                   position:'left',
+                                   formatter:"37.5"
                                },
                                yAxis:37.5     
                               
@@ -144,10 +142,10 @@ var option ={
                                 textStyle: {
                                     fonttemperature: "bolder",
                                     color:  'black',
-                                    fontSize: "8",
+                                    fontSize: "4",
                                 },
-                                   position:'start',
-                                   formatter:"36.5 °C",
+                                   position:'left',
+                                   formatter:"36.5 ",
                                },
                                yAxis:36.5    
                          
