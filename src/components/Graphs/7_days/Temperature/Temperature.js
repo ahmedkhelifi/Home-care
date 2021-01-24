@@ -32,15 +32,13 @@ export default class Temperature extends React.PureComponent {
   }
 
   create_graph = () => {
-    let history = this.props.temperatures;
+    let history = this.props.temperatures.history;
     let jsonData = {temperature: history}
       //  currentDate
       var currentDate = new Date();
       // old7Datetimestample
-      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-      //console.log(days7before)    
+      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
       var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
-      console.log(truejsonData)
 
 
       function timeformater(ts){
@@ -75,7 +73,7 @@ export default class Temperature extends React.PureComponent {
                       color:  'black',
                       title: { 
                           left: 'center',
-                          text: 'Temperature last 7 Days' },
+                          text: 'Temperature last 7 Days in °C' },
                       xAxis: {
                           data: timelist,
                           
@@ -113,7 +111,7 @@ export default class Temperature extends React.PureComponent {
                               },
                               show: true,
                               position: 'inside',
-                              formatter: '{c}°C'//echarts selbst build in variable fuer valu
+                              formatter: '{c}'//echarts selbst build in variable fuer valu
                               
                           },
                           markLine : {
@@ -232,13 +230,15 @@ export default class Temperature extends React.PureComponent {
   render() {
 
     return (
-    <div className="patient_health_status" style={{marginTop: '50px'}}>
+    <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px',borderRadius: '7px'}}>
+           <div className="patient_health_status_doctor" style={{marginTop: '50px'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12'>
                  <div id="history_graph" style={{ width:'100%', minHeight: '400px' }}></div>
               </div>
             </div>
            </div>
+    </div>
     );
   }
 }

@@ -112,7 +112,7 @@ export default class Weight extends React.PureComponent {
 
                     title: { 
                         left: 'center',
-                        text: 'Weight last 7 Days'
+                        text: 'Weight last 7 days in kg'
                     },
                     legend: {
                         top:"6%",
@@ -149,7 +149,7 @@ export default class Weight extends React.PureComponent {
                             show: true,
                             position: 'inside',
                             formatter: function(params){
-                                return (params.value*10).toFixed(2) +'kg'
+                                return (params.value*10).toFixed(2) 
                             }                     
                         },     
                     },
@@ -167,7 +167,7 @@ export default class Weight extends React.PureComponent {
                             show: true,
                             position: 'inside',
                             formatter: function(params){
-                                return (params.value/10).toFixed(2) +'kg'
+                                return (params.value/10).toFixed(2) 
                             }
 
                         },     
