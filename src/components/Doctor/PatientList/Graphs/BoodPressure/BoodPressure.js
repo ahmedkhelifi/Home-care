@@ -115,12 +115,6 @@ class BoodPressure extends Component {
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
                         }, {
                         connectNulls: true,
                         type: 'line',
@@ -128,13 +122,8 @@ class BoodPressure extends Component {
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                    }]
+                        }
+                        ]
                 };
 
         var myChart = echarts.init(document.getElementById("blood_pressure"+this.props.id));

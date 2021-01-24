@@ -69,11 +69,6 @@ class Weight extends Component {
                 })
 
                 var option ={
-
-                                title: { 
-                                    left: 'center',
-                                    text: 'Weight last 7 Days'
-                                },
                                 tooltip: {
                                     trigger: 'axis',
                                     position: function (pt) {

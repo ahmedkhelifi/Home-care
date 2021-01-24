@@ -65,7 +65,7 @@ export default class Temperature extends React.PureComponent {
         var templist=new Array(28);
         truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
             let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-            if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+            if(i>-1&&item.measured!==false){//wenn an dem Tag etwas in DB erschienen 
                 templist[i]=item.temperature  
                 // wenn measured nicht false dann ersetzt die richtige weight dadrauf
             }
@@ -109,14 +109,17 @@ export default class Temperature extends React.PureComponent {
                 data: templist,
                 itemStyle:{
                   normal:{
-                      color:function(params){
-                          if(params.value <36.5){
-                              return "#FFA500";
-                          }else if(params.value >=36.5 && params.value<=37.5){
-                              return "#32CD32";
-                          }
-                          return "#DC143C";
-                      }
+                    color:function(params){
+                        if(params.value >37.5){
+                            return "#DC143C";
+                        }
+                        else if(params.value >=36.5 && params.value<=37.5){
+                            return "#32CD32";
+                        }
+                        else if(params.value<36.5) {return "#FFA500";
+                        }
+                        else return 'black';
+                    }
                   }
               },
                 // label: {
