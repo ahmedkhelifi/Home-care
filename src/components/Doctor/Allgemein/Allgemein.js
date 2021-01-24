@@ -144,7 +144,9 @@ class Allgemein extends React.Component {
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_temperature} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor"> Temperature</p>
-                                           {patient.health.temperatures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[0].temperature} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
+                                           {patient.health.temperatures.history[patient.health.temperatures.history.length - 1].temperature !== ""
+												? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[patient.health.temperatures.history.length - 1].temperature} </p>) 
+												: (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
@@ -154,7 +156,7 @@ class Allgemein extends React.Component {
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_blood_pressure} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor" style={{marginTop: '-12px'}} > Blood Pressure</p>
-                                           {patient.health.blood_pressures.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.blood_pressures.history[0].bloodpres_dia}/{patient.health.blood_pressures.history[0].bloodpres_sys} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
+                                           {patient.health.blood_pressures.history[patient.health.blood_pressures.history.length -1].bloodpres_dia !== ""? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.blood_pressures.history[patient.health.blood_pressures.history.length -1].bloodpres_dia}/{patient.health.blood_pressures.history[0].bloodpres_sys} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
@@ -164,7 +166,7 @@ class Allgemein extends React.Component {
                                         <div className=" patient_task_buble_doctor">
                                           <img  src={Tasks_heart_rate} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor"> Pulse</p>
-                                           {patient.health.pulses.history.length > 0 ? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.pulses.history[0].pulse} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
+                                           {patient.health.pulses.history[patient.health.pulses.history.length - 1].pulse !== ""? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.pulses.history[patient.health.pulses.history.length - 1].pulse} </p>) : (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>

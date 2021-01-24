@@ -430,10 +430,12 @@ function calculate_points_first_Step(health){
   temperature_history.forEach(temperature => {
     if( (temperature.temperature >=36 && temperature.temperature <=36.4) || (temperature.temperature >=37.6 && temperature.temperature <=38.5) ) {
       points += 1 
-      points += 1 
+     // points += 1 
+	 temperature_points_low += 1 
     }
     if(temperature.temperature <36 || temperature.temperature > 38.5) {
-      temperature_points_low += 2 
+      //temperature_points_low += 2 
+	  points += 2
       temperature_points_high += 1 
     }
   })
