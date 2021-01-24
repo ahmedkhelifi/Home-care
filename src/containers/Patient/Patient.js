@@ -102,9 +102,11 @@ export default class Patient extends React.PureComponent {
 
     if(blob.pulses.pending.length > 0) finishedTasks.pending = true
     if(blob.pulses.missed.length > 0) finishedTasks.missed = true
-   
-   if(this.is_there_missed_med().pending) finishedTasks.pending = true
-    if(this.is_there_missed_med().missed) finishedTasks.missed = true
+
+    blob.medication.forEach( med => {
+      if(med.pending.length > 0) finishedTasks.pending = true
+      if(med.missed.length > 0) finishedTasks.missed = true
+    })
 
     return finishedTasks
   }
@@ -138,7 +140,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.medication_bool) {
-      return(<Medication  medication={this.state.medication}  missedMedication={this.state.missedMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) } get_health={this.get_health}/>)
+      return(<Medication  medication={this.state.medication}  missedMedication={this.state.missedMedication} username={this.props.user.username} removeMedFromPending={this.removeMedFromPending} backToDashboard={e => this.setState({medication_bool: false}) } get_health={this.get_health} is_there_missed_med={this.is_there_missed_med}/>)
     }
 
     if(this.state.temprature_bool) {
@@ -182,7 +184,7 @@ export default class Patient extends React.PureComponent {
             ) : (null)}
 
             {this.state.finishedTasks.pending > 0 && !this.state.finishedTasks.missed ? (
-            <div className="patient_health_status">
+            <div className="patient_health_status" style={{backgroundColor: '#ffc459a1'}}>
               <h3 className="patient_status">You have some pending tasks for today.</h3>
               <p className="patient_status_task">Make sure you add  your data at the right time!</p>
             </div>
