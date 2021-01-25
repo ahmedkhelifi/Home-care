@@ -317,10 +317,7 @@ export default class Temperature extends React.PureComponent {
                 </div>
       )})}
 
-
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
-
-          {this.props.temperature.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
            <div className="patient_health_status" style={{marginTop: '50px'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12'>
