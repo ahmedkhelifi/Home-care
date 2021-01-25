@@ -8,6 +8,7 @@ import Login         from  '../../components/Login';
 import Allgemein     from  '../../components/Doctor/Allgemein';
 import PatientList     from  '../../components/Doctor/PatientList';
 import AdminSidebar     from  '../../components/Doctor/AdminSidebar';
+import Chat     from  '../../components/Doctor/Chat';
 
 import './style.css';
 
@@ -54,6 +55,9 @@ export default class UserDashboard extends React.PureComponent {
             case "PatientList": 
                this.setState({ openedTab: 'PatientList'});
                break;
+            case "Chat": 
+               this.setState({ openedTab: 'Chat'});
+               break;
 
             default:
                this.setState({ openedTab: 'Allgemein'});
@@ -90,8 +94,9 @@ export default class UserDashboard extends React.PureComponent {
 
                       <div className="content">
 
-                          {this.state.openedTab === 'Allgemein'        ? (<Allgemein    refresh={this.state.refresh} />) : (null)}
-                          {this.state.openedTab === 'PatientList'      ? (<PatientList     refresh={this.state.refresh} />) : (null)}
+                          {this.state.openedTab === 'Allgemein'        ? (<Allgemein  />) : (null)}
+                          {this.state.openedTab === 'PatientList'      ? (<PatientList  />) : (null)}
+                          {this.state.openedTab === 'Chat'             ? (<Chat     />) : (null)}
 
 
                       </div>
