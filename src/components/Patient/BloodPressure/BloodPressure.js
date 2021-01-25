@@ -116,7 +116,7 @@ export default class BloodPressure extends React.PureComponent {
              <div className="row">
               <div className="col-9">
                       <h3 className="patient_status">My BloodPressure</h3>
-                      {this.props.blood_pressures.pending.length > 0 || this.props.blood_pressures.missed.length > 0 ? (<p className="patient_status_task">You have some opened Tasks..</p>) : (<p className="patient_status_task">You have completed all your tasks for today</p>)}
+                      {this.props.blood_pressures.pending.length > 0 || this.props.blood_pressures.missed.length > 0 ? (<p className="patient_status_task" style={{color:"red"}}>You have some opened Tasks..</p>) : (<p className="patient_status_task">You have completed all your tasks for today</p>)}
                       
               </div>
               <div className="col-3">
