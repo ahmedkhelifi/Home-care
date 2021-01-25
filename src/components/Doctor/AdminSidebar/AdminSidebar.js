@@ -30,7 +30,7 @@ class AdminSidebar extends React.Component {
 
                 <ul className="menu">
                   <li>Chat</li>
-                  <li id="Pharmcists" className={this.isOpened("Pharmcists")} onClick={(e) => this.props.tabClicked(e)} >Inbox</li>
+                  <li id="Chat" className={this.isOpened("Chat")} onClick={(e) => this.props.tabClicked(e)} >Inbox</li>
                 </ul>
 
                 <ul className="menu">
