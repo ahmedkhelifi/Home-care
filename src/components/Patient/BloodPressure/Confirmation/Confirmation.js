@@ -35,12 +35,9 @@ export default class Confirmation extends PureComponent {
       <p className="patient_back" style={{marginTop: '0px', marginLeft: '20px'}} onClick={() => this.props.goBack() }>&#10230;</p>
       <p className="patient_tasks" style={{marginLeft: '25px'}}>What was your blood pressure today:</p>
       <input className="userinput" type="text" placeholder="sys" name="blood_pressure" value={this.state.sys} onChange={this.handleBloodPressureChangeSys} style={{width: '100%', marginTop: '30px'}} onBlur={ this.onBlurSys } />
-       <input className="userinput" type="text" placeholder="dia" name="blood_pressure" value={this.state.dia} onChange={this.handleBloodPressureChangeDia} style={{width: '100%', marginTop: '30px'}} onBlur={ this.onBlurDia } />
-              <button className="no_im_not" onClick={e => this.props.goBack()}>Go back</button>
-              {this.state.blood_pressure !== '' ? (<button className="yes_im_sure" onClick={e => this.props.addBloodPressurePending(this.state.sys, this.state.dia)}>Confirm</button>) : (<button className="yes_im_sure_gray">Yes</button>)}
-              
-
-
+      <input className="userinput" type="text" placeholder="dia" name="blood_pressure" value={this.state.dia} onChange={this.handleBloodPressureChangeDia} style={{width: '100%', marginTop: '30px'}} onBlur={ this.onBlurDia } />
+      <button className="no_im_not" onClick={e => this.props.goBack()}>Go back</button>
+		{this.state.blood_pressure !== '' ? (<button className="yes_im_sure" onClick={e => this.props.addBloodPressurePending(this.state.sys, this.state.dia)}>Confirm</button>) : (<button className="yes_im_sure_gray">Yes</button>)}
     </div>
     );
   }
