@@ -5,6 +5,8 @@ import Weight from '../../components/Patient/Weight';
 import Pulse from '../../components/Patient/Pulse';
 import BloodPressure from '../../components/Patient/BloodPressure';
 
+import Chat from '../../components/Patient/Chat';
+
 
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -51,6 +53,7 @@ export default class Patient extends React.PureComponent {
       weights:           {},
       pulses:            {},
       blood_pressures:   {},
+      chatWindow:        false,
     };
 
     this.removeMedFromPending    = this.removeMedFromPending.bind(this)
@@ -271,9 +274,9 @@ export default class Patient extends React.PureComponent {
     <img  src={Home_botton} alt="home" className="menu_logo"/>
     <a href="#home">Home</a>
   </div>
-  <div className=" col-4">
+  <div className=" col-4" onClick={e => this.setState({chatWindow: true})}>
     <img  src={Chat_menu} alt="History" className="menu_logo"/>
-    <a href="#History">Chat</a>
+    <a href="#chat">Chat</a>
   </div>
   <div className=" col-4">
     <img  src={Settings_wheel} alt="Settings" className="menu_logo"/>
