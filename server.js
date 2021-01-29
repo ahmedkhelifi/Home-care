@@ -60,7 +60,8 @@ const wss = new WebSocket.Server({ server });
 // socket_request.handle_request(wss, WebSocket)
 
 
-
+const test = require("./socketIO/test.js");
+test.test_function(server)
 // console.log('App is listening on port ' + process.env.PORT);
 db.query('SELECT NOW()', (err, res) => {
   if (err.error)
