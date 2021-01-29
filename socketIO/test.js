@@ -1,7 +1,6 @@
-const { server } = require('http')
 
-function test_function(server){
-const io = require('socket.io')(server)    
+
+function test_function(io){
 io.on('connection', function(socket){
       console.log('socketio connected')
       socket.on('sendMsg',function(data){

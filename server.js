@@ -21,6 +21,7 @@ const app = express();
 const encryptPassword = require('encrypt-password');
 var db = require('./database');
 const WebSocket = require('ws');
+const test = require("./socketIO/test.js");
 // const socket_request = require("./websocket/socket.js");
 
 const {createServer} = require('http');
@@ -57,10 +58,12 @@ const server = createServer(app);
 server.listen(port, () => console.info(`Server running on port: ${port}`));
 
 const wss = new WebSocket.Server({ server });
+const io = require('socket.io')(server);
+test.test_function(io)
 // socket_request.handle_request(wss, WebSocket)
 
 
-const test = require("./socketIO/test.js");
+
 test.test_function(server)
 // console.log('App is listening on port ' + process.env.PORT);
 db.query('SELECT NOW()', (err, res) => {
