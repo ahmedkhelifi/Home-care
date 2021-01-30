@@ -59,7 +59,7 @@ const server = createServer(app);
 server.listen(port, () => console.info(`Server running on port: ${port}`));
 
 const wss = new WebSocket.Server({ server });
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { cors: { origin: '*', } });;
 test.test_function(io)
 // socket_request.handle_request(wss, WebSocket)
 
