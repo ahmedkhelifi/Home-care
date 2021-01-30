@@ -353,7 +353,7 @@ class PatientList extends React.Component {
                                 <div className={"col-2"}>
                                       <p>Blood Pressure</p>
                                 </div>
-                                <div className={"col-1"}>
+                                <div className={"col-2"}>
                                       <p>Status</p>
                                 </div>
 
@@ -367,19 +367,19 @@ class PatientList extends React.Component {
                                                    <Temperature temperatures={patient.temperature.temperature} id={patient.addressid}/>
                                                 </div>
                                               <div className={"col-2"}>
-                                                <div className={"col-2"}>
+                                               
                                                     <Pulse pulses={patient.pulse.pulse} id={patient.addressid}/>
-                                                </div>
+                                               
                                               </div>
                                               <div className={"col-2"}>
-                                                <div className={"col-2"}>
+                                                
                                                     <Weight weights={patient.weight.weight} id={patient.addressid}/>
-                                                </div>
+                                                
                                               </div>
                                               <div className={"col-2"}>
                                                     <BoodPressure blood_pressures={patient.blood_pressure.blood_pressure} id={patient.addressid}/>
                                               </div>
-                                              <div className={"col-1"}>
+                                              <div className={"col-2"}>
                                                   {patient.health.points <= 2 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: 'green'}} >green</span> </p>) : null}
                                                   {patient.health.points === 3 || patient.health.points === 4 || patient.health.points === 5 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: '#ffc459'}} >orange</span> </p>) : null}
                                                   {patient.health.points > 5 ? (<p style={{color: 'black', fontStyle: 'italic', fontSize: '16px', marginTop:'62px'}} ><span style={{color: 'red'}} >red</span> </p>) : null}
