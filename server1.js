@@ -58,18 +58,14 @@ const port = process.env.PORT || 5000;
 const server = createServer(app);
 server.listen(port, () => console.info(`Server running on port: ${port}`));
 
-
-//const wws = new WebSocket.Server({ server });
-
-
-var io = require('socket.io')(server, { cors: true });;;
+//const wss = new WebSocket.Server({ server });
+const io = require('socket.io')(server);;
 test.test_function(io)
-//require('./socketIO/test')(server)
-
 // socket_request.handle_request(wss, WebSocket)
 
 
-//test.test_function(server)
+
+// test.test_function(server)
 // console.log('App is listening on port ' + process.env.PORT);
 db.query('SELECT NOW()', (err, res) => {
   if (err.error)
