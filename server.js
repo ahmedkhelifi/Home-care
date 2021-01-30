@@ -65,7 +65,7 @@ test.test_function(io)
 
 
 
-test.test_function(server)
+// test.test_function(server)
 // console.log('App is listening on port ' + process.env.PORT);
 db.query('SELECT NOW()', (err, res) => {
   if (err.error)
