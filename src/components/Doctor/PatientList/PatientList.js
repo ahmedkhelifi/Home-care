@@ -192,6 +192,7 @@ class PatientList extends React.Component {
 
   closesignup(){
     this.setState({ patientForm: false });
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -293,7 +294,7 @@ class PatientList extends React.Component {
 
               {(!isLoading && noPatients) ? (
                 <div>
-                   <button className="button_dkg" onClick={(e) => this.setState({ patientForm: true, patients: [] })}>Add Patient</button>
+                   <button className="button_dkg" onClick={(e) => this.setState({ patientForm: true })}>Add Patient</button>
                 </div>)
                 : (null)
               }
@@ -310,7 +311,7 @@ class PatientList extends React.Component {
               {(!isLoading && !noPatients && simpleMode && !this.state.patientClickedExpand) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
 
-                   <button className="add_new_patient" onClick={(e) => this.setState({ patientForm: true, patients: [] })}>+ add new patient</button>
+                   <button className="add_new_patient" onClick={(e) => this.setState({ patientForm: true })}>+ add new patient</button>
                     <input id='search-btn' type='checkbox'/>
                     <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>

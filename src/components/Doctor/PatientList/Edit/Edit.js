@@ -1,29 +1,26 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-class Signup extends React.Component {
+class Edit extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
       step: 1,
 
-      firstname: '',
-      lastname: '',
-      email: '',
-      birthday: '',
-      advice: '',
-      username: '',
+      firstname: this.props.patientClicked.firstname,
+      lastname: this.props.patientClicked.lastname,
+      email: this.props.patientClicked.email,
+      birthday: this.props.patientClicked.birthdate,
+      username: this.props.patientClicked.username,
       password: '',
 
       transplants: [],
-      medicaments: [],
-
-      search: '',
-
+      medicaments: this.props.patientClicked.medication.medication,
 
       selectedTransplant: '',
       selectedTransplantID: '',
       selectedTransplantUID: '',
+
     };
 
     this.handleFirstNameChange      = this.handleFirstNameChange.bind(this)
@@ -116,6 +113,7 @@ class Signup extends React.Component {
             if (index !== -1 && index !== undefined) 
               medicaments.splice(index, 1);
             this.setState({ medicaments: medicaments })
+            // this.props.handleSelectedChapters(selectedChapters)
     } else {
       let medicaments = this.state.medicaments
       item.ammount = 0
@@ -123,6 +121,7 @@ class Signup extends React.Component {
       item.history = []
       medicaments.push(item)
       this.setState({ medicaments: medicaments })
+      // this.props.handleSelectedChapters(selectedChapters)
     }
   }
 
@@ -260,10 +259,12 @@ class Signup extends React.Component {
                             <h4 style={{fontSize: '20px', fontWeight: '400'}}>Username:</h4>
                             <input className="userinput" type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleUsernameChange} style={{width: '100%'}}/>
                           </div>
+                        {/*
                           <div className="col-6" style={{paddingTop: '30px', paddingBottom: '30px'}}>
                             <h4 style={{fontSize: '20px', fontWeight: '400'}}>Password:</h4>
                             <input className="userinput" type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handlePasswordChange} style={{width: '100%'}}/>
                           </div>
+                        */}
                    </div>
            </div>
 
@@ -313,7 +314,7 @@ class Signup extends React.Component {
                       <div className="col-12 margin_top" style={{textAlign: 'center'}}>
                       <button className="importbutton_dkg" style={{border: '2px solid', marginRight: '10px', padding: '3px 12px', borderRadius: '15px', marginTop: '5px', float: 'left', cursor: 'pointer'}} onClick={e => this.props.zuruck()}>back</button>
                         <button type="submit"className="signupbtn margin_right button_dkg" style={{fontSize: '20px'}}
-                         onClick={e => this.registerPatient()}>Add Patient</button>
+                         onClick={e => this.registerPatient()}>Save Patient Data</button>
                       </div>
                     </div>
 
@@ -326,4 +327,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default Edit;

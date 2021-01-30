@@ -1,8 +1,11 @@
 import React from 'react';
+
 import Temperature from '../../Graphs/28_days/Temperature';
 import BloodPressure from '../../Graphs/28_days/BloodPressure';
 import Pulse from '../../Graphs/28_days/Pulse';
 import Weight from '../../Graphs/90_days/Weight';
+
+import Edit from '../PatientList/Edit';
 // import Medication from '../../components/Patient/Medication';
 // import Temperature from '../../components/Patient/Temperature';
 // import Weight from '../../components/Patient/Weight';
@@ -29,6 +32,7 @@ export default class PatientProfile extends React.PureComponent {
     this.state = {
       error:             false,
       isLoaded:          false,
+      edit:              false,
     };
   }
 
@@ -66,10 +70,15 @@ export default class PatientProfile extends React.PureComponent {
   render() {
 
     document.title = "Profile - " + this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname
+
+    if(this.state.edit){
+      return (<Edit patientClicked={this.props.selectedPatient}  zuruck={e => this.setState({edit: false})}/>)
+    }
       return (
       <div className="row">
         <div className="col-12">
           <p className="goback" onClick={() => this.props.goBack() }> &#10230;</p>
+          <button className="importbutton_dkg" style={{border: '2px solid', marginRight: '10px', padding: '3px 12px', borderRadius: '15px', marginTop: '5px', cursor: 'pointer', float: 'right'}} onClick={e => this.setState({edit: true})}>Edit</button>
           <p style={{marginTop: '10px', fontSize: '19px', fontWeight: 'bold'}} >{this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname}</p>
 
           <p style={{marginTop: '10px', fontSize: '19px'}} >Medication:</p>
