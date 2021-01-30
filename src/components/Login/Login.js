@@ -10,7 +10,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
     this.state={
       username:         '',
       password:         '',
-      wrong:            false
+      wrong:            false, 
     }
 
     this.logme                 = this.logme.bind(this)
@@ -77,6 +77,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                                 {/*<img  src={Logo} alt="logo DKG" style={{width:'190px'}} className=""/>*/}
                                 <h6 className="center_text marginTop" style={{color: 'black', fontSize: '28px', textAlign: 'center', marginBottom:'40px'}}>Homecare App</h6>
                                 <p style={{fontSize: '20px'}}>Please enter your login details:</p>
+                                {this.state.wrong ? (<p style={{fontSize: '16px', color: 'red', padding: '10px 0'}}>Wrong login details!</p>) : (null)}
 
 
                                     <div className="formular" style={{marginTop: '0px'}}>

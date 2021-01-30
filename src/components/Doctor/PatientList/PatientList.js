@@ -66,7 +66,6 @@ class PatientList extends React.Component {
         };
 
         this.baseState = this.state // preserve the initial state
-        this.addPatientForm          = this.addPatientForm.bind(this);
         this.closesignup             = this.closesignup.bind(this);
         this.patientClicked          = this.patientClicked.bind(this);
         this.timeSince               = this.timeSince.bind(this);
@@ -97,10 +96,10 @@ class PatientList extends React.Component {
             ).catch(error => this.setState({errorPatientLoad: true}));
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
+  //   }
+  // }
     
   handleSearchChange(e) {
     this.setState({ search: e.target.value })
@@ -191,21 +190,23 @@ class PatientList extends React.Component {
     return time;
   }
 
-  addPatientForm(){
-    this.setState({ patientForm: true, patients: [] });
-  }
-
   closesignup(){
     this.setState({ patientForm: false });
   }
 
   render() {
+        if(this.state.patientForm){
+          return (
+            <Signup closesignup={this.closesignup} zuruck={this.closesignup} />
+          )
+        }
 
         if(this.state.patientClickedBool){
           return (
               <PatientProfile selectedPatient={this.state.patientClicked} goBack={e => this.setState({patientClickedBool: false})} />
             )
         }
+
 
         if(this.state.errorPatientLoad){
             return (
@@ -290,9 +291,9 @@ class PatientList extends React.Component {
 
 
 
-              {(!isLoading && noPatients && !patientForm) ? (
+              {(!isLoading && noPatients) ? (
                 <div>
-                   <button className="button_dkg" onClick={(e) => this.addPatientForm(e)}>Add Patient</button>
+                   <button className="button_dkg" onClick={(e) => this.setState({ patientForm: true, patients: [] })}>Add Patient</button>
                 </div>)
                 : (null)
               }
@@ -306,10 +307,10 @@ class PatientList extends React.Component {
               }
 
 
-              {(!isLoading && !noPatients && !patientForm && simpleMode && !this.state.patientClickedExpand) ? (
+              {(!isLoading && !noPatients && simpleMode && !this.state.patientClickedExpand) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
 
-                   <button className="add_new_patient" onClick={(e) => this.addPatientForm(e)}>+ add new patient</button>
+                   <button className="add_new_patient" onClick={(e) => this.setState({ patientForm: true, patients: [] })}>+ add new patient</button>
                     <input id='search-btn' type='checkbox'/>
                     <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
                     </label>

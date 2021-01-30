@@ -128,9 +128,9 @@ class Allgemein extends React.Component {
 
                       <div className="col-12 full_height_patient_health">
 
-                        {this.state.rist_patients.map(patient => {
+                        {this.state.rist_patients.map((patient,i) => {
                           return (
-                            <div className="row">
+                            <div key={i*100} className="row">
                               <div  className="col-12 hover_hightlight_patient_dashboard" style={this.checkIfSelectedCss(patient)} onClick={e => this.selectPatient(patient)}>
                                 <p style={{marginTop: '10px', fontSize: '17px', fontWeight: 'bold'}} > {patient.firstname + ' ' + patient.lastname}</p>
                                  <p style={{marginTop: '-17px'}} > Points: {patient.health.points}</p>

@@ -263,44 +263,55 @@ class Signup extends React.Component {
 
     return (
         <div className="row" style={{marginLeft: '0'}}>
+        <div className="col-12"><h3>Personal information</h3></div>
           <div className="col-12">
-                  <div className="row">
+                  <div className="row" style={{backgroundColor: '#ffffffd1', borderRadius: '15px'}}>
 
                           <div className="col-6">
-                            <h4>Firstname:</h4>
+                            <h4 style={{paddingTop: '30px', fontSize: '20px', fontWeight: '400'}}>Firstname:</h4>
                             <input className="userinput" type="text" placeholder="Firstname" name="firstname" value={this.state.firstname} onChange={this.handleFirstNameChange} style={{width: '100%'}}/>
                           </div>
                           <div className="col-6">
-                            <h4>Lastname:</h4>
+                            <h4 style={{paddingTop: '30px', fontSize: '20px', fontWeight: '400'}}>Lastname:</h4>
                             <input className="userinput" type="text" placeholder="Lastname" name="lastname" value={this.state.lastname} onChange={this.handleLastNameChange} style={{width: '100%'}}/>
                           </div>
                           <div className="col-6" style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                            <h4>Bithday:</h4>
+                            <h4 style={{fontSize: '20px', fontWeight: '400'}}>Bithday:</h4>
                             <input className="userinput" type="text" placeholder="Birthdate" name="birthday" value={this.state.birthday} onChange={this.handleBirthdayChange} style={{width: '100%'}}/>
                           </div>
                           <div className="col-6" style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                            <h4>Email:</h4>
+                            <h4 style={{fontSize: '20px', fontWeight: '400'}}>Email:</h4>
                             <input className="userinput" type="text" placeholder="Email" name="firstname" value={this.state.email} onChange={this.handleEmailChange} style={{width: '100%'}}/>
                           </div>
+                    </div>
+          </div>
+
+        <div className="col-12" style={{paddingTop: '20px',}}><h3>Account information</h3></div>
+
+          <div className="col-12" >
+                  <div className="row" style={{backgroundColor: '#ffffffd1', borderRadius: '15px'}}>
                           <div className="col-6" style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                            <h4>Username:</h4>
+                            <h4 style={{fontSize: '20px', fontWeight: '400'}}>Username:</h4>
                             <input className="userinput" type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleUsernameChange} style={{width: '100%'}}/>
                           </div>
                           <div className="col-6" style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                            <h4>Password:</h4>
+                            <h4 style={{fontSize: '20px', fontWeight: '400'}}>Password:</h4>
                             <input className="userinput" type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handlePasswordChange} style={{width: '100%'}}/>
                           </div>
+                   </div>
+           </div>
 
+        <div className="col-12" style={{paddingTop: '20px', paddingBottom: '20px',}}><h3>Medication</h3></div>
 
-
-
+          <div className="col-12">
+                  <div className="row">
 
                       <div className="row">
                           <div className="col-12">
 
                                     <div id="checks" className="myBox" style={{height: '55vh', overflow: 'scroll'}}>
-                                    {allmedicaments.map(item => (
-                                       <span style={{display: 'block', paddingBottom: '20px'}}>
+                                    {allmedicaments.map((item,i) => (
+                                       <span key={i} style={{display: 'block', paddingBottom: '20px'}}>
 
                                               <div className={this.checkboxClassname(item)} onClick={e => this.handleCheckbox(item)}>
                                                 <span className="tick"></span>
@@ -334,9 +345,9 @@ class Signup extends React.Component {
           
                   <div className="row" style={{marginTop: '20px'}}>
                       <div className="col-12 margin_top" style={{textAlign: 'center'}}>
-                      <button className="importbutton_dkg" style={{display: 'inline-block'}} onClick={this.zuruck}>back</button>
+                      <button className="importbutton_dkg" style={{border: '2px solid', marginRight: '10px', padding: '3px 12px', borderRadius: '15px', marginTop: '5px', float: 'left', cursor: 'pointer'}} onClick={e => this.zuruck()}>back</button>
                         <button type="submit"className="signupbtn margin_right button_dkg" style={{fontSize: '20px'}}
-                         onClick={this.registerPatient}>Add Patient</button>
+                         onClick={e => this.registerPatient()}>Add Patient</button>
                       </div>
                     </div>
 
