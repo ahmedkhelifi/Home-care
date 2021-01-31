@@ -34,7 +34,7 @@ export default class Medication extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
+          // console.log(blob)
           this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''})
           this.props.get_health()
@@ -42,15 +42,15 @@ export default class Medication extends React.PureComponent {
         // .then(res => this.props.closesignup())
   }
 
-  iTookMedicationMissed = () => {
+  iTookMedicationMissed = (taken) => {
         fetch('/api/patient/medication/missed/'+this.props.username+'/'+this.state.popupMedication+'/'+this.state.popupMissedTimestamp, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({})
+                body: JSON.stringify({taken:taken})
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
+          // console.log(blob)
           // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupMissed: false, popupMedication: ''})
           this.props.get_health()

@@ -58,7 +58,7 @@ router.post('/medication/missed/:username/:title/:timestamp', (req, res) => {
     
     medication.forEach(med => {
       if(med.title == req.params.title) {
-        med.history.push({timestamp: Number(req.params.timestamp), taken: false})
+        med.history.push({timestamp: Number(req.params.timestamp), taken: req.body.taken})
         med.history = med.history.sort(function(a, b) { return Number(a.timestamp) - Number(b.timestamp) })
       }
     })
