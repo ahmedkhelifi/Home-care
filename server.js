@@ -90,7 +90,6 @@ db.query('SELECT NOW()', (err, res) => {
    //const table_chat = require("./db_script/table_chat.js");
 
   // const table_pharmacy = require("./db_script/table_pharmacy.js");
-  // const table_medication = require("./db_script/table_medication.js");
   // const table_patientToDoctor = require("./db_script/table_patientToDoctor.js"); // at the moment not in use, maybe for future work
   // const table_address = require("./db_script/table_address.js");
 
