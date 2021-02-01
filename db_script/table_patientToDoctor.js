@@ -18,25 +18,25 @@
 		['6', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
 	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
 		['7', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['8', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['9', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['10', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['11', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['12', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['13', '3', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['14', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['15', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['16', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
-	db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
-		['17', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['8', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['9', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['10', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['11', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['12', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['13', '3', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['14', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['15', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['16', '2', '2020-01-01', '2099-12-31'], (err, res) => { })
+	//db.query('INSERT INTO patienToDoctor (patientid, doctorid, validfrom, validto) VALUES ($1, $2, $3, $4);',
+	//	['17', '1', '2020-01-01', '2099-12-31'], (err, res) => { })
   })
 })
