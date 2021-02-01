@@ -68,7 +68,7 @@ export default class Patient extends React.PureComponent {
     fetch('/api/patient/health/'+this.props.user.username)
       .then(blob => blob.json())
       .then(blob => {
-        
+        console.log(blob)
         let missed = false
         
         blob.medication.forEach( med  => {

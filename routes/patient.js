@@ -6,7 +6,7 @@ const encryptPassword = require('encrypt-password');
 //get health status of patient
 router.get('/health/:username', (req, res) => {
 
-  let health = {birthdate: '', status: 'stable', backgroundColor: 'rgb(103 148 108)', medication: {}, missedMedication: false, pendingMedication: [], temperature: []}
+  let health = {username: req.params.username, birthdate: '', status: 'stable', backgroundColor: 'rgb(103 148 108)', medication: {}, missedMedication: false, pendingMedication: [], temperature: []}
   console.log(req.params.username)
   Patient.retrieveUser(req.params.username, (result) => {
 
