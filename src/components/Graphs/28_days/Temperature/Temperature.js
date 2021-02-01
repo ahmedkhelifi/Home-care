@@ -11,7 +11,6 @@ import 'echarts/lib/component/dataZoom';
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
-
 import 'jquery';
 
 export default class Temperature extends React.PureComponent { 
@@ -70,9 +69,7 @@ export default class Temperature extends React.PureComponent {
                 // wenn measured nicht false dann ersetzt die richtige weight dadrauf
             }
         })
-        
-
-                
+                   
         //graph infos
         var option ={
             color:  'black',
@@ -122,17 +119,6 @@ export default class Temperature extends React.PureComponent {
                     }
                   }
               },
-                // label: {
-                //     textStyle: {
-                //         fonttemperature: "bolder",
-                //         fontSize: "8",
-                //         color: "#fff"
-                //     },
-                //     show: true,
-                //     position: 'inside',
-                //     formatter: '{c}°C'//echarts selbst build in variable fuer valu
-                    
-                // },
                 markLine : {
                        symbol:"none",
                        data : [{
@@ -186,54 +172,6 @@ export default class Temperature extends React.PureComponent {
             }
             });
     }
-
-  addTemperate = (temperature) => {
-
-        fetch('/api/patient/addTemprature/'+this.props.username+'/', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({temperature: temperature})
-            })
-        .then(blob => blob.json())
-        .then(blob => {
-          console.log(blob)
-          this.setState({confirmPopup: false,})
-        })
-        // .then(res => this.props.closesignup())
-  }
-
-  addTemperaturePending = (temperature) => {
-
-        fetch('/api/patient/temperature/pending/'+this.props.username+'/', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({temperature: temperature, measured:true})
-            })
-        .then(blob => blob.json())
-        .then(blob => {
-          console.log(blob)
-          this.props.removeMedFromPending(this.state.popupMedication)
-          this.setState({confirmPopupPending:false, popupMedication:''})
-          this.props.get_health()
-        })
-        // .then(res => this.props.closesignup())
-  }
-
-  addTemperatureMissed = (temperature, measured) => {
-        fetch('/api/patient/temperature/missed/'+this.props.username+'/'+this.state.popupMissedTimestamp, {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({measured: measured, temperature: temperature})
-            })
-        .then(blob => blob.json())
-        .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
-          this.setState({confirmPopupMissed: false})
-          this.props.get_health()
-        })
-        // .then(res => this.props.closesignup())
-  }
 
   beautify_timestamp = (unix_timestamp) => {
     let a = new Date( Number(unix_timestamp));
