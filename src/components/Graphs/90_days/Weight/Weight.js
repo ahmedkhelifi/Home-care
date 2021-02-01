@@ -11,16 +11,13 @@ import 'echarts/lib/component/dataZoom';
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
-
 import 'jquery';
-
 
 export default class Weight extends React.PureComponent { 
 
   constructor(props) {
     super(props);
   }
-
 
   componentDidMount(){
     this.create_graph()
@@ -173,7 +170,6 @@ export default class Weight extends React.PureComponent {
             }
             });
     }
-
 
   beautify_timestamp = (unix_timestamp) => {
     let a = new Date( Number(unix_timestamp));
