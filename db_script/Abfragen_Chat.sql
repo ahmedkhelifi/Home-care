@@ -11,12 +11,19 @@ select c.*
 from chat c 
 where ((fromID = 1 and fromtype = 'doctor') OR (toID = 1 and totype = 'doctor'))/********hier die ID und type des users eintragen **********/
 
+
+
 Ausgabe:
 fromid	|fromtype	|toid	|totype		|message							|timestamp			|read	|name_from		|name_to
 1		|"doctor"	|1		|"patient"	|"Hi Kameron, how are you doint"	|"1611504159744"	|true	|"David Thiel"	|"Kameron Lyons"
 1		|"patient"	|1		|"doctor"	|"Hi Doc, I am good."				|"1609171359744"	|false	|"Kameron Lyons"|"David Thiel"
 
 ACHTUNG: Timestamp ist als String gespeichert
+
+
+models
+
+
 
 *********************************************************
 2. Abfrage: nur Chatnachrichten zwischen 2 Parteien:
