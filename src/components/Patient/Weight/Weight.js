@@ -87,6 +87,9 @@ export default class Weight extends React.PureComponent {
     var templist2=[null,null,null,null,null,null,null]
     var hilfsweight=null
     truejsonData.forEach(function(item,index,arr){//db中近7天的array 可能只有3天
+        if(typeof(item.weight)=='string'){
+          item.weight=parseFloat(item.weight)
+        }
         let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
         if(i>-1){//wenn an dem Tag etwas in DB erschienen 
             if (item.measured!==false){ 
@@ -101,7 +104,7 @@ export default class Weight extends React.PureComponent {
                 }
                 else {
                     templist2[i]=((item.weight-hilfsweight)*10).toFixed(2)
-                    hilfsweight=(item.weight).toFixed(2) 
+                    hilfsweight=item.weight
                   }
             }
 
@@ -184,8 +187,6 @@ export default class Weight extends React.PureComponent {
             }
             });
   }
-
-
   addWeightPending = (weight) => {
 
         fetch('/api/patient/weight/pending/'+this.props.username+'/', {

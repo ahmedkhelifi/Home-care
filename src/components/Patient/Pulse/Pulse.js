@@ -18,6 +18,7 @@ import  'echarts/lib/chart/line';
 import 'echarts/lib/component/title';
 import'echarts/lib/component/grid' 
 import 'echarts/lib/component/legend';
+import'echarts/lib/component/markLine' 
 
 
 
@@ -83,6 +84,9 @@ export default class Pulse extends React.PureComponent {
     truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
         let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
         if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+          if(typeof(item.pulse)=='string'  ){
+            item.pulse=parseFloat(item.pulse)
+          }
             templist[i]=item.pulse  
             // wenn measured nicht false dann ersetzt die richtige weight dadrauf
         }
@@ -106,6 +110,47 @@ var option ={
       // max: extent => extent.max >130 ? extent.max+1 : 130
   },
   series: [{
+    markLine : {
+      symbol:"none",
+      data : [{
+           
+
+          lineStyle:{               //警戒线的样式  ，虚实  颜色
+              type:"solid",
+              color:"#FA3934",
+          },
+              label:{
+               textStyle: {
+                   fonttemperature: "bolder",
+                   color:  'black',
+                   fontSize: "4",
+               },
+              position:'start',
+              formatter:"90"
+          },
+          yAxis:90  
+         
+      },
+      {
+
+          lineStyle:{               //警戒线的样式  ，虚实  颜色
+              type:"solid",
+              color:"green",
+          },
+          label:{
+           textStyle: {
+               fonttemperature: "bolder",
+               color:  'black',
+               fontSize: "4",
+           },
+              position:'start',
+              formatter:"60 ",
+          },
+          yAxis:60   
+    
+      }
+      ]
+      },
       connectNulls: true,//laesst sich null wert nicht leer sein 
       name: 'pulse',
       type: 'line',

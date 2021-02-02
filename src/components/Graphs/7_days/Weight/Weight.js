@@ -7,7 +7,6 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import'echarts/lib/component/grid' ;
 import 'echarts/lib/component/markLine';
-import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/legend';
 
 //Aufruf von $ Zeichen 
@@ -80,7 +79,7 @@ export default class Weight extends React.PureComponent {
                 }
                 else {
                     templist2[i]=((item.weight-hilfsweight)*10).toFixed(2)
-                    hilfsweight=(item.weight).toFixed(2) 
+                    hilfsweight=item.weight
                   }
             }
         }

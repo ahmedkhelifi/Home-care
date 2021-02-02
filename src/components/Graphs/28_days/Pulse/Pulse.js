@@ -8,6 +8,7 @@ import'echarts/lib/component/grid'
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/dataZoom';
 import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/markLine';
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
@@ -40,15 +41,15 @@ export default class Pulse extends React.PureComponent {
         console.log(truejsonData)
         
         
-                        function timeformater(ts){
-                            let date = new Date(ts);
-                            let Y = date.getFullYear() + '.';
-                            let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
-                            let D = date.getDate() ;
-                            let result = Y+M+D
-                            return result; 
-                        }
-        
+        function timeformater(ts){
+            let date = new Date(ts);
+            let Y = date.getFullYear() + '.';
+            let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
+            let D = date.getDate() ;
+            let result = Y+M+D
+            return result; 
+        }
+
         var timelist=new Array(28);
         for(let i=0;i<28;i++){
             let currentDate = new Date();
@@ -85,8 +86,8 @@ export default class Pulse extends React.PureComponent {
                         splitLine: {show: false},
                         axisTick: {show: false},
                         type: 'value' ,
-                        min: extent => extent.min <=30 ? extent.min-5 : 30,
-                        // max: extent => extent.max >130 ? extent.max+1 : 130
+                        min: extent => extent.min <=60 ? extent.min-5 : 50,
+                        max: extent => extent.max >90 ? extent.max+1 : 92
                     },
                     dataZoom: [{
                         type: 'slider',
@@ -104,6 +105,47 @@ export default class Pulse extends React.PureComponent {
                         name: 'pulse',
                         type: 'line',
                         data: templist,
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                 
+        
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fonttemperature: "bolder",
+                                         color:  'black',
+                                         fontSize: "4",
+                                     },
+                                    position:'start',
+                                    formatter:"90"
+                                },
+                                yAxis:90  
+                               
+                            },
+                            {
+ 
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"green",
+                                },
+                                label:{
+                                 textStyle: {
+                                     fonttemperature: "bolder",
+                                     color:  'black',
+                                     fontSize: "4",
+                                 },
+                                    position:'start',
+                                    formatter:"60 ",
+                                },
+                                yAxis:60   
+                          
+                            }
+                            ]
+                        }　　
 
                     }]
                 }

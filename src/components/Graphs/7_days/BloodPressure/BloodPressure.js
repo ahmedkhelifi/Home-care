@@ -66,6 +66,12 @@ export default class BloodPressure extends React.PureComponent {
                     let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
                     if(i>-1){//wenn an dem Tag etwas in DB erschienen 
                         if (item.measured!==false){ 
+                            if(typeof(item.bloodpres_dia)=='string'  ){
+                                item.bloodpres_dia=parseFloat(item.bloodpres_dia)
+                              }
+                            if(typeof(item.bloodpres_sys)=='string'  ){
+                            item.bloodpres_sys=parseFloat(item.bloodpres_sys)
+                            }
                         templist1[i]=item.bloodpres_dia
                         templist2[i]=item.bloodpres_sys
                         }// wenn measured nicht false dann ersetzt die richtige weight dadrauf

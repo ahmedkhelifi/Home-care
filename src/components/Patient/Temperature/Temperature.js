@@ -81,6 +81,10 @@ export default class Temperature extends React.PureComponent {
       truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
           let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
           if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+              if(typeof(item.temperature)=='string'  ){
+                item.temperature=parseFloat(item.temperature)
+              }
+
               templist[i]=item.temperature  
               // wenn measured nicht false dann ersetzt die richtige weight dadrauf
           }
