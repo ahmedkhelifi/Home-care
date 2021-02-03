@@ -1,6 +1,6 @@
 var express = require('express');
 var Patient = require('../models/patient');
-var Chat = require('../models/Chat');
+var Chat = require('../models/chat');
 var router = express.Router();
 
 
