@@ -1,5 +1,6 @@
 var express = require('express');
 var Patient = require('../models/patient');
+var Chat = require('../models/Chat');
 var router = express.Router();
 
 //get all messages from database
@@ -19,7 +20,7 @@ router.get('/getMessagesFromOneParty/:id/:type', (req, res) => { // WAS IST HIER
 
   let messages = {id: req.params.id, type: req.params.type}
   //console.log(req.params.id, req.params.type )
-  Chat.retrieveAllMessagesFromUser (req.params.id, req.params.type (result) => {
+  Chat.retrieveAllMessagesFromUser (req.params.id, req.params.type, (result) => {
 
     if(result[0].length == 0) { //no messages where sent or received
       // what to do?
@@ -35,7 +36,7 @@ router.get('/getMessagesFromOneParty/:fromID/:fromType/:toID/:toType', (req, res
 
   let messages = {fromID: req.params.fromID, fromType: req.params.fromType, toID: req.params.toID, toType: req.params.toType}
   //console.log(req.params.fromID, req.params.fromType, req.params.toID, req.params.toType)
-  Chat.retrieveAllMessagesFromUser (req.params.fromID, req.params.fromType, req.params.toID, req.params.toType (result) => {
+  Chat.retrieveAllMessagesFromUser (req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, (result) => {
 
     if(result[0].length == 0) { //no messages where sent or received
       // what to do?
@@ -53,7 +54,7 @@ router.post('/newMessage/:fromID/:fromType/:toID/:toType/:message/:timestamp', (
     })
 
   });
-});
+// });
 
 
 // get IDs and names from all patients
@@ -70,13 +71,14 @@ router.get('/getPatients', (req, res) => {
 });
 
 // get IDs and names from all patients
-router.get('/getPatients', (req, res) => {
+router.get('/getDoctors', (req, res) => {
+  console.log('/getDoctors')
   Chat.retrieveAllDoctos((users) => {
 
-    users.forEach( user => {
-		user.type = 'doctor'  // braucht ihr den Type?
-		// what to do?
-    })
+  //   users.forEach( user => {
+		// user.type = 'doctor'  // braucht ihr den Type?
+		// // what to do?
+  //   })
 
     return res.json(users);
   });

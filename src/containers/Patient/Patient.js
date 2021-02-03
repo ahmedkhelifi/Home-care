@@ -32,6 +32,8 @@ export default class Patient extends React.PureComponent {
     this.state = {
       error:             false,
       isLoaded:          false,
+      patientid:         this.props.user.patientid,
+      name:              this.props.user.name,
 
       finishedTasks:     true,
 
@@ -143,7 +145,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.chatWindow){
-      return( <Chat/> )
+      return( <Chat to={this.state.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})}/> )
     }
 
     if(this.state.medication_bool) {
@@ -276,15 +278,15 @@ export default class Patient extends React.PureComponent {
 <div className="navbar row">
   <div className=" col-4">
     <img  src={Home_botton} alt="home" className="menu_logo"/>
-    <a href="#home">Home</a>
+    <a style={{fontWeight: 'bold'}}>Home</a>
   </div>
   <div className=" col-4" onClick={e => this.setState({chatWindow: true})}>
     <img  src={Chat_menu} alt="History" className="menu_logo"/>
-    <a href="#chat">Chat</a>
+    <a>Chat</a>
   </div>
   <div className=" col-4">
     <img  src={Settings_wheel} alt="Settings" className="menu_logo"/>
-    <a href="#Settings" style={{textAlign: 'center'}}>Settings</a>
+    <a style={{textAlign: 'center'}}>Settings</a>
   </div>
 </div>
 

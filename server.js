@@ -21,10 +21,7 @@ const app = express();
 const encryptPassword = require('encrypt-password');
 var db = require('./database');
 const WebSocket = require('ws');
-
-const test = require("./socketIO/test.js");
-// const socket_request = require("./websocket/socket.js");
-
+const socket_request = require("./websocket/socket.js");
 const {createServer} = require('http');
 
 // Serve the static files from the React app
@@ -47,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/login', require('./routes/login'));
 app.use('/api/patient', require('./routes/patient'));
 app.use('/api/doctor', require('./routes/doctor'));
+app.use('/api/chat', require('./routes/chat'));
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, './build', 'index.html'));
@@ -59,14 +57,8 @@ const server = createServer(app);
 server.listen(port, () => console.info(`Server running on port: ${port}`));
 
 
-//const wws = new WebSocket.Server({ server });
-
-
-var io = require('socket.io')(server, { cors: true });;;
-test.test_function(io)
-//require('./socketIO/test')(server)
-
-// socket_request.handle_request(wss, WebSocket)
+const wss = new WebSocket.Server({ server });
+socket_request.handle_request(wss, WebSocket)
 
 
 //test.test_function(server)

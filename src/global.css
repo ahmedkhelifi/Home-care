@@ -6280,9 +6280,60 @@ body {
 }
 
 
+.chat_sidebar{
+    height: calc(100vh - 89px);
+    background-color: #8080800a;
+    overflow: scroll;
+}
 
+.chat_list_bubble{
+     background-color: #5d86b6ad;
+     border-radius: 10px;
+     padding: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 20px 0px;
+}
 
+.chat_list_bubble:hover{
+     background-color: #5d86b6;
+}
 
+/*.circle:before {
+  content: ' \25CF';
+  font-size: 100px;
+  height:100px;
+  margin: -0.5em -0.3em -0.3em -0.1em
+}*/
 
+.circle {
+    background: black;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.6;
+}
+.new_conversation_client{
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    cursor: pointer;
+}
 
+.chat_messages_full{
+     height: calc(100vh - 160px);
+     overflow: scroll;
+}
+.chat_send_message_input_coontainer{
 
+}
+
+.enter_a_message_field{
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+}

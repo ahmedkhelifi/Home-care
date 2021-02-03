@@ -60,4 +60,4 @@ class Chat {
   }
 }
 
-module.exports = Patient;
+module.exports = Chat;
