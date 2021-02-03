@@ -3,12 +3,28 @@ var db = require('../database');
   db.query('DROP TABLE IF EXISTS chat;', (err, res) => {
    if (err.error)
      return console.log(err.error);
-    db.query('CREATE TABLE chat (fromID integer NOT NULL, fromType text NOT NULL, toID integer NOT NULL, toType text NOT NULL, message text NOT NULL, timestamp text NOT NULL, read boolean NOT NULL);', (err, res) => { 
-         db.query('INSERT INTO chat (fromID, fromType, toID, toType, message, timestamp, read) VALUES ($1, $2, $3, $4, $5, $6, $7);',
-          [1, 'doctor', 1, 'patient', 'Hi Kameron, how are you doint', new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), true ], (err, res) => { })
-		 db.query('INSERT INTO chat (fromID, fromType, toID, toType, message, timestamp, read) VALUES ($1, $2, $3, $4, $5, $6, $7);',
-          [1, 'patient', 1, 'doctor', 'Hi Doc, I am good.', new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), false], (err, res) => { })
-		 db.query('INSERT INTO chat (fromID, fromType, toID, toType, message, timestamp, read) VALUES ($1, $2, $3, $4, $5, $6, $7);',
-          [1, 'pharmacy', 1, 'patient', 'Hi Mr. Lyons, you can pick up your meds.', new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf(), false], (err, res) => { })
+    db.query('CREATE TABLE chat (chat_ID integer NOT NULL, chat_name text NOT NULL, chatPartner1ID integer NOT NULL, chatPartner1Type text NOT NULL, chatPartner2ID integer NOT NULL, chatPartner2Type text NOT NULL, message json);', (err, res) => { 
+         db.query('INSERT INTO chat (chat_ID, chat_name, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+          [1, 'blood pres', 1, 'doctor', 1, 'patient', 
+		  {message: [
+			{message: 'Hi Doc, can I come around on monday?', "timestamp":  new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), fromID: 1, fromType: 'patient', read: true},
+			{message: 'Hi Doc, please answer', "timestamp": new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).valueOf(), fromID: 1, fromType: 'patient', read: true},
+			{message: 'Hi Kameron, yes I will be here', "timestamp": new Date(Date.now()).valueOf(), fromID: 1, fromType: 'doctor', read: true}
+		  ]}
+		  ], (err, res) => { })
+		 db.query('INSERT INTO chat (chat_ID, chat_name, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+          [1, 'order', 1, 'patient', 2, 'pharmacy', 
+		  {message: [
+			{message: 'Hi, I would like to order Azathioprine', "timestamp":  new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).valueOf(), fromID: 1, fromType: 'patient', read: true},
+			{message: 'It is here, you can pick it up.', "timestamp": new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).valueOf(), fromID: 2, fromType: 'pharmacy', read: false}
+		  ]}
+		  ], (err, res) => { })
+		 db.query('INSERT INTO chat (chat_ID, chat_name, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+          [1, 'missing data', 2, 'patient', 1, 'doctor', 
+		  {message: [
+			{message: 'Hi Eryn, why didnt you insert data for yesterday?', "timestamp":  new Date(Date.now() - 1  * 24 * 60 * 60 * 1000).valueOf(), fromID: 1, fromType: 'doctor', read: true},
+			{message: 'It is here, you can pick it up.', "timestamp": new Date(Date.now()).valueOf(), fromID: 2, fromType: 'patient', read: false}
+		  ]}
+		  ], (err, res) => { })
     })	
   })
