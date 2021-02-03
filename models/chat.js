@@ -2,7 +2,7 @@ const db = require('../database');
 
 class Chat {
   static retrieveAllMessaged (callback) {
-    db.query("select c.* , case when c.fromType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = fromID) when c.fromType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = fromID) else (select name from pharmacy where pharmacyID = fromID) end as name_from, case when c.toType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = toID) when c.toType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = toID) else (select name from pharmacy where pharmacyID = toID) end as name_to from chat c", (err, res) => {
+    db.query("select c.* , case when c.chatPartner1Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner1ID) when c.chatPartner1Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner1ID) else (select name from pharmacy where pharmacyID = chatPartner1ID) end as name_chatPartner1, case when c.chatPartner2Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner2ID) when c.chatPartner2Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner2ID) else (select name from pharmacy where pharmacyID = chatPartner2ID) end as name_chatPartner2 from chat c", (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
@@ -11,23 +11,23 @@ class Chat {
 
 	// type is patient, doctor oder pharmacy
   static retrieveAllMessagesFromUser (ID, type, callback) {
-    db.query("select c.* , case when c.fromType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = fromID) when c.fromType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = fromID) else (select name from pharmacy where pharmacyID = fromID) end as name_from , case when c.toType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = toID) when c.toType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = toID) else (select name from pharmacy where pharmacyID = toID) end as name_to from chat c where ((fromID = $1 and fromType = $2) OR (toID = $1 and toType = $2))", [ID, type], (err, res) => {
+    db.query("select c.* , case when c.chatPartner1Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner1ID) when c.chatPartner1Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner1ID) else (select name from pharmacy where pharmacyID = chatPartner1ID) end as name_chatPartner1ID , case when c.chatPartner2Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner2ID) when c.chatPartner2Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner2ID) else (select name from pharmacy where pharmacyID = chatPartner2ID) end as name_chatPartner2ID from chat c where ((chatPartner1ID = $1 and chatPartner1Type = $2) OR (chatPartner2ID = $1 and chatPartner2Type = $2))", [ID, type], (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
     });
   }
 
-  static retrieveAllMessagesFromTwoParties (fromID, fromType, toID, toType, callback) {
-    db.query("select c.* , case when c.fromType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = fromID)	when c.fromType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = fromID) else (select name from pharmacy where pharmacyID = fromID) end as name_from , case when c.toType = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = toID) when c.toType = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = toID) else (select name from pharmacy where pharmacyID = toID) end as name_to from chat c  where (((fromID = $1 and fromType = $2) AND (toID = $3 and toType = $4)) OR ((fromID = $3 and fromType = $4) AND (toID = $1 and toType = $2)))", [fromID, fromType, toID, toType], (err, res) => {
+  static retrieveAllMessagesFromTwoParties (chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, callback) {
+    db.query("select c.* , case when c.chatPartner1Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner1ID)	when c.chatPartner1Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner1ID) else (select name from pharmacy where pharmacyID = chatPartner1ID) end as name_chatPartner1ID , case when c.chatPartner2Type = 'doctor' then (select CONCAT(firstname, ' ', lastname) from doctor where doctorID = chatPartner2ID) when c.chatPartner2Type = 'patient' then (select CONCAT(firstname, ' ', lastname) from patient where patientID = chatPartner2ID) else (select name from pharmacy where pharmacyID = chatPartner2ID) end as name_chatPartner2ID from chat c  where (((chatPartner1ID = $1 and chatPartner1Type = $2) AND (chatPartner2ID = $3 and chatPartner2Type = $4)) OR ((chatPartner1ID = $3 and chatPartner1Type = $4) AND (chatPartner2ID = $1 and chatPartner2Type = $2)))", [chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type], (err, res) => {
       if (err.error)
         return callback(err);
       callback(res);
     });
   }
 
-  static insertMessage (fromID, fromType, toID, toType, message, timestamp, callback) {
-      db.query('INSERT INTO chat (fromID, fromType, toID, toType, message, timestamp, read) VALUES ($1, $2, $3, $4, $5, $6, $7);', [fromID, fromType, toID, toType, message, timestamp, 'false'], (err, res) => {
+  static insertMessage (chatID, chatName, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message, callback) {
+      db.query('INSERT INTO chat (chatID, chatName, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message) VALUES ($1, $2, $3, $4, $5, $6, $7);', [chatID, chatName, chatPartner1ID, chatPartner1Type, chatPartner2ID, chatPartner2Type, message], (err, res) => {
       //TODO error handling
       if (err.error)
         return callback(err);

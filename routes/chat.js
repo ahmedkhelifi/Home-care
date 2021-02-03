@@ -3,6 +3,7 @@ var Patient = require('../models/patient');
 var Chat = require('../models/Chat');
 var router = express.Router();
 
+
 //get all messages from database
 router.get('/getMessages', (req, res) => {
   Patient.retrieveAllMessaged((messages) => {
@@ -54,7 +55,7 @@ router.post('/newMessage/:fromID/:fromType/:toID/:toType/:message/:timestamp', (
     })
 
   });
-// });
+
 
 
 // get IDs and names from all patients
