@@ -2,6 +2,9 @@ import React from 'react';
 import ChatList from './ChatList'
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
+import ChatRoom from './ChatRoom'
+import CreateChatRoom from './CreateChatRoom'
+import OpenedChatRoom from './OpenedChatRoom'
 
 import Home_botton from'../../../images/Home_botton.png';
 import Chat_menu from'../../../images/Chat_menu.png';
@@ -24,6 +27,8 @@ export default class Chat extends React.PureComponent {
       doctors: [],
 
       messages: [],
+      chatrooms: [{name:'medication', toID: '1', to: 'dr Thiel', toType: 'doctor', tID: '1', from: this.props.name, fromType: 'patient', messages:{}}],
+      active_chatroom: null,
     }
   }
 
@@ -51,12 +56,12 @@ export default class Chat extends React.PureComponent {
 
     this.get_messages()
     // this.getDoctors()
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
+  // componentDidUpdate() {
+  //   this.scrollToBottom();
+  // }
 
   get_messages = () => {
 
@@ -80,6 +85,12 @@ export default class Chat extends React.PureComponent {
       .catch(error => this.setState({error: true}));
   }
 
+  createChatroom = (doctor, name) => {
+    let chatroom = {name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{}}
+    // console.log(doctor.name)
+    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom], new_convesation: false}))
+  }
+
   addMessage = message =>
     this.setState(state => ({ messages: [...state.messages, message] }))
 
@@ -90,9 +101,9 @@ export default class Chat extends React.PureComponent {
     this.addMessage(message)
   }
 
-  scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-  }
+  // scrollToBottom = () => {
+  //   // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  // }
 
   render() {
 
@@ -105,46 +116,29 @@ export default class Chat extends React.PureComponent {
       {this.state.new_convesation ?
           (
             <div className="col-6 chat_sidebar">
-              <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to messages</p>
-              {!this.state.doctosLoaded ? (<p>Loading</p>) : (null)}
+              <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to chatrooms</p>
+              {!this.state.doctosLoaded ? (null) : (
+                <CreateChatRoom doctors={this.state.doctors} createChatroom={this.createChatroom}/>
+              )}
               
             </div>
           ) 
       :
           (
             <div className="col-6 chat_sidebar">
-              <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Conversation</p>
-              <ChatList  />
+              <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
+                      {this.state.chatrooms.map((chatroom, index) =>
+                        <ChatRoom
+                          key={index}
+                          name={chatroom.name}
+                          to={chatroom.to}
+                        />,
+                      )}
             </div>
           )
         }
 
-
-
-        <div className="col-6">
-          <div className="row">
-            <div className="col-12 chat_messages_full">
-              {this.state.messages.map((message, index) =>
-                <ChatMessage
-                  key={index}
-                  message={message.message}
-                  name={message.name}
-                />,
-              )}
-              <div style={{ float:"left", clear: "both" }}
-                   ref={(el) => { this.messagesEnd = el; }}>
-              </div>
-            </div>
-          </div>
-
-
-          <ChatInput
-            ws={this.ws}
-            onSubmitMessage={messageString => this.submitMessage(messageString)}
-          />
-          
-
-        </div>
+        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} />
 
     </div>
 

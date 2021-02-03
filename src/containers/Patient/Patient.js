@@ -145,7 +145,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.chatWindow){
-      return( <Chat to={this.state.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})}/> )
+      return( <Chat patientid={this.state.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})}/> )
     }
 
     if(this.state.medication_bool) {
