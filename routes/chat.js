@@ -5,44 +5,29 @@ var router = express.Router();
 
 
 //get all messages from database
-router.get('/getMessages', (req, res) => {
-  Patient.retrieveAllMessaged((messages) => {
-
-    messages.forEach( message => {      
-		// I dont know what to do .... 
-    })
-
+router.get('/getAllChatrooms', (req, res) => {
+  Patient.retrieveAllChatrooms((messages) => {
     return res.json(messages);
   });
 });
 
 //get all messages from one person (sent and received)
-router.get('/getMessagesFromOneParty/:id/:type', (req, res) => { // WAS IST HIER DAS ROUTING?
+router.get('/getAllChatroomsFromUser/:id/:type', (req, res) => { // WAS IST HIER DAS ROUTING?
 
   let messages = {id: req.params.id, type: req.params.type}
   //console.log(req.params.id, req.params.type )
-  Chat.retrieveAllMessagesFromUser (req.params.id, req.params.type, (result) => {
-
-    if(result[0].length == 0) { //no messages where sent or received
-      // what to do?
-    }
-
+  Chat.retrieveAllChatroomsFromUser (req.params.id, req.params.type, (result) => {
     return res.json(messages)
   });
 });
 
 
-//get all messages from two parties
-router.get('/getMessagesFromOneParty/:fromID/:fromType/:toID/:toType', (req, res) => { // WAS IST HIER DAS ROUTING?
+//get all messages from two parties --> maybe we dont need this
+router.get('/getAllChatroomsFromTwoParties/:fromID/:fromType/:toID/:toType', (req, res) => { // WAS IST HIER DAS ROUTING?
 
   let messages = {fromID: req.params.fromID, fromType: req.params.fromType, toID: req.params.toID, toType: req.params.toType}
   //console.log(req.params.fromID, req.params.fromType, req.params.toID, req.params.toType)
-  Chat.retrieveAllMessagesFromUser (req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, (result) => {
-
-    if(result[0].length == 0) { //no messages where sent or received
-      // what to do?
-    }
-
+  Chat.retrieveAllChatroomsFromTwoParties (req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, (result) => {
     return res.json(messages)
   });
 });
