@@ -50,21 +50,20 @@ export default class Chat extends React.PureComponent {
       }
 
       if(message.type === 'update_chatroom'){
+        console.log(message.chatroom)
         let chatrooms = this.state.chatrooms
-        let updated_chatroom = chatrooms.filter(chatroom => chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+        let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
         if(updated_chatroom.length > 0) {
           //...
           chatrooms.forEach(chatroom => {
-            if(chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+            if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
               chatroom.messages =  message.chatroom.messages
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
         } else {
           this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
         }
-
-
       }
 
     }
@@ -108,10 +107,21 @@ export default class Chat extends React.PureComponent {
       .catch(error => this.setState({error: true}));
   }
 
+  compare_chatrooms = ( a, b ) => {
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[a.messages.messages.length-1].timestamp ){
+      return -1;
+    }
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp < b.messages.messages[a.messages.messages.length-1].timestamp ){
+      return 1;
+    }
+    return 0;
+  }
+
+
   createChatroom = (doctor, name) => {
-    let chatroom = {name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.doctorid, from: this.props.name, fromType: 'doctor',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
+    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.doctorid, from: this.props.name, fromType: 'doctor',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
     // console.log(doctor.name)
-    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom], new_convesation: false}))
+    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
   }
 
   addMessage = message =>
@@ -127,7 +137,8 @@ export default class Chat extends React.PureComponent {
     else to_id = active_chatroom.toID
     let to_type = 'patient'
     this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: to_type}))
-    this.addMessage(message)
+    // this.addMessage(message)
+    this.forceUpdate()
   }
 
   openChatroom = (chatroom) => {

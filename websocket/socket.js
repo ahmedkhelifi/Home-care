@@ -39,7 +39,7 @@ function handle_request(wss, WebSocket) {
 
           //check if user still responsive
           if (m.type == 'chatroom_update') {
-            // console.log('pobng')
+            // console.log('pong')
             // console.log(m)
             // console.log('online')
             // console.log(online)
@@ -53,8 +53,8 @@ function handle_request(wss, WebSocket) {
     //Forward Message to Clients
     function send_chatroom(chatroom, to_id, to_type) {
             wss.clients.forEach(function each(client) {
-                console.log('client: -----')
-                console.log('id: ' + client.id + '(vs '+to_id+')' + ' typeID: ' + client.idType + '(vs '+to_type+')' )
+                // console.log('client: -----')
+                // console.log('id: ' + client.id + '(vs '+to_id+')' + ' typeID: ' + client.idType + '(vs '+to_type+')' )
                 if ( client.id == to_id && client.idType == to_type && client.readyState === WebSocket.OPEN && !client.master) {
                     client.send( JSON.stringify({type: 'update_chatroom', chatroom: chatroom}));
                 }

@@ -26,7 +26,7 @@ export default class Chat extends React.PureComponent {
       doctors: [],
 
       messages: [],
-      chatrooms: [{name:'medication', toID: '1', to: 'dr Thiel', toType: 'doctor', tID: '1', from: this.props.name, fromType: 'patient', messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read:true}]}}],
+      chatrooms: [],
       active_chatroom: null,
     }
   }
@@ -45,7 +45,7 @@ export default class Chat extends React.PureComponent {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
       // this.addMessage(message)
-      if(message.type === 'ping' && this.state.ID !== -1){
+      if(message.type === 'ping'){
               // console.log('ping')
         const message = { id: this.props.patientid, idType: 'patient', type: 'pong' }
         this.ws.send(JSON.stringify(message))
@@ -53,12 +53,12 @@ export default class Chat extends React.PureComponent {
 
       if(message.type === 'update_chatroom'){
         let chatrooms = this.state.chatrooms
-        let updated_chatroom = chatrooms.filter(chatroom => chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+        let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
         if(updated_chatroom.length > 0) {
           //...
           chatrooms.forEach(chatroom => {
-            if(chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+            if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
               chatroom.messages =  message.chatroom.messages
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
@@ -108,10 +108,20 @@ export default class Chat extends React.PureComponent {
       .catch(error => this.setState({error: true}));
   }
 
+  compare_chatrooms = ( a, b ) => {
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[a.messages.messages.length-1].timestamp ){
+      return -1;
+    }
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp < b.messages.messages[a.messages.messages.length-1].timestamp ){
+      return 1;
+    }
+    return 0;
+  }
+
   createChatroom = (doctor, name) => {
-    let chatroom = {name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
+    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
     // console.log(doctor.name)
-    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom], new_convesation: false}))
+    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
   }
 
   addMessage = message =>
@@ -122,12 +132,15 @@ export default class Chat extends React.PureComponent {
     const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: true, type: 'message'}
     let active_chatroom = this.state.active_chatroom
     active_chatroom.messages.messages.push(message)
+    // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
     let to_id = ''
     if('doctor' === active_chatroom.fromType) to_id = active_chatroom.fromID
     else to_id = active_chatroom.toID
     let to_type = 'doctor'
     this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: to_type}))
-    this.addMessage(message)
+    // this.addMessage(message)
+    this.forceUpdate()
+    // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
   }
 
   openChatroom = (chatroom) => {
