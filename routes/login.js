@@ -40,7 +40,9 @@ router.post('/', (req, res) => {
               return res.json({'authenticated': false});
             }
 
-            return res.json({'authenticated': true,user: {doctorid: resultt[0].doctorid, username: resultt[0].username, name:resultt[0].firstName + ' ' + resultt[0].lastName, type: 'doctor' }});
+            console.log(resultt[0])
+
+            return res.json({'authenticated': true,user: {doctorid: resultt[0].doctorid, username: resultt[0].username, name:resultt[0].firstname + ' ' + resultt[0].lastname, type: 'doctor' }});
 
     })}
 

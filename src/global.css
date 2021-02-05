@@ -6286,6 +6286,12 @@ body {
     overflow: scroll;
 }
 
+.chat_sidebar_doc{
+    height: 100vh;
+    background-color: #8080800a;
+    overflow: scroll;
+}
+
 .chat_list_bubble{
      background-color: #5d86b6ad;
      border-radius: 10px;
@@ -6322,11 +6328,15 @@ body {
     margin-bottom: 40px;
     font-weight: 500;
     cursor: pointer;
+    border-radius: 20px;
+    border: 2px solid #585858;
+    padding: 5px 10px;
 }
 
 .chat_messages_full{
-     height: calc(100vh - 160px);
-     overflow: scroll;
+     height: calc(100vh - 230px);
+    overflow: scroll;
+    margin-top: 70px;
 }
 .chat_send_message_input_coontainer{
 
@@ -6336,4 +6346,21 @@ body {
     width: 80%;
     height: 50px;
     border-radius: 5px;
+}
+
+
+.top_banner_chat{
+     position: fixed;
+    background-color: #8080803d;
+    height: 70px;
+}
+
+.chat_send_button {
+     margin-left: 10px;
+    width: 15%;
+    background-color: transparent;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
 }

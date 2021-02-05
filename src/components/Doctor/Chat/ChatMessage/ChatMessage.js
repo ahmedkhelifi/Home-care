@@ -20,7 +20,7 @@ class ChatMessage extends Component {
 
     else {
       let partner_name = ''
-      if(this.props.patner_type_1 === 'doctor') partner_name = this.props.patner_name_1
+      if(this.props.patner_type_1 === 'patient') partner_name = this.props.patner_name_1
       else partner_name = this.props.patner_name_2
       return(
         <p>

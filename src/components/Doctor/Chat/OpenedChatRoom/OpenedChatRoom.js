@@ -51,7 +51,7 @@ class OpenedChatRoom extends Component {
           <div className="row">
           	<div className="col-12 top_banner_chat vertical_center_parent" style={{width: '50%'}}>
 	                <div className="vertical_center_child">
-	                  {this.props.active_chatroom.fromType === 'doctor' ? (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.from}</p>) : (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.to}</p>)}
+	                  {this.props.active_chatroom.fromType === 'patient' ? (<p style={{fontWeight: 'bold'}} >Patient: {this.props.active_chatroom.from}</p>) : (<p style={{fontWeight: 'bold'}} >Patient: {this.props.active_chatroom.to}</p>)}
 	                  <p style={{marginTop: '-16px'}} >{this.props.active_chatroom.name}</p>
 	                </div>
           	</div>
@@ -64,7 +64,7 @@ class OpenedChatRoom extends Component {
 
               {this.props.active_chatroom.messages.messages.map((message, index) => {
               	if(message.type === 'message') {
-              		return(<ChatMessage key={index} message={message.message} name={message.name} my_id={this.props.my_id} my_type={'patient'} patner_name_1={this.props.active_chatroom.from} patner_type_1={this.props.active_chatroom.fromType} patner_name_2={this.props.active_chatroom.to}  fromType={message.fromType}  />)
+              		return(<ChatMessage key={index} message={message.message} name={message.name} my_id={this.props.my_id} my_type={'doctor'} patner_name_1={this.props.active_chatroom.from} patner_type_1={this.props.active_chatroom.fromType} patner_name_2={this.props.active_chatroom.to} fromType={message.fromType}   />)
               	} else {
               		return (<p style={{marginTop: '10px', color: '#8ea9ca', textAlign: 'center'}}>Chatroom created on {this.beautify_timestamp(message.timestamp)}</p>)
               	}

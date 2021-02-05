@@ -1,7 +1,6 @@
 import React from 'react';
 import ChatList from './ChatList'
 import ChatInput from './ChatInput'
-import ChatMessage from './ChatMessage'
 import ChatRoom from './ChatRoom'
 import CreateChatRoom from './CreateChatRoom'
 import OpenedChatRoom from './OpenedChatRoom'
@@ -27,7 +26,7 @@ export default class Chat extends React.PureComponent {
       doctors: [],
 
       messages: [],
-      chatrooms: [{name:'medication', toID: '1', to: 'dr Thiel', toType: 'doctor', tID: '1', from: this.props.name, fromType: 'patient', messages:{}}],
+      chatrooms: [{name:'medication', toID: '1', to: 'dr Thiel', toType: 'doctor', tID: '1', from: this.props.name, fromType: 'patient', messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read:true}]}}],
       active_chatroom: null,
     }
   }
@@ -38,12 +37,36 @@ export default class Chat extends React.PureComponent {
     this.ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log('connected')
+      const message = { id: this.props.patientid, name: this.props.name, idType: 'patient', type: 'online'}
+      this.ws.send(JSON.stringify(message))
     }
 
     this.ws.onmessage = evt => {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
-      this.addMessage(message)
+      // this.addMessage(message)
+      if(message.type === 'ping' && this.state.ID !== -1){
+              // console.log('ping')
+        const message = { id: this.props.patientid, idType: 'patient', type: 'pong' }
+        this.ws.send(JSON.stringify(message))
+      }
+
+      if(message.type === 'update_chatroom'){
+        let chatrooms = this.state.chatrooms
+        let updated_chatroom = chatrooms.filter(chatroom => chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+
+        if(updated_chatroom.length > 0) {
+          //...
+          chatrooms.forEach(chatroom => {
+            if(chatroom.toType == message.chatroom.toType && chatroom.fromType == message.chatroom.fromType && chatroom.fromID == message.chatroom.fromID && chatroom.toID == message.chatroom.toID)
+              chatroom.messages =  message.chatroom.messages
+          })
+          this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
+        } else {
+          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
+        }
+      }
+
     }
 
     this.ws.onclose = () => {
@@ -86,7 +109,7 @@ export default class Chat extends React.PureComponent {
   }
 
   createChatroom = (doctor, name) => {
-    let chatroom = {name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{}}
+    let chatroom = {name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
     // console.log(doctor.name)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom], new_convesation: false}))
   }
@@ -96,9 +119,19 @@ export default class Chat extends React.PureComponent {
 
   submitMessage = messageString => {
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = { name: this.state.name, message: messageString, from: this.state.from, name: this.state.name}
-    this.ws.send(JSON.stringify(message))
+    const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: true, type: 'message'}
+    let active_chatroom = this.state.active_chatroom
+    active_chatroom.messages.messages.push(message)
+    let to_id = ''
+    if('doctor' === active_chatroom.fromType) to_id = active_chatroom.fromID
+    else to_id = active_chatroom.toID
+    let to_type = 'doctor'
+    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: to_type}))
     this.addMessage(message)
+  }
+
+  openChatroom = (chatroom) => {
+    this.setState(state => ({ active_chatroom: chatroom }))
   }
 
   // scrollToBottom = () => {
@@ -126,19 +159,28 @@ export default class Chat extends React.PureComponent {
       :
           (
             <div className="col-6 chat_sidebar">
-              <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
+              <div className="row">
+                <div className="col-12">
+                  <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
+                </div>
+              </div>
+              <div className="row"><p style={{fontWeight: 'bold'}} >Please select a chatroom to open it.</p></div>
+              
+              
                       {this.state.chatrooms.map((chatroom, index) =>
                         <ChatRoom
                           key={index}
                           name={chatroom.name}
                           to={chatroom.to}
+                          chatroom = {chatroom}
+                          openChatroom = {this.openChatroom}
                         />,
                       )}
             </div>
           )
         }
 
-        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} />
+        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} />
 
     </div>
 

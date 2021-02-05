@@ -124,9 +124,7 @@ function get_temperature(health, temperature, assigned_on){
       temperatures.pending = pending
 
       health.temperatures  = temperatures
-           console.log(missed)
 
-  console.log(assigned_on)
   return health
 }
 
@@ -401,7 +399,7 @@ function calculate_points_first_Step(health){
   health.detailed_first_step_points.pulse_low = pulse_points_low
   health.detailed_first_step_points.pulse_high = pulse_points_high
 
-  console.log('points after puls: ' + points)
+  // console.log('points after puls: ' + points)
 
   //weight of last 90 days
   let weight_history = health.weights.history.filter(weight => {return Number(weight.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()) && weight.measured} )
@@ -412,7 +410,7 @@ function calculate_points_first_Step(health){
     let old_weight_10_percent = old_weight.weight*0.1
     old_weight = old_weight.weight
     let new_weight = weight_history[weight_history.length -  1].weight
-    console.log('|'+ old_weight + '-' + new_weight + '| < ' + old_weight_10_percent)
+    // console.log('|'+ old_weight + '-' + new_weight + '| < ' + old_weight_10_percent)
 
 
     if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent ){
@@ -422,7 +420,7 @@ function calculate_points_first_Step(health){
   }
 
   health.detailed_first_step_points.weight = weight_points
-  console.log('points after old_weight: ' + points)
+  // console.log('points after old_weight: ' + points)
 
   //temperature of last 28 days
   let temperature_history = health.temperatures.history.filter(temperature => {return Number(temperature.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() ) && temperature.measured } )
@@ -441,7 +439,7 @@ function calculate_points_first_Step(health){
 
   health.detailed_first_step_points.temperature_low = temperature_points_low
   health.detailed_first_step_points.temperature_high = temperature_points_high
-  console.log('points after temperature: ' + points)
+  // console.log('points after temperature: ' + points)
 
 
   //blood_pressure of last 28 days
@@ -462,7 +460,7 @@ function calculate_points_first_Step(health){
   health.detailed_first_step_points.blood_pressure_low = blood_pressure_points_low
   health.detailed_first_step_points.blood_pressure_high = blood_pressure_points_high
 
-  console.log('points after blood_pressure: ' + points)
+  // console.log('points after blood_pressure: ' + points)
 
 // console.log(points)
   return points
@@ -470,7 +468,7 @@ function calculate_points_first_Step(health){
 
 function calculate_points_final(health, add_number){
   let points = 0
-  console.log('Now check no data')
+  // console.log('Now check no data')
   for (var key in health.medication) {
     if (health.medication.hasOwnProperty(key)) {
       var val = health.medication[key];
@@ -480,35 +478,35 @@ function calculate_points_final(health, add_number){
     }
   }
   // Now check no data
-   console.log('points after medication: ' + points)
+   // console.log('points after medication: ' + points)
    let temperature_points = 0
    points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.temperatures.missed.length * add_number
    temperature_points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length
    temperature_points += health.temperatures.missed.length
    health.detailed_final_step_points.temperature = temperature_points
-   console.log('points after temperatures: ' + points)
+   // console.log('points after temperatures: ' + points)
    let weight_points = 0
    points += health.weights.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.weights.missed.length * add_number
    weight_points += health.weights.history.filter(pulse => {return pulse.measured == false }).length
    weight_points += health.weights.missed.length
    health.detailed_final_step_points.weight = weight_points
-   console.log('points after weights: ' + points)
+   // console.log('points after weights: ' + points)
    let blood_pressure_points = 0
    points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.blood_pressures.missed.length * add_number
    blood_pressure_points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length
    blood_pressure_points += health.blood_pressures.missed.length
    health.detailed_final_step_points.blood_pressure = blood_pressure_points
-   console.log('points after blood_pressures: ' + points)
+   // console.log('points after blood_pressures: ' + points)
    let pulse_points = 0
    points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.pulses.missed.length * add_number
    pulse_points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length
    pulse_points += health.pulses.missed.length
    health.detailed_final_step_points.pulse = pulse_points
-   console.log('points pulses : ' + points)
+   // console.log('points pulses : ' + points)
 
   return points
 }

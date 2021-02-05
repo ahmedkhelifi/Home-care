@@ -92,14 +92,14 @@ export default class UserDashboard extends React.PureComponent {
 
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 
-                      <div className="content">
+                      
 
-                          {this.state.openedTab === 'Allgemein'        ? (<Allgemein  />) : (null)}
-                          {this.state.openedTab === 'PatientList'      ? (<PatientList  />) : (null)}
-                          {this.state.openedTab === 'Chat'             ? (<Chat     />) : (null)}
+                          {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
+                          {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
+                          {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name}   />) : (null)}
 
 
-                      </div>
+                     
                       
                   </div>
               </div>
