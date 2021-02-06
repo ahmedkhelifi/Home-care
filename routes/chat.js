@@ -23,25 +23,29 @@ router.get('/getAllChatroomsFromUser/:id/:type', (req, res) => { // WAS IST HIER
 
 
 //get all messages from two parties --> maybe we dont need this
-router.get('/getAllChatroomsFromTwoParties/:fromID/:fromType/:toID/:toType', (req, res) => { // WAS IST HIER DAS ROUTING?
+router.get('/getAllChatroomsFromTwoParties/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type', (req, res) => { // WAS IST HIER DAS ROUTING?
 
-  let messages = {fromID: req.params.fromID, fromType: req.params.fromType, toID: req.params.toID, toType: req.params.toType}
-  //console.log(req.params.fromID, req.params.fromType, req.params.toID, req.params.toType)
-  Chat.retrieveAllChatroomsFromTwoParties (req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, (result) => {
+  let messages = {chatPartner1ID: req.params.chatPartner1ID, chatPartner1Type: req.params.chatPartner1Type, chatPartner2ID: req.params.chatPartner2ID, chatPartner2Type: req.params.chatPartner2Type}
+  //console.log(req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type)
+  Chat.retrieveAllChatroomsFromTwoParties (req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type, (result) => {
     return res.json(messages)
   });
 });
 
 
-//insert message into database
-router.post('/newMessage/:fromID/:fromType/:toID/:toType/:message/:timestamp', (req, res) => {
-  Chat.insertMessage(req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, req.params.message, req.params.timestamp, (errr, resultt) => {
+//insert new chatroom into database
+router.post('/newChatroom/:chatID/:chatName/:fromID/:fromType/:toID/:toType', (req, res) => {
+  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.fromID, req.params.fromType, req.params.toID, req.params.toType (errr, resultt) => {
         return res.json({timestamp: req.params.timestamp, send: true}) 
     })
-
   });
-
-
+  
+ //update message
+router.post('/updateMessage/:chatID/:chatName/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type/:message',', (req, res) => {
+  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type, req.params.message (errr, resultt) => {
+        return res.json({timestamp: req.params.timestamp, send: true}) 
+    })
+  });
 
 // get IDs and names from all patients
 router.get('/getPatients', (req, res) => {
