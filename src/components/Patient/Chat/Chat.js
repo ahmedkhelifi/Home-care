@@ -109,17 +109,17 @@ export default class Chat extends React.PureComponent {
   }
 
   compare_chatrooms = ( a, b ) => {
-    if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[a.messages.messages.length-1].timestamp ){
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[b.messages.messages.length-1].timestamp ){
       return -1;
     }
-    if ( a.messages.messages[a.messages.messages.length-1].timestamp < b.messages.messages[a.messages.messages.length-1].timestamp ){
+    if ( a.messages.messages[a.messages.messages.length-1].timestamp < b.messages.messages[b.messages.messages.length-1].timestamp ){
       return 1;
     }
     return 0;
   }
 
   createChatroom = (doctor, name) => {
-    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created'}]}}
+    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     // console.log(doctor.name)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
   }
@@ -129,7 +129,7 @@ export default class Chat extends React.PureComponent {
 
   submitMessage = messageString => {
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: true, type: 'message'}
+    const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: false, type: 'message'}
     let active_chatroom = this.state.active_chatroom
     active_chatroom.messages.messages.push(message)
     // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
@@ -143,6 +143,26 @@ export default class Chat extends React.PureComponent {
     // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
   }
 
+  mark_chatroom_as_read = (active_chatroom) => {
+    let chatrooms = this.state.chatrooms
+    chatrooms.forEach(chatroom => {
+      if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
+        chatroom.messages.messages.forEach(message => {
+          if(!message.read &&  message.fromType !== 'patient') message.read = true
+        })
+        let to_id = ''
+        if(chatroom.toType !== 'patient') to_id = chatroom.toID
+        else to_id = chatroom.fromID
+        this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: 'doctor'}))
+        // console.log(chatroom)
+      }
+
+          
+    })
+
+    this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
+  }
+
   openChatroom = (chatroom) => {
     this.setState(state => ({ active_chatroom: chatroom }))
   }
@@ -153,6 +173,7 @@ export default class Chat extends React.PureComponent {
 
   render() {
 
+    let chatrooms = this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))
 
     return (
     <div className="container-fluid" style={{backgroundColor: '#f7f7f7', padding: '0'}}>
@@ -180,20 +201,23 @@ export default class Chat extends React.PureComponent {
               <div className="row"><p style={{fontWeight: 'bold'}} >Please select a chatroom to open it.</p></div>
               
               
-                      {this.state.chatrooms.map((chatroom, index) =>
+                      {chatrooms.map((chatroom, index) =>
                         <ChatRoom
                           key={index}
                           name={chatroom.name}
                           to={chatroom.to}
+                          toType={chatroom.toType}
                           chatroom = {chatroom}
                           openChatroom = {this.openChatroom}
+                          active_chatroom = {this.state.active_chatroom}
+                          myType={'patient'}
                         />,
                       )}
             </div>
           )
         }
 
-        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} />
+        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} myType={'patient'} mark_chatroom_as_read={this.mark_chatroom_as_read}/>
 
     </div>
 

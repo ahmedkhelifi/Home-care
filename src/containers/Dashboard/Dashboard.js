@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 import Patient         from  '../Patient';
+import Doctor         from  '../Doctor';
 
 
 import Login         from  '../../components/Login';
@@ -83,30 +84,31 @@ export default class UserDashboard extends React.PureComponent {
       if(this.state.authenticated && this.state.user !== {}) {
         // console.log(this.state.user.type)
         if(this.state.user.type === 'doctor') {
-          return (
-            <section>
+          return(<Doctor firstname={this.state.user.firstname} user={this.state.user}/>)
+          // return (
+          //   <section>
 
-              <div className="wrapper">
+          //     <div className="wrapper">
 
-                  <AdminSidebar firstname={this.state.user.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout}/>
+          //         <AdminSidebar firstname={this.state.user.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout}/>
 
-                  <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
+          //         <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 
                       
 
-                          {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
-                          {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
-                          {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name}   />) : (null)}
+          //                 {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
+          //                 {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
+          //                 {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name}   />) : (null)}
 
 
                      
                       
-                  </div>
-              </div>
+          //         </div>
+          //     </div>
 
 
-            </section>
-          )
+          //   </section>
+          // )
         } else if(this.state.user.type === 'patient') {
           return (<Patient user={this.state.user} logout={this.logout} />)
         }

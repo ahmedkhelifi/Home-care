@@ -6293,7 +6293,7 @@ body {
 }
 
 .chat_list_bubble{
-     background-color: #5d86b6ad;
+     background-color: rgb(172 195 227 / 58%);
      border-radius: 10px;
      padding: 10px;
     justify-content: center;
@@ -6314,7 +6314,7 @@ body {
 }*/
 
 .circle {
-    background: black;
+    background: #000000b8;
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -6339,7 +6339,8 @@ body {
     margin-top: 70px;
 }
 .chat_send_message_input_coontainer{
-
+     padding: 10px 10px;
+     background-color: #80808021;
 }
 
 .enter_a_message_field{
@@ -6368,7 +6369,7 @@ body {
 
 .chat_bubble_me {
     float: right;
-    clear: both;
+    margin-right: 5px;
     background-color: #d2dce8;
     padding: 0 20px;
     border-radius: 8px;
@@ -6382,4 +6383,14 @@ body {
     padding: 0 20px;
     border-radius: 8px;
     text-align: right;
+}
+
+.messages_read_eye{
+    height: 15px;
+    width: auto;
+    display: inline-block;
+    float: right;
+    clear: both;
+    opacity: 0.8;
+    margin-top: 4px;
 }

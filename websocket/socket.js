@@ -27,11 +27,11 @@ function handle_request(wss, WebSocket) {
                   client.idType = m.idType
                 }
               })
-              console.log(m.idType + ' ' + m.name + ' online')
+              console.log(m.idType + ' ' + m.name + ' online (ID: ' + m.id + ')')
           }
           //check if user still responsive
           if (m.type == 'pong') {
-            // console.log('pobng')
+            console.log('pobng from ' + m.id)
             online.forEach(function each(client) {
               if(client.id == m.id && client.idType == m.idType ) client.lastAlive = Math.round((new Date()).getTime() / 1000);
             })
@@ -54,7 +54,7 @@ function handle_request(wss, WebSocket) {
     function send_chatroom(chatroom, to_id, to_type) {
             wss.clients.forEach(function each(client) {
                 // console.log('client: -----')
-                // console.log('id: ' + client.id + '(vs '+to_id+')' + ' typeID: ' + client.idType + '(vs '+to_type+')' )
+                console.log('id: ' + client.id + '(vs '+to_id+')' + ' typeID: ' + client.idType + '(vs '+to_type+')' )
                 if ( client.id == to_id && client.idType == to_type && client.readyState === WebSocket.OPEN && !client.master) {
                     client.send( JSON.stringify({type: 'update_chatroom', chatroom: chatroom}));
                 }

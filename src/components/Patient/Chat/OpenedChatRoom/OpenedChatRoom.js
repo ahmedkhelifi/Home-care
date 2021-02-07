@@ -12,12 +12,20 @@ class OpenedChatRoom extends Component {
     }
   }
 
+  componentDidMount() {
+  }
+
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   componentDidUpdate() {
-    if (this.props.active_chatroom !== null) this.scrollToBottom();
+    if (this.props.active_chatroom !== null) {
+    	this.scrollToBottom();
+		if(this.props.active_chatroom !== null && this.props.active_chatroom.messages.messages[this.props.active_chatroom.messages.messages.length-1].read === false &&  this.props.active_chatroom.messages.messages[this.props.active_chatroom.messages.messages.length-1].fromType !== this.props.myType){
+			this.props.mark_chatroom_as_read(this.props.active_chatroom)
+		}
+    }
   }
 
   beautify_timestamp = (unix_timestamp) => {
@@ -64,7 +72,7 @@ class OpenedChatRoom extends Component {
 
               {this.props.active_chatroom.messages.messages.map((message, index) => {
               	if(message.type === 'message') {
-              		return(<ChatMessage key={index} message={message.message} name={message.name} my_id={this.props.my_id} my_type={'patient'} patner_name_1={this.props.active_chatroom.from} patner_type_1={this.props.active_chatroom.fromType} patner_name_2={this.props.active_chatroom.to}  fromType={message.fromType}  />)
+              		return(<ChatMessage key={index} message={message.message} name={message.name} my_id={this.props.my_id} my_type={'patient'} patner_name_1={this.props.active_chatroom.from} patner_type_1={this.props.active_chatroom.fromType} patner_name_2={this.props.active_chatroom.to}  fromType={message.fromType} read={message.read}  />)
               	} else {
               		return (<p style={{marginTop: '10px', color: '#8ea9ca', textAlign: 'center'}}>Chatroom created on {this.beautify_timestamp(message.timestamp)}</p>)
               	}
