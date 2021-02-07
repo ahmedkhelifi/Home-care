@@ -11,7 +11,7 @@ import Settings_wheel from'../../../images/settings_wheel.png';
 
 const URL = 'ws://localhost:5000'
 
-export default class Chat extends React.PureComponent { 
+export default class Chat extends React.Component { 
 
 
   constructor(props) {
@@ -19,76 +19,68 @@ export default class Chat extends React.PureComponent {
     this.state = {
       name: this.props.name,
       to: this.props.to,
-      from: this.props.from,
 
       new_convesation: false,
       doctosLoaded: false,
       doctors: [],
-
-      messages: [],
-      chatrooms: [],
-      active_chatroom: null,
     }
   }
 
-  ws = new WebSocket(URL)
-
-  componentDidMount() {
-    this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log('connected')
-      const message = { id: this.props.patientid, name: this.props.name, idType: 'patient', type: 'online'}
-      this.ws.send(JSON.stringify(message))
-    }
-
-    this.ws.onmessage = evt => {
-      // on receiving a message, add it to the list of messages
-      const message = JSON.parse(evt.data)
-      // this.addMessage(message)
-      if(message.type === 'ping'){
-              // console.log('ping')
-        const message = { id: this.props.patientid, idType: 'patient', type: 'pong' }
-        this.ws.send(JSON.stringify(message))
-      }
-
-      if(message.type === 'update_chatroom'){
-        let chatrooms = this.state.chatrooms
-        let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
-
-        if(updated_chatroom.length > 0) {
-          //...
-          chatrooms.forEach(chatroom => {
-            if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
-              chatroom.messages =  message.chatroom.messages
-          })
-          this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
-        } else {
-          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
-        }
-      }
-
-    }
-
-    this.ws.onclose = () => {
-      console.log('disconnected')
-      // automatically try to reconnect on connection loss
-      this.setState({
-        ws: new WebSocket(URL),
-      })
-    }
-
-    this.get_messages()
-    // this.getDoctors()
-    // this.scrollToBottom();
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props !== nextProps || this.state !== nextState;
   }
+  // ws = new WebSocket(URL)
+
+  // componentDidMount() {
+  //   this.ws.onopen = () => {
+  //     // on connecting, do nothing but log it to the console
+  //     console.log('connected')
+  //     const message = { id: this.props.patientid, name: this.props.name, idType: 'patient', type: 'online'}
+  //     this.ws.send(JSON.stringify(message))
+  //   }
+
+  //   this.ws.onmessage = evt => {
+  //     // on receiving a message, add it to the list of messages
+  //     const message = JSON.parse(evt.data)
+  //     // this.addMessage(message)
+  //     if(message.type === 'ping'){
+  //             // console.log('ping')
+  //       const message = { id: this.props.patientid, idType: 'patient', type: 'pong' }
+  //       this.ws.send(JSON.stringify(message))
+  //     }
+
+  //     if(message.type === 'update_chatroom'){
+  //       let chatrooms = this.state.chatrooms
+  //       let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
+
+  //       if(updated_chatroom.length > 0) {
+  //         //...
+  //         chatrooms.forEach(chatroom => {
+  //           if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
+  //             chatroom.messages =  message.chatroom.messages
+  //         })
+  //         this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
+  //       } else {
+  //         this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
+  //       }
+  //     }
+
+  //   }
+
+  //   this.ws.onclose = () => {
+  //     console.log('disconnected')
+  //     // automatically try to reconnect on connection loss
+  //     this.setState({
+  //       ws: new WebSocket(URL),
+  //     })
+  //   }
+  //   // this.getDoctors()
+  //   // this.scrollToBottom();
+  // }
 
   // componentDidUpdate() {
   //   this.scrollToBottom();
   // }
-
-  get_messages = () => {
-
-  }
 
   show_doctors_list = () => {
     this.setState({new_convesation: true})
@@ -119,52 +111,21 @@ export default class Chat extends React.PureComponent {
   }
 
   createChatroom = (doctor, name) => {
-    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.patientid, from: this.props.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
-    // console.log(doctor.name)
-    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
+    console.log('aaaaa')
+    this.props.createChatroom(doctor, name)
+    this.setState({new_convesation: false})
   }
 
-  addMessage = message =>
-    this.setState(state => ({ messages: [...state.messages, message] }))
+  // addMessage = message =>
+  //   this.setState(state => ({ messages: [...state.messages, message] }))
 
   submitMessage = messageString => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: false, type: 'message'}
-    let active_chatroom = this.state.active_chatroom
-    active_chatroom.messages.messages.push(message)
-    // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
-    let to_id = ''
-    if('doctor' === active_chatroom.fromType) to_id = active_chatroom.fromID
-    else to_id = active_chatroom.toID
-    let to_type = 'doctor'
-    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: to_type}))
-    // this.addMessage(message)
-    this.forceUpdate()
-    // this.setState({chatrooms: this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))} , e => this.forceUpdate())
-  }
-
-  mark_chatroom_as_read = (active_chatroom) => {
-    let chatrooms = this.state.chatrooms
-    chatrooms.forEach(chatroom => {
-      if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
-        chatroom.messages.messages.forEach(message => {
-          if(!message.read &&  message.fromType !== 'patient') message.read = true
-        })
-        let to_id = ''
-        if(chatroom.toType !== 'patient') to_id = chatroom.toID
-        else to_id = chatroom.fromID
-        this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: 'doctor'}))
-        // console.log(chatroom)
-      }
-
-          
-    })
-
-    this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
+    this.props.submitMessage(messageString, this.state.active_chatroom)
   }
 
   openChatroom = (chatroom) => {
-    this.setState(state => ({ active_chatroom: chatroom }))
+    this.props.openChatroom(chatroom)
+    // this.setState(state => ({ active_chatroom: chatroom }))
   }
 
   // scrollToBottom = () => {
@@ -173,7 +134,8 @@ export default class Chat extends React.PureComponent {
 
   render() {
 
-    let chatrooms = this.state.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))
+    let chatrooms = this.props.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))
+    let active_chatroom = this.props.active_chatroom
 
     return (
     <div className="container-fluid" style={{backgroundColor: '#f7f7f7', padding: '0'}}>
@@ -182,7 +144,7 @@ export default class Chat extends React.PureComponent {
 
       {this.state.new_convesation ?
           (
-            <div className="col-6 chat_sidebar">
+            <div className="col-6 chat_sidebar_doc">
               <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to chatrooms</p>
               {!this.state.doctosLoaded ? (null) : (
                 <CreateChatRoom doctors={this.state.doctors} createChatroom={this.createChatroom}/>
@@ -192,7 +154,7 @@ export default class Chat extends React.PureComponent {
           ) 
       :
           (
-            <div className="col-6 chat_sidebar">
+            <div className="col-6 chat_sidebar_doc">
               <div className="row">
                 <div className="col-12">
                   <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
@@ -206,18 +168,17 @@ export default class Chat extends React.PureComponent {
                           key={index}
                           name={chatroom.name}
                           to={chatroom.to}
-                          toType={chatroom.toType}
                           chatroom = {chatroom}
-                          openChatroom = {this.openChatroom}
-                          active_chatroom = {this.state.active_chatroom}
-                          myType={'patient'}
+                          openChatroom = {this.props.openChatroom}
+                          active_chatroom = {active_chatroom}
+                          myType = {'patient'}
                         />,
                       )}
             </div>
           )
         }
 
-        <OpenedChatRoom active_chatroom={this.state.active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} myType={'patient'} mark_chatroom_as_read={this.mark_chatroom_as_read}/>
+        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} myType={'patient'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
 
     </div>
 
@@ -231,7 +192,7 @@ export default class Chat extends React.PureComponent {
   </div>
   <div className=" col-4">
     <img  src={Chat_menu} alt="History" className="menu_logo"/>
-    <a style={{fontWeight: 'bold'}} >Chat</a>
+    <a style={{fontWeight: 'bold'}} >Chat {this.props.get_unread_messages_number() > 0 ? (<span>({this.props.get_unread_messages_number()})</span>) : (null) }</a>
   </div>
   <div className=" col-4">
     <img  src={Settings_wheel} alt="Settings" className="menu_logo"/>

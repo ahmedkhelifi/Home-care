@@ -13,7 +13,7 @@ import Chat     from  '../../components/Doctor/Chat';
 import './style.css';
 const URL = 'ws://localhost:5000'
 
-export default class Doctor extends React.PureComponent {
+export default class Doctor extends React.Component {
 
   constructor(props) {
     super(props);
@@ -51,6 +51,14 @@ export default class Doctor extends React.PureComponent {
               console.log('ping')
         const message = { id: this.state.user.doctorid, idType: 'doctor', type: 'pong' }
         this.ws.send(JSON.stringify(message))
+      }
+
+      if(message.type === 'set_chatrooms') {
+              // console.log('ping')
+        // const message = { id: this.props.user.patientid, idType: 'patient', type: 'pong' }
+        // this.ws.send(JSON.stringify(message))
+        // console.log(message.chatrooms)
+        this.setState({chatrooms : message.chatrooms})
       }
 
       if(message.type === 'update_chatroom'){
@@ -102,18 +110,18 @@ export default class Doctor extends React.PureComponent {
 
     switch (target) {
            case "Allgemein":
-               this.setState({ openedTab: 'Allgemein'});
+               this.setState({ openedTab: 'Allgemein',active_chatroom: null});
                break;
 
             case "PatientList": 
-               this.setState({ openedTab: 'PatientList'});
+               this.setState({ openedTab: 'PatientList',active_chatroom: null});
                break;
             case "Chat": 
                this.setState({ openedTab: 'Chat'});
                break;
 
             default:
-               this.setState({ openedTab: 'Allgemein'});
+               this.setState({ openedTab: 'Allgemein',active_chatroom: null});
                break;
     }
   }
@@ -134,15 +142,11 @@ export default class Doctor extends React.PureComponent {
     return 0;
   }
 
-
   createChatroom = (doctor, name) => {
     let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'patient', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: 'doctor',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     // console.log(doctor.name)
-    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
+    this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b))}))
   }
-
-  addMessage = message =>
-    this.setState(state => ({ messages: [...state.messages, message] }))
 
   submitMessage = (messageString) => {
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
@@ -190,7 +194,7 @@ export default class Doctor extends React.PureComponent {
 
               <div className="wrapper">
 
-                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout}/>
+                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.logout}/>
 
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 

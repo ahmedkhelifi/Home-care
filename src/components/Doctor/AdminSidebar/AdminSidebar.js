@@ -12,6 +12,17 @@ class AdminSidebar extends React.Component {
       return "menu_tab"
   }
 
+  get_unread_messages_number = () => {
+    let number =  0
+    this.props.chatrooms.forEach(chatroom =>  {
+      if (chatroom.messages.messages[chatroom.messages.messages.length-1].fromType !== 'doctor' && !chatroom.messages.messages[chatroom.messages.messages.length-1].read){
+        number += 1
+      }
+    })
+
+    return number
+  }
+
   render() {
     return (
       <div className="sidebar-admin" >
@@ -30,7 +41,7 @@ class AdminSidebar extends React.Component {
 
                 <ul className="menu">
                   <li>Chat</li>
-                  <li id="Chat" className={this.isOpened("Chat")} onClick={(e) => this.props.tabClicked(e)} >Inbox</li>
+                  <li id="Chat" className={this.isOpened("Chat")} onClick={(e) => this.props.tabClicked(e)} >Inbox {this.get_unread_messages_number() > 0 ? (<span>({this.get_unread_messages_number()})</span>) : (null) }</li>
                 </ul>
 
                 <ul className="menu">

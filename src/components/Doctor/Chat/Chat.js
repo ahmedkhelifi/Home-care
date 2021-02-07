@@ -11,7 +11,7 @@ import Settings_wheel from'../../../images/settings_wheel.png';
 
 const URL = 'ws://localhost:5000'
 
-export default class Chat extends React.PureComponent { 
+export default class Chat extends React.Component { 
 
 
   constructor(props) {
@@ -122,11 +122,10 @@ export default class Chat extends React.PureComponent {
   }
 
 
-  // createChatroom = (doctor, name) => {
-  //   let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'patient', fromID: this.props.doctorid, from: this.props.name, fromType: 'doctor',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
-  //   // console.log(doctor.name)
-  //   this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b)), new_convesation: false}))
-  // }
+  createChatroom = (doctor, name) => {
+    this.props.createChatroom(doctor, name)
+    this.setState({new_convesation: false})
+  }
 
   // addMessage = message =>
   //   this.setState(state => ({ messages: [...state.messages, message] }))
@@ -178,7 +177,7 @@ export default class Chat extends React.PureComponent {
             <div className="col-6 chat_sidebar_doc">
               <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to chatrooms</p>
               {!this.state.doctosLoaded ? (null) : (
-                <CreateChatRoom doctors={this.state.doctors} createChatroom={this.props.createChatroom}/>
+                <CreateChatRoom doctors={this.state.doctors} createChatroom={this.createChatroom}/>
               )}
               
             </div>
