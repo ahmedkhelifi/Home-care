@@ -1,3 +1,5 @@
+var Chat = require('../models/chat');
+
 function handle_request(wss, WebSocket) {
 
   var online = []
@@ -26,8 +28,24 @@ function handle_request(wss, WebSocket) {
                   client.name = m.name
                   client.idType = m.idType
                 }
+                Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
+                  result.forEach(chatroom => {
+                    chatroom.chatroom_id = chatroom.chatid
+
+                    chatroom.fromID = chatroom.chatpartner1id
+                    chatroom.fromType = chatroom.chatpartner1type
+                    chatroom.from = chatroom.name_chatpartner1id
+
+                    chatroom.toID = chatroom.chatpartner2id
+                    chatroom.toType = chatroom.chatpartner2type
+                    chatroom.to = chatroom.name_chatpartner2id
+
+                  })
+                  client.send( JSON.stringify({type:'set_chatrooms', chatrooms: result}) );
+                })
               })
               console.log(m.idType + ' ' + m.name + ' online (ID: ' + m.id + ')')
+
           }
           //check if user still responsive
           if (m.type == 'pong') {
@@ -44,6 +62,7 @@ function handle_request(wss, WebSocket) {
             // console.log('online')
             // console.log(online)
             send_chatroom(m.chatroom, m.to_id, m.to_type)
+            save_chatroom_in_db(m.chatroom)
           }
 
       });
@@ -59,6 +78,17 @@ function handle_request(wss, WebSocket) {
                     client.send( JSON.stringify({type: 'update_chatroom', chatroom: chatroom}));
                 }
             });
+    }
+
+    //Forward Message to Clients
+    function save_chatroom_in_db(chatroom) {
+      Chat.retrieveAllChatroomsWithID(chatroom.chatroom_id, result => {
+        if(result.length == 0) {
+          Chat.createChatroom(chatroom.chatroom_id, chatroom.name, chatroom.fromID, chatroom.fromType, chatroom.toID, chatroom.toType, chatroom.messages, result => {})
+        } else {
+          Chat.updateMessages(chatroom.chatroom_id, chatroom.fromType, chatroom.messages, result => {})
+        }
+      })
     }
 
   //SEND PING INTERVAL

@@ -35,14 +35,14 @@ router.get('/getAllChatroomsFromTwoParties/:chatPartner1ID/:chatPartner1Type/:ch
 
 //insert new chatroom into database
 router.post('/newChatroom/:chatID/:chatName/:fromID/:fromType/:toID/:toType', (req, res) => {
-  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.fromID, req.params.fromType, req.params.toID, req.params.toType (errr, resultt) => {
+  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.fromID, req.params.fromType, req.params.toID, req.params.toType, (errr, resultt) => {
         return res.json({timestamp: req.params.timestamp, send: true}) 
     })
   });
   
  //update message
-router.post('/updateMessage/:chatID/:chatName/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type/:message',', (req, res) => {
-  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type, req.params.message (errr, resultt) => {
+router.post('/updateMessage/:chatID/:chatName/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type/:message', (req, res) => {
+  Chat.createChatroom(req.params.chatID, req.params.chatName, req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type, req.params.message, (errr, resultt) => {
         return res.json({timestamp: req.params.timestamp, send: true}) 
     })
   });
