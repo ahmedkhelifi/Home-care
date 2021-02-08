@@ -29,7 +29,6 @@ export default class Doctor extends React.Component {
     };
 
     this.tabClicked        = this.tabClicked.bind(this)
-    this.logout            = this.logout.bind(this)
     this.tabOpened         = <Allgemein refresh={false} />
   }
 
@@ -125,7 +124,7 @@ export default class Doctor extends React.Component {
                break;
     }
   }
-  
+
   compare_chatrooms = ( a, b ) => {
     if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[b.messages.messages.length-1].timestamp ){
       return -1;
