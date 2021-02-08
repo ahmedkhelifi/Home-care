@@ -125,13 +125,7 @@ export default class Doctor extends React.Component {
                break;
     }
   }
-
-  logout(){
-    this.setState({authenticated: false, user: {}})
-    Cookies.remove('authenticated')
-    Cookies.remove('user')
-  }
-
+  
   compare_chatrooms = ( a, b ) => {
     if ( a.messages.messages[a.messages.messages.length-1].timestamp > b.messages.messages[b.messages.messages.length-1].timestamp ){
       return -1;
@@ -194,7 +188,7 @@ export default class Doctor extends React.Component {
 
               <div className="wrapper">
 
-                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.logout}/>
+                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.props.logout}/>
 
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 

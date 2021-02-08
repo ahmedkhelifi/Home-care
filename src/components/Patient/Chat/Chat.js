@@ -111,7 +111,6 @@ export default class Chat extends React.Component {
   }
 
   createChatroom = (doctor, name) => {
-    console.log('aaaaa')
     this.props.createChatroom(doctor, name)
     this.setState({new_convesation: false})
   }
