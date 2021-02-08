@@ -50,7 +50,7 @@ class CreateChatRoom extends Component {
 				              onChange={e => this.setState({ name: e.target.value })}
 				              className="enter_a_message_field"
 				            />
-				            <button onClick={e => this.props.createChatroom(this.state.doctor, this.state.name)}>Send   </button>
+				            <button onClick={e => this.props.createChatroom(this.state.doctor, this.state.name)}>Create chatroom</button>
 	                  </div>
 	                </div>
 	    )

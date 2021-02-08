@@ -160,7 +160,7 @@ export default class Chat extends React.Component {
                   <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
                 </div>
               </div>
-              <div className="row"><p style={{fontWeight: 'bold'}} >Please select a chatroom to open it.</p></div>
+              {chatrooms.length > 0 ? (<div className="row"><p style={{fontWeight: 'bold'}} >Please select a chatroom to open it.</p></div>) : (<div className="row"><p style={{fontWeight: 'bold'}} >You have no chatrooms. Create one to start a conversation.</p></div>)}
               
               
                       {chatrooms.map((chatroom, index) =>

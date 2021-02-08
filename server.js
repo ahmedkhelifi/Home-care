@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/login', require('./routes/login'));
 app.use('/api/patient', require('./routes/patient'));
 app.use('/api/doctor', require('./routes/doctor'));
-// app.use('/api/chat', require('./routes/chat'));
+app.use('/api/chat', require('./routes/chat'));
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, './build', 'index.html'));
