@@ -104,7 +104,8 @@ export default class BloodPressure extends React.PureComponent {
                         axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.min : 100
+                        min: extent => extent.min < 100  ? extent.min : 100,
+                        max: extent => extent.max > 140  ? extent.max : 142
                         }, {
                         axisLine:{show:false},
                         axisLabel: {show: false},
@@ -112,37 +113,70 @@ export default class BloodPressure extends React.PureComponent {
                         axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.min : 70
+                        min: extent => extent.min < 70  ? extent.min : 70,
+                        max: extent => extent.max > 90  ? extent.max : 92
                     }],
                     grid: [{
                         bottom: '60%'
                         }, {
                         top: '60%'
                     }],
-                    series: [{
+                    series: [       
+                        {
+                        name:"sys",
+                        connectNulls: true,
                         type: 'line',
-						connectNulls: true,
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fontWeight: "bolder",
+                                         color:  'black',
+                                         fontSize: "7",
+                                     },
+                                    position:'start',
+                                    formatter:"140"
+                                },
+                                yAxis:140  
                             }
-                        },
-                        }, {
+                            ]
+                        }　　
+
+                    }, {
+                        name:"dia",
+                        connectNulls: true,
                         type: 'line',
-						connectNulls: true,
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fontWeight: "bolder",
+                                         color:  'black',
+                                         fontSize: "7",
+                                     },
+                                    position:'start',
+                                    formatter:"90"
+                                },
+                                yAxis:90   
+                               
+                            }]
+                        }　　
                     }]
                 };
 

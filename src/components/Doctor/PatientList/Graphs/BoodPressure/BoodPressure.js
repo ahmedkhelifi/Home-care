@@ -74,11 +74,12 @@ class BoodPressure extends Component {
                         gridIndex: 0,
                         axisTick: {show: false},
                         axisLabel: {show: false},
+                        splitLine: {show: false},
                         }, 
                         {
                         data: timelist,
                         gridIndex: 1,
-                        axisLine:{show:false},
+
                         axisLabel: {show: false},
                         splitLine: {show: false},
                         axisTick: {show: false},
@@ -90,7 +91,8 @@ class BoodPressure extends Component {
                         axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.min : 100
+                        min: extent => extent.min < 100  ? extent.min : 100,
+                        max: extent => extent.max > 140  ? extent.max : 142
                         }, 
                         {
                         axisLine:{show:false},
@@ -99,7 +101,8 @@ class BoodPressure extends Component {
                         axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.min : 70
+                        min: extent => extent.min < 70  ? extent.min : 70,
+                        max: extent => extent.max > 90  ? extent.max : 92
                     }],
                     grid: [{
                         bottom: '60%'
@@ -115,6 +118,26 @@ class BoodPressure extends Component {
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fontWeight: "bolder",
+                                         color:  'black',
+                                         fontSize: "4",
+                                     },
+                                    position:'start',
+                                    formatter:"140"
+                                },
+                                yAxis:140  
+                            }
+                            ]
+                        }
                         }, {
                         connectNulls: true,
                         type: 'line',
@@ -122,6 +145,26 @@ class BoodPressure extends Component {
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,
+                        markLine : {
+                            symbol:"none",
+                            data : [{
+                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                    type:"solid",
+                                    color:"#FA3934",
+                                },
+                                    label:{
+                                     textStyle: {
+                                         fontWeight: "bolder",
+                                         color:  'black',
+                                         fontSize: "4",
+                                     },
+                                    position:'start',
+                                    formatter:"90"
+                                },
+                                yAxis:90   
+                               
+                            }]
+                        }　　
                         }
                         ]
                 };

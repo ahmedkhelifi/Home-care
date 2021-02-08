@@ -122,29 +122,28 @@ var option ={
                                },
                                    label:{
                                     textStyle: {
-                                        fonttemperature: "bolder",
+                                        fontWeight: "bolder",
                                         color:  'black',
                                         fontSize: "4",
                                     },
-                                   position:'left',
+                                   position:'start',
                                    formatter:"37.5"
                                },
                                yAxis:37.5     
                               
                            },
                            {
-
                                lineStyle:{               //警戒线的样式  ，虚实  颜色
                                    type:"solid",
                                    color:"green",
                                },
                                label:{
                                 textStyle: {
-                                    fonttemperature: "bolder",
+                                    fontWeight: "bolder",
                                     color:  'black',
                                     fontSize: "4",
                                 },
-                                   position:'left',
+                                   position:'start',
                                    formatter:"36.5 ",
                                },
                                yAxis:36.5    
