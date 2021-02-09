@@ -41,7 +41,6 @@ router.post('/updatePatient/:patientID/', (req, res) => {
         return res.json({username: req.params.username})
       });
   });
-});
 
 /*    -------   */
 
