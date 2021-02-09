@@ -16,6 +16,15 @@ class Patient {
       callback(res);
     });
   }
+  
+    static updatePatient (patientid, username, firstName, lastName , birthdate, medication, callback) {
+      db.query('UPDATE patient SET username = $2, firstName = $3, lastName = $4, birthdate = $5, medication = $6 WHERE patientid = $1', [patientid, username, firstName, lastName , birthdate, medication], (err, res) => {
+      //TODO error handling
+      if (err.error)
+        return callback(err);
+      callback(res);
+    });
+  }
 
   static retrieveTemperature (username, callback) {
     db.query('SELECT temperature from patient WHERE username = $1', [username], (err, res) => {

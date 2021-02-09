@@ -49,7 +49,7 @@ function handle_request(wss, WebSocket) {
           }
           //check if user still responsive
           if (m.type == 'pong') {
-            console.log('pobng from ' + m.id)
+            console.log('pong from ' + m.id)
             online.forEach(function each(client) {
               if(client.id == m.id && client.idType == m.idType ) client.lastAlive = Math.round((new Date()).getTime() / 1000);
             })
@@ -80,7 +80,7 @@ function handle_request(wss, WebSocket) {
             });
     }
 
-    //Forward Message to Clients
+    //Forward Message to database
     function save_chatroom_in_db(chatroom) {
       Chat.retrieveAllChatroomsWithID(chatroom.chatroom_id, result => {
         if(result.length == 0) {
