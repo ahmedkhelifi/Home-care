@@ -101,6 +101,12 @@ export default class Chat extends React.Component {
         this.setState({doctosLoaded: true, doctors: blob})
       })
       .catch(error => this.setState({error: true}));
+    fetch('/api/chat/getPharmacies/')
+      .then(blob => blob.json())
+      .then(blob => {
+        this.setState({pharmaciesLoaded: true, pharmacies: blob})
+      })
+      .catch(error => this.setState({error: true}));
   }
 
   compare_chatrooms = ( a, b ) => {

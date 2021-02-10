@@ -210,9 +210,9 @@ export default class Patient extends React.PureComponent {
   createChatroom = (doctor, pharmacy, name) => {
     let chatroom = {}
     if(doctor.hasOwnProperty('id')){
-      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.user.patientid, from: this.props.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     } else {
-      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: pharmacy.id, to: pharmacy.name, toType: 'pharmacy', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: pharmacy.id, to: pharmacy.name, toType: 'pharmacy', fromID: this.props.user.patientid, from: this.props.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     }
     // console.log(chatroom)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b))}))

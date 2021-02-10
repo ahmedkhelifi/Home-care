@@ -22,7 +22,7 @@ function handle_request(wss, WebSocket) {
                 Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
                   result.forEach(chatroom => {
                     chatroom.chatroom_id = chatroom.chatid
-                    chatroom.name = chatroom.chatName
+                    chatroom.name = chatroom.chatname
 
                     chatroom.fromID = chatroom.chatpartner1id
                     chatroom.fromType = chatroom.chatpartner1type
