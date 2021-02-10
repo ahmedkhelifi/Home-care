@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Apotheke_logo from'../../../../images/Logo_der_deutschen_Apotheken.png';
+import Doctor_logo from'../../../../images/doctor.png';
 import Patient_logo from'../../../../images/User_icon_BLACK-01.png';
 
 class ChatRoom extends Component {
@@ -13,9 +13,6 @@ class ChatRoom extends Component {
      	if(this.props.myType !== this.props.chatroom.toType) partner_type = this.props.chatroom.toType
      	else partner_type = this.props.chatroom.fromType
 
-
-     	console.log(partner_type)
-
      	if(this.props.active_chatroom !== null && this.props.chatroom.chatroom_id === this.props.active_chatroom.chatroom_id && this.props.chatroom.from === this.props.active_chatroom.from) {
 		    return (
 		    	 <div className="row">
@@ -23,8 +20,8 @@ class ChatRoom extends Component {
 				        <div className="row chat_list_bubble" style={{backgroundColor: '#5b7da1'}} onClick={e => this.props.openChatroom(this.props.chatroom)}>
 				          <div className="col-3" style={{justifyContent: 'center', alignItems: 'center'}}>
 				            <div className="circle" style={{justifyContent: 'center', alignItems: 'center', background:'white', opacity: '1'}}> 
-				            { partner_type === 'pharmacy' ? (
-				              	<img src={Apotheke_logo} className="apotheke_logo_chat" />
+				            { partner_type === 'doctor' ? (
+				              	<img src={Doctor_logo} className="apotheke_logo_chat" />
 				              ) : (
 				              	<img src={Patient_logo} className="apotheke_logo_chat" />
 				              )
@@ -46,8 +43,8 @@ class ChatRoom extends Component {
 				        <div className="row chat_list_bubble" onClick={e => this.props.openChatroom(this.props.chatroom)}>
 				          <div className="col-3" style={{justifyContent: 'center', alignItems: 'center'}}>
 				            <div className="circle" style={{justifyContent: 'center', alignItems: 'center'}}> 
-				            { partner_type === 'pharmacy' ? (
-				              	<img src={Apotheke_logo} className="apotheke_logo_chat" />
+				            { partner_type === 'doctor' ? (
+				              	<img src={Doctor_logo} className="apotheke_logo_chat" />
 				              ) : (
 				              	<img src={Patient_logo} className="apotheke_logo_chat" />
 				              )

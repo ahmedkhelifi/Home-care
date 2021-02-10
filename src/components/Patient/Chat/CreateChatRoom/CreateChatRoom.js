@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class CreateChatRoom extends Component {
   constructor(props) {
@@ -15,9 +16,31 @@ class CreateChatRoom extends Component {
 	    return (
 	            <div className="row">
 	                <div className="col-12">
-	                  <p style={{fontWeight: 'bold'}} >Choose a doctor to add to the chatroom:</p>
+	                  <p style={{fontWeight: 'bold'}} >Choose who you want to talk to:</p>
 	                </div>
 	                <div className="col-12">
+
+                    <Tabs>
+                        <TabList className="notification_tab_header">
+	                        <Tab>Doctors</Tab>
+	                        <Tab>Pharmacies</Tab>
+                        </TabList>
+                        
+                        <TabPanel>
+	                      {this.props.pharmacies.map((pharmacy, i) => {return(
+	                          <div key={i*10} className="row chat_list_bubble" onClick={e => this.setState({step: 2, doctor: pharmacy})}>
+	                            <div className="col-3" style={{justifyContent: 'center', alignItems: 'center'}}>
+	                              <div className="circle" style={{justifyContent: 'center', alignItems: 'center'}}> 
+	                                <p style={{color: 'white', textAlign: 'center', fontWeight: 'bold', paddingTop: '17px', fontSize: '30px'}}>{pharmacy.name[0]}</p>
+	                              </div>
+	                            </div>
+	                            <div className="col-9" style={{justifyContent: 'center', alignItems: 'center'}}>
+	                              <p style={{color:'white', fontWeight: 'bold'}} >{pharmacy.name}</p>
+	                            </div>
+	                          </div>
+	                      )})}
+	                    </TabPanel>
+                        <TabPanel>
 
 	                      {this.props.doctors.map((doctor, i) => {return(
 	                          <div key={i*10} className="row chat_list_bubble" onClick={e => this.setState({step: 2, doctor: doctor})}>
@@ -31,6 +54,10 @@ class CreateChatRoom extends Component {
 	                            </div>
 	                          </div>
 	                      )})}
+	                    </TabPanel>
+	                </Tabs>
+
+
 	                </div>
 	            </div>
 	    )

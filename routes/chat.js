@@ -64,25 +64,13 @@ router.get('/getPatients', (req, res) => {
 router.get('/getDoctors', (req, res) => {
   console.log('/getDoctors')
   Chat.retrieveAllDoctos((users) => {
-
-  //   users.forEach( user => {
-		// user.type = 'doctor'  // braucht ihr den Type?
-		// // what to do?
-  //   })
-
     return res.json(users);
   });
 });
 
 // get IDs and names from all patients
-router.get('/getPatients', (req, res) => {
+router.get('/getPharmacies', (req, res) => {
   Chat.retrieveAllPharmacies((users) => {
-
-    users.forEach( user => {
-		user.type = 'pharmacy'  // braucht ihr den Type?
-		// what to do?
-    })
-
     return res.json(users);
   });
 });

@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import Patient         from  '../Patient';
 import Doctor         from  '../Doctor';
+import Pharamcy         from  '../Pharamcy';
 
 
 import Login         from  '../../components/Login';
@@ -85,32 +86,10 @@ export default class UserDashboard extends React.PureComponent {
         // console.log(this.state.user.type)
         if(this.state.user.type === 'doctor') {
           return(<Doctor firstname={this.state.user.firstname} user={this.state.user} logout={this.logout}/>)
-          // return (
-          //   <section>
-
-          //     <div className="wrapper">
-
-          //         <AdminSidebar firstname={this.state.user.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} logout={this.logout}/>
-
-          //         <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
-
-                      
-
-          //                 {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
-          //                 {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
-          //                 {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name}   />) : (null)}
-
-
-                     
-                      
-          //         </div>
-          //     </div>
-
-
-          //   </section>
-          // )
         } else if(this.state.user.type === 'patient') {
           return (<Patient user={this.state.user} logout={this.logout} />)
+        } else if(this.state.user.type === 'pharmacy') {
+          return (<Pharamcy user={this.state.user} logout={this.logout} />)
         }
       } else {
         return(<Login loggedIn={this.loggedIn}/>)

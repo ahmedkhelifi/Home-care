@@ -8,7 +8,7 @@ class CreateChatRoom extends Component {
 		step: 1,
 		name: '',
 		doctor: {},
-		pharmacist: {}
+		patient: {}
     }
   }
 
@@ -24,7 +24,7 @@ class CreateChatRoom extends Component {
                     <Tabs>
                         <TabList className="notification_tab_header">
                         <Tab>Doctors</Tab>
-                        <Tab>Pharmacies</Tab>
+                        <Tab>Patients</Tab>
                         </TabList>
                         <TabPanel>
 
@@ -43,15 +43,15 @@ class CreateChatRoom extends Component {
 	                    </TabPanel>
                         <TabPanel>
 
-	                      {this.props.pharmacies.map((pharmacist, i) => {return(
-	                          <div key={i*10} className="row chat_list_bubble" onClick={e => this.setState({step: 2, pharmacist: pharmacist})}>
+	                      {this.props.patients.map((patient, i) => {return(
+	                          <div key={i*10} className="row chat_list_bubble" onClick={e => this.setState({step: 2, patient: patient})}>
 	                            <div className="col-3" style={{justifyContent: 'center', alignItems: 'center'}}>
 	                              <div className="circle" style={{justifyContent: 'center', alignItems: 'center'}}> 
-	                                <p style={{color: 'white', textAlign: 'center', fontWeight: 'bold', paddingTop: '17px', fontSize: '30px'}}>{pharmacist.name[0]}</p>
+	                                <p style={{color: 'white', textAlign: 'center', fontWeight: 'bold', paddingTop: '17px', fontSize: '30px'}}>{patient.name[0]}</p>
 	                              </div>
 	                            </div>
 	                            <div className="col-9" style={{justifyContent: 'center', alignItems: 'center'}}>
-	                              <p style={{color:'white', fontWeight: 'bold'}} >{pharmacist.name}</p>
+	                              <p style={{color:'white', fontWeight: 'bold'}} >{patient.name}</p>
 	                            </div>
 	                          </div>
 	                      )})}
@@ -76,7 +76,7 @@ class CreateChatRoom extends Component {
 				              onChange={e => this.setState({ name: e.target.value })}
 				              className="enter_a_message_field"
 				            />
-				            <button onClick={e => this.props.createChatroom(this.state.doctor, this.state.pharmacist, this.state.name)}>create</button>
+				            <button onClick={e => this.props.createChatroom(this.state.patient, this.state.doctor, this.state.name)}>create</button>
 	                  </div>
 	                </div>
 	    )

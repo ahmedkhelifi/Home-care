@@ -8,19 +8,10 @@ function handle_request(wss, WebSocket) {
   wss.on('connection', function connection(ws) {
 
      ws.on('message', function incoming(data) {
-        // wss.clients.forEach(function each(client) {
-        //   if (client !== ws && client.readyState === WebSocket.OPEN) {
-        //     client.send(data);
-        //   }
-        // });
 
         let  m = JSON.parse(data)
 
           if (m.type == 'online') {
-              // m.user.IP = ws._socket.remoteAddress
-              // m.user.id = m.id
-              // m.user.type = m.idType
-              // m.user.lastAlive = Math.round((new Date()).getTime() / 1000)
               online.push({id: m.id, name: m.name, idType: m.idType, lastAlive: Math.round((new Date()).getTime() / 1000)})
               wss.clients.forEach(function each(client) {
                 if (client == ws) {
@@ -31,6 +22,7 @@ function handle_request(wss, WebSocket) {
                 Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
                   result.forEach(chatroom => {
                     chatroom.chatroom_id = chatroom.chatid
+                    chatroom.name = chatroom.chatName
 
                     chatroom.fromID = chatroom.chatpartner1id
                     chatroom.fromType = chatroom.chatpartner1type
@@ -49,18 +41,13 @@ function handle_request(wss, WebSocket) {
           }
           //check if user still responsive
           if (m.type == 'pong') {
-            console.log('pong from ' + m.id)
             online.forEach(function each(client) {
-              if(client.id == m.id && client.idType == m.idType ) client.lastAlive = Math.round((new Date()).getTime() / 1000);
+              if(client.id == m.id && client.idType == m.idType) client.lastAlive = Math.round((new Date()).getTime() / 1000);
             })
           }
 
           //check if user still responsive
           if (m.type == 'chatroom_update') {
-            // console.log('pong')
-            // console.log(m)
-            // console.log('online')
-            // console.log(online)
             send_chatroom(m.chatroom, m.to_id, m.to_type)
             save_chatroom_in_db(m.chatroom)
           }
@@ -82,6 +69,7 @@ function handle_request(wss, WebSocket) {
 
     //Forward Message to database
     function save_chatroom_in_db(chatroom) {
+      console.log(chatroom)
       Chat.retrieveAllChatroomsWithID(chatroom.chatroom_id, result => {
         if(result.length == 0) {
           Chat.createChatroom(chatroom.chatroom_id, chatroom.name, chatroom.fromID, chatroom.fromType, chatroom.toID, chatroom.toType, chatroom.messages, result => {})
@@ -110,9 +98,6 @@ function handle_request(wss, WebSocket) {
       if (currentTime - client.lastAlive > 10) {
         console.log(client.idType + ' ' + client.name + " Disconnected " )
         online = online.filter((item) => item.id !== client.id && item.idType !== client.idType  );
-        // sendToMasters(JSON.stringify({type: 'online', clients: CLIENTS, voted: {}, master_session:{session: false}}))
-
-
       }
     });
    }

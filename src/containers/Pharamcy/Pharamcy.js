@@ -1,20 +1,13 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 
-import Patient         from  '../Patient';
-
-
-import Login         from  '../../components/Login';
-import Allgemein     from  '../../components/Doctor/Allgemein';
-import PatientList     from  '../../components/Doctor/PatientList';
-import AdminSidebar     from  '../../components/Doctor/AdminSidebar';
-import Chat     from  '../../components/Doctor/Chat';
+import Chat     from  '../../components/Pharamcy/Chat';
 
 import './style.css';
 const URL = 'ws://localhost:5000'
-var my_type = 'doctor'
+var my_type = 'pharmacy'
 
-export default class Doctor extends React.Component {
+export default class Pharamcy extends React.Component {
 
   constructor(props) {
     super(props);
@@ -28,9 +21,6 @@ export default class Doctor extends React.Component {
       chatrooms: [],
       active_chatroom: null,
     };
-
-    this.tabClicked        = this.tabClicked.bind(this)
-    this.tabOpened         = <Allgemein refresh={false} />
   }
 
   ws = new WebSocket(URL)
@@ -39,7 +29,7 @@ export default class Doctor extends React.Component {
     this.ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       // console.log('connected')
-      const message = { id: this.state.user.doctorid, name: this.state.user.name, idType: my_type, type: 'online'}
+      const message = { id: this.state.user.pharmacyid, name: this.state.user.name, idType: my_type, type: 'online'}
       this.ws.send(JSON.stringify(message))
     }
 
@@ -47,7 +37,7 @@ export default class Doctor extends React.Component {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
       if(message.type === 'ping' && this.state.ID !== -1){
-        const message = { id: this.state.user.doctorid, idType: my_type, type: 'pong' }
+        const message = { id: this.state.user.pharmacyid, idType: my_type, type: 'pong' }
         this.ws.send(JSON.stringify(message))
       }
 
@@ -68,7 +58,7 @@ export default class Doctor extends React.Component {
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
         } else {
-          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
+          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }, e => this.forceUpdate()))          
         }
       }
 
@@ -80,43 +70,6 @@ export default class Doctor extends React.Component {
       this.setState({
         ws: new WebSocket(URL),
       })
-    }
-
-    // this.get_messages()
-    // this.getDoctors()
-    // this.scrollToBottom();
-  }
-
-  // componentDidMount(){
-  //   var cookies = Cookies.get()
-  //   if(cookies.hasOwnProperty('authenticated') && cookies.hasOwnProperty('user')) {
-  //     if(cookies.authenticated) this.setState({authenticated: true, user: JSON.parse(Cookies.get('user'))})
-  //   }
-  // }
-
-  /*
-  *     Call right component when Admin Dashboard sidebar tabs are clicked
-  */
-
-  tabClicked(e, id){
-    var target = e.target.id
-    this.setState({refresh: this.state.openedTab === target})
-
-    switch (target) {
-           case "Allgemein":
-               this.setState({ openedTab: 'Allgemein',active_chatroom: null});
-               break;
-
-            case "PatientList": 
-               this.setState({ openedTab: 'PatientList',active_chatroom: null});
-               break;
-            case "Chat": 
-               this.setState({ openedTab: 'Chat'});
-               break;
-
-            default:
-               this.setState({ openedTab: 'Allgemein',active_chatroom: null});
-               break;
     }
   }
 
@@ -130,14 +83,14 @@ export default class Doctor extends React.Component {
     return 0;
   }
 
-  createChatroom = (patient, pharmacy, name) => {
+  createChatroom = (patient, doctor, name) => {
     let chatroom = {}
     if(patient.hasOwnProperty('id')){
-      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: patient.id, to: patient.name, toType: 'patient', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: patient.id, to: patient.name, toType: 'patient', fromID: this.state.user.pharmacyid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     } else {
-      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: pharmacy.id, to: pharmacy.name, toType: 'pharmacy', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.state.user.pharmacyid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     }
-    // console.log(chatroom)
+    console.log(chatroom)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b))}))
   }
 
@@ -166,6 +119,7 @@ export default class Doctor extends React.Component {
 
   mark_chatroom_as_read = (active_chatroom) => {
     let chatrooms = this.state.chatrooms
+
     chatrooms.forEach(chatroom => {
       if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
         chatroom.messages.messages.forEach(message => {
@@ -178,12 +132,9 @@ export default class Doctor extends React.Component {
         let toType = ''
         if (my_type !== active_chatroom.toType) toType = active_chatroom.toType
         else toType = active_chatroom.fromType
-
         this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType}))
         // console.log(chatroom)
       }
-
-          
     })
 
     this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
@@ -191,29 +142,6 @@ export default class Doctor extends React.Component {
 
 
   render() {
-          return (
-            <section>
-
-              <div className="wrapper">
-
-                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.props.logout}/>
-
-                  <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
-
-                      
-
-                          {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
-                          {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
-                          {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name} ws={this.ws} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom}/>) : (null)}
-
-
-                     
-                      
-                  </div>
-              </div>
-
-
-            </section>
-          )
+    return ( <Chat  pharmacyid={this.state.user.pharmacyid} name={this.state.user.name} ws={this.ws} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom}/> )
   }
 }

@@ -25,7 +25,7 @@ import Tasks_heart_rate from'../../images/heart_rate.png';
 import Tasks_weight from'../../images/weight-clipart-black-and-white-3.png';
 
 const URL = 'ws://localhost:5000'
-
+var my_type = 'patient'
 
 export default class Patient extends React.PureComponent { 
 
@@ -207,24 +207,32 @@ export default class Patient extends React.PureComponent {
   }
 
 
-  createChatroom = (doctor, name) => {
-    let chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.props.user.patientid, from: this.props.user.name, fromType: 'patient',  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
-    // console.log(patient.name)
+  createChatroom = (doctor, pharmacy, name) => {
+    let chatroom = {}
+    if(doctor.hasOwnProperty('id')){
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: doctor.id, to: doctor.name, toType: 'doctor', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+    } else {
+      chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: pharmacy.id, to: pharmacy.name, toType: 'pharmacy', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
+    }
+    // console.log(chatroom)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b))}))
   }
 
   submitMessage = (messageString) => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = {message: messageString, fromType: 'patient', toType: 'doctor', timestamp: new Date().valueOf(), read: false, type: 'message'}
+    let toType = ''
     let active_chatroom = this.state.active_chatroom
-    active_chatroom.messages.messages.push(message)
+
+    if (my_type !== active_chatroom.toType) toType = active_chatroom.toType
+    else toType = active_chatroom.fromType
+
     let to_id = ''
-    if('patient' !== active_chatroom.fromType) to_id = active_chatroom.fromID
+    if(my_type !== active_chatroom.fromType) to_id = active_chatroom.fromID
     else to_id = active_chatroom.toID
-    console.log('toID : ' + to_id)
-    let to_type = 'doctor'
-    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: to_type}))
-    // this.addMessage(message)
+
+    const message = {message: messageString, fromType: my_type, toType: toType, timestamp: new Date().valueOf(), read: false, type: 'message'}
+    
+    active_chatroom.messages.messages.push(message)
+    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: toType}))
     this.forceUpdate()
   }
 
@@ -233,16 +241,24 @@ export default class Patient extends React.PureComponent {
   }
 
   mark_chatroom_as_read = (active_chatroom) => {
+    console.log('mark_chatroom_as_read')
     let chatrooms = this.state.chatrooms
     chatrooms.forEach(chatroom => {
-      if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
+      if( chatroom.chatroom_id === active_chatroom.chatroom_id) {
         chatroom.messages.messages.forEach(message => {
-          if(!message.read &&  message.fromType !== 'patient') message.read = true
+          if(!message.read &&  message.fromType !== my_type) message.read = true
         })
         let to_id = ''
-        if(chatroom.toType !== 'patient') to_id = chatroom.toID
+        if(chatroom.toType !== my_type) to_id = chatroom.toID
         else to_id = chatroom.fromID
-        this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: 'doctor'}))
+
+        let toType = ''
+        if (my_type !== active_chatroom.toType) toType = active_chatroom.toType
+        else toType = active_chatroom.fromType
+
+        console.log({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType})
+
+        this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType}))
         // console.log(chatroom)
       }
 
@@ -272,7 +288,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.chatWindow){
-      return( <Chat patientid={this.props.user.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom} get_unread_messages_number={this.get_unread_messages_number}/> )
+      return( <Chat patientid={this.props.user.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom} get_unread_messages_number={this.get_unread_messages_number} goBack={() => this.setState({active_chatroom: null})}/> )
     }
 
     if(this.state.medication_bool) {

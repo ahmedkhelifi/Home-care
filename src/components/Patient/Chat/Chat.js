@@ -23,6 +23,9 @@ export default class Chat extends React.Component {
       new_convesation: false,
       doctosLoaded: false,
       doctors: [],
+
+      pharmaciesLoaded: false,
+      pharmacies: [],
     }
   }
 
@@ -110,8 +113,8 @@ export default class Chat extends React.Component {
     return 0;
   }
 
-  createChatroom = (doctor, name) => {
-    this.props.createChatroom(doctor, name)
+  createChatroom = (doctor, pharmacy, name) => {
+    this.props.createChatroom(doctor, pharmacy, name)
     this.setState({new_convesation: false})
   }
 
@@ -141,19 +144,19 @@ export default class Chat extends React.Component {
 
     <div className="row">
 
-      {this.state.new_convesation ?
+      {this.state.new_convesation && this.props.active_chatroom === null ?
           (
-            <div className="col-6 chat_sidebar_doc">
+            <div className="col-12 chat_sidebar_doc">
               <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to chatrooms</p>
               {!this.state.doctosLoaded ? (null) : (
-                <CreateChatRoom doctors={this.state.doctors} createChatroom={this.createChatroom}/>
+                <CreateChatRoom doctors={this.state.doctors}  pharmacies={this.state.pharmacies}  createChatroom={this.createChatroom}/>
               )}
               
             </div>
           ) 
-      :
-          (
-            <div className="col-6 chat_sidebar_doc">
+      : (null)}
+      {!this.state.new_convesation && this.props.active_chatroom === null ?    (
+            <div className="col-12 chat_sidebar_doc">
               <div className="row">
                 <div className="col-12">
                   <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
@@ -174,10 +177,12 @@ export default class Chat extends React.Component {
                         />,
                       )}
             </div>
-          )
-        }
+          ) : (null)
+      }
 
-        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} myType={'patient'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
+      { this.props.active_chatroom !== null ? 
+        (<OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.patientid} myType={'patient'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} goBack={this.props.goBack} />) : (null)
+      }
 
     </div>
 

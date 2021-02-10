@@ -4731,7 +4731,7 @@ body {
      padding: 0 6px;
 }
  .react-tabs__tab--selected{
-     color: #f29400;
+     color: #5b7da1;
      cursor: pointer;
 }
  .react-tabs__tab{
@@ -5124,7 +5124,6 @@ body {
      color: white;
 }
  .notification_tab_header{
-     background: #ffe5c8ad;
      margin-top: -15px;
      border-top-left-radius: 46px;
      border-top-right-radius: 46px;
@@ -6314,13 +6313,13 @@ body {
 }*/
 
 .circle {
-    background: #000000b8;
+    background: #ececec;
     width: 80px;
     height: 80px;
     border-radius: 50%;
     justify-content: center;
     align-items: center;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 .new_conversation_client{
     float: right;
@@ -6393,4 +6392,11 @@ body {
     clear: both;
     opacity: 0.8;
     margin-top: 4px;
+}
+
+.apotheke_logo_chat{
+    height: 30px;
+    width: auto;
+    margin-top: 23px;
+    margin-left: 23px;
 }

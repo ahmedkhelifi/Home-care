@@ -22,8 +22,8 @@ export default class Chat extends React.Component {
       doctosLoaded: false,
       doctors: [],
 
-      pharmaciesLoaded: false,
-      pharmacies: [],
+      patientsLoaded: false,
+      patients: [],
     }
   }
 
@@ -50,14 +50,14 @@ export default class Chat extends React.Component {
     fetch('/api/chat/getPatients/')
       .then(blob => blob.json())
       .then(blob => {
-        this.setState({doctosLoaded: true, doctors: blob})
+        this.setState({patientsLoaded: true, patients: blob})
       })
       .catch(error => this.setState({error: true}));
 
-    fetch('/api/chat/getPharmacies/')
+    fetch('/api/chat/getDoctors/')
       .then(blob => blob.json())
       .then(blob => {
-        this.setState({pharmaciesLoaded: true, pharmacies: blob})
+        this.setState({doctosLoaded: true, doctors: blob})
       })
       .catch(error => this.setState({error: true}));
   }
@@ -73,8 +73,8 @@ export default class Chat extends React.Component {
   }
 
 
-  createChatroom = (doctor, pharmacist, name) => {
-    this.props.createChatroom(doctor, pharmacist, name)
+  createChatroom = (patient, doctor, name) => {
+    this.props.createChatroom(patient, doctor, name)
     this.setState({new_convesation: false})
   }
 
@@ -84,32 +84,7 @@ export default class Chat extends React.Component {
 
   openChatroom = (chatroom) => {
     this.props.openChatroom(chatroom)
-    // this.setState(state => ({ active_chatroom: chatroom }))
   }
-
-  // mark_chatroom_as_read = (active_chatroom) => {
-  //   let chatrooms = this.state.chatrooms
-  //   chatrooms.forEach(chatroom => {
-  //     if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
-  //       chatroom.messages.messages.forEach(message => {
-  //         if(!message.read &&  message.fromType !== 'doctor') message.read = true
-  //       })
-  //       let to_id = ''
-  //       if(chatroom.toType !== 'doctor') to_id = chatroom.toID
-  //       else to_id = chatroom.fromID
-  //       this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: 'patient'}))
-  //       // console.log(chatroom)
-  //     }
-
-          
-  //   })
-
-  //   this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
-  // }
-
-  // scrollToBottom = () => {
-  //   // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-  // }
 
   render() {
 
@@ -125,7 +100,7 @@ export default class Chat extends React.Component {
             <div className="col-6 chat_sidebar_doc">
               <p className="new_conversation_client" onClick={e => this.close_doctors_list()}>Back to chatrooms</p>
               {!this.state.doctosLoaded ? (null) : (
-                <CreateChatRoom doctors={this.state.doctors} pharmacies={this.state.pharmacies} createChatroom={this.createChatroom}/>
+                <CreateChatRoom doctors={this.state.doctors} patients={this.state.patients} createChatroom={this.createChatroom}/>
               )}
               
             </div>
@@ -149,14 +124,14 @@ export default class Chat extends React.Component {
                           chatroom = {chatroom}
                           openChatroom = {this.props.openChatroom}
                           active_chatroom = {active_chatroom}
-                          myType = {'doctor'}
+                          myType = {'pharmacy'}
                         />,
                       )}
             </div>
           )
         }
 
-        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.doctorid} myType={'doctor'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
+        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.pharmacyid} myType={'pharmacy'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
 
     </div>
 

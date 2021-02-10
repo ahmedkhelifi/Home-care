@@ -7,12 +7,11 @@ class OpenedChatRoom extends Component {
     super(props);
     this.state = {
 		step: 1,
-		name: '',
-		doctor: {},
     }
   }
 
   componentDidMount() {
+  	this.props.mark_chatroom_as_read(this.props.active_chatroom)
   }
 
   scrollToBottom = () => {
@@ -41,25 +40,13 @@ class OpenedChatRoom extends Component {
 
 
   render() {
-  	if(this.props.active_chatroom === null) {
-	    return (
-	    	<div className="col-6">
-	            <div className="vertical_center_parent">
-	                <div className="vertical_center_child">
-	                  <p style={{fontWeight: 'bold'}} >Please select a chatroom to open it.</p>
-	                </div>
-	            </div>
-	         </div>
-	    )
-  	}
-
-  	else {
-	    return (
-        <div className="col-6" style={{paddingRight: '0', paddingLeft: '0'}}>
+	return (
+        <div className="col-12" style={{paddingRight: '0', paddingLeft: '0'}}>
           <div className="row">
-          	<div className="col-12 top_banner_chat vertical_center_parent" style={{width: '50%'}}>
+          	<div className="col-12 top_banner_chat vertical_center_parent">
+          		<p className="patient_back" style={{marginTop: '21px'}} onClick={() => this.props.goBack() }>&#10230;</p>
 	                <div className="vertical_center_child">
-	                  {this.props.active_chatroom.fromType === 'doctor' ? (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.from}</p>) : (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.to}</p>)}
+	                  {this.props.active_chatroom.fromType === 'pharmacy' ? (<p style={{fontWeight: 'bold'}} >Pharmacy: {this.props.active_chatroom.from}</p>) : (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.to}</p>)}
 	                  <p style={{marginTop: '-16px'}} >{this.props.active_chatroom.name}</p>
 	                </div>
           	</div>
@@ -93,7 +80,6 @@ class OpenedChatRoom extends Component {
 
         </div>
 	    )
-  	}
   }
 }
 
