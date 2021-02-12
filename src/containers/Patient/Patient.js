@@ -288,7 +288,7 @@ export default class Patient extends React.PureComponent {
     }
 
     if(this.state.chatWindow){
-      return( <Chat patientid={this.props.user.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false})} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom} get_unread_messages_number={this.get_unread_messages_number} goBack={() => this.setState({active_chatroom: null})}/> )
+      return( <Chat patientid={this.props.user.patientid} name={this.state.name} goBack={e => this.setState({chatWindow: false,  active_chatroom: null})} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom} get_unread_messages_number={this.get_unread_messages_number}/> )
     }
 
     if(this.state.medication_bool) {
