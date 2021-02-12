@@ -1,5 +1,4 @@
 import React from 'react';
-import ChatList from './ChatList'
 import ChatInput from './ChatInput'
 import ChatRoom from './ChatRoom'
 import CreateChatRoom from './CreateChatRoom'
