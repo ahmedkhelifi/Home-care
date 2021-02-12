@@ -142,7 +142,7 @@ export default class Medication extends React.PureComponent {
                               <h3 className="patient_status"> Pending Task</h3>
                         </div>
                         <div className="col-9" style={{marginTop: '40px'}}>
-                                <p className="" style={{fontSize: '18px'}}>Medication from {this.beautify_timestamp(med.pending[0].from)} to {this.beautify_timestamp(med.pending[0].to)} not taken</p>
+                                <p className="" style={{fontSize: '18px'}}>Medication on {this.beautify_timestamp(med.pending[0].from)} not taken</p>
                         </div>
                         <div className="col-3" onClick={e => this.setState({confirmPopupPending: true, popupMedication: med.title })}> 
                           <span className="go">&#10230;</span>
@@ -156,7 +156,7 @@ export default class Medication extends React.PureComponent {
                 <div className="col-12">
                        <div className="row">
                         <div className="col-12">
-                                <h3 className="patient_status"> Missed Tasks</h3>
+                                <h3 className="patient_status" style={{marginTop: '30px'}}> Missed Tasks</h3>
                         </div>
                      </div>
                 </div>
@@ -166,7 +166,7 @@ export default class Medication extends React.PureComponent {
                      <div className="patient_health_status" style={{marginTop: '40px', backgroundColor: '#ff00000a'}}>
                        <div className="row">
                         <div className="col-9">
-                                <p className="" style={{fontSize: '18px'}}>Medication from {this.beautify_timestamp(missed_med.from)} to {this.beautify_timestamp(missed_med.to)} not taken</p>
+                                <p className="" style={{fontSize: '18px'}}>Medication on {this.beautify_timestamp(missed_med.from)} not taken</p>
                         </div>
                         <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true, popupMedication: med.title, popupMissedTimestamp: ( (Number(missed_med.to)+ Number(missed_med.from) ) / 2 )  })}> 
                           <span className="go">&#10230;</span>

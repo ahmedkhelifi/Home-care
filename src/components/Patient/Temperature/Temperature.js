@@ -311,7 +311,7 @@ export default class Temperature extends React.PureComponent {
                      <div className="patient_health_status" style={{marginTop: '40px', backgroundColor: '#ff00000a'}}>
                        <div className="row">
                         <div className="col-9">
-                                <p className="" style={{fontSize: '18px'}}>Temprature from {this.beautify_timestamp(missed_temp.from)} to {this.beautify_timestamp(missed_temp.to)} not taken</p>
+                                <p className="" style={{fontSize: '18px'}}>Temprature on {this.beautify_timestamp(missed_temp.from)} not taken</p>
                         </div>
                         <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true,popupMissedTimestampFrom: this.beautify_timestamp(missed_temp.from), popupMissedTimestampTo: this.beautify_timestamp(missed_temp.to), popupMissedTimestamp: ( (Number(missed_temp.to)+ Number(missed_temp.from) ) / 2 )  })}> 
                           <span className="go">&#10230;</span>

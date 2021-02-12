@@ -281,7 +281,7 @@ if(myChart !== null && myChart !== undefined){
                      <div className="patient_health_status" style={{marginTop: '40px', backgroundColor: '#ff00000a'}}>
                        <div className="row">
                         <div className="col-9">
-                                <p className="" style={{fontSize: '18px'}}>Pulse from {this.beautify_timestamp(missed_temp.from)} to {this.beautify_timestamp(missed_temp.to)} not taken</p>
+                                <p className="" style={{fontSize: '18px'}}>Pulse on {this.beautify_timestamp(missed_temp.from)} not measured</p>
                         </div>
                         <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true,popupMissedTimestampFrom: this.beautify_timestamp(missed_temp.from), popupMissedTimestampTo: this.beautify_timestamp(missed_temp.to), popupMissedTimestamp: ( (Number(missed_temp.to)+ Number(missed_temp.from) ) / 2 )  })}> 
                           <span className="go">&#10230;</span>

@@ -75,7 +75,7 @@ export default class Weight extends React.PureComponent {
             }//first keine Aenderung erst ab zweite, wenn erste value hat dann hilfswert weist hinzu
             else if(item.measured!==false){
                 if (hilfsweight===null){
-                    hilfsweight=(item.weight).toFixed(2) 
+                    hilfsweight=Number(item.weight).toFixed(2) 
                 }
                 else {
                     templist2[i]=((item.weight-hilfsweight)*10).toFixed(2)

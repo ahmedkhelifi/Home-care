@@ -97,11 +97,11 @@ function get_temperature(health, temperature, assigned_on){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!temperature.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_bool)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
         }
 
       } else if (intervals.length >= 2) {
@@ -159,11 +159,11 @@ function get_weight(health, weight, assigned_on){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!weight.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_bool)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
         }
 
       } else if (intervals.length >= 2) {
@@ -220,11 +220,11 @@ function get_pulse(health, pulse, assigned_on){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!pulse.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_bool)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
         }
 
       } else if (intervals.length >= 2) {
@@ -282,11 +282,11 @@ function get_blood_pressure(health, blood_pressure, assigned_on){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!blood_pressure.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_bool)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_bool })
         }
 
       } else if (intervals.length >= 2) {
@@ -340,11 +340,13 @@ function get_medication_missed(health, medication){
       if(intervals.length == 1){
         //first time patient takes this med
         if(!med.history.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
-          else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
+          let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf())
+          if(pending_bool){
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending_bool })
+          }
+          else {
+              missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending_bool })
+          }
         }
 
       } else if (intervals.length >= 2){
