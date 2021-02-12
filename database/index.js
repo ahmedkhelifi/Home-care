@@ -1,6 +1,6 @@
 var { Pool } = require('pg');
-const CONNECTION_STRING = 'postgresql://postgres:35089421@localhost:5432/homecare';
-   // const CONNECTION_STRING = 'postgresql://username:password@localhost:5432/homecare'; //bitte stehen lassen für Johanna
+// const CONNECTION_STRING = 'postgresql://postgres:35089421@localhost:5432/homecare';
+   const CONNECTION_STRING = 'postgresql://username:password@localhost:5432/homecare'; //bitte stehen lassen für Johanna
 
 const SSL = process.env.NODE_ENV === 'production';
 
