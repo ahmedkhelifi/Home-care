@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Temperature from '../../Graphs/28_days/Temperature';
-import BloodPressure from '../../Graphs/28_days/BloodPressure';
-import Pulse from '../../Graphs/28_days/Pulse';
-import Weight from '../../Graphs/90_days/Weight';
+import Temperature from '../../Graphs/all_days/Temperature';
+import BloodPressure from '../../Graphs/all_days/BloodPressure';
+import Pulse from '../../Graphs/all_days/Pulse';
+import Weight from '../../Graphs/all_days/Weight';
 
 import Edit from '../PatientList/Edit';
 // import Medication from '../../components/Patient/Medication';
