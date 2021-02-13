@@ -47,6 +47,43 @@ Home-care$ node server
 - [ ] patient’s interface: change profile settings (name, address and password)
 
 
+# Structural explanation of project folders
+
+### Home-Care:
+This is the main folder. It contains files that are required for setting up the node server and the packages to be loaded, and it include all of the following folders.
+
+### build: 
+This folder contains the "production build" contained the code, which in the end is executed on the client machine.
+
+### database:
+This folder is used for the establishment of connection to the database. 
+
+### Db_script:
+This folder contains scripts, with which the tables such as testdatas are created in the database.
+
+### models:
+This folder contains the database requests.
+
+### node_modules:
+This folder contains the previously installed packages.
+
+### public:
+This folder contains the index.html for the initial loading of the page by the browser.
+
+### routes:
+This folder contains requests from and to the server.
+
+### src:
+This folder contains the design of the pages including the graphs.
+In this src folder it is necessary that an index.js file is present at the end of every path, so that the server can assign the path. 
+The subfolder "components" contains components, that may be used more times, this prevents the code duplication. 
+The subfolder "containers" contains the logic of when and which component is called.
+
+### websocket:
+This folder establishes the bidirectional connection between the client and the websocket and sends the messages to the respective reciever and to the database. 
+In addition, a ping message is sent to all clients every 8 seconds. If no pong message is received within 20 seconds, the client is regarded as "offline".
+
+
 # API - Login
 
 All parties in the app share the same login API.
