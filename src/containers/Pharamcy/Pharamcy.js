@@ -142,6 +142,6 @@ export default class Pharamcy extends React.Component {
 
 
   render() {
-    return ( <Chat  pharmacyid={this.state.user.pharmacyid} name={this.state.user.name} ws={this.ws} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom}/> )
+    return ( <Chat  pharmacyid={this.state.user.pharmacyid} name={this.state.user.name} ws={this.ws} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom}  logout={this.props.logout}/> )
   }
 }

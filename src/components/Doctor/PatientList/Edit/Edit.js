@@ -146,11 +146,11 @@ class Edit extends React.Component {
     this.setState({ step: newStep})
   }
 
-  registerPatient() {
-        fetch('/api/doctor/addPatient', {
+  savePatient() {
+        fetch('/api/doctor/updatePatient/'+this.props.patientClicked.patientid, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ firstname: this.state.firstname, lastname: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, username: this.state.username, password: this.state.password, medication: this.state.medicaments
+                body: JSON.stringify({ patientid: this.props.patientClicked.patientid, firstName: this.state.firstname, lastName: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, medication: this.state.medicaments
               })
             })
         .then(res => console.log('response ', res.json()))
@@ -314,7 +314,7 @@ class Edit extends React.Component {
                       <div className="col-12 margin_top" style={{textAlign: 'center'}}>
                       <button className="importbutton_dkg" style={{border: '2px solid', marginRight: '10px', padding: '3px 12px', borderRadius: '15px', marginTop: '5px', float: 'left', cursor: 'pointer'}} onClick={e => this.props.zuruck()}>back</button>
                         <button type="submit"className="signupbtn margin_right button_dkg" style={{fontSize: '20px'}}
-                         onClick={e => this.registerPatient()}>Save Patient Data</button>
+                         onClick={e => this.savePatient()}>Save Patient Data</button>
                       </div>
                     </div>
 

@@ -109,6 +109,7 @@ export default class Chat extends React.Component {
             <div className="col-6 chat_sidebar_doc">
               <div className="row">
                 <div className="col-12">
+                  <p className="new_conversation_client" style={{float: 'left'}} onClick={e => this.props.logout()}>Logout</p>
                   <p className="new_conversation_client" onClick={e => this.show_doctors_list()}>+ New Chatroom</p>
                 </div>
               </div>

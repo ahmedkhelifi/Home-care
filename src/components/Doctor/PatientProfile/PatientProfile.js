@@ -113,9 +113,100 @@ export default class PatientProfile extends React.PureComponent {
 
           <p style={{marginTop: '10px', fontSize: '19px'}} >Physical State:</p>
           <Temperature temperatures={this.props.selectedPatient.health.temperatures}/>
+
+            <div className="row" style={{marginTop: '20px'}}>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of confirmed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.temperature.temperature.filter(obj => {return obj.measured}).reverse().map (temp => {
+                        return (  <p> - Measured {temp.temperature} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of missed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.temperature.temperature.filter(obj => {return !obj.measured}).reverse().map (temp => {
+                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+            </div>
+
+
+
           <BloodPressure blood_pressures={this.props.selectedPatient.health.blood_pressures}/>
+
+            <div className="row" style={{marginTop: '20px'}}>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of confirmed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter(obj => {return obj.measured}).reverse().map (blood_pr => {
+                        return (  <p> - Measured dia:{blood_pr.bloodpres_dia}/sys:{blood_pr.bloodpres_sys} on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of missed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter(obj => {return !obj.measured}).reverse().map (blood_pr => {
+                        return ( <p> - Missed on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+            </div>
+
+
           <Pulse pulses={this.props.selectedPatient.health.pulses}/>
+
+            <div className="row" style={{marginTop: '20px'}}>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of confirmed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.pulse.pulse.filter(obj => {return obj.measured}).reverse().map (temp => {
+                        return (  <p> - Measured {temp.pulse} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of missed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.pulse.pulse.filter(obj => {return !obj.measured}).reverse().map (temp => {
+                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+            </div>
+
+
           <Weight weights={this.props.selectedPatient.health.weights}/>
+
+            <div className="row" style={{marginTop: '20px'}}>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of confirmed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.weight.weight.filter(obj => {return obj.measured}).reverse().map (temp => {
+                        return (  <p> - Weighted {temp.weight} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+                <div className="col-6">
+                    <p style={{color: 'black'}} >History of missed measures:</p>
+                    <div className="row gray_background_radius_scroll" >
+                    {this.props.selectedPatient.weight.weight.filter(obj => {return !obj.measured}).reverse().map (temp => {
+                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    })}
+
+                    </div>
+                </div>
+            </div>
 
 
         </div>
