@@ -24,10 +24,11 @@ router.get('/health/:username', (req, res) => {
 
     health = get_medication(health, medication)
     health = get_temperature(health, result[0].temperature.temperature)
+    
     health = get_weight(health, result[0].weight.weight)
     health = get_pulse(health, result[0].pulse.pulse)
     health = get_blood_pressure(health, result[0].blood_pressure.blood_pressure)
-
+    // console.log(health)
     return res.json(health)
   });
 });
@@ -321,11 +322,11 @@ function get_medication(health, medication){
       if(intervals.length == 1){
         //first time patient takes this med
         if(!med.history.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
+          let pending_boll = (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration)  > Number(new Date().valueOf())
+          if(pending_boll)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending_boll })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000) *  med_duration), pending: pending_boll })
         }
 
       } else if (intervals.length >= 2){
@@ -355,10 +356,14 @@ function get_medication(health, medication){
   return health
 }
 
-
-
 function get_temperature(health, temperature){
-    if(temperature.length === 0 ) return
+    if(temperature.length === 0 ) {
+      let obj = {}
+      obj.missed = []
+      obj.pending = []
+      health.temperatures  = obj
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -384,11 +389,11 @@ function get_temperature(health, temperature){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!temperature.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_boll = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_boll)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
         }
 
       } else if (intervals.length >= 2) {
@@ -416,7 +421,13 @@ function get_temperature(health, temperature){
 }
 
 function get_weight(health, weight){
-    if(weight.length === 0 ) return
+    if(weight.length === 0 ) {
+      let obj = {}
+      obj.missed = []
+      obj.pending = []
+      health.weights  = obj
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -442,11 +453,11 @@ function get_weight(health, weight){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!weight.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_boll = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_boll)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+            missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
         }
 
       } else if (intervals.length >= 2) {
@@ -474,7 +485,13 @@ function get_weight(health, weight){
 }
 
 function get_pulse(health, pulse){
-    if(pulse.length === 0 ) return
+    if(pulse.length === 0 ) {
+      let obj = {}
+      obj.missed = []
+      obj.pending = []
+      health.pulses  = obj
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -500,11 +517,11 @@ function get_pulse(health, pulse){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!pulse.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_boll = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_boll)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+            missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
         }
 
       } else if (intervals.length >= 2) {
@@ -532,7 +549,13 @@ function get_pulse(health, pulse){
 }
 
 function get_blood_pressure(health, blood_pressure){
-    if(blood_pressure.length === 0 ) return
+    if(blood_pressure.length === 0 ) {
+      let obj = {}
+      obj.missed = []
+      obj.pending = []
+      health.blood_pressures  = obj
+      return health
+    }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
@@ -558,11 +581,11 @@ function get_blood_pressure(health, blood_pressure){
       if(intervals.length == 1) {
         //first time patient takes this med
         if(!blood_pressure.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
-          let pending = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
-          if(pending)
-            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+          let pending_boll = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
+          if(pending_boll)
+            pending.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
           else
-          missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending })
+            missed.push({from: intervals[0], to: (intervals[0] + (24 * 60 * 60 * 1000)), pending: pending_boll })
         }
 
       } else if (intervals.length >= 2) {

@@ -73,7 +73,7 @@ export default class BloodPressure extends React.PureComponent {
         .then(blob => {
           console.log(blob)
           // this.props.removeMedFromPending(this.state.popupMedication)
-          this.setState({confirmPopupMissed: false})
+          this.setState({confirmPopupMissed: false}, e => this.forceUpdate())
           this.props.get_health()
         })
         // .then(res => this.props.closesignup())

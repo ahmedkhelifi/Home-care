@@ -40,139 +40,7 @@ export default class Pulse extends React.PureComponent {
 
   componentDidMount(){
     window.scrollTo({ top: 0 });
-    this.create_graph()
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!this.state.confirmPopupPending && !this.state.confirmPopupMissed) {
-      // this.create_graph()
-    }
-  }
-
-  create_graph = ()  => {
-    //  currentDate
-
-    var currentDate = new Date();
-    // old7Datetimestample
-    var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-    //console.log(days7before)    
-    let history = this.props.pulses.history;
-    let jsonData = {pulse: history}
-      
-    var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
-    console.log(truejsonData)
-
-    function timeformater(ts){
-        let date = new Date(ts);
-        let Y = date.getFullYear() + '-';
-        let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        let D = date.getDate() + ' ';
-        let result = Y+M+D
-        return result; 
-    }
-
-
-    var timelist=[null,null,null,null,null,null,null];
-    timelist.forEach(function(item, index,timelist){
-        let currentDate = new Date();
-        let data = currentDate.setDate( currentDate.getDate() - index); 
-        timelist[index]=timeformater(data)
-    })
-    timelist=timelist.reverse()
-    
-    var templist=[null,null,null,null,null,null,null]
-    truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-        let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-        if(i>-1){//wenn an dem Tag etwas in DB erschienen 
-          if(typeof(item.pulse)=='string'  ){
-            item.pulse=parseFloat(item.pulse)
-          }
-            templist[i]=item.pulse  
-            // wenn measured nicht false dann ersetzt die richtige weight dadrauf
-        }
-    })
-//graph infos
-var option ={
-  color: '#800000',
-  title: { 
-      left: 'center',
-      text: 'pulse last 7 days in per minute' },
-  xAxis: {
-      data: timelist,
-      
-  },
-  yAxis: {
-      axisLabel: {show: false},
-      splitLine: {show: false},
-      axisTick: {show: false},
-      type: 'value' ,
-      min: extent => extent.min <=30 ? extent.min-2 : 28,
-      // max: extent => extent.max >130 ? extent.max+1 : 130
-  },
-  series: [{
-    markLine : {
-      symbol:"none",
-      data : [{
-           
-
-          lineStyle:{               //警戒线的样式  ，虚实  颜色
-              type:"solid",
-              color:"#FA3934",
-          },
-              label:{
-               textStyle: {
-                   fonttemperature: "bolder",
-                   color:  'black',
-                   fontSize: "4",
-               },
-              position:'start',
-              formatter:"90"
-          },
-          yAxis:90  
-         
-      },
-      {
-
-          lineStyle:{               //警戒线的样式  ，虚实  颜色
-              type:"solid",
-              color:"green",
-          },
-          label:{
-           textStyle: {
-               fonttemperature: "bolder",
-               color:  'black',
-               fontSize: "4",
-           },
-              position:'start',
-              formatter:"60 ",
-          },
-          yAxis:60   
-    
-      }
-      ]
-      },
-      connectNulls: true,//laesst sich null wert nicht leer sein 
-      name: 'pulse',
-      type: 'line',
-      data: templist,
-      label: {
-          show: true,
-          position: 'top',
-          // formatter: '{c}/min'//echarts selbst build in variable fuer valu
-          
-      },　　
-  }]
-}
-
-var myChart = echarts.init(document.getElementById('pulse_graph'));
-myChart.setOption(option);
-//fuer bootstrap layout
-$(window).on('resize', function(){
-if(myChart !== null && myChart !== undefined){
-    myChart.resize();
-}
-});
-}
 
 
   addPulsePending = (pulse) => {
@@ -186,7 +54,7 @@ if(myChart !== null && myChart !== undefined){
         .then(blob => {
           console.log(blob)
           // this.props.removeMedFromPending(this.state.popupMedication)
-          this.setState({confirmPopupPending:false, popupMedication:''})
+          this.setState({confirmPopupPending:false, popupMedication:''}, e => this.forceUpdate())
           this.props.get_health()
         })
         // .then(res => this.props.closesignup())
@@ -202,7 +70,7 @@ if(myChart !== null && myChart !== undefined){
         .then(blob => {
           console.log(blob)
           // this.props.removeMedFromPending(this.state.popupMedication)
-          this.setState({confirmPopupMissed: false})
+          this.setState({confirmPopupMissed: false}, e => this.forceUpdate())
           this.props.get_health()
         })
         // .then(res => this.props.closesignup())

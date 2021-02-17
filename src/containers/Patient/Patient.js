@@ -81,18 +81,12 @@ export default class Patient extends React.PureComponent {
     this.ws.onmessage = evt => {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
-      // this.addMessage(message)
       if(message.type === 'ping') {
-              // console.log('ping')
         const message = { id: this.props.user.patientid, idType: 'patient', type: 'pong' }
         this.ws.send(JSON.stringify(message))
       }
 
       if(message.type === 'set_chatrooms') {
-              // console.log('ping')
-        // const message = { id: this.props.user.patientid, idType: 'patient', type: 'pong' }
-        // this.ws.send(JSON.stringify(message))
-        console.log(message.chatrooms)
         this.setState({chatrooms : message.chatrooms})
       }
 

@@ -28,17 +28,22 @@ export default class Pulse extends React.PureComponent {
 
   componentDidMount(){
     window.scrollTo({ top: 0 });
-    this.create_graph()
+    if (this.props.pulses !== undefined ) this.create_graph()
   }
 
-   create_graph = ()  => {
+  create_graph = ()  => {
     //  currentDate
 
     var currentDate = new Date();
     // old7Datetimestample
     var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
     let history = this.props.pulses;
+
+    console.log('aaaa')
+
     let jsonData = {pulse: history}
+
+    if(jsonData.pulse.length === 0) return
       
     var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
 
@@ -50,7 +55,6 @@ export default class Pulse extends React.PureComponent {
         let result = Y+M+D
         return result; 
     }
-
 
     var timelist=[null,null,null,null,null,null,null];
     timelist.forEach(function(item, index,timelist){

@@ -31,7 +31,10 @@ export default class Weight extends React.PureComponent {
 
   create_graph = () => {
     let history = this.props.weights.history;
+    if(!history) return
     let jsonData = {weight: history}
+    if(jsonData.weight.length === 0) return
+        
     //  currentDate
     var currentDate = new Date();
     // old7Datetimestample

@@ -34,7 +34,9 @@ export default class BloodPressure extends React.PureComponent {
                 // old7Datetimestample
                 var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
                 let history = this.props.blood_pressures.history;
+                if(!history) return
                 let jsonData = {bloodpres: history}
+                if(jsonData.bloodpres.length === 0) return
 
                   
                 var truejsonData=jsonData.bloodpres.filter(obj => {return obj.timestamp>days7before});
