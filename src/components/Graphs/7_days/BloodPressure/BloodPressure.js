@@ -36,7 +36,6 @@ export default class BloodPressure extends React.PureComponent {
                 let history = this.props.blood_pressures.history;
                 let jsonData = {bloodpres: history}
 
-                // console.log(jsonData)
                   
                 var truejsonData=jsonData.bloodpres.filter(obj => {return obj.timestamp>days7before});
 

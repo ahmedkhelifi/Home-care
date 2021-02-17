@@ -37,12 +37,14 @@ export default class Temperature extends React.PureComponent {
         var currentDate = new Date();
         let history = this.props.temperatures.history;
         let jsonData = {temperature: history}
-        // console.log(currentDate.getDate()))
+
+        if(jsonData.temperature.length === 0) return
+
+
         var firstdate=jsonData.temperature[0].timestamp
         var today=currentDate.getTime()
         var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天
         var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp});
-        console.log(truejsonData)
         
         function timeformater(ts){
             let date = new Date(ts);

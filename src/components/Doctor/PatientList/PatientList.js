@@ -80,7 +80,16 @@ class PatientList extends React.Component {
     }
 
   componentDidMount() {
-        // fetch patient list
+    // fetch patient list
+    this.fetch_patient()
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
+  //   }
+  // }
+
+  fetch_patient = () => {
         fetch('/api/doctor/getPatients')
             .then(blob => blob.json())
             .then(
@@ -95,11 +104,6 @@ class PatientList extends React.Component {
                 }
             ).catch(error => this.setState({errorPatientLoad: true}));
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
-  //   }
-  // }
     
   handleSearchChange(e) {
     this.setState({ search: e.target.value })
@@ -192,7 +196,13 @@ class PatientList extends React.Component {
 
   closesignup(){
     this.setState({ patientForm: false });
+    this.fetch_patient()
     window.scrollTo(0, 0);
+  }
+
+  goBack = () => {
+    this.setState({patientClickedBool: false, isLoaded: false})
+    this.fetch_patient()
   }
 
   render() {
@@ -204,7 +214,7 @@ class PatientList extends React.Component {
 
         if(this.state.patientClickedBool){
           return (
-              <PatientProfile selectedPatient={this.state.patientClicked} goBack={e => this.setState({patientClickedBool: false})} />
+              <PatientProfile selectedPatient={this.state.patientClicked} goBack={e => this.goBack()} />
             )
         }
 
@@ -358,7 +368,7 @@ class PatientList extends React.Component {
                                 </div>
 
                         {currentPatients.map((patient, i) => (
-                                      <div className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient)} } >
+                                      <div key={i} className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient)} } >
                                           <div className="row" style={{cursor: 'pointer'}}>
                                               <div className={"col-2"}>
                                                   <p style={{marginTop: '60px'}} >{patient.firstname + ' ' + patient.lastname}</p>

@@ -35,6 +35,8 @@ export default class Pulse extends React.PureComponent {
         // old7Datetimestample
         let history = this.props.pulses.history;
         let jsonData = {pulse: history}
+        if(jsonData.pulse.length === 0) return
+            
         var firstdate=jsonData.pulse[0].timestamp
         var today=currentDate.getTime()
         var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天

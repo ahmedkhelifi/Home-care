@@ -25,10 +25,8 @@ class BoodPressure extends Component {
                 var currentDate = new Date();
                 // old7Datetimestample
                 var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-                //console.log(days7before)    
                   
                 var truejsonData=jsonData.blood_pressure.filter(obj => {return obj.timestamp>days7before});
-                console.log(truejsonData)
 
                 function timeformater(ts){
                     let date = new Date(ts);

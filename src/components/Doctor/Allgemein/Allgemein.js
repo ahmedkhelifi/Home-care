@@ -40,7 +40,7 @@ class Allgemein extends React.Component {
                       let bad_stats = this.get_patient_bad_stats(patient.health)
                       patient.bad_stats = bad_stats
                     })
-                    console.log(blob)
+                    // console.log(blob)
                     let patients = 
                     this.setState({dataLoaded: true, rist_patients: blob.sort((a,b) => (a.health.points > b.health.points) ? 1 : ((b.health.points > a.health.points) ? -1 : 0)).reverse() })
                     // this.setState({ patients: blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; }), isLoaded: true });
@@ -129,7 +129,6 @@ class Allgemein extends React.Component {
                       <div className="col-12 full_height_patient_health">
 
                         {this.state.rist_patients.map((patient,i) => {
-                          console.log(patient)
                           return (
                             <div key={i*100} className="row">
                               <div  className="col-12 hover_hightlight_patient_dashboard" style={this.checkIfSelectedCss(patient)} onClick={e => this.selectPatient(patient)}>

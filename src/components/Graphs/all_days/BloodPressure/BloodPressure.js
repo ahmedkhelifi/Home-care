@@ -34,6 +34,9 @@ export default class BloodPressure extends React.PureComponent {
                 var currentDate = new Date();
                 let history = this.props.blood_pressures.history;
                 let jsonData = {bloodpres: history}
+                
+                if(jsonData.bloodpres.length === 0) return
+
                 var firstdate=jsonData.bloodpres[0].timestamp
                 var today=currentDate.getTime()
                 var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天

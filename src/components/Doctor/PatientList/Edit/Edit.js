@@ -31,7 +31,6 @@ class Edit extends React.Component {
     this.handlePasswordChange       = this.handlePasswordChange.bind(this)
     this.handleDisplayChange        = this.handleDisplayChange.bind(this);
     this.handleCheckbox             = this.handleCheckbox.bind(this);
-    this.registerPatient            = this.registerPatient.bind(this);
     this.checkboxClassname          = this.checkboxClassname.bind(this)
     this.weiter                     = this.weiter.bind(this);
     this.zuruck                     = this.zuruck.bind(this);
@@ -146,15 +145,16 @@ class Edit extends React.Component {
     this.setState({ step: newStep})
   }
 
-  savePatient() {
-        fetch('/api/doctor/updatePatient/'+this.props.patientClicked.patientid, {
+  savePatient = () => {
+    console.log({ patientid: this.props.patientClicked.patientid, firstName: this.state.firstname, lastName: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, medication: this.state.medicaments})
+        fetch('/api/patient/updatePatient/'+this.props.patientClicked.patientid, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ patientid: this.props.patientClicked.patientid, firstName: this.state.firstname, lastName: this.state.lastname, birthdate: this.state.birthday,  email: this.state.email, medication: this.state.medicaments
               })
             })
         .then(res => console.log('response ', res.json()))
-        .then(res => this.props.closesignup())
+        .then(res => this.props.zuruck())
   }
 
   checkboxClassname(item){

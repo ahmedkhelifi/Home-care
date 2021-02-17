@@ -36,13 +36,11 @@ export default class Pulse extends React.PureComponent {
 
     var currentDate = new Date();
     // old7Datetimestample
-    var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-    //console.log(days7before)    
+    var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
     let history = this.props.pulses;
     let jsonData = {pulse: history}
       
     var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
-    console.log(truejsonData)
 
     function timeformater(ts){
         let date = new Date(ts);

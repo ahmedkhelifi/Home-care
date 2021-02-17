@@ -54,7 +54,7 @@ export default class PatientProfile extends React.PureComponent {
   getMissed = (med) => {
     let missed_array = []
 
-    med.missed.forEach(miss => { missed_array.push(miss)})
+    if ( med.missed !== undefined ) med.missed.forEach(miss => { missed_array.push(miss)})
     med.history.forEach(obj => {
       if(!obj.measured) {
         obj.from = obj.timestamp
@@ -72,7 +72,7 @@ export default class PatientProfile extends React.PureComponent {
     document.title = "Profile - " + this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname
 
     if(this.state.edit){
-      return (<Edit patientClicked={this.props.selectedPatient}  zuruck={e => this.setState({edit: false})}/>)
+      return (<Edit patientClicked={this.props.selectedPatient}  zuruck={e => this.props.goBack()}/>)
     }
       return (
       <div className="row">
@@ -85,24 +85,24 @@ export default class PatientProfile extends React.PureComponent {
 
           <div className="container-fluid" style={{backgroundColor: '#f7f7f7', borderRadius: '7px'}}>
             
-            {Object.values(this.props.selectedPatient.medication.medication).map (med => {return (
-              <div className="row" style={{marginTop: '20px'}}>
+            {Object.values(this.props.selectedPatient.medication.medication).map ((med, i) => {return (
+              <div key={i} className="row" style={{marginTop: '20px'}}>
                 <div className="col-12">
                   <p style={{color: 'black'}} > <b>{med.title}</b> - {med.amount} every {med.duration} day.</p>
                 </div>
                 <div className="col-6">
                    <p style={{color: 'black'}} >History of confirmed intake:</p>
                   <div className="row gray_background_radius_scroll" >
-                    {med.history.map(obj => {return (
-                      <p> - Taken on {this.beautify_timestamp(obj.timestamp)}.</p>
+                    {med.history.map((obj, j) => {return (
+                      <p key={j*10000}> - Taken on {this.beautify_timestamp(obj.timestamp)}.</p>
                     )})}
                   </div>
                 </div>
                 <div className="col-6">
                   <p style={{color: 'black'}}>Missed dates:</p>
                   <div className="row gray_background_radius_scroll">
-                    {this.getMissed(med).map(obj => {return (
-                      <p> - Missed on {this.beautify_timestamp(obj.from)}. </p>
+                    {this.getMissed(med).map((obj, j) => {return (
+                      <p key={j*1000}> - Missed on {this.beautify_timestamp(obj.from)}. </p>
                     )})}
                   </div>
                 </div>
@@ -118,8 +118,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of confirmed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.temperature.temperature.filter(obj => {return obj.measured}).reverse().map (temp => {
-                        return (  <p> - Measured {temp.temperature} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.temperature.temperature.filter((obj) => {return obj.measured}).reverse().map ((temp, i) => {
+                        return (  <p key={i}> - Measured {temp.temperature} on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -127,8 +127,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of missed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.temperature.temperature.filter(obj => {return !obj.measured}).reverse().map (temp => {
-                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.temperature.temperature.filter((obj, i) => {return !obj.measured}).reverse().map ((temp, i) => {
+                        return ( <p key={i}> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -143,8 +143,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of confirmed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter(obj => {return obj.measured}).reverse().map (blood_pr => {
-                        return (  <p> - Measured dia:{blood_pr.bloodpres_dia}/sys:{blood_pr.bloodpres_sys} on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
+                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter((obj) => {return obj.measured}).reverse().map ((blood_pr, i) => {
+                        return (  <p key={i}> - Measured dia:{blood_pr.bloodpres_dia}/sys:{blood_pr.bloodpres_sys} on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -152,8 +152,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of missed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter(obj => {return !obj.measured}).reverse().map (blood_pr => {
-                        return ( <p> - Missed on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
+                    {this.props.selectedPatient.blood_pressure.blood_pressure.filter((obj) => {return !obj.measured}).reverse().map ((blood_pr, i) => {
+                        return ( <p key={i}> - Missed on {this.beautify_timestamp(blood_pr.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -167,8 +167,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of confirmed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.pulse.pulse.filter(obj => {return obj.measured}).reverse().map (temp => {
-                        return (  <p> - Measured {temp.pulse} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.pulse.pulse.filter((obj) => {return obj.measured}).reverse().map ((temp, i) => {
+                        return (  <p key={i}> - Measured {temp.pulse} on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -176,8 +176,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of missed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.pulse.pulse.filter(obj => {return !obj.measured}).reverse().map (temp => {
-                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.pulse.pulse.filter((obj) => {return !obj.measured}).reverse().map ((temp, i) => {
+                        return ( <p key={i}> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -191,8 +191,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of confirmed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.weight.weight.filter(obj => {return obj.measured}).reverse().map (temp => {
-                        return (  <p> - Weighted {temp.weight} on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.weight.weight.filter(obj => {return obj.measured}).reverse().map ((temp, i) => {
+                        return (  <p key={i}> - Weighted {temp.weight} on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>
@@ -200,8 +200,8 @@ export default class PatientProfile extends React.PureComponent {
                 <div className="col-6">
                     <p style={{color: 'black'}} >History of missed measures:</p>
                     <div className="row gray_background_radius_scroll" >
-                    {this.props.selectedPatient.weight.weight.filter(obj => {return !obj.measured}).reverse().map (temp => {
-                        return ( <p> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
+                    {this.props.selectedPatient.weight.weight.filter(obj => {return !obj.measured}).reverse().map ((temp, i) => {
+                        return ( <p key={i}> - Missed on {this.beautify_timestamp(temp.timestamp)}.</p>)
                     })}
 
                     </div>

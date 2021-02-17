@@ -30,9 +30,12 @@ export default class Weight extends React.PureComponent {
     create_graph = ()  => {
                 let history = this.props.weights.history;
                 let jsonData = {weight: history}
+                if(jsonData.weight.length === 0) return
+                    
                 //  currentDate
                 var currentDate = new Date();
                 var firstdate=jsonData.weight[0].timestamp
+
                 // for(i =0; i++, i<=currentDate.getDate())
                 var today=currentDate.getTime()
                 var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天
@@ -84,7 +87,6 @@ export default class Weight extends React.PureComponent {
                 })
                 var pos=(hilfsweight*0.1).toFixed(2)
                 var neg=-(hilfsweight*0.1).toFixed(2)
-                console.log(pos)
                 var option ={
                                 title: { 
                                     left: 'center',
