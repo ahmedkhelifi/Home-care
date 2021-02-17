@@ -31,6 +31,12 @@ export default class Pulse extends React.PureComponent {
     if (this.props.pulses !== undefined ) this.create_graph()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      this.create_graph()
+    }
+  }
+
   create_graph = ()  => {
     //  currentDate
 

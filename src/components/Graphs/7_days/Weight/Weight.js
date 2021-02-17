@@ -26,7 +26,9 @@ export default class Weight extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.create_graph()
+    if (prevProps !== this.props) {
+      this.create_graph()
+    }
   }
 
   create_graph = () => {

@@ -14,7 +14,7 @@ import $ from  'jquery';
 import 'jquery';
 
 
-export default class BloodPressure extends React.PureComponent { 
+export default class BloodPressure extends React.Component { 
 
   constructor(props) {
     super(props);
@@ -26,8 +26,11 @@ export default class BloodPressure extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
       this.create_graph()
+    }
   }
+
     create_graph = ()  => {
                 //  currentDate
                 var currentDate = new Date();

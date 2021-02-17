@@ -25,7 +25,7 @@ export default class Temperature extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.state.confirmPopupPending && !this.state.confirmPopupMissed) {
+    if (prevProps !== this.props) {
       this.create_graph()
     }
   }
