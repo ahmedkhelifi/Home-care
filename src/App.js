@@ -5,7 +5,7 @@ import {
   Route
 } from "react-router-dom";
 
-import Dashboard from './containers/Dashboard';
+import RoutingLogic from './containers/RoutingLogic';
 
 import './App.css';
 import './global.css';
@@ -13,13 +13,11 @@ import './global.css';
 class App extends Component {
   render() {
     return (
-  <Router>
-
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-        </Switch>
-
-  </Router>
+      <Router>
+            <Switch>
+              <Route exact path="/" component={RoutingLogic} />
+            </Switch>
+      </Router>
     );
   }
 }

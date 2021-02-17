@@ -36,10 +36,6 @@ router.get('/health/:username', (req, res) => {
 //update patient data
 router.post('/updatePatient/:patientID/', (req, res) => {
 
-  console.log('Update')
-  console.log(req.params.patientID)
-  console.log(req.body.firstName)
-
     Patient.updatePatient(req.params.patientID, req.body.firstName, req.body.lastName , req.body.birthdate, {medication: req.body.medication}, (err, resultt) => {
         if (err)
           return res.json(err);

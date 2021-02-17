@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 
 import Chat     from  '../../components/Pharamcy/Chat';
 
-import './style.css';
 const URL = 'ws://localhost:5000'
 var my_type = 'pharmacy'
 

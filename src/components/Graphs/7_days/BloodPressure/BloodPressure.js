@@ -10,11 +10,10 @@ import 'echarts/lib/component/markLine'
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
-
 import 'jquery';
 
 
-export default class BloodPressure extends React.Component { 
+export default class BloodPressure extends React.Component {
 
   constructor(props) {
     super(props);
