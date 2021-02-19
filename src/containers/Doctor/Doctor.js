@@ -10,7 +10,7 @@ import PatientList     from  '../../components/Doctor/PatientList';
 import AdminSidebar     from  '../../components/Doctor/AdminSidebar';
 import Chat     from  '../../components/Doctor/Chat';
 
-import './style.css';
+
 const URL = 'ws://localhost:5000'
 var my_type = 'doctor'
 
