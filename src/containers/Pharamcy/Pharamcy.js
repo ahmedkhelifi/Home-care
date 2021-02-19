@@ -57,7 +57,8 @@ export default class Pharamcy extends React.Component {
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
         } else {
-          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }, e => this.forceUpdate()))          
+          console.log();
+          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }), e => this.forceUpdate())          
         }
       }
 

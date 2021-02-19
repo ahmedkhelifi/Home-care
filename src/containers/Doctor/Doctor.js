@@ -68,7 +68,7 @@ export default class Doctor extends React.Component {
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
         } else {
-          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
+          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }), e => this.forceUpdate())          
         }
       }
 

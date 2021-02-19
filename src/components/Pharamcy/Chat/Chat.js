@@ -26,14 +26,8 @@ export default class Chat extends React.Component {
     }
   }
 
-  ws = this.props.ws//new WebSocket(URL)
-
   shouldComponentUpdate(nextProps, nextState) {
     return this.props !== nextProps || this.state !== nextState;
-  }
-
-  get_messages = () => {
-
   }
 
   show_doctors_list = () => {
@@ -131,7 +125,7 @@ export default class Chat extends React.Component {
           )
         }
 
-        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.ws} my_id={this.props.pharmacyid} myType={'pharmacy'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
+        <OpenedChatRoom active_chatroom={active_chatroom} submitMessage={this.submitMessage} ws={this.props.ws} my_id={this.props.pharmacyid} myType={'pharmacy'} mark_chatroom_as_read={this.props.mark_chatroom_as_read} />
 
     </div>
 

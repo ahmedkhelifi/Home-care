@@ -102,7 +102,7 @@ export default class Patient extends React.PureComponent {
           })
           this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
         } else {
-          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }))          
+          this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }), e => this.forceUpdate())          
         }
       }
 
