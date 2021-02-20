@@ -6,7 +6,7 @@ import Doctor         from  '../Doctor';
 import Pharamcy         from  '../Pharamcy';
 import Login         from  '../../components/Login';
 
-export default class RoutingLogic extends React.PureComponent {
+export default class Dashboard extends React.PureComponent {
 
   constructor(props) {
     super(props);
