@@ -38,12 +38,6 @@ export default class BloodPressure extends React.PureComponent {
   componentDidMount(){
     window.scrollTo({ top: 0 });
   }
-  
-  componentShouldUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      return true
-    }
-  }
 
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.confirmPopupPending && !this.state.confirmPopupMissed) {
@@ -147,7 +141,7 @@ export default class BloodPressure extends React.PureComponent {
       ) : (null)}
 
       {this.props.blood_pressures.missed.map((missed_temp,i) => {return (
-                <div className="col-12">
+                <div key={i} className="col-12">
                      <div className="patient_health_status" style={{marginTop: '40px', backgroundColor: '#ff00000a'}}>
                        <div className="row">
                         <div className="col-9">
