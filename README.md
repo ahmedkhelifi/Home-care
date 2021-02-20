@@ -32,19 +32,24 @@ Home-care$ node server
 * Server: Node.js
 * Database: Postgresql
 
-
 # Progress
 
 ### What's finished
 - [x] doctor’s interface: create new patient profile
+- [x] doctor’s interface: dashboard showing patiens with abnormal health data or missing entries
+- [x] doctor’s interface: overview of all patients
+- [x] doctor’s interface: view a specific patient's data
+- [x] doctor’s interface: send and receive chat messages from and to patients and pharmacies
 - [x] patient’s interface: health page overview
 - [x] patient’s interface: enter health data
+- [x] patient’s interface: confirm that data were missed to enter on a specific day
+- [x] patient’s interface: display health data using beautiful graphs
+- [x] patient’s interface: send and receive chat messages from and to doctors and pharmacies
+- [ ] pharmacy’s  interface: send and receive chat messages from and to doctors and patients
 
-### What we're currently working on
-- [ ] doctor’s interface: warnings when patients don't enter data
-- [ ] doctor’s interface: view a specific patient's data
-- [ ] patient’s interface: display health data using beautiful graphs
-- [ ] patient’s interface: change profile settings (name, address and password)
+### What is pending:
+- [ ] in-depth UX-Design
+- [ ] comfort functions such as sanitiy check of entered data, reminder to update data, forwarding of chat messages to email adress, etc.
 
 
 # Structural explanation of project folders
@@ -53,13 +58,13 @@ Home-care$ node server
 This is the main folder. It contains files that are required for setting up the node server and the packages to be loaded, and it include all of the following folders.
 
 ### build: 
-This folder contains the "production build" contained the code, which in the end is executed on the client machine.
+This folder contains the "production build" containing the code, which in the end is executed on the client machine.
 
 ### database:
 This folder is used for the establishment of connection to the database. 
 
-### Db_script:
-This folder contains scripts, with which the tables such as testdatas are created in the database.
+### db_script:
+This folder contains scripts, with which the tables and test data are created in the database.
 
 ### models:
 This folder contains the database requests.
@@ -74,9 +79,9 @@ This folder contains the index.html for the initial loading of the page by the b
 This folder contains requests from and to the server.
 
 ### src:
-This folder contains the design of the pages including the graphs.
+This folder contains the design and functions of the pages including the graphs.
 In this src folder it is necessary that an index.js file is present at the end of every path, so that the server can assign the path. 
-The subfolder "components" contains components, that may be used more times, this prevents the code duplication. 
+The subfolder "components" contains components, that may be used more times, this prevents code duplication. 
 The subfolder "containers" contains the logic of when and which component is called.
 
 ### websocket:
@@ -231,21 +236,17 @@ Furthermore, we store health data as JSON objects in the database.
    ```
 </details>
 
-## Settings
-
-We're currently working on implementing the settings API.
-
 # API - Doctor
 
 The API consists of the following endpoints:
 
 ## Dashboard
 
-We're currently working on implementing the dashboard API. The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
+The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
 
 ## Patient
 
-The doctor uses the following API calls to get a list of all existing patients or to add a new patient. We're working at the moment on implementing new calls to receive more detailed information.
+The doctor uses the following API calls to get a list of all existing patients or to add a new patient.
 
 - GET `/api/patient/`
 Return a list of all patients
@@ -256,6 +257,3 @@ Creates a new Patient
 ## Medication
 
 We're currently working on implementing the medication API.
-
-
-
