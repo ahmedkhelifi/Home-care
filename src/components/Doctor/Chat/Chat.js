@@ -111,6 +111,7 @@ export default class Chat extends React.Component {
   // }
 
   render() {
+    document.title = "Homecare - Chat"
 
     let chatrooms = this.props.chatrooms.sort(( a, b ) => this.compare_chatrooms(a,b))
     let active_chatroom = this.props.active_chatroom

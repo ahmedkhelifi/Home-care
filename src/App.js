@@ -7,7 +7,7 @@ import {
 
 import RoutingLogic from './containers/RoutingLogic';
 
-import './App.css';
+// import './App.css';
 import './global.css';
 
 class App extends Component {

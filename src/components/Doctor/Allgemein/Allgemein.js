@@ -75,7 +75,7 @@ class Allgemein extends React.Component {
   }
 
   render() {
-    document.title = "Dashboard"
+    document.title = "Homecare - Dashboard"
     if(!this.state.dataLoaded){
     return (
               <div className="container-fluid">

@@ -46,8 +46,6 @@ export default class SelectedPatient extends React.PureComponent {
 
   render() {
 
-    document.title = "Homecare App"
-
     if(!this.props.patientSelectedBool) {
       return (
         <div className="col-12 full_height_patient_health_show">

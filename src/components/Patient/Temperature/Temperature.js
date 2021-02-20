@@ -43,6 +43,12 @@ export default class Temperature extends React.PureComponent {
   componentDidMount(){
     window.scrollTo({ top: 0 });
   }
+  
+  componentShouldUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      return true
+    }
+  }
 
   addTemperate = (temperature) => {
 

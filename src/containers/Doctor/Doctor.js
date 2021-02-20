@@ -7,7 +7,7 @@ import Patient         from  '../Patient';
 import Login         from  '../../components/Login';
 import Allgemein     from  '../../components/Doctor/Allgemein';
 import PatientList     from  '../../components/Doctor/PatientList';
-import AdminSidebar     from  '../../components/Doctor/AdminSidebar';
+import Sidebar     from  '../../components/Doctor/Sidebar';
 import Chat     from  '../../components/Doctor/Chat';
 
 
@@ -196,7 +196,7 @@ export default class Doctor extends React.Component {
 
               <div className="wrapper">
 
-                  <AdminSidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.props.logout}/>
+                  <Sidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.props.logout}/>
 
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
 

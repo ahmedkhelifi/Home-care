@@ -24,8 +24,15 @@ export default class Temperature extends React.PureComponent {
     this.create_graph()
   }
 
+  componentShouldUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      return true
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
+      console.log('updated graph');
       this.create_graph()
     }
   }

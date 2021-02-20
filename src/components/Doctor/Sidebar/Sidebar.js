@@ -1,7 +1,6 @@
 import React from 'react';
-import './style.css';
 
-class AdminSidebar extends React.Component {
+class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.isOpened   = this.isOpened.bind(this)
@@ -27,9 +26,9 @@ class AdminSidebar extends React.Component {
     return (
       <div className="sidebar-admin" >
             <div className="sidebar-wrapper-admin">
-                <div className="logo">
+                <div className="logo" style={{paddingLeft: '10px'}}>
                     <a>
-                        Hallo Doctor
+                        Homecare
                     </a>
                 </div>
 
@@ -45,9 +44,6 @@ class AdminSidebar extends React.Component {
                 </ul>
 
                 <ul className="menu">
-                  <li>Settings</li>
-                  {/*<li>Profil</li>*/}
-                  {<li id="Settings" className={this.isOpened("Settings")} onClick={(e) => this.props.tabClicked(e)}>Profil</li>}
                   <li className="log_me_out" onClick={(e) => this.props.logout(e)}>log out</li>
                 </ul>
             </div>
@@ -56,4 +52,4 @@ class AdminSidebar extends React.Component {
     );
   }
 }
-export default AdminSidebar;
+export default Sidebar;

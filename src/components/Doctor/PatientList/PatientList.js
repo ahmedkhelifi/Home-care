@@ -206,7 +206,10 @@ class PatientList extends React.Component {
   }
 
   render() {
+    document.title = "Homecare - All Patients"
+
         if(this.state.patientForm){
+          document.title = "Homecare - Sign Up"
           return (
             <Signup closesignup={this.closesignup} zuruck={this.closesignup} />
           )
@@ -286,7 +289,6 @@ class PatientList extends React.Component {
 
 
       if (!this.state.profile && !this.state.edit) {
-        document.title = "Patient List"
         return (
             <div className="container-fluid">
              <div className="row"  style={{marginLeft: '0'}}>
