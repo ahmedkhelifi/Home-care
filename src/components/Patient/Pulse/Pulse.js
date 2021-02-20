@@ -48,7 +48,7 @@ export default class Pulse extends React.PureComponent {
         fetch('/api/patient/pulse/pending/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({pulse: pulse, measured:true})
+                body: JSON.stringify({pulse: Number(pulse), measured:true})
             })
         .then(blob => blob.json())
         .then(blob => {
@@ -64,7 +64,7 @@ export default class Pulse extends React.PureComponent {
         fetch('/api/patient/pulse/missed/'+this.props.username+'/'+this.state.popupMissedTimestamp, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({measured: measured, pulse: pulse})
+                body: JSON.stringify({measured: measured, pulse: Number(pulse)})
             })
         .then(blob => blob.json())
         .then(blob => {

@@ -47,32 +47,26 @@ export default class Weight extends React.PureComponent {
         fetch('/api/patient/weight/pending/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({weight: weight, measured:true})
+                body: JSON.stringify({weight: Number(weight), measured:true})
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''})
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   addWeightMissed = (weight, measured) => {
         fetch('/api/patient/weight/missed/'+this.props.username+'/'+this.state.popupMissedTimestamp, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({measured: measured, weight: weight})
+                body: JSON.stringify({measured: measured, weight: Number(weight)})
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupMissed: false})
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   beautify_timestamp = (unix_timestamp) => {

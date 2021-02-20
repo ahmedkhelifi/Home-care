@@ -55,7 +55,7 @@ export default class Temperature extends React.PureComponent {
         fetch('/api/patient/addTemprature/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({temperature: temperature})
+                body: JSON.stringify({temperature: Number(temperature) })
             })
         .then(blob => blob.json())
         .then(blob => {
@@ -70,7 +70,7 @@ export default class Temperature extends React.PureComponent {
         fetch('/api/patient/temperature/pending/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({temperature: temperature, measured:true})
+                body: JSON.stringify({temperature: Number(temperature), measured:true})
             })
         .then(blob => blob.json())
         .then(blob => {

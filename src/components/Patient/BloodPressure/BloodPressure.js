@@ -51,32 +51,26 @@ export default class BloodPressure extends React.PureComponent {
         fetch('/api/patient/blood_pressure/pending/'+this.props.username+'/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({bloodpres_dia: dia, bloodpres_sys: sys, measured:true})
+                body: JSON.stringify({bloodpres_dia: Number(dia), bloodpres_sys: Number(sys), measured:true})
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''})
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   addBloodPressureMissed = (sys, dia, measured) => {
         fetch('/api/patient/blood_pressure/missed/'+this.props.username+'/'+this.state.popupMissedTimestamp, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({bloodpres_dia: dia, bloodpres_sys: sys, measured: measured})
+                body: JSON.stringify({bloodpres_dia: Number(dia), bloodpres_sys: Number(sys), measured: measured})
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupMissed: false}, e => this.forceUpdate())
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   beautify_timestamp = (unix_timestamp) => {
