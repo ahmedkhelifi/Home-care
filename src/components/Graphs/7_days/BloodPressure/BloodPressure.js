@@ -24,6 +24,12 @@ export default class BloodPressure extends React.Component {
     this.create_graph()
   }
 
+  componentShouldUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      return true
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       this.create_graph()

@@ -26,7 +26,6 @@ export default class BloodPressure extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      pendingMedication:        this.props.pendingMedication,
       confirmPopupPending:      false,
       confirmPopupMissed:       false,
       popupMissedTimestampFrom: '',
@@ -38,6 +37,12 @@ export default class BloodPressure extends React.PureComponent {
 
   componentDidMount(){
     window.scrollTo({ top: 0 });
+  }
+  
+  componentShouldUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      return true
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -148,7 +153,7 @@ export default class BloodPressure extends React.PureComponent {
                         <div className="col-9">
                                 <p className="" style={{fontSize: '18px'}}>Blood Pressure on {this.beautify_timestamp(missed_temp.from)} not measured</p>
                         </div>
-                        <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true,popupMissedTimestampFrom: this.beautify_timestamp(missed_temp.from), popupMissedTimestampTo: this.beautify_timestamp(missed_temp.to), popupMissedTimestamp: ( (Number(missed_temp.to)+ Number(missed_temp.from) ) / 2 )  })}> 
+                        <div className="col-3" onClick={e => this.setState({confirmPopupMissed: true,popupMissedTimestampFrom: this.beautify_timestamp(missed_temp.from), popupMissedTimestampTo: this.beautify_timestamp(missed_temp.to), popupMissedTimestamp: Number(missed_temp.from+1) })}> 
                           <span className="go">&#10230;</span>
                         </div>
                       </div>
