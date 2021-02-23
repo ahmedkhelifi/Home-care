@@ -126,35 +126,41 @@ We've build an API call that gets a summary of the patient's health and multiple
 - GET `/health/:username`
 Returns the health status of patient including medication, temperature, blood Pressure, pulse, weight and the patient's pending tasks.
 
+- POST `/updatePatient/:patientID`
+Patient's data is updated
+
 - POST `/medication/pending/:username/:title`
 Patient confirms that the medication was taken within the allowed timeframe
 
 - POST `/medication/missed/:username/:title/:timestamp`
 Patient either confirms that the medication was taken or forgotten once the allowed timeframe has passed
 
-- POST `/temperature/pending/:username/:title`
+- POST `/temperature/pending/:username`
 Patient confirms that temperature was measure within the allowed timeframe
 
 - POST `/temperature/missed/:username/:title/:timestamp`
 Patient either confirms that temperature was measured or forgotten once the allowed timeframe has passed
-
-- POST `/blood_pressure/pending/:username/:title`
-Patient confirms that blood pressure was measure within the allowed timeframe
-
-- POST `/blood_pressure/missed/:username/:title/:timestamp`
-Patient either confirms that blood pressure was measured or forgotten once the allowed timeframe has passed
-
-- POST `/pulse/pending/:username/:title`
-Patient confirms that pulse was measure within the allowed timeframe
-
-- POST `/pulse/missed/:username/:title/:timestamp`
-Patient either confirms that pulse was measured or forgotten once the allowed timeframe has passed
 
 - POST `/weight/pending/:username/:title`
 Patient confirms that the weight was measure within the allowed timeframe
 
 - POST `/weight/missed/:username/:title/:timestamp`
 Patient either confirms that the weight was measured or forgotten once the allowed timeframe has passed
+
+- POST `/blood_pressure/pending/:username`
+Patient confirms that blood pressure was measure within the allowed timeframe
+
+- POST `/blood_pressure/missed/:username/:title/:timestamp`
+Patient either confirms that blood pressure was measured or forgotten once the allowed timeframe has passed
+
+- POST `/pulse/pending/:username`
+Patient confirms that pulse was measure within the allowed timeframe
+
+- POST `/pulse/missed/:username/:title/:timestamp`
+Patient either confirms that pulse was measured or forgotten once the allowed timeframe has passed
+
+- POST `/medication`
+Patient either confirms that medication was taken or forgotten once the allowed timeframe has passed
 </details>
 
 Furthermore, we store health data as JSON objects in the database.
@@ -248,11 +254,19 @@ The dashboard is intended to inform the doctos when a user forgets to either tak
 
 The doctor uses the following API calls to get a list of all existing patients or to add a new patient.
 
-- GET `/api/patient/`
-Return a list of all patients
+- GET `/getPatients`
+Return a list of all patients inlcuding the health status points 
 
-- POST `/api/patient/`
+- POST `/addPatient`
 Creates a new Patient
+
+- POST `/medication`
+Assigns a medication to a patient
+
+- GET `/getPatients/health/risk`
+Returns all patients with high or average health risk
+
+
 
 ## Medication
 
