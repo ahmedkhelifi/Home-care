@@ -311,13 +311,12 @@ Furthermore, we store the chatroom as JSON objects in the database.
 <details><summary><b>Show Example of health data</b></summary>
 	
 `messages` is saved in the Database as follows:
-   
-   ```json
+```json
    {"messages":[
    	{"timestamp":1613118472724,"type":"created","read":true}
 	{"message":"Hello", "fromType":"doctor","toType":"patient", "timestamp":1613118475705, "read":true, "type":"message"}
 	{"message":"hello doctor", "fromType": "patient", "toType": "doctor", "timestamp":1613220860614, "read":false, "type":"message"}
 	]}
-   ```
+```
 		
 
