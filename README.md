@@ -275,7 +275,7 @@ Assigns a medication to a patient.
 
 </details>
 
-#API - Chat
+# API - Chat
 
 The API consists of the following endpoints:
 
@@ -310,7 +310,7 @@ Returns the IDs and names from all pharmacies
 Furthermore, we store the chatroom as JSON objects in the database.
 <details><summary><b>Show Example of health data</b></summary>
 	
-`blood_pressure` is saved in the Database as follows:
+`messages` is saved in the Database as follows:
    
    ```json
    		 {"messages":[
