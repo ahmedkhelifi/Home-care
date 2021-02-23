@@ -109,6 +109,11 @@ If the user input correct login data, the user receives the following JSON objec
    ```json
 	{"authenticated": "true", "user": {"doctorid": "id", "username": "username", "name": "name", "type": "patient"} }
    ```
+3. Case `pharmacy`:
+
+   ```json
+	{"authenticated": "true", "user": {"pharmacyid": "id", "username": "username", "name": "name", "type": "patient"} }
+   ```
 If the login data is wrong (either password is wrong or username not found), following reply is generated:
    ```json
 	{"authenticated": "false" }
