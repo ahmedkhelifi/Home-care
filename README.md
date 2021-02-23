@@ -174,7 +174,7 @@ Furthermore, we store health data as JSON objects in the database.
 1. `medication` is saved in the Database as follows:
 
    ```json
-     {"medication": [
+   {"medication": [
           {"title":"Azathioprine","ammount":1,"duration":1,"history":[
 	  	{"timestamp": 1609879883768, "measured": true},
 		{"timestamp": 1609879883768, "measured": true},
@@ -313,11 +313,11 @@ Furthermore, we store the chatroom as JSON objects in the database.
 `messages` is saved in the Database as follows:
    
    ```json
-   	{"messages":[
-		{"timestamp":1613118472724,"type":"created","read":true}
-		{"message":"Hello", "fromType":"doctor","toType":"patient", "timestamp":1613118475705, "read":true, "type":"message"}
-		{"message":"hello doctor", "fromType": "patient", "toType": "doctor", "timestamp":1613220860614, "read":false, "type":"message"}
-		]}
+   {"messages":[
+   	{"timestamp":1613118472724,"type":"created","read":true}
+	{"message":"Hello", "fromType":"doctor","toType":"patient", "timestamp":1613118475705, "read":true, "type":"message"}
+	{"message":"hello doctor", "fromType": "patient", "toType": "doctor", "timestamp":1613220860614, "read":false, "type":"message"}
+	]}
    ```
 		
 
