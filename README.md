@@ -132,40 +132,40 @@ We've build an API call that gets a summary of the patient's health and multiple
 Returns the health status of patient including medication, temperature, blood Pressure, pulse, weight and the patient's pending tasks.
 
 - POST `/updatePatient/:patientID`
-Patient's data is updated
+Patient's data is updated.
 
 - POST `/medication/pending/:username/:title`
-Patient confirms that the medication was taken within the allowed timeframe
+Patient confirms that the medication was taken within the allowed timeframe.
 
 - POST `/medication/missed/:username/:title/:timestamp`
-Patient either confirms that the medication was taken or forgotten once the allowed timeframe has passed
+Patient either confirms that the medication was taken or forgotten once the allowed timeframe has passed.
 
 - POST `/temperature/pending/:username`
-Patient confirms that temperature was measure within the allowed timeframe
+Patient confirms that temperature was measure within the allowed timeframe.
 
 - POST `/temperature/missed/:username/:title/:timestamp`
-Patient either confirms that temperature was measured or forgotten once the allowed timeframe has passed
+Patient either confirms that temperature was measured or forgotten once the allowed timeframe has passed.
 
 - POST `/weight/pending/:username/:title`
-Patient confirms that the weight was measure within the allowed timeframe
+Patient confirms that the weight was measure within the allowed timeframe.
 
 - POST `/weight/missed/:username/:title/:timestamp`
-Patient either confirms that the weight was measured or forgotten once the allowed timeframe has passed
+Patient either confirms that the weight was measured or forgotten once the allowed timeframe has passed.
 
 - POST `/blood_pressure/pending/:username`
-Patient confirms that blood pressure was measure within the allowed timeframe
+Patient confirms that blood pressure was measure within the allowed timeframe.
 
 - POST `/blood_pressure/missed/:username/:title/:timestamp`
-Patient either confirms that blood pressure was measured or forgotten once the allowed timeframe has passed
+Patient either confirms that blood pressure was measured or forgotten once the allowed timeframe has passed.
 
 - POST `/pulse/pending/:username`
-Patient confirms that pulse was measure within the allowed timeframe
+Patient confirms that pulse was measure within the allowed timeframe.
 
 - POST `/pulse/missed/:username/:title/:timestamp`
-Patient either confirms that pulse was measured or forgotten once the allowed timeframe has passed
+Patient either confirms that pulse was measured or forgotten once the allowed timeframe has passed.
 
 - POST `/medication`
-Patient either confirms that medication was taken or forgotten once the allowed timeframe has passed
+Patient either confirms that medication was taken or forgotten once the allowed timeframe has passed.
 </details>
 
 Furthermore, we store health data as JSON objects in the database.
@@ -253,10 +253,10 @@ The API consists of the following endpoints:
 
 ## Dashboard
 
-The dashboard is intended to inform the doctos when a patient is at high or average health risk forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
+The dashboard is intended to inform the doctos when a patient is at high or average health.
 
 - GET `/getPatients/health/risk`
-Returns all patients with high or average health risk
+Returns all patients with high or average health risk inlcuding the health status points.
 
 ## Patient
 
@@ -265,17 +265,17 @@ The doctor uses the following API calls to get a list of all existing patients o
 <details><summary><b>Show API Calls</b></summary>
 
 - GET `/getPatients`
-Returns a list of all patients inlcuding the health status points 
+Returns a list of all patients inlcuding the health status points.
 
 - POST `/addPatient`
-Creates a new Patient
+Creates a new Patient.
 
 - POST `/medication`
-Assigns a medication to a patient
+Assigns a medication to a patient.
 
 </details>
 
-## Chat
+#API - Chat
 
 The API consists of the following endpoints:
 
@@ -306,3 +306,18 @@ Returns the IDs and names from all doctors
 Returns the IDs and names from all pharmacies
 
 </details>
+
+Furthermore, we store the chatroom as JSON objects in the database.
+<details><summary><b>Show Example of health data</b></summary>
+	
+`blood_pressure` is saved in the Database as follows:
+   
+   ```json
+   		 {"messages":[
+		 	{"timestamp":1613118472724,"type":"created","read":true}
+			{"message":"Hello", "fromType":"doctor","toType":"patient", "timestamp":1613118475705, "read":true, "type":"message"}
+      			{"message":"hello doctor", "fromType": "patient", "toType": "doctor", "timestamp":1613220860614, "read":false, "type":"message"}
+    			]}
+   ```
+		
+
