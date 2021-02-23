@@ -248,14 +248,19 @@ The API consists of the following endpoints:
 
 ## Dashboard
 
-The dashboard is intended to inform the doctos when a user forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
+The dashboard is intended to inform the doctos when a patient is at high or average health risk forgets to either take the prescribed medication or enter the health updates (weight, pulse, blood pressure and temperature).
+
+- GET `/getPatients/health/risk`
+Returns all patients with high or average health risk
 
 ## Patient
 
 The doctor uses the following API calls to get a list of all existing patients or to add a new patient.
 
+<details><summary><b>Show API Calls</b></summary>
+
 - GET `/getPatients`
-Return a list of all patients inlcuding the health status points 
+Returns a list of all patients inlcuding the health status points 
 
 - POST `/addPatient`
 Creates a new Patient
@@ -263,11 +268,36 @@ Creates a new Patient
 - POST `/medication`
 Assigns a medication to a patient
 
-- GET `/getPatients/health/risk`
-Returns all patients with high or average health risk
+</details>
 
+## Chat
 
+The API consists of the following endpoints:
 
-## Medication
+<details><summary><b>Show API Calls</b></summary>
+	
+- GET `/getAllChatrooms`
+Returns all messages from database
 
-We're currently working on implementing the medication API.
+- GET `/getAllChatroomsFromUser/:id/:type`
+Returns all messages from one person (sent and received)
+
+- GET `/getAllChatroomsFromTwoParties/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type`
+Returns all messages from two parties
+
+- POST `/newChatroom/:chatID/:chatName/:fromID/:fromType/:toID/:toType`
+Creates a new chatroom
+
+- POST `/updateMessage/:chatID/:chatName/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type/:message`
+Update the message entry
+
+- GET `/getPatients`
+Returns the IDs and names from all patients
+
+- GET `/getDoctors`
+Returns the IDs and names from all doctors
+
+- GET `/getPharmacies`
+Returns the IDs and names from all pharmacies
+
+</details>
