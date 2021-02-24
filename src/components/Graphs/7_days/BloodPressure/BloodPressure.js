@@ -138,6 +138,12 @@ export default class BloodPressure extends React.Component {
                         data: templist1,
                         xAxisIndex: 0,
                         yAxisIndex: 0,
+                        label: {
+                          show: true,
+                          position: 'top',
+                          formatter: '{c}'//echarts selbst build in variable fuer valu
+                          
+                        },　　
                         markLine : {
                             symbol:"none",
                             data : [{
@@ -166,6 +172,12 @@ export default class BloodPressure extends React.Component {
                         data: templist2,
                         xAxisIndex: 1,
                         yAxisIndex: 1,
+                        label: {
+                          show: true,
+                          position: 'top',
+                          formatter: '{c}'//echarts selbst build in variable fuer valu
+                          
+                        },　　
                         markLine : {
                             symbol:"none",
                             data : [{

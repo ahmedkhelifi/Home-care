@@ -6,7 +6,7 @@ import  'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import'echarts/lib/component/grid' 
-
+import'echarts/lib/component/markLine' 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
 import 'jquery';
@@ -108,6 +108,47 @@ var option ={
           formatter: '{c}'//echarts selbst build in variable fuer valu
           
       },　　
+      markLine : {
+        symbol:"none",
+        data : [{
+             
+  
+            lineStyle:{               //警戒线的样式  ，虚实  颜色
+                type:"solid",
+                color:"#FA3934",
+            },
+                label:{
+                 textStyle: {
+                     fonttemperature: "bolder",
+                     color:  'black',
+                     fontSize: "4",
+                 },
+                position:'start',
+                formatter:"90"
+            },
+            yAxis:90  
+           
+        },
+        {
+  
+            lineStyle:{               //警戒线的样式  ，虚实  颜色
+                type:"solid",
+                color:"green",
+            },
+            label:{
+             textStyle: {
+                 fonttemperature: "bolder",
+                 color:  'black',
+                 fontSize: "4",
+             },
+                position:'start',
+                formatter:"60 ",
+            },
+            yAxis:60   
+      
+        }
+        ]
+        },
   }]
 }
 
