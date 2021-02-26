@@ -18,25 +18,25 @@ function handle_request(wss, WebSocket) {
                   client.id = m.id
                   client.name = m.name
                   client.idType = m.idType
-                }
-                console.log(m.id, m.idType);
-                Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
-                  result.forEach(chatroom => {
-                    console.log(chatroom);
-                    chatroom.chatroom_id = chatroom.chatid
-                    chatroom.name = chatroom.chatname
+               
+                  Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
+                    result.forEach(chatroom => {
+                      // console.log(chatroom);
+                      chatroom.chatroom_id = chatroom.chatid
+                      chatroom.name = chatroom.chatname
 
-                    chatroom.fromID = chatroom.chatpartner1id
-                    chatroom.fromType = chatroom.chatpartner1type
-                    chatroom.from = chatroom.name_chatpartner1id
+                      chatroom.fromID = chatroom.chatpartner1id
+                      chatroom.fromType = chatroom.chatpartner1type
+                      chatroom.from = chatroom.name_chatpartner1id
 
-                    chatroom.toID = chatroom.chatpartner2id
-                    chatroom.toType = chatroom.chatpartner2type
-                    chatroom.to = chatroom.name_chatpartner2id
+                      chatroom.toID = chatroom.chatpartner2id
+                      chatroom.toType = chatroom.chatpartner2type
+                      chatroom.to = chatroom.name_chatpartner2id
 
+                    })
+                    client.send( JSON.stringify({type:'set_chatrooms', chatrooms: result}) );
                   })
-                  client.send( JSON.stringify({type:'set_chatrooms', chatrooms: result}) );
-                })
+                }
               })
               console.log(m.idType + ' ' + m.name + ' online (ID: ' + m.id + ')')
 
@@ -52,7 +52,6 @@ function handle_request(wss, WebSocket) {
           if (m.type == 'chatroom_update') {
             send_chatroom(m.chatroom, m.to_id, m.to_type)
             save_chatroom_in_db(m.chatroom)
-            console.log(m.chatrooom)
           }
 
       });
@@ -62,8 +61,6 @@ function handle_request(wss, WebSocket) {
     //Forward Message to Clients
     function send_chatroom(chatroom, to_id, to_type) {
             wss.clients.forEach(function each(client) {
-                // console.log('client: -----')
-                console.log('id: ' + client.id + '(vs '+to_id+')' + ' typeID: ' + client.idType + '(vs '+to_type+')' )
                 if ( client.id == to_id && client.idType == to_type && client.readyState === WebSocket.OPEN && !client.master) {
                     client.send( JSON.stringify({type: 'update_chatroom', chatroom: chatroom}));
                 }

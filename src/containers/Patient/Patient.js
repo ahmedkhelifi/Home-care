@@ -105,7 +105,6 @@ export default class Patient extends React.PureComponent {
           this.setState(state => ({ chatrooms: [...state.chatrooms, message.chatroom] }), e => this.forceUpdate())          
         }
       }
-
     }
 
     this.ws.onclose = () => {
@@ -214,9 +213,12 @@ export default class Patient extends React.PureComponent {
 
   submitMessage = (messageString) => {
     let toType = ''
+    let fromType= ''
     let active_chatroom = this.state.active_chatroom
 
-    if (my_type !== active_chatroom.toType) toType = active_chatroom.toType
+    if (my_type !== active_chatroom.toType) {
+      toType = active_chatroom.toType
+    }
     else toType = active_chatroom.fromType
 
     let to_id = ''
@@ -226,7 +228,7 @@ export default class Patient extends React.PureComponent {
     const message = {message: messageString, fromType: my_type, toType: toType, timestamp: new Date().valueOf(), read: false, type: 'message'}
     
     active_chatroom.messages.messages.push(message)
-    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: toType}))
+    this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: active_chatroom, to_id: to_id, to_type: toType,}))
     this.forceUpdate()
   }
 

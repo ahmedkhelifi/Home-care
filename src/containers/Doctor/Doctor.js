@@ -56,7 +56,6 @@ export default class Doctor extends React.Component {
       }
 
       if(message.type === 'update_chatroom'){
-        console.log(message.chatroom)
         let chatrooms = this.state.chatrooms
         let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
