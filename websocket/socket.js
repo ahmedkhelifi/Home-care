@@ -19,8 +19,10 @@ function handle_request(wss, WebSocket) {
                   client.name = m.name
                   client.idType = m.idType
                 }
+                console.log(m.id, m.idType);
                 Chat.retrieveAllChatroomsFromUser(m.id, m.idType, result => {
                   result.forEach(chatroom => {
+                    console.log(chatroom);
                     chatroom.chatroom_id = chatroom.chatid
                     chatroom.name = chatroom.chatname
 
@@ -50,6 +52,7 @@ function handle_request(wss, WebSocket) {
           if (m.type == 'chatroom_update') {
             send_chatroom(m.chatroom, m.to_id, m.to_type)
             save_chatroom_in_db(m.chatroom)
+            console.log(m.chatrooom)
           }
 
       });

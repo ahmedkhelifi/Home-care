@@ -40,13 +40,21 @@ class OpenedChatRoom extends Component {
 
 
   render() {
+      let partner_name = ''
+      if(this.props.myType !== this.props.active_chatroom.toType) partner_name = this.props.active_chatroom.to
+      else partner_name = this.props.active_chatroom.from
+
+      let partner_type = ''
+      if(this.props.myType !== this.props.active_chatroom.toType) partner_type = this.props.active_chatroom.toType
+      else partner_type = this.props.active_chatroom.fromType
+
 	return (
         <div className="col-12" style={{paddingRight: '0', paddingLeft: '0'}}>
           <div className="row">
           	<div className="col-12 top_banner_chat vertical_center_parent">
           		<p className="patient_back" style={{marginTop: '21px'}} onClick={() => this.props.goBack() }>&#10230;</p>
 	                <div className="vertical_center_child">
-	                  {this.props.active_chatroom.fromType === 'pharmacy' ? (<p style={{fontWeight: 'bold'}} >Pharmacy: {this.props.active_chatroom.from}</p>) : (<p style={{fontWeight: 'bold'}} >Doctor: {this.props.active_chatroom.to}</p>)}
+	                  <p style={{fontWeight: 'bold', textTransform: 'capitalize'}} >{partner_type}: {partner_name}</p>
 	                  <p style={{marginTop: '-16px'}} >{this.props.active_chatroom.name}</p>
 	                </div>
           	</div>
