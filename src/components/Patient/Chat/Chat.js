@@ -195,7 +195,7 @@ export default class Chat extends React.Component {
 
 
 <div className="navbar row" style={{marginLeft: '0'}}>
-  <div className=" col-4"  onClick={e => this.props.goBack()}>
+  <div className=" col-4"  onClick={e => this.props.goBackHome()}>
     <img  src={Home_botton} alt="home" className="menu_logo"/>
     <a>Home</a>
   </div>
