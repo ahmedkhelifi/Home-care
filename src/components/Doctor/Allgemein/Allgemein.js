@@ -36,42 +36,9 @@ class Allgemein extends React.Component {
             .then(blob => blob.json())
             .then(
                 (blob) => {
-                    blob.forEach(patient => {
-                      let bad_stats = this.get_patient_bad_stats(patient.health)
-                      patient.bad_stats = bad_stats
-                    })
-                    // console.log(blob)
-                    let patients = 
                     this.setState({dataLoaded: true, rist_patients: blob.sort((a,b) => (a.health.points > b.health.points) ? 1 : ((b.health.points > a.health.points) ? -1 : 0)).reverse() })
-                    // this.setState({ patients: blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; }), isLoaded: true });
-                    // this.baseState.patient = blob.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; })
-                    // this.baseState.isLoaded = true
-                    // if (blob.length > 0){
-                    //     this.setState({ noPatients: false });
-                    //     this.baseState.noPatients = true
-                    // }
                 }
             ).catch(error => this.setState({errorPatientLoad: true}));
-  }
-
-  get_patient_bad_stats = (health) => {
-    let stats = {bad_temperate_days: 0, bad_pulse_days: 0, missed_medication_takes: 0, sever_weight_loss: 0, bad_blood_pressure_days: 0}
-
-      let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} ) 
-      puls_history.forEach(pulse => {
-        if(pulse.pulse >=50 && pulse.pulse <=60) stats.bad_pulse_days +=  stats.bad_pulse_days + 1 
-        if(pulse.pulse <50 || pulse.pulse > 100) stats.bad_pulse_days +=  stats.bad_pulse_days + 1 
-      })
-
-    //weight of last 90 days
-    let weight_history = health.weights.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} )
-    let old_weight = weight_history[0]
-    let old_weight_10_percent = old_weight*0.1
-    let new_weight = weight_history[weight_history.length -  1]
-
-    if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent ) stats.sever_weight_loss =  Math.abs(old_weight - new_weight);
-
-    return stats
   }
 
   render() {
@@ -145,8 +112,8 @@ class Allgemein extends React.Component {
                                           <img  src={Tasks_temperature} alt="logout" className="tasks_pill_doctor" />
                                           <p className="patient_tasks_title_doctor"> Temperature</p>
                                            {patient.health.temperatures.history.length > 0 && patient.health.temperatures.history[patient.health.temperatures.history.length - 1].temperature !== ""
-												? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[patient.health.temperatures.history.length - 1].temperature} </p>) 
-												: (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
+                      												? (<p style={{textAlign: 'center', fontSize: '14px'}} > {patient.health.temperatures.history[patient.health.temperatures.history.length - 1].temperature} </p>) 
+                      												: (<p style={{textAlign: 'center', fontSize: '14px'}}>No Entry</p>) }
                                         </div>
                                       </div>
                                      </div>
