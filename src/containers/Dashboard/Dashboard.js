@@ -1,11 +1,11 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-
 import Patient         from  '../Patient';
 import Doctor from  '../Doctor';
 import Pharamcy from  '../Pharamcy';
 import Login from  '../../components/Login';
 
+/*routes user to the correct component*/
 export default class Dashboard extends React.PureComponent {
 
   constructor(props) {

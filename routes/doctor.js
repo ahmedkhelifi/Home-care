@@ -131,7 +131,7 @@ router.get('/getPatients/health/risk', (req, res) => {
     })
 
 
-    return res.json(users.filter(user => {return user.health.points > 1 }));
+    return res.json(users.filter(user => {return user.health.points > 2 }));
   });
 });
 

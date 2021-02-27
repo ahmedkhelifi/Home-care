@@ -21,7 +21,7 @@ router.get('/getAllChatroomsFromUser/:id/:type', (req, res) => { // WAS IST HIER
 });
 
 
-//get all messages from two parties --> maybe we dont need this
+//get all messages from two parties 
 router.get('/getAllChatroomsFromTwoParties/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type', (req, res) => { // WAS IST HIER DAS ROUTING?
 
   let messages = {chatPartner1ID: req.params.chatPartner1ID, chatPartner1Type: req.params.chatPartner1Type, chatPartner2ID: req.params.chatPartner2ID, chatPartner2Type: req.params.chatPartner2Type}
@@ -48,19 +48,12 @@ router.post('/updateMessage/:chatID/:chatName/:chatPartner1ID/:chatPartner1Type/
 // get IDs and names from all patients
 router.get('/getPatients', (req, res) => {
   Chat.retrieveAllPatients((users) => {
-
-    users.forEach( user => {
-		user.type = 'patient' // braucht ihr den Type?
-		// what to do?
-    })
-
     return res.json(users);
   });
 });
 
 // get IDs and names from all patients
 router.get('/getDoctors', (req, res) => {
-  console.log('/getDoctors')
   Chat.retrieveAllDoctos((users) => {
     return res.json(users);
   });

@@ -138,13 +138,6 @@ class Patient {
     });
   }
 
-  static massInsert (mass, callback) {
-      db.query(mass, (res) => {
-      console.log(res)
-      callback(res)
-    });
-  }
-
 }
 
 module.exports = Patient;
