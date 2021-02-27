@@ -54,8 +54,8 @@ class BoodPressure extends Component {
                     let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
                     if(i>-1){//wenn an dem Tag etwas in DB erschienen 
                         if (item.measured!==false){ 
-                        templist1[i]=item.bloodpres_dia
-                        templist2[i]=item.bloodpres_sys
+                        templist2[i]=item.bloodpres_dia
+                        templist1[i]=item.bloodpres_sys
                         }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
                     }
                 })
