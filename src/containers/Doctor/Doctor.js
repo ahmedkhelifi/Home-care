@@ -1,14 +1,11 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-
-import Patient         from  '../Patient';
-
-
-import Login         from  '../../components/Login';
-import Allgemein     from  '../../components/Doctor/Allgemein';
-import PatientList     from  '../../components/Doctor/PatientList';
-import Sidebar     from  '../../components/Doctor/Sidebar';
-import Chat     from  '../../components/Doctor/Chat';
+import Patient from  '../Patient';
+import Login from  '../../components/Login';
+import Allgemein from  '../../components/Doctor/Allgemein';
+import PatientList from  '../../components/Doctor/PatientList';
+import Sidebar from  '../../components/Doctor/Sidebar';
+import Chat from  '../../components/Doctor/Chat';
 
 
 const URL = 'ws://localhost:5000'
@@ -37,8 +34,6 @@ export default class Doctor extends React.Component {
 
   componentDidMount() {
     this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      // console.log('connected')
       const message = { id: this.state.user.doctorid, name: this.state.user.name, idType: my_type, type: 'online'}
       this.ws.send(JSON.stringify(message))
     }
@@ -48,19 +43,18 @@ export default class Doctor extends React.Component {
       const message = JSON.parse(evt.data)
       if(message.type === 'ping' && this.state.ID !== -1){
         const message = { id: this.state.user.doctorid, idType: my_type, type: 'pong' }
-        this.ws.send(JSON.stringify(message))
+        this.ws.send(JSON.stringify(message)) // and send pong message
       }
 
-      if(message.type === 'set_chatrooms') {
+      if(message.type === 'set_chatrooms') { //new chatroom
         this.setState({chatrooms : message.chatrooms})
       }
 
-      if(message.type === 'update_chatroom'){
+      if(message.type === 'update_chatroom'){ // new message
         let chatrooms = this.state.chatrooms
         let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
         if(updated_chatroom.length > 0) {
-          //...
           chatrooms.forEach(chatroom => {
             if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
               chatroom.messages =  message.chatroom.messages
@@ -80,21 +74,10 @@ export default class Doctor extends React.Component {
         ws: new WebSocket(URL),
       })
     }
-
-    // this.get_messages()
-    // this.getDoctors()
-    // this.scrollToBottom();
   }
 
-  // componentDidMount(){
-  //   var cookies = Cookies.get()
-  //   if(cookies.hasOwnProperty('authenticated') && cookies.hasOwnProperty('user')) {
-  //     if(cookies.authenticated) this.setState({authenticated: true, user: JSON.parse(Cookies.get('user'))})
-  //   }
-  // }
-
   /*
-  *     Call right component when Admin Dashboard sidebar tabs are clicked
+  *     Call right component when sidebar tabs are clicked
   */
 
   tabClicked(e, id){
@@ -136,7 +119,6 @@ export default class Doctor extends React.Component {
     } else {
       chatroom = {chatroom_id: new Date().valueOf(), name: name, toID: pharmacy.id, to: pharmacy.name, toType: 'pharmacy', fromID: this.state.user.doctorid, from: this.state.user.name, fromType: my_type,  messages:{messages:[{timestamp: new Date().valueOf(), type: 'created', read: true}]}}
     }
-    // console.log(chatroom)
     this.setState(state => ({ chatrooms: [...state.chatrooms, chatroom].sort(( a, b ) => this.compare_chatrooms(a,b))}))
   }
 
@@ -179,9 +161,7 @@ export default class Doctor extends React.Component {
         else toType = active_chatroom.fromType
 
         this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType}))
-        // console.log(chatroom)
       }
-
           
     })
 
@@ -192,26 +172,14 @@ export default class Doctor extends React.Component {
   render() {
           return (
             <section>
-
               <div className="wrapper">
-
                   <Sidebar firstname={this.props.firstname} tabClicked={this.tabClicked} openedTab={this.state.openedTab} chatrooms={this.state.chatrooms} logout={this.props.logout}/>
-
                   <div className="main-panel" style={{backgroundColor: '#f5f6f8', minHeight: '100vh'}}>
-
-                      
-
                           {this.state.openedTab === 'Allgemein'        ? (<div className="content"><Allgemein  /> </div>) : (null)}
                           {this.state.openedTab === 'PatientList'      ? (<div className="content"><PatientList  /> </div>) : (null)}
                           {this.state.openedTab === 'Chat'             ? (<Chat  doctorid={this.state.user.doctorid} name={this.state.user.name} ws={this.ws} chatrooms={this.state.chatrooms} submitMessage={this.submitMessage} mark_chatroom_as_read={this.mark_chatroom_as_read} active_chatroom={this.state.active_chatroom} openChatroom={this.openChatroom} createChatroom={this.createChatroom}/>) : (null)}
-
-
-                     
-                      
                   </div>
               </div>
-
-
             </section>
           )
   }

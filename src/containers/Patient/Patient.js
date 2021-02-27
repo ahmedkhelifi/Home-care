@@ -4,19 +4,14 @@ import Temperature from '../../components/Patient/Temperature';
 import Weight from '../../components/Patient/Weight';
 import Pulse from '../../components/Patient/Pulse';
 import BloodPressure from '../../components/Patient/BloodPressure';
-
 import Chat from '../../components/Patient/Chat';
-
-
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+/*images*/
 import Logout from'../../images/logout.png';
-
 import Home_botton from'../../images/Home_botton.png';
 import Chat_menu from'../../images/Chat_menu.png';
 import Settings_wheel from'../../images/settings_wheel.png';
-
 import User_icon from'../../images/User_icon_BLACK-01.png';
 import Tasks_pill from'../../images/tasks_pill.png';
 import Tasks_temperature from'../../images/tasks_temperature.png';
@@ -72,8 +67,6 @@ export default class Patient extends React.PureComponent {
     this.get_health()
 
     this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log('connected')
       const message = { id: this.props.user.patientid, name: this.props.user.name, idType: 'patient', type: 'online'}
       this.ws.send(JSON.stringify(message))
     }
@@ -255,7 +248,6 @@ export default class Patient extends React.PureComponent {
         console.log({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType})
 
         this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType}))
-        // console.log(chatroom)
       }
 
           
@@ -315,15 +307,6 @@ export default class Patient extends React.PureComponent {
         <p className="patient_hello">{this.props.user.name}</p>
         <p className="patient_birthday">{ ("0" +(new Date(this.state.birthdate).getMonth() + 1 )).slice(-2) } - {new Date(this.state.birthdate).getFullYear()}</p>
       </div>
-
-        
-            {/*!this.state.finishedTasks.missed && !this.state.finishedTasks.pending ? (
-            <div className="patient_health_status">
-              <h3 className="patient_status">your  health status is <span style={{color: this.state.backgroundColor}}>stable</span>.</h3>
-              <p className="patient_status_task">You have completed all your tasks for today</p>
-            </div>
-            ) : (null)*/}
-
             {this.state.finishedTasks.missed > 0 ? (
             <div className="patient_health_status" style={{backgroundColor: '#ff918ba6'}}>
               <h3 className="patient_status">You have missed to add some data.</h3>
@@ -337,9 +320,6 @@ export default class Patient extends React.PureComponent {
               <p className="patient_status_task">Make sure you add  your data at the right time!</p>
             </div>
             ) : (null)}
-
-
-       
 
       <p className="patient_tasks">Tasks</p>
 

@@ -137,7 +137,6 @@ class Patient {
       callback(res);
     });
   }
-
 }
 
 module.exports = Patient;

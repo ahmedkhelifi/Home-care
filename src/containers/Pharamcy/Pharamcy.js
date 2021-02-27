@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-
-import Chat     from  '../../components/Pharamcy/Chat';
+import Chat from  '../../components/Pharamcy/Chat';
 
 const URL = 'ws://localhost:5000'
 var my_type = 'pharmacy'
@@ -26,9 +25,7 @@ export default class Pharamcy extends React.Component {
 
   componentDidMount() {
     this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      // console.log('connected')
-      const message = { id: this.state.user.pharmacyid, name: this.state.user.name, idType: my_type, type: 'online'}
+      const message = { id: this.state.user.pharmacyid, name: this.state.user.name, idType: my_type, type: 'online'} // connected
       this.ws.send(JSON.stringify(message))
     }
 
@@ -40,17 +37,16 @@ export default class Pharamcy extends React.Component {
         this.ws.send(JSON.stringify(message))
       }
 
-      if(message.type === 'set_chatrooms') {
+      if(message.type === 'set_chatrooms') { // new chatroom
         this.setState({chatrooms : message.chatrooms})
       }
 
-      if(message.type === 'update_chatroom'){
+      if(message.type === 'update_chatroom'){ // new message
         console.log(message.chatroom)
         let chatrooms = this.state.chatrooms
         let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
         if(updated_chatroom.length > 0) {
-          //...
           chatrooms.forEach(chatroom => {
             if( chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
               chatroom.messages =  message.chatroom.messages
@@ -133,7 +129,6 @@ export default class Pharamcy extends React.Component {
         if (my_type !== active_chatroom.toType) toType = active_chatroom.toType
         else toType = active_chatroom.fromType
         this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: toType}))
-        // console.log(chatroom)
       }
     })
 
