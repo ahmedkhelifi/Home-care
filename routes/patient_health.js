@@ -397,11 +397,11 @@ function calculate_points_first_Step(health){
   let blood_pressure_points_low = 0
   let blood_pressure_points_high = 0
   blood_pressure_history.forEach(blood_pressure => {
-    if( (blood_pressure.bloodpres_dia >= 140 && blood_pressure.bloodpres_dia <=150 && blood_pressure.bloodpres_sys >= 90 && temperature.bloodpres_sys <=100) ) {
+    if( (blood_pressure.bloodpres_dia >= 90 && blood_pressure.bloodpres_dia <=100 && blood_pressure.bloodpres_sys >= 140 && temperature.bloodpres_sys <=150) ) {
       points += 1 
       blood_pressure_points_low += 1 
     }
-    if(blood_pressure.bloodpres_dia > 150 || blood_pressure.bloodpres_sys > 100) {
+    if(blood_pressure.bloodpres_dia > 100 || blood_pressure.bloodpres_sys > 150) {
       points += 2 
       blood_pressure_points_high += 1 
     }
