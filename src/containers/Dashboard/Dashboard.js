@@ -2,9 +2,9 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 import Patient         from  '../Patient';
-import Doctor         from  '../Doctor';
-import Pharamcy         from  '../Pharamcy';
-import Login         from  '../../components/Login';
+import Doctor from  '../Doctor';
+import Pharamcy from  '../Pharamcy';
+import Login from  '../../components/Login';
 
 export default class Dashboard extends React.PureComponent {
 
@@ -42,7 +42,6 @@ export default class Dashboard extends React.PureComponent {
   render() {
 
       if(this.state.authenticated && this.state.user !== {}) {
-        // console.log(this.state.user.type)
         if(this.state.user.type === 'doctor') {
           return(<Doctor firstname={this.state.user.firstname} user={this.state.user} logout={this.logout}/>)
         } else if(this.state.user.type === 'patient') {

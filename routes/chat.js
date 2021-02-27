@@ -15,7 +15,6 @@ router.get('/getAllChatrooms', (req, res) => {
 router.get('/getAllChatroomsFromUser/:id/:type', (req, res) => { // WAS IST HIER DAS ROUTING?
 
   let messages = {id: req.params.id, type: req.params.type}
-  //console.log(req.params.id, req.params.type )
   Chat.retrieveAllChatroomsFromUser (req.params.id, req.params.type, (result) => {
     return res.json(messages)
   });
@@ -26,7 +25,6 @@ router.get('/getAllChatroomsFromUser/:id/:type', (req, res) => { // WAS IST HIER
 router.get('/getAllChatroomsFromTwoParties/:chatPartner1ID/:chatPartner1Type/:chatPartner2ID/:chatPartner2Type', (req, res) => { // WAS IST HIER DAS ROUTING?
 
   let messages = {chatPartner1ID: req.params.chatPartner1ID, chatPartner1Type: req.params.chatPartner1Type, chatPartner2ID: req.params.chatPartner2ID, chatPartner2Type: req.params.chatPartner2Type}
-  //console.log(req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type)
   Chat.retrieveAllChatroomsFromTwoParties (req.params.chatPartner1ID, req.params.chatPartner1Type, req.params.chatPartner2ID, req.params.chatPartner2Type, (result) => {
     return res.json(messages)
   });

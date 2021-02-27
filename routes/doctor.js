@@ -4,12 +4,14 @@ var router = express.Router();
 const encryptPassword = require('encrypt-password');
 const PatientLogic = require("./patient_health.js");
 
+/*get all patients with health status*/
 router.get('/getPatients', (req, res) => {
   Patient.retrieveAll((users) => {
 
     users.forEach( user => {
       let health = {medication: {}}
       
+	  //grab data with missed and pending separated
       if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
       if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature)
       if(user.weight != null) health = PatientLogic.get_weight(health, user.weight.weight)
@@ -22,9 +24,10 @@ router.get('/getPatients', (req, res) => {
 
       if(health != undefined ) {
         health.detailed_first_step_points = {}
-        first_step_points = PatientLogic.calculate_points_first_Step(health)
+        first_step_points = PatientLogic.calculate_points_first_Step(health) // get intermediate result
         health.first_step_points = first_step_points
       }
+	  // depending on intermediate result add points for final result
       if(health != undefined ) {
         health.detailed_final_step_points = {}
         if(first_step_points <= 1)  
@@ -46,6 +49,7 @@ router.get('/getPatients', (req, res) => {
   });
 });
 
+/*add new patient into database*/
 router.post('/addPatient', (req, res) => {
 
   // retrieve user information from request
@@ -74,6 +78,7 @@ router.post('/addPatient', (req, res) => {
     });
 });
 
+/*update medicament*/
 router.post('/medication', (req, res) => {
 
   var medication = req.body.medication;
@@ -85,16 +90,12 @@ router.post('/medication', (req, res) => {
   });
 });
 
+/*get patients health status of thoose with high or average risk */
 router.get('/getPatients/health/risk', (req, res) => {
   Patient.retrieveAll((users) => {
 
     users.forEach( user => {
       let health = {medication: {}}
-
-      // console.log('-----------------')
-      // console.log('-----------------')
-      // console.log('-----------------')
-      // console.log(user. firstname)
       
       if(user.medication != null) health = PatientLogic.get_medication_missed(health, user.medication.medication)
       if(user.temperature != null) health = PatientLogic.get_temperature(health, user.temperature.temperature, user.temperature.assigned_on)

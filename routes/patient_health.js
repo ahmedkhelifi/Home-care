@@ -9,6 +9,7 @@ const encryptPassword = require('encrypt-password');
 *
 */
 
+/*order medication data in missed and pending*/
 function get_medication(health, medication){
     medication.forEach(med => {
       health.medication[med.title] = {}
@@ -41,10 +42,6 @@ function get_medication(health, medication){
         
         for(let i = 0; i < intervals.length - 2; i++) {
           if( !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) <= intervals[i+1]}).length > 0 ){
-            // let pending = ( Number(new Date().valueOf()) - intervals[i+1] ) < (24 * 60 * 60 * 1000) *  med_duration
-            // if(pending)
-            //   pending.push({from: intervals[i], to: intervals[i+1], pending: pending  })
-            // else
               missed.push({from: intervals[i], to: intervals[i+1], pending: pending  })
           }
         }
@@ -58,33 +55,22 @@ function get_medication(health, medication){
       med.missed = missed.reverse()
       med.pending = pending
       health.medication[med.title]= med
-      // health[med.title] = .intervals = intervals
       
     })
   return health
 }
 
-
-
+/*order temperature data in missed and pending*/
 function get_temperature(health, temperature, assigned_on){
-    // if(temperature.length === 0 ) {
-    //   let temperatures = {history: [], missed: [], pending: []}
-    //   health.temperatures = temperatures
-    //   return health
-    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
       let temperatures = {}
       temperatures.history = temperature
 
-
-
-      // let till_when = temperature.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
-
-      let till_when = assigned_on - 1 //Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1
+	  
       //calculate intervals and save them in array as int
-
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000)
@@ -95,7 +81,7 @@ function get_temperature(health, temperature, assigned_on){
       let pending = []
 
       if(intervals.length == 1) {
-        //first time patient takes this med
+        //first time patient enters temperature
         if(!temperature.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
           let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
           if(pending_bool)
@@ -119,7 +105,6 @@ function get_temperature(health, temperature, assigned_on){
 
       }
 
-
       temperatures.missed = missed.reverse()
       temperatures.pending = pending
 
@@ -128,25 +113,17 @@ function get_temperature(health, temperature, assigned_on){
   return health
 }
 
+/*order weight data in missed and pending*/
 function get_weight(health, weight, assigned_on){
-    // if(weight.length === 0 ) {
-    //   let weight = {history: [], missed: [], pending: []}
-    //   health.weights = weight
-    //   return health
-    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
       let weights = {}
       weights.history = weight
 
-
-
-      // let till_when = weight.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
-
-      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1 
+	  
       //calculate intervals and save them in array as int
-
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000)
@@ -157,7 +134,7 @@ function get_weight(health, weight, assigned_on){
       let pending = []
 
       if(intervals.length == 1) {
-        //first time patient takes this med
+        //first time patient enters weight
         if(!weight.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
           let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
           if(pending_bool)
@@ -181,7 +158,6 @@ function get_weight(health, weight, assigned_on){
 
       }
 
-
       weights.missed = missed.reverse()
       weights.pending = pending
 
@@ -190,24 +166,17 @@ function get_weight(health, weight, assigned_on){
   return health
 }
 
+/*order pulse data in missed and pending*/
 function get_pulse(health, pulse, assigned_on){
-    // if(pulse.length === 0 ) {
-    //   let pulse = {history: [], missed: [], pending: []}
-    //   health.pulses = pulse
-    //   return health
-    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
       let pulses = {}
       pulses.history = pulse
 
-
-
-      // let till_when = pulse.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
-      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1
+	  
       //calculate intervals and save them in array as int
-
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000)
@@ -218,7 +187,7 @@ function get_pulse(health, pulse, assigned_on){
       let pending = []
 
       if(intervals.length == 1) {
-        //first time patient takes this med
+        //first time patient enters pulse
         if(!pulse.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
           let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
           if(pending_bool)
@@ -242,7 +211,6 @@ function get_pulse(health, pulse, assigned_on){
 
       }
 
-
       pulses.missed = missed.reverse()
       pulses.pending = pending
 
@@ -251,25 +219,17 @@ function get_pulse(health, pulse, assigned_on){
   return health
 }
 
+/*order blood_pressure data in missed and pending*/
 function get_blood_pressure(health, blood_pressure, assigned_on){
-    // if(blood_pressure.length === 0 ) {
-    //   let blood_pressure = {history: [], missed: [], pending: []}
-    //   health.blood_pressures = blood_pressure
-    //   return health
-    // }
 
       let date_now =  Number(new Date().valueOf()) // Date right now
       let intervals = []
       let blood_pressures = {}
       blood_pressures.history = blood_pressure
 
-
-
-      // let till_when = blood_pressure.slice().reduce(function(prev, curr) { return Number(prev.timestamp) < Number(curr.timestamp) ? prev : curr; }); //first  date when I started enttering
-
-      let till_when = assigned_on - 1 // Number(till_when.timestamp) - 1
+      let till_when = assigned_on - 1
+	  
       //calculate intervals and save them in array as int
-
       while (till_when  <= date_now){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000)
@@ -280,7 +240,7 @@ function get_blood_pressure(health, blood_pressure, assigned_on){
       let pending = []
 
       if(intervals.length == 1) {
-        //first time patient takes this med
+        //first time patient enters blood_pressure
         if(!blood_pressure.filter( obj => {return Number(obj.timestamp) > intervals[0]}).length > 0 ) {
           let pending_bool = (intervals[0] + (24 * 60 * 60 * 1000))  > Number(new Date().valueOf())
           if(pending_bool)
@@ -303,7 +263,6 @@ function get_blood_pressure(health, blood_pressure, assigned_on){
         }
 
       }
-
 
       blood_pressures.missed = missed.reverse()
       blood_pressures.pending = pending
@@ -333,7 +292,7 @@ function get_medication_missed(health, medication){
         intervals.push(till_when)
         till_when += (24 * 60 * 60 * 1000) *  med_duration
       }
-      // med.intervals = intervals
+
       let missed = []
       let pending = []
 
@@ -353,38 +312,34 @@ function get_medication_missed(health, medication){
         
         for(let i = 0; i <= intervals.length - 2; i++) {
           if( !med.history.filter( obj =>  { return Number(obj.timestamp) >= intervals[i] &&  Number(obj.timestamp) < intervals[i+1]}).length > 0 ){
-            // let pending = ( Number(new Date().valueOf()) - intervals[i+1] ) < (24 * 60 * 60 * 1000) *  med_duration
-            // if(pending)
-            //   pending.push({from: intervals[i], to: intervals[i+1], pending: pending  })
-            // else
               missed.push({from: intervals[i], to: intervals[i+1] })
           }
         }
         if( !med.history.filter( obj =>  { return Number(obj.timestamp) > intervals[intervals.length - 1]}).length > 0 )
-        // if(( intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration)  >= Number(new Date().valueOf()) 
-        //   && !med.history.filter( obj =>  { return Number(obj.timestamp)  intervals[intervals.length-1]}).length > 0) 
         {
             pending.push({from: intervals[intervals.length-1], to: (intervals[intervals.length-1] + (24 * 60 * 60 * 1000) *  med_duration), pending: true })
         }
-
       }
 
       med.interval = intervals
       med.missed = missed.reverse()
-      health.medication[med.title]= med
-      // health[med.title] = .intervals = intervals
-      
+      health.medication[med.title]= med      
     })
 
   return health
 }
 
+/*
+*
+* calculate point for health status
+*
+*/
+
+/*first step: check abnormal data*/
 function calculate_points_first_Step(health){
   let points = 0
 
-  //Puls
-
-  //history of last 28 days
+  //pulse of last 28 days
   let puls_history = health.pulses.history.filter(pulse => {return Number(pulse.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && pulse.measured} ) 
   let pulse_points_low = 0
   let pulse_points_high = 0
@@ -401,8 +356,6 @@ function calculate_points_first_Step(health){
   health.detailed_first_step_points.pulse_low = pulse_points_low
   health.detailed_first_step_points.pulse_high = pulse_points_high
 
-  // console.log('points after puls: ' + points)
-
   //weight of last 90 days
   let weight_history = health.weights.history.filter(weight => {return Number(weight.timestamp) >= Number(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).valueOf()) && weight.measured} )
   let old_weight = weight_history[0]
@@ -412,8 +365,6 @@ function calculate_points_first_Step(health){
     let old_weight_10_percent = old_weight.weight*0.1
     old_weight = old_weight.weight
     let new_weight = weight_history[weight_history.length -  1].weight
-    // console.log('|'+ old_weight + '-' + new_weight + '| < ' + old_weight_10_percent)
-
 
     if( new_weight >= old_weight+old_weight_10_percent || new_weight <= old_weight-old_weight_10_percent ){
       points += 3
@@ -422,7 +373,6 @@ function calculate_points_first_Step(health){
   }
 
   health.detailed_first_step_points.weight = weight_points
-  // console.log('points after old_weight: ' + points)
 
   //temperature of last 28 days
   let temperature_history = health.temperatures.history.filter(temperature => {return Number(temperature.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf() ) && temperature.measured } )
@@ -441,8 +391,6 @@ function calculate_points_first_Step(health){
 
   health.detailed_first_step_points.temperature_low = temperature_points_low
   health.detailed_first_step_points.temperature_high = temperature_points_high
-  // console.log('points after temperature: ' + points)
-
 
   //blood_pressure of last 28 days
   let blood_pressure_history = health.blood_pressures.history.filter(blood_pressure => {return Number(blood_pressure.timestamp) >= Number(new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).valueOf()) && blood_pressure.measured} )
@@ -462,53 +410,51 @@ function calculate_points_first_Step(health){
   health.detailed_first_step_points.blood_pressure_low = blood_pressure_points_low
   health.detailed_first_step_points.blood_pressure_high = blood_pressure_points_high
 
-  // console.log('points after blood_pressure: ' + points)
-
-// console.log(points)
   return points
 }
 
+/*calculate final points with missed entries, 
+	add_number is the number of point that have to be added for each missing data, 
+	add_number depends on result of calculate_points_first_Step()*/
 function calculate_points_final(health, add_number){
   let points = 0
-  // console.log('Now check no data')
+  
   for (var key in health.medication) {
     if (health.medication.hasOwnProperty(key)) {
       var val = health.medication[key];
       var measured_false = val.history.filter(med => {return med.measured == false})
-       points += val.missed.length * add_number
-       points += measured_false.length * add_number
+       points += val.missed.length * add_number // add add_number for each missing data
+       points += measured_false.length * add_number // add add_number for each data with measured false
     }
   }
-  // Now check no data
-   // console.log('points after medication: ' + points)
+
    let temperature_points = 0
    points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.temperatures.missed.length * add_number
    temperature_points += health.temperatures.history.filter(pulse => {return pulse.measured == false }).length
    temperature_points += health.temperatures.missed.length
    health.detailed_final_step_points.temperature = temperature_points
-   // console.log('points after temperatures: ' + points)
+   
    let weight_points = 0
    points += health.weights.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.weights.missed.length * add_number
    weight_points += health.weights.history.filter(pulse => {return pulse.measured == false }).length
    weight_points += health.weights.missed.length
    health.detailed_final_step_points.weight = weight_points
-   // console.log('points after weights: ' + points)
+  
    let blood_pressure_points = 0
    points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.blood_pressures.missed.length * add_number
    blood_pressure_points += health.blood_pressures.history.filter(pulse => {return pulse.measured == false }).length
    blood_pressure_points += health.blood_pressures.missed.length
    health.detailed_final_step_points.blood_pressure = blood_pressure_points
-   // console.log('points after blood_pressures: ' + points)
+   
    let pulse_points = 0
    points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length * add_number
    points += health.pulses.missed.length * add_number
    pulse_points += health.pulses.history.filter(pulse => {return pulse.measured == false }).length
    pulse_points += health.pulses.missed.length
    health.detailed_final_step_points.pulse = pulse_points
-   // console.log('points pulses : ' + points)
 
   return points
 }
