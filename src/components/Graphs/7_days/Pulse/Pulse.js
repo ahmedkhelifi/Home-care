@@ -45,8 +45,6 @@ export default class Pulse extends React.PureComponent {
     var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
     let history = this.props.pulses;
 
-    console.log('aaaa')
-
     let jsonData = {pulse: history}
 
     if(jsonData.pulse.length === 0) return

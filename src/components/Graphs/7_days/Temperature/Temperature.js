@@ -38,7 +38,9 @@ export default class Temperature extends React.PureComponent {
 
   create_graph = () => {
     let history = this.props.temperatures.history;
+    if(!history) return
     let jsonData = {temperature: history}
+    if(jsonData.temperature.length === 0) return
       //  currentDate
       var currentDate = new Date();
       // old7Datetimestample
