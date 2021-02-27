@@ -81,8 +81,8 @@ export default class BloodPressure extends React.Component {
                             if(typeof(item.bloodpres_sys)=='string'  ){
                             item.bloodpres_sys=parseFloat(item.bloodpres_sys)
                             }
-                        templist1[i]=item.bloodpres_dia
-                        templist2[i]=item.bloodpres_sys
+                        templist2[i]=item.bloodpres_dia
+                        templist1[i]=item.bloodpres_sys
                         }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
                     }
                 })
@@ -113,8 +113,8 @@ export default class BloodPressure extends React.Component {
                         axisTick: {show: false},
                         type: 'value' ,
                         gridIndex: 0,
-                        min: extent => extent.min < 100  ? extent.min : 100,
-                        max: extent => extent.max > 140  ? extent.max : 142
+                        min: extent => extent.min < 100  ? extent.min-2 : 98,
+                        max: extent => extent.max > 140  ? extent.max+2 : 142
                         }, {
                         axisLine:{show:false},
                         axisLabel: {show: false},
@@ -122,8 +122,8 @@ export default class BloodPressure extends React.Component {
                         axisTick: {show: false},
                         type: 'value',
                         gridIndex: 1,
-                        min: extent => extent.min < 70  ? extent.min : 70,
-                        max: extent => extent.max > 90  ? extent.max : 92
+                        min: extent => extent.min < 70  ? extent.min-2 : 68,
+                        max: extent => extent.max > 90  ? extent.max+2 : 92
                     }],
                     grid: [{
                         bottom: '60%'

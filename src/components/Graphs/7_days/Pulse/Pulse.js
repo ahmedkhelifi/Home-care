@@ -92,8 +92,8 @@ var option ={
       splitLine: {show: false},
       axisTick: {show: false},
       type: 'value' ,
-      // min: extent => extent.min <=70 ? extent.min-5 : 70,
-      // max: extent => extent.max >130 ? extent.max+1 : 130
+      min: extent => extent.min <=60 ? extent.min-5 : 55,
+      max: extent => extent.max >130 ? extent.max+1 : 135
   },
   series: [{
       connectNulls: true,//laesst sich null wert nicht leer sein 
