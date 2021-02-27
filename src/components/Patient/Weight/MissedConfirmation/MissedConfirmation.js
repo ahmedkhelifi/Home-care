@@ -12,7 +12,7 @@ export default class MissedConfirmation extends PureComponent {
     this.setState({ weight: e.target.value })
   }
 
-  onBlur = (e) => {
+  onBlur = (e) => { // change field input to a float of max two digits after comma
     this.setState({ weight: parseFloat(e.target.value.replace(',', '.')).toFixed(2) })
   }
 

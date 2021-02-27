@@ -32,7 +32,7 @@ class Allgemein extends React.Component {
   }
 
   componentDidMount(){
-        fetch('/api/doctor/getPatients/health/risk')
+        fetch('/api/doctor/getPatients/health/risk')  //Loads patients health data, only for patients at risk
             .then(blob => blob.json())
             .then(
                 (blob) => {

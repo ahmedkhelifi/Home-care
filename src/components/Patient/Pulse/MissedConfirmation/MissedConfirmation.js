@@ -12,7 +12,7 @@ export default class MissedConfirmation extends PureComponent {
     this.setState({ pulse: e.target.value })
   }
 
-  onBlur = (e) => {
+  onBlur = (e) => { // change field input to a float of max two digits after comma
     let pulse = parseFloat(e.target.value.replace(',', '.')).toFixed(2)
     if(pulse === NaN) pulse = ''
     this.setState({ pulse: pulse })

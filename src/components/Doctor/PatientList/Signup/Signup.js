@@ -1,12 +1,9 @@
 import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
 
 class Signup extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
-      step: 1,
-
       firstname: '',
       lastname: '',
       email: '',
@@ -15,15 +12,7 @@ class Signup extends React.Component {
       username: '',
       password: '',
 
-      transplants: [],
       medicaments: [],
-
-      search: '',
-
-
-      selectedTransplant: '',
-      selectedTransplantID: '',
-      selectedTransplantUID: '',
     };
 
     this.handleFirstNameChange      = this.handleFirstNameChange.bind(this)
@@ -34,37 +23,16 @@ class Signup extends React.Component {
     this.handlePasswordChange       = this.handlePasswordChange.bind(this)
     this.handleDisplayChange        = this.handleDisplayChange.bind(this);
     this.handleCheckbox             = this.handleCheckbox.bind(this);
-    this.registerPatient            = this.registerPatient.bind(this);
     this.checkboxClassname          = this.checkboxClassname.bind(this)
-    this.weiter                     = this.weiter.bind(this);
-    this.zuruck                     = this.zuruck.bind(this);
     this.handleAdviceChange         = this.handleAdviceChange.bind(this)
     this.handleMedicineAmmount      = this.handleMedicineAmmount.bind(this)
     this.handleMedicineDuration     = this.handleMedicineDuration.bind(this)
+    this.registerPatient            = this.registerPatient.bind(this);
 
   }
 
   componentDidMount(){
         window.scrollTo(0, 0);
-        fetch('/extern/api/alltransplants/')
-            .then(blob => blob.json())
-            .then(
-                (blob) => {
-                    this.setState({
-                        guidelineLoaded: true,
-                        transplants: blob.data
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        guidelineLoaded: false,
-                        error
-                    });
-                }
-            )
   }
 
   handleFirstNameChange(e) {
@@ -108,7 +76,6 @@ class Signup extends React.Component {
   }
 
   handleCheckbox(item) {
-    console.log(item)
     let bool = this.state.medicaments.some(chapter => chapter.title === item.title)
     if(bool) {
             let medicaments = this.state.medicaments
@@ -124,27 +91,6 @@ class Signup extends React.Component {
       medicaments.push(item)
       this.setState({ medicaments: medicaments })
     }
-  }
-
-  handleOptionChange(title, id) {
-    this.setState({
-      selectedTransplant: title,
-      selectedTransplantID: id
-    });
-  }
-
-  weiter() {
-    if(this.state.selectedTransplant === '') {
-      return
-    }
-
-    var newStep = this.state.step + 1
-    this.setState({ step: newStep})
-  }
-
-  zuruck() {
-    var newStep = this.state.step - 1
-    this.setState({ step: newStep})
   }
 
   registerPatient() {

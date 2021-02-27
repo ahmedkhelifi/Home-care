@@ -52,12 +52,9 @@ export default class Pulse extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''}, e => this.forceUpdate())
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   addPulseMissed = (pulse, measured) => {
@@ -68,12 +65,9 @@ export default class Pulse extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupMissed: false}, e => this.forceUpdate())
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   beautify_timestamp = (unix_timestamp) => {
@@ -159,21 +153,8 @@ export default class Pulse extends React.PureComponent {
                 </div>
       )})}
 
-
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
-
-        <PulseGraph pulses={this.props.pulses.history}  />
-
-          {/*this.props.pulses.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)  
-           <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
-             <div className="row">
-              <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
-                 <div id="pulse_graph" style={{ width:'100%', minHeight: '400px' }}></div>
-              </div>
-            </div>
-           </div>
-          */}
-
+      <PulseGraph pulses={this.props.pulses.history}  />
 
     </div>
     );

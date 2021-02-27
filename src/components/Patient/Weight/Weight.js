@@ -154,18 +154,7 @@ export default class Weight extends React.PureComponent {
 
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
-
-        <WeightGraph weights={this.props.weights}  />
-
-          {/*this.props.weights.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
-           <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
-             <div className="row">
-              <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
-                 <div id="weight_graph" style={{ width:'100%', minHeight: '400px' }}></div>
-              </div>
-            </div>
-           </div>
-        */}
+      <WeightGraph weights={this.props.weights}  />
 
     </div>
     );

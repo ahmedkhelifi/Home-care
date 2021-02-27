@@ -47,7 +47,7 @@ export default class BloodPressure extends React.PureComponent {
 
   addBloodPressurePending = (sys, dia) => {
 
-        fetch('/api/patient/blood_pressure/pending/'+this.props.username+'/', {
+        fetch('/api/patient/blood_pressure/pending/'+this.props.username+'/', { // POST request
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({bloodpres_dia: Number(dia), bloodpres_sys: Number(sys), measured:true})
@@ -157,19 +157,7 @@ export default class BloodPressure extends React.PureComponent {
 
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
-
         <BloodPressureGraph blood_pressures={this.props.blood_pressures}  />
-
-          {/*this.props.blood_pressures.history.length > 0 ? (<span className="view_history" onClick={e => this.setState({history_bool: true})}> View full history &#10230;</span>) : (null)}
-           <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
-             <div className="row">
-              <div className= 'col-md-12 col-xs-12 col-sm-12' style={{padding: '0'}}>
-                 <div id="main" style={{ width:'100%', minHeight: '400px' }}></div>
-              </div>
-            </div>
-           </div>
-
-          */}
     </div>
     );
   }

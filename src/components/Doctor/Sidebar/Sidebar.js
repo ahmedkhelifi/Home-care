@@ -6,7 +6,7 @@ class Sidebar extends React.Component {
     this.isOpened   = this.isOpened.bind(this)
   }
 
-  isOpened(tab){
+  isOpened(tab){ //if tab is opened, this makes it in bold
     if(this.props.openedTab === tab)
       return "menu_tab"
   }

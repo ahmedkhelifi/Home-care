@@ -34,12 +34,10 @@ export default class Medication extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          // console.log(blob)
           this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''})
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   iTookMedicationMissed = (taken) => {
@@ -50,12 +48,9 @@ export default class Medication extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          // console.log(blob)
-          // this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupMissed: false, popupMedication: ''})
           this.props.get_health()
         })
-        // .then(res => this.props.closesignup())
   }
 
   beautify_timestamp = (unix_timestamp) => {

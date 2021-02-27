@@ -1,37 +1,17 @@
 import React from 'react';
 
+import Edit from '../PatientList/Edit';
+
 import Temperature from '../../Graphs/all_days/Temperature';
 import BloodPressure from '../../Graphs/all_days/BloodPressure';
 import Pulse from '../../Graphs/all_days/Pulse';
 import Weight from '../../Graphs/all_days/Weight';
-
-import Edit from '../PatientList/Edit';
-// import Medication from '../../components/Patient/Medication';
-// import Temperature from '../../components/Patient/Temperature';
-// import Weight from '../../components/Patient/Weight';
-// import Pulse from '../../components/Patient/Pulse';
-// import BloodPressure from '../../components/Patient/BloodPressure';
-
-
-
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
-// import Logout from'../../images/logout.png';
-
-// import Home_botton from'../../images/Home_botton.png';
-// import Chat_menu from'../../images/Chat_menu.png';
-// import Settings_wheel from'../../images/settings_wheel.png';
-
-
-
 
 export default class PatientProfile extends React.PureComponent { 
 
   constructor(props) {
     super(props);
     this.state = {
-      error:             false,
-      isLoaded:          false,
       edit:              false,
     };
   }
@@ -51,7 +31,7 @@ export default class PatientProfile extends React.PureComponent {
     return time;
   } 
 
-  getMissed = (med) => {
+  getMissed = (med) => { //gets the date patient hasn't entered data on
     let missed_array = []
 
     if ( med.missed !== undefined ) med.missed.forEach(miss => { missed_array.push(miss)})
@@ -68,7 +48,6 @@ export default class PatientProfile extends React.PureComponent {
 
 
   render() {
-
     document.title = "Profile - " + this.props.selectedPatient.firstname + ' ' + this.props.selectedPatient.lastname
 
     if(this.state.edit){

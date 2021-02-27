@@ -72,18 +72,17 @@ export default class Patient extends React.PureComponent {
     }
 
     this.ws.onmessage = evt => {
-      // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
-      if(message.type === 'ping') {
+      if(message.type === 'ping') { //send ping to confirm being online
         const message = { id: this.props.user.patientid, idType: 'patient', type: 'pong' }
         this.ws.send(JSON.stringify(message))
       }
 
-      if(message.type === 'set_chatrooms') {
+      if(message.type === 'set_chatrooms') { //used to load chatrooms when user connects
         this.setState({chatrooms : message.chatrooms})
       }
 
-      if(message.type === 'update_chatroom'){
+      if(message.type === 'update_chatroom'){ //called when user receives a new message to update chatroom
         let chatrooms = this.state.chatrooms
         let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
@@ -109,7 +108,7 @@ export default class Patient extends React.PureComponent {
     }
   }
 
-  get_health = () => {
+  get_health = () => { //Loads user's health data and entries
     fetch('/api/patient/health/'+this.props.user.username)
       .then(blob => blob.json())
       .then(blob => {

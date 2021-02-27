@@ -7,8 +7,6 @@ export default class Confirmation extends PureComponent {
       <p className="patient_tasks" style={{marginLeft: '25px'}}>Are  you sure you took the appropriate dose of {this.props.popupMedication}</p>
               <button className="no_im_not" onClick={e => this.props.goBack()}>Not Yet</button>
               <button className="yes_im_sure" onClick={e => this.props.iTookMedicationPending()}>Yes, I'm sure!</button>
-
-
     </div>
     );
   }

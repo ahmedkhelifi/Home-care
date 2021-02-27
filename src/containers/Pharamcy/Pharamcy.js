@@ -30,19 +30,17 @@ export default class Pharamcy extends React.Component {
     }
 
     this.ws.onmessage = evt => {
-      // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
-      if(message.type === 'ping' && this.state.ID !== -1){
+      if(message.type === 'ping' && this.state.ID !== -1){ //send ping to confirm being online
         const message = { id: this.state.user.pharmacyid, idType: my_type, type: 'pong' }
         this.ws.send(JSON.stringify(message))
       }
 
-      if(message.type === 'set_chatrooms') { // new chatroom
+      if(message.type === 'set_chatrooms') { //used to load chatrooms when user connects
         this.setState({chatrooms : message.chatrooms})
       }
 
-      if(message.type === 'update_chatroom'){ // new message
-        console.log(message.chatroom)
+      if(message.type === 'update_chatroom'){ //called when user receives a new message to update chatroom
         let chatrooms = this.state.chatrooms
         let updated_chatroom = chatrooms.filter(chatroom =>  chatroom.chatroom_id === message.chatroom.chatroom_id && chatroom.toType === message.chatroom.toType && chatroom.fromType === message.chatroom.fromType && chatroom.fromID === message.chatroom.fromID && chatroom.toID === message.chatroom.toID)
 
@@ -91,7 +89,6 @@ export default class Pharamcy extends React.Component {
   }
 
   submitMessage = (messageString) => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
     let toType = ''
     let active_chatroom = this.state.active_chatroom
 

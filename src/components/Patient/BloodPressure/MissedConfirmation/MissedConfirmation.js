@@ -18,12 +18,12 @@ export default class MissedConfirmation extends PureComponent {
   }
 
 
-  onBlurSys = (e) => {
+  onBlurSys = (e) => { // change field input to a float of max two digits after comma
     if(this.state.sys.length === 0) return
     this.setState({ sys: parseFloat(e.target.value.replace(',', '.')).toFixed(2) })
   }
 
-  onBlurDia = (e) => {
+  onBlurDia = (e) => { // change field input to a float of max two digits after comma
     if(this.state.dia.length === 0) return
     this.setState({ dia: parseFloat(e.target.value.replace(',', '.')).toFixed(2) })
   }

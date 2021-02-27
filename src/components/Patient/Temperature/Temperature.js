@@ -59,10 +59,8 @@ export default class Temperature extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
           this.setState({confirmPopup: false,})
         })
-        // .then(res => this.props.closesignup())
   }
 
   addTemperaturePending = (temperature) => {
@@ -74,7 +72,6 @@ export default class Temperature extends React.PureComponent {
             })
         .then(blob => blob.json())
         .then(blob => {
-          console.log(blob)
           this.props.removeMedFromPending(this.state.popupMedication)
           this.setState({confirmPopupPending:false, popupMedication:''}, e => this.forceUpdate())
           this.props.get_health()
@@ -178,8 +175,7 @@ export default class Temperature extends React.PureComponent {
       )})}
 
       <p className="patient_tasks" style={{marginLeft: '25px'}} >History</p>
-          <TemperatureGraph temperatures={this.props.temperatures}  />
-
+      <TemperatureGraph temperatures={this.props.temperatures}  />
 
     </div>
     );

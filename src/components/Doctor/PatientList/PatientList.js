@@ -9,11 +9,6 @@ import Temperature from './Graphs/Temperature';
 import Weight from './Graphs/Weight';
 import BoodPressure from './Graphs/BoodPressure';
 
-// import seachIcon from './images/search.png';
-// import emptyStar from './images/emptystar.png';
-// import yellowStar from './images/yellowstar.png';
-// import expandArrow from './images/expandArrow.png';
-
 class PatientList extends React.Component { 
     constructor(props) {
         super(props);
@@ -30,67 +25,30 @@ class PatientList extends React.Component {
             noPatients: true,
 
             patientForm: false,
-            firstName: '',
-            lastName: '',
-            email: '',
-
-            admin_display: false,
-            sort_new: true,
-            sort_old: false,
-            sort_alphabetically: false,
-
-
-            simpleMode: true,
             
             patientClicked: {},
             patientClickedBool: false,
 
-            active: null,
-            actives: [],
-
-            import: false,
-
-            expandSize: '20px',
             profile: false,
             edit:    false,
 
 
             currentPage: 1,
-            sort: "alphabetisch",
-
-            showSearch: false,
-            search: '', 
-
-
-            refresh: this.props.refresh
         };
 
         this.baseState = this.state // preserve the initial state
         this.closesignup             = this.closesignup.bind(this);
         this.patientClicked          = this.patientClicked.bind(this);
-        this.timeSince               = this.timeSince.bind(this);
-        this.myColor                 = this.myColor.bind(this);
         this.handlePageChange        = this.handlePageChange.bind(this);
-        this.sort                    = this.sort.bind(this);
-        this.admin_display           = this.admin_display.bind(this);
-        this.handleSearchChange      = this.handleSearchChange.bind(this);
-        this.clearSearch             = this.clearSearch.bind(this);
-        this.timeConverter           = this.timeConverter.bind(this)
 
     }
 
   componentDidMount() {
-    // fetch patient list
-    this.fetch_patient()
+    this.fetch_patient() // fetch patient list
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.refresh && (this.state.edit || this.state.patientForm)) {
-  //   }
-  // }
-
   fetch_patient = () => {
-        fetch('/api/doctor/getPatients')
+        fetch('/api/doctor/getPatients') // GET request
             .then(blob => blob.json())
             .then(
                 (blob) => {
@@ -104,35 +62,9 @@ class PatientList extends React.Component {
                 }
             ).catch(error => this.setState({errorPatientLoad: true}));
   }
-    
-  handleSearchChange(e) {
-    this.setState({ search: e.target.value })
-  }
 
-  clearSearch(){
-    this.setState({ search: '' })
-  }
-
-
-  patientClicked(e, patient){
-      //select different patient
+  patientClicked(e, patient){ //select different patient
       this.setState({ patientClicked: patient, patientClickedBool: true });
-  }
-
-  timeSince(UNIX_timestamp) {
-    var date = new Date(Number(UNIX_timestamp));
-    return ( date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()  ).toString();
-  }
-
-  myColor(position) {
-    if(this.state.loadMultipleClicked){
-        if (this.state.actives.includes(position))
-          return "#efdecb59";
-    }
-    if (this.state.active === position) {
-      return "#efdecb59";
-    }
-    return "";
   }
 
   handlePageChange(e){
@@ -140,58 +72,6 @@ class PatientList extends React.Component {
       currentPage: Number(event.target.id)
     });
     window.scrollTo(0, 0);
-  }
-
-  sort() {
-      var patients = this.state.patients
-
-      if(event.target.value === "recent") {
-        patients.sort(function (a, b) {
-          return parseInt(b.created_on) - parseInt(a.created_on);
-        });
-        this.setState({sort: event.target.value, patients: patients});
-        return
-      }
-
-      if(event.target.value === "lastActive") {
-        patients.sort(function (a, b) {
-          return parseInt(b.last_login) - parseInt(a.last_login);
-        });
-        this.setState({sort: event.target.value, patients: patients});
-        return
-      }
-
-      if(event.target.value === "alphabetisch") {
-        patients.sort(function(a, b){ if(a.firstname < b.firstname) { return -1; } if(a.firstname > b.firstname) { return 1; } return 0; });
-        this.setState({sort: event.target.value, patients: patients});
-        return
-      }
-      
-      if(event.target.value === "nichtAlphabetisch") {
-        patients.sort(function(a, b){ if(a.firstname > b.firstname) { return -1; } else { return 1; } return 0; });
-        this.setState({sort: event.target.value, patients: patients});
-        return
-      }
-  }
-
-  admin_display(){
-    if(!this.state.admin_display)
-      return "col-4 half_transparent"
-    else 
-      return "col-4"
-  }
-
-  timeConverter(UNIX_timestamp){
-    var a = new Date(Number(UNIX_timestamp));
-    var months = ['Januar','Februar','März','April','May','Juni','Juli','August','September','Oktober','November','Dezember'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-    return time;
   }
 
   closesignup(){
@@ -232,18 +112,9 @@ class PatientList extends React.Component {
         const noPatients            = this.state.noPatients;
         var   Patients              = this.state.patients;
         const patientForm           = this.state.patientForm;
-        const simpleMode            = this.state.simpleMode
         const loadMultipleClicked   = this.state.loadMultipleClicked
 
-        if(this.state.admin_display){
-          Patients = Patients.filter(patient => patient.role !== 'patient')
-        }
-
-        if(this.state.search !== ''){
-          Patients = Patients.filter(patient => patient.firstname.toLowerCase().includes(this.state.search.toLowerCase()) || patient.lastname.toLowerCase().includes(this.state.search.toLowerCase()))
-        }
-
-        // Logic for displaying patients
+        // Logic for displaying patients in different pages
         const indexOfLastPatients = this.state.currentPage * this.state.patientsPerPage;
         const indexOfFirstPatient = indexOfLastPatients - this.state.patientsPerPage;
         const currentPatients = Patients.slice(indexOfFirstPatient, indexOfLastPatients);
@@ -297,7 +168,7 @@ class PatientList extends React.Component {
                 <h3>Patients</h3>
               </div>
 
-              {isLoading ? (<div><p>Loading user...</p></div>)
+              {isLoading ? (<div  className="col-12"><p>Loading patients...</p></div>)
 
                 : (null)
               }
@@ -306,7 +177,8 @@ class PatientList extends React.Component {
 
               {(!isLoading && noPatients) ? (
                 <div>
-                   <button className="button_dkg" onClick={(e) => this.setState({ patientForm: true })}>Add Patient</button>
+                   <button className="add_new_patient" onClick={(e) => this.setState({ patientForm: true })}>+ add new patient</button>
+                   <p style={{marginTop: '20px'}}>No patients found. Start by adding a new patient.</p>
                 </div>)
                 : (null)
               }
@@ -320,14 +192,10 @@ class PatientList extends React.Component {
               }
 
 
-              {(!isLoading && !noPatients && simpleMode && !this.state.patientClickedExpand) ? (
+              {(!isLoading && !noPatients) ? (
                  <div className="col-12" style={{padding: '10px 0px', }}>
 
                    <button className="add_new_patient" onClick={(e) => this.setState({ patientForm: true })}>+ add new patient</button>
-                    <input id='search-btn' type='checkbox'/>
-                    <label htmlFor='search-btn' onClick={e => this.clearSearch(e)}>
-                    </label>
-                    <input id='search-bar' type='text' placeholder='...' value={this.state.search} onChange={this.handleSearchChange}/>
                                     
                    <div style={{display: 'inline-block', marginLeft: '10px'}}>
                   </div>
@@ -370,7 +238,7 @@ class PatientList extends React.Component {
                                 </div>
 
                         {currentPatients.map((patient, i) => (
-                                      <div key={i} className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px', background: this.myColor(i)}} onClick={e => {this.patientClicked(e, patient)} } >
+                                      <div key={i} className="col-12 hover_gray" style={{borderTop: '1px solid #80808038', paddingTop: '10px'}} onClick={e => {this.patientClicked(e, patient)} } >
                                           <div className="row" style={{cursor: 'pointer'}}>
                                               <div className={"col-2"}>
                                                   <p style={{marginTop: '60px'}} >{patient.firstname + ' ' + patient.lastname}</p>
