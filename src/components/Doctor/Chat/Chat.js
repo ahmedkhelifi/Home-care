@@ -83,7 +83,32 @@ export default class Chat extends React.Component {
 
   openChatroom = (chatroom) => {
     this.props.openChatroom(chatroom)
+    // this.setState(state => ({ active_chatroom: chatroom }))
   }
+
+  // mark_chatroom_as_read = (active_chatroom) => {
+  //   let chatrooms = this.state.chatrooms
+  //   chatrooms.forEach(chatroom => {
+  //     if( chatroom.chatroom_id === active_chatroom.chatroom_id && chatroom.toType === active_chatroom.toType) {
+  //       chatroom.messages.messages.forEach(message => {
+  //         if(!message.read &&  message.fromType !== 'doctor') message.read = true
+  //       })
+  //       let to_id = ''
+  //       if(chatroom.toType !== 'doctor') to_id = chatroom.toID
+  //       else to_id = chatroom.fromID
+  //       this.ws.send(JSON.stringify({type: 'chatroom_update', chatroom: chatroom, to_id: to_id, to_type: 'patient'}))
+  //       // console.log(chatroom)
+  //     }
+
+          
+  //   })
+
+  //   this.setState({chatrooms: chatrooms}, e => this.forceUpdate())
+  // }
+
+  // scrollToBottom = () => {
+  //   // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  // }
 
   render() {
     document.title = "Homecare - Chat"

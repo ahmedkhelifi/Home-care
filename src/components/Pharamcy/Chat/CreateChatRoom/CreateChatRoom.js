@@ -17,7 +17,7 @@ class CreateChatRoom extends Component {
 	    return (
 	            <div className="row">
 	                <div className="col-12">
-	                  <p style={{fontWeight: 'bold'}}>Choose who you want to talk to:</p>
+	                  <p style={{fontWeight: 'bold'}}>Choose a doctor to add to the chatroom:</p>
 	                </div>
 	                <div className="col-12">
 
