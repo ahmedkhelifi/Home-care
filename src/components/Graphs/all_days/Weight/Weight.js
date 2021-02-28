@@ -8,6 +8,7 @@ import 'echarts/lib/component/title';
 import'echarts/lib/component/grid' ;
 import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/dataZoom';
+import 'echarts/lib/component/legend';
 
 //Aufruf von $ Zeichen 
 import $ from  'jquery';
@@ -73,7 +74,7 @@ export default class Weight extends React.PureComponent {
                     let i=timelist.indexOf(timeformater(item.timestamp))
                     if(i>-1){
                         if (item.measured!==false){ 
-                        templist1[i]=(item.weight*0.1).toFixed(2)   
+                        templist1[i]=(item.weight).toFixed(2)   
                         }
                         if (i===0 && item.measured!==false){
                             hilfsweight=item.weight 
@@ -97,10 +98,15 @@ export default class Weight extends React.PureComponent {
                 var option ={
                                 title: { 
                                     left: 'center',
-                                    text: 'Weightgain'
+                                    text: 'Weight gain'
+                                },
+                                legend: {
+                                    top:"6%",
+                                    left: 'right',
+                                    data: ['weight', 'change']
                                 },
                                 xAxis: {
-
+                                    type: 'category',
                                     axisTick: {show: false},
                                     data: timelist
                                     
@@ -130,18 +136,19 @@ export default class Weight extends React.PureComponent {
                                     name: 'change',
                                     type: 'bar',
                                     data: templist2,
+                                    stack:'weightgain',
                                     markLine:{
                                         symbol:"none",
                                         data:[{
                                             lineStyle:{
                                                 type:"solid",
-                                                color:"FA3934",
+                                                color:"blue",
                                             },
                                             label:{
                                                 textstyle:{
                                                     fontWeight:"bolder",
                                                     fontSize:"7",
-                                                    color:"#fff",
+                                                    color:"blue",
                                                 },
                                             position:"start",  
                                             formatter:"+10%"  
@@ -151,13 +158,13 @@ export default class Weight extends React.PureComponent {
                                         {
                                             lineStyle:{
                                                 type:"solid",
-                                                color:"FA3934",
+                                                color:"blue",
                                             },
                                             label:{
                                                 textstyle:{
                                                     fontWeight:"bolder",
                                                     fontSize:"7",
-                                                    color:"#fff",
+                                                    color:"blue",
                                                 },
                                             position:"start",  
                                             formatter:"-10%"  
@@ -165,6 +172,12 @@ export default class Weight extends React.PureComponent {
                                             yAxis:neg
                                         }]
                                     }
+                                },
+                                {
+                                    name: 'weight',
+                                    type: 'bar',
+                                    data: templist1,
+                                    stack:'weightgain',
                                 },
                                 ],
                                 
