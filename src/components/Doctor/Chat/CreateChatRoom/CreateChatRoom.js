@@ -23,7 +23,7 @@ class CreateChatRoom extends Component {
 
                     <Tabs>
                         <TabList className="notification_tab_header">
-                        <Tab>Doctors</Tab>
+                        <Tab>Patients</Tab>
                         <Tab>Pharmacies</Tab>
                         </TabList>
                         <TabPanel>
