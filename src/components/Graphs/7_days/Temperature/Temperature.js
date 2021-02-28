@@ -16,8 +16,6 @@ export default class Temperature extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
 
   componentDidMount(){
@@ -37,17 +35,20 @@ export default class Temperature extends React.PureComponent {
   }
 
   create_graph = () => {
-    let history = this.props.temperatures.history;
-    if(!history) return
-    let jsonData = {temperature: history}
-    if(jsonData.temperature.length === 0) return
+      //get Jsondata from select Patient with his temperatures in history
+      let history = this.props.temperatures.history;
+      if(!history) return
+      //make the Jsondata in Suitable format
+      let jsonData = {temperature: history}
+      if(jsonData.temperature.length === 0) return
       //  currentDate
       var currentDate = new Date();
-      // old7Datetimestample
-      var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
+      //  timestample before 7 days
+      var days7before = currentDate.setDate( currentDate.getDate() - 7 );  
+      // Keep content of jsonData from the last 7 days
       var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
 
-
+      //function for change timestamp to yyyy mm dd
       function timeformater(ts){
           let date = new Date(ts);
           let Y = date.getFullYear() + '-';
@@ -56,21 +57,25 @@ export default class Temperature extends React.PureComponent {
           let result = Y+M+D
           return result; 
       }
-
+      //initialize the value of the x-axis
       var timelist=[null,null,null,null,null,null,null];
+      //format 
       timelist.forEach(function(item, index,timelist){
           let currentDate = new Date();
           let data = currentDate.setDate( currentDate.getDate() - index); 
           timelist[index]=timeformater(data)
       })
+      //in right order
       timelist=timelist.reverse()
-
+      //initialize the y-axis values
       var templist=[null,null,null,null,null,null,null]
-      truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-          let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-          if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+      //let the temperature values find the correct position (identical with the timestamp) depends on their timestamps in Database
+      truejsonData.reverse().forEach(function(item,index,arr){
+          let i=timelist.indexOf(timeformater(item.timestamp))
+          //i>-1 means the data was existed and item.measured!==false means the patient has not forget to give values
+          if(i>-1&&item.measured!==false){
+              //saved in array
               templist[i]=item.temperature  
-              // wenn measured nicht false dann ersetzt die richtige weight dadrauf
           }
       })
 
@@ -117,7 +122,7 @@ export default class Temperature extends React.PureComponent {
                               },
                               show: true,
                               position: 'inside',
-                              formatter: '{c}'//echarts selbst build in variable fuer valu
+                              formatter: '{c}'//echarts selbst build in variable fuer value
                               
                           },
                           markLine : {
@@ -125,7 +130,7 @@ export default class Temperature extends React.PureComponent {
                                  data : [{
                                       
              
-                                     lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                     lineStyle:{              
                                          type:"solid",
                                          color:"#FA3934",
                                      },
@@ -143,7 +148,7 @@ export default class Temperature extends React.PureComponent {
                                  },
                                  {
 
-                                     lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                     lineStyle:{              
                                          type:"solid",
                                          color:"green",
                                      },
@@ -163,26 +168,17 @@ export default class Temperature extends React.PureComponent {
                              }　　
                       }]
                   }
+        //greate the graph id
         var myChart = echarts.init(document.getElementById('history_graph'));
+        //set the graph with defined option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
 				}
-            });
+      });
 		}
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
 
 
   render() {

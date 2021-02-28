@@ -19,15 +19,17 @@ class BoodPressure extends Component {
     }
 
     create_graph = () => {
-        let history = this.props.blood_pressures;
-        let jsonData = {blood_pressure: history}
+                //get Jsondata from select Patient with his blood_pressures in history
+                let history = this.props.blood_pressures;
+                //make the Jsondata in Suitable format
+                let jsonData = {blood_pressure: history}
                 //  currentDate
                 var currentDate = new Date();
-                // old7Datetimestample
-                var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-                  
+                //  timestample before 7 days
+                var days7before = currentDate.setDate( currentDate.getDate() - 7 );   
+                // Keep content of jsonData from the last 7 days
                 var truejsonData=jsonData.blood_pressure.filter(obj => {return obj.timestamp>days7before});
-
+                //function for change format of timestamp: timestamp->YYYY-MM-DD 
                 function timeformater(ts){
                     let date = new Date(ts);
                     let Y = date.getFullYear() + '-';
@@ -37,35 +39,38 @@ class BoodPressure extends Component {
                     return result; 
                 }
 
-
+                //Initialize the value of x-axis for the graph (7days)
                 var timelist=[null,null,null,null,null,null,null];
+                //make the x-axis with last 7 days datas with YYYY-MM-DD format
                 timelist.forEach(function(item, index,timelist){
                     let currentDate = new Date();
                     let data = currentDate.setDate( currentDate.getDate() - index); 
                     timelist[index]=timeformater(data)
                 })
+                //correct order
                 timelist=timelist.reverse()
-
-
+                
+                //Initialize the value of y-axis for the graph (7days)  
+                //  templist1 bloodpres_sys
+                //  templist2 bloodpres_dia
                 var templist1=[null,null,null,null,null,null,null]
                 var templist2=[null,null,null,null,null,null,null]
-
-                truejsonData.forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-                    let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-                    if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+                //let the values find the correct position (identical with the timestamp) depends on their timestamps in Database
+                truejsonData.forEach(function(item,index,arr){
+                    let i=timelist.indexOf(timeformater(item.timestamp))
+                    //i>-1 means the data was existed and item.measured!==false means the patient has not forget to give values
+                    if(i>-1){
                         if (item.measured!==false){ 
+                        //save in the y-axis arrays in the correct position
                         templist2[i]=item.bloodpres_dia
                         templist1[i]=item.bloodpres_sys
-                        }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
+                        }
                     }
                 })
-
+                //graph infos
                 var option = {
                     tooltip: {
                         trigger: 'axis',
-                        // position: function (pt) {
-                        //     return [pt[0], '10%'];
-                        // },
                     },
                     xAxis: [{
                         data: timelist,
@@ -119,7 +124,7 @@ class BoodPressure extends Component {
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -146,7 +151,7 @@ class BoodPressure extends Component {
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{             
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -166,19 +171,21 @@ class BoodPressure extends Component {
                         }
                         ]
                 };
-
+        //define the graph with different id(depends on different patients)
         var myChart = echarts.init(document.getElementById("blood_pressure"+this.props.id));
+        // set the graph with in option saved features
         myChart.setOption(option);
-        //fuer bootstrap layout
+        // this function is for flexibel layout  
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
 
     render() {
         return (
+            //create postion in HIML page for the graph with different ids
            <div id={"blood_pressure"+this.props.id} style={{ width:'100%', minHeight: '200px' }}></div>
         );
     }

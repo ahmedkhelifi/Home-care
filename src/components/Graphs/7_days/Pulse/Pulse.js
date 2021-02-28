@@ -12,45 +12,35 @@ import $ from  'jquery';
 import 'jquery';
 
 export default class Pulse extends React.PureComponent { 
-
   constructor(props) {
     super(props);
-    this.state = {
-      pendingMedication:        this.props.pendingMedication,
-      confirmPopupPending:      false,
-      confirmPopupMissed:       false,
-      popupMissedTimestampFrom: '',
-      popupMissedTimestampTo:   '',
-      history_bool:             false,
-    };
   }
-
-
   componentDidMount(){
-    window.scrollTo({ top: 0 });
-    if (this.props.pulses !== undefined ) this.create_graph()
+    this.create_graph()
   }
-
+  componentShouldUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      return true
+    }
+  }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       this.create_graph()
     }
   }
-
   create_graph = ()  => {
     //  currentDate
-
     var currentDate = new Date();
-    // old7Datetimestample
-    var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳  
+    //  timestample before 7 days
+    var days7before = currentDate.setDate( currentDate.getDate() - 7 );   
+    //get Jsondata from select Patient with his blood_pressures in history 
     let history = this.props.pulses;
-
+    if(!history) return
     let jsonData = {pulse: history}
-
     if(jsonData.pulse.length === 0) return
-      
+    // Keep content of jsonData from the last 7 days   
     var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
-
+    //function for change format of timestamp: timestamp->YYYY-MM-DD 
     function timeformater(ts){
         let date = new Date(ts);
         let Y = date.getFullYear() + '-';
@@ -59,21 +49,26 @@ export default class Pulse extends React.PureComponent {
         let result = Y+M+D
         return result; 
     }
-
+    //Initialize the value of x-axis for the graph (7days)
     var timelist=[null,null,null,null,null,null,null];
+    //make the x-axis with last 7 days datas with YYYY-MM-DD format
     timelist.forEach(function(item, index,timelist){
         let currentDate = new Date();
         let data = currentDate.setDate( currentDate.getDate() - index); 
         timelist[index]=timeformater(data)
     })
+    //correct order
     timelist=timelist.reverse()
     
+    //initialize the y-axis values
     var templist=[null,null,null,null,null,null,null]
-    truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-        let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-        if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+    //let the values find the correct position (identical with the timestamp) depends on their timestamps in Database
+    truejsonData.reverse().forEach(function(item,index,arr){
+      //i>-1 means the data was existed and item.measured!==false means the patient has not forget to give values
+        let i=timelist.indexOf(timeformater(item.timestamp))
+        if(i>-1&&item.measured!==false){
+            //save in the y-axis arrays in the correct position
             templist[i]=item.pulse  
-            // wenn measured nicht false dann ersetzt die richtige weight dadrauf
         }
     })
 //graph infos
@@ -103,7 +98,7 @@ var option ={
       label: {
           show: true,
           position: 'top',
-          formatter: '{c}'//echarts selbst build in variable fuer valu
+          formatter: '{c}'
           
       },　　
       markLine : {
@@ -111,7 +106,7 @@ var option ={
         data : [{
              
   
-            lineStyle:{               //警戒线的样式  ，虚实  颜色
+            lineStyle:{              
                 type:"solid",
                 color:"#FA3934",
             },
@@ -129,7 +124,7 @@ var option ={
         },
         {
   
-            lineStyle:{               //警戒线的样式  ，虚实  颜色
+            lineStyle:{              
                 type:"solid",
                 color:"green",
             },
@@ -149,10 +144,11 @@ var option ={
         },
   }]
 }
-
+//define the id of the graph
 var myChart = echarts.init(document.getElementById('pulse_graph'));
+//set the graph with infos in option
 myChart.setOption(option);
-//fuer bootstrap layout
+//for flexible layout
 $(window).on('resize', function(){
 if(myChart !== null && myChart !== undefined){
     myChart.resize();
@@ -160,23 +156,10 @@ if(myChart !== null && myChart !== undefined){
 });
 }
 
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
-
   render() {
 
     return (
-
+      //passed to the HTML
     <div className="patient_health_status" style={{marginTop: '50px'}}>
              <div className="row">
               <div className= 'col-md-12 col-xs-12 col-sm-12'>

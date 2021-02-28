@@ -20,29 +20,30 @@ export default class BloodPressure extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-
-
   componentDidMount(){
     this.create_graph()
   }
-
   componentDidUpdate(prevProps, prevState) {
       this.create_graph()
   }
 
     create_graph = ()  => {
+                //current time
                 var currentDate = new Date();
+                //get Jsondata from select Patient with his blood_pressures in history 
                 let history = this.props.blood_pressures.history;
+                //passed format
                 let jsonData = {bloodpres: history}
-                
                 if(jsonData.bloodpres.length === 0) return
 
+
+                //define time intervall
                 var firstdate=jsonData.bloodpres[0].timestamp
                 var today=currentDate.getTime()
-                var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天
+                var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;
                 var truejsonData=jsonData.bloodpres.filter(obj => {return obj.timestamp});
                 
-
+                //format function
                 function timeformater(ts){
                     let date = new Date(ts);
                     let Y = date.getFullYear() + '.';
@@ -52,28 +53,33 @@ export default class BloodPressure extends React.PureComponent {
                     return result; 
                 }
 
-
+                //define x-axis values
                 var timelist=new Array(diffday);
                 for(let i=0;i<diffday;i++){
                     let currentDate = new Date();
                     let data = currentDate.setDate( currentDate.getDate() - i); 
                     timelist[i]=timeformater(data)
                 }
+                // in correct order
                 timelist=timelist.reverse()
 
+                //initialize the y-axis values
+                //templist1 sys
+                //templist2 dia
                 var templist1= Array(diffday);
                 var templist2= Array(diffday);
 
-                truejsonData.forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-                    let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-                    if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+                //locate y-axis values  
+                truejsonData.forEach(function(item,index,arr){
+                    let i=timelist.indexOf(timeformater(item.timestamp))
+                    if(i>-1){
                         if (item.measured!==false){ 
                         templist2[i]=item.bloodpres_dia
                         templist1[i]=item.bloodpres_sys
-                        }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
+                        }
                     }
                 })
-
+                //graph infos
                 var option = {
                     title: [{
                         left: 'center',
@@ -149,7 +155,7 @@ export default class BloodPressure extends React.PureComponent {
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -177,7 +183,7 @@ export default class BloodPressure extends React.PureComponent {
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{             
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -197,28 +203,17 @@ export default class BloodPressure extends React.PureComponent {
                     }]
                 };
 
-
+        //define the graph id
         var myChart = echarts.init(document.getElementById('blood_pressure_graph'));
+        //define the graph with option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
 
   render() {
     return (

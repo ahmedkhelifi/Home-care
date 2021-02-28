@@ -19,8 +19,6 @@ export default class Pulse extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-
-
   componentDidMount(){
     window.scrollTo({ top: 0 });
     this.create_graph()
@@ -31,18 +29,21 @@ export default class Pulse extends React.PureComponent {
 
 
    create_graph = ()  => {
+       //currentdate
         var currentDate = new Date();
-        // old7Datetimestample
+        //get Jsondata from select Patient with his pulses in history 
         let history = this.props.pulses.history;
+        //passed format
         let jsonData = {pulse: history}
         if(jsonData.pulse.length === 0) return
-            
+    
+        //time intervall
         var firstdate=jsonData.pulse[0].timestamp
         var today=currentDate.getTime()
-        var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天
+        var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;
         var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp});
         
-        
+        //timeformater function
         function timeformater(ts){
             let date = new Date(ts);
             let Y = date.getFullYear() + '.';
@@ -51,7 +52,7 @@ export default class Pulse extends React.PureComponent {
             let result = Y+M+D
             return result; 
         }
-
+        //x-axis defined
         var timelist=new Array(diffday);
         for(let i=0;i<diffday;i++){
             let currentDate = new Date();
@@ -60,12 +61,14 @@ export default class Pulse extends React.PureComponent {
         }
         timelist=timelist.reverse()
         
+
+        //y-axis defined
         var templist=new Array(diffday);
-        truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-            let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-            if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+        truejsonData.reverse().forEach(function(item,index,arr){
+            let i=timelist.indexOf(timeformater(item.timestamp))
+            if(i>-1){
                 templist[i]=item.pulse  
-                // wenn measured nicht false dann ersetzt die richtige weight dadrauf
+                
             }
         })
         
@@ -112,7 +115,7 @@ export default class Pulse extends React.PureComponent {
                             data : [{
                                  
         
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -130,7 +133,7 @@ export default class Pulse extends React.PureComponent {
                             },
                             {
  
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"green",
                                 },
@@ -151,28 +154,18 @@ export default class Pulse extends React.PureComponent {
 
                     }]
                 }
-
+        //defined the graph with id and set the option
         var myChart = echarts.init(document.getElementById('pulse_graph'));
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
 }
 
 
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
 
 
   render() {

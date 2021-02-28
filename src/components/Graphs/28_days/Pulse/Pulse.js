@@ -31,16 +31,19 @@ export default class Pulse extends React.PureComponent {
 
 
    create_graph = ()  => {
+       //currentdate
         var currentDate = new Date();
-        // old7Datetimestample
+        //get Jsondata from select Patient with his pulses in history 
         let history = this.props.pulses.history;
+        //passed format
         let jsonData = {pulse: history}
-        var days7before = currentDate.setDate( currentDate.getDate() - 28 );     //  最终获得的 old7Date 是时间戳 
-        //console.log(days7before)    
-        var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days7before});
-        console.log(truejsonData)
+        //  timestample before 28 days
+        var days28before = currentDate.setDate( currentDate.getDate() - 28 );
+        // Keep content of jsonData from the last 28 days                  
+        var truejsonData=jsonData.pulse.filter(obj => {return obj.timestamp>days28before});
+
         
-        
+        //function for timestamp -> yyyy.mm.dd
         function timeformater(ts){
             let date = new Date(ts);
             let Y = date.getFullYear() + '.';
@@ -49,21 +52,23 @@ export default class Pulse extends React.PureComponent {
             let result = Y+M+D
             return result; 
         }
-
+        //initialize array for the x-axis values 
         var timelist=new Array(28);
+        //in correct display format
         for(let i=0;i<28;i++){
             let currentDate = new Date();
             let data = currentDate.setDate( currentDate.getDate() - i); 
             timelist[i]=timeformater(data)
         }
+        //in correct order
         timelist=timelist.reverse()
-        
+        //initialize the y-axis values
         var templist=new Array(28);
-        truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-            let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-            if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+        //locate the y-values
+        truejsonData.reverse().forEach(function(item,index,arr){
+            let i=timelist.indexOf(timeformater(item.timestamp))
+            if(i>-1&&item.measured!==false){
                 templist[i]=item.pulse  
-                // wenn measured nicht false dann ersetzt die richtige weight dadrauf
             }
         })
         
@@ -110,7 +115,7 @@ export default class Pulse extends React.PureComponent {
                             data : [{
                                  
         
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -128,7 +133,7 @@ export default class Pulse extends React.PureComponent {
                             },
                             {
  
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"green",
                                 },
@@ -149,29 +154,17 @@ export default class Pulse extends React.PureComponent {
 
                     }]
                 }
-
+        //set the graph with the id
         var myChart = echarts.init(document.getElementById('pulse_graph'));
+        //defined the graph with option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
 }
-
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
 
   render() {
 

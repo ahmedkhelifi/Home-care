@@ -35,17 +35,20 @@ export default class Temperature extends React.PureComponent {
     create_graph = ()  => {
         //  currentDate
         var currentDate = new Date();
+        //get Jsondata from select Patient with his temperatures in history
         let history = this.props.temperatures.history;
+        //format
         let jsonData = {temperature: history}
-
         if(jsonData.temperature.length === 0) return
 
-
+        //time intervall
         var firstdate=jsonData.temperature[0].timestamp
         var today=currentDate.getTime()
-        var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;// 天
+        var diffday=Math.floor((today-firstdate)/(24*60*60*1000))+1;
         var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp});
         
+
+        //function for the timestamp formater
         function timeformater(ts){
             let date = new Date(ts);
             let Y = date.getFullYear() + '.';
@@ -55,6 +58,7 @@ export default class Temperature extends React.PureComponent {
             return result; 
         }
         
+        //x-axis values
         var timelist=new Array(diffday);
         for(let i=0;i<diffday;i++){
             let currentDate = new Date();
@@ -63,12 +67,13 @@ export default class Temperature extends React.PureComponent {
         }
         timelist=timelist.reverse()
         
+
+        //y-axis values
         var templist=new Array(diffday);
-        truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-            let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-            if(i>-1&&item.measured!==false){//wenn an dem Tag etwas in DB erschienen 
+        truejsonData.reverse().forEach(function(item,index,arr){
+            let i=timelist.indexOf(timeformater(item.timestamp))
+            if(i>-1&&item.measured!==false){
                 templist[i]=item.temperature  
-                // wenn measured nicht false dann ersetzt die richtige weight dadrauf
             }
         })
                    
@@ -126,7 +131,7 @@ export default class Temperature extends React.PureComponent {
                        data : [{
                             
 
-                           lineStyle:{               //警戒线的样式  ，虚实  颜色
+                           lineStyle:{             
                                type:"solid",
                                color:"#FA3934",
                            },
@@ -144,7 +149,7 @@ export default class Temperature extends React.PureComponent {
                        },
                        {
 
-                           lineStyle:{               //警戒线的样式  ，虚实  颜色
+                           lineStyle:{               
                                type:"solid",
                                color:"green",
                            },
@@ -164,28 +169,17 @@ export default class Temperature extends React.PureComponent {
                    }　　
             }]
         }
-
+        //set graph with id
         var myChart = echarts.init(document.getElementById('temperature_graph'));
+        //defined with option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
 
   render() {
 

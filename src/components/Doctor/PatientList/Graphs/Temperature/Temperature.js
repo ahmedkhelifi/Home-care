@@ -19,151 +19,150 @@ class Temperature extends Component {
     }
 
     create_graph = () => {
+        //get Jsondata from select Patient with his temperatures in history
         let history = this.props.temperatures;
+        //make the Jsondata in Suitable format
         let jsonData = {temperature: history}
-    //  currentDate
-//  currentDate
-var currentDate = new Date();
-// old7Datetimestample
-var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
-var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before});
+        //  currentDate
+        var currentDate = new Date();
+        //  timestample before 7 days
+        var days7before = currentDate.setDate( currentDate.getDate() - 7 );   
+        // Keep content of jsonData from the last 7 days
+        var truejsonData=jsonData.temperature.filter(obj => {return obj.timestamp>days7before}); 
+
+        //function for change format of timestamp: timestamp->YYYY-MM-DD 
+        function timeformater(ts){
+            let date = new Date(ts);
+            let Y = date.getFullYear() + '-';
+            let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            let D = date.getDate() + ' ';
+            let result = Y+M+D
+            return result; 
+        }
+        //Initialize the value of x-axis for the graph (7days)
+        var timelist=[null,null,null,null,null,null,null];
+        //make the x-axis with last 7 days datas with YYYY-MM-DD format
+        timelist.forEach(function(item, index,timelist){
+            let currentDate = new Date();
+            let data = currentDate.setDate( currentDate.getDate() - index); 
+            timelist[index]=timeformater(data)
+        })
+        //correct order 
+        timelist=timelist.reverse()
+
+        //Initialize the value of y-axis for the graph (7days)
+        var templist=[null,null,null,null,null,null,null]
+        //let the temperature values find the correct position (identical with the timestamp) depends on their timestamps in Database
+        truejsonData.reverse().forEach(function(item,index,arr){
+        let i=timelist.indexOf(timeformater(item.timestamp))
+        //i>-1 means the data was existed and item.measured!==false means the patient has not forget to give values
+        if(i>-1&&item.measured!==false){
+            //save in the y-axis array in the correct position
+            templist[i]=item.temperature  
+
+        }
+        })
 
 
-function timeformater(ts){
-    let date = new Date(ts);
-    let Y = date.getFullYear() + '-';
-    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-    let D = date.getDate() + ' ';
-    let result = Y+M+D
-    return result; 
-}
+        //graph infos
+        var option ={
+                        color:  'black',
+                        xAxis: {
+                            data: timelist,
+                            axisTick: {show: false},
+                            axisLabel: {show: false},
+                        },
+                        yAxis: {
+                            axisLine:{show:false},
+                            axisLabel: {show: false},
+                            splitLine: {show: false},
+                            axisTick: {show: false},
+                            type: 'value' ,
+                            min: extent => extent.min <=34 ? extent.min-1 : 33,
+                            max: extent => extent.max > 37.5  ? extent.max : 37.5
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            position: function (pt) {
+                                return [pt[0], '10%'];
+                            },
+                        },
+                        series: [{
 
-var timelist=[null,null,null,null,null,null,null];
-timelist.forEach(function(item, index,timelist){
-    let currentDate = new Date();
-    let data = currentDate.setDate( currentDate.getDate() - index); 
-    timelist[index]=timeformater(data)
-})
-timelist=timelist.reverse()
-
-var templist=[null,null,null,null,null,null,null]
-truejsonData.reverse().forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-    let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-    if(i>-1&&item.measured!==false){//wenn an dem Tag etwas in DB erschienen 
-        templist[i]=item.temperature  
-        // wenn measured nicht false dann ersetzt die richtige weight dadrauf
-    }
-})
-
-
-//graph infos
-var option ={
-                color:  'black',
-                xAxis: {
-                    data: timelist,
-                    axisTick: {show: false},
-                    axisLabel: {show: false},
-                },
-                yAxis: {
-                    axisLine:{show:false},
-                    axisLabel: {show: false},
-                    splitLine: {show: false},
-                    axisTick: {show: false},
-                    type: 'value' ,
-                    min: extent => extent.min <=34 ? extent.min-1 : 33,
-                    max: extent => extent.max > 37.5  ? extent.max : 37.5
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    position: function (pt) {
-                        return [pt[0], '10%'];
-                    },
-                },
-                series: [{
-
-                    barCategoryGap:"2%",
-                    name: 'temperature',
-                    type: 'bar',
-                    data: templist,
-                    itemStyle:{
-                        normal:{
-                            color:function(params){
-                                if(params.value >37.5){
-                                    return "#DC143C";
+                            barCategoryGap:"2%",
+                            name: 'temperature',
+                            type: 'bar',
+                            data: templist,
+                            itemStyle:{
+                                normal:{
+                                    color:function(params){
+                                        if(params.value >37.5){
+                                            return "#DC143C";
+                                        }
+                                        else if(params.value >=36.5 && params.value<=37.5){
+                                            return "#32CD32";
+                                        }
+                                        else if(params.value<36.5) {return "#FFA500";
+                                        }
+                                        else return 'black';
+                                    }
                                 }
-                                else if(params.value >=36.5 && params.value<=37.5){
-                                    return "#32CD32";
-                                }
-                                else if(params.value<36.5) {return "#FFA500";
-                                }
-                                else return 'black';
-                            }
-                        }
-                    },
-                    // label: {
-                    //     textStyle: {
-                    //         fonttemperature: "bolder",
-                    //         fontSize: "8",
-                    //         color: "#fff"
-                    //     },
-                    //     show: true,
-                    //     position: 'inside',
-                    //     formatter: '{c}°C'//echarts selbst build in variable fuer valu
-                        
-                    // },
-                    markLine : {
-                           symbol:"none",
-                           data : [{
-                               lineStyle:{               //警戒线的样式  ，虚实  颜色
-                                   type:"solid",
-                                   color:"#FA3934",
-                               },
-                                   label:{
-                                    textStyle: {
-                                        fontWeight: "bolder",
-                                        color:  'black',
-                                        fontSize: "4",
+                            },
+                            markLine : {
+                                symbol:"none",
+                                data : [{
+                                    lineStyle:{               
+                                        type:"solid",
+                                        color:"#FA3934",
                                     },
-                                   position:'start',
-                                   formatter:"37.5"
-                               },
-                               yAxis:37.5     
-                              
-                           },
-                           {
-                               lineStyle:{               //警戒线的样式  ，虚实  颜色
-                                   type:"solid",
-                                   color:"green",
-                               },
-                               label:{
-                                textStyle: {
-                                    fontWeight: "bolder",
-                                    color:  'black',
-                                    fontSize: "4",
+                                        label:{
+                                            textStyle: {
+                                                fontWeight: "bolder",
+                                                color:  'black',
+                                                fontSize: "4",
+                                            },
+                                        position:'start',
+                                        formatter:"37.5"
+                                    },
+                                    yAxis:37.5     
+                                    
                                 },
-                                   position:'start',
-                                   formatter:"36.5 ",
-                               },
-                               yAxis:36.5    
-                         
-                           }
-                           ]
-                       }　　
-                }]
-            }
-
+                                {
+                                    lineStyle:{               
+                                        type:"solid",
+                                        color:"green",
+                                    },
+                                    label:{
+                                        textStyle: {
+                                            fontWeight: "bolder",
+                                            color:  'black',
+                                            fontSize: "4",
+                                        },
+                                        position:'start',
+                                        formatter:"36.5 ",
+                                    },
+                                    yAxis:36.5    
+                                
+                                }
+                                ]
+                            }　　
+                        }]
+                    }
+        //define the graph with different id(depends on different patients)
         var myChart = echarts.init(document.getElementById("temperature"+this.props.id));
+        // set the graph with in option saved features
         myChart.setOption(option);
-        //fuer bootstrap layout
+        // this function is for flexibel layout  
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
 
     render() {
         return (
+            //create postion in HIML page for the graph with different ids
            <div id={"temperature"+this.props.id} style={{ width:'100%', minHeight: '200px' }}></div>
         );
     }

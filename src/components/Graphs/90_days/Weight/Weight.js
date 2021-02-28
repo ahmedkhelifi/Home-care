@@ -28,17 +28,18 @@ export default class Weight extends React.PureComponent {
   }
 
     create_graph = ()  => {
+                //get Jsondata from select Patient with his weights in history
                 let history = this.props.weights.history;
+                //correct format
                 let jsonData = {weight: history}
                 //  currentDate
                 var currentDate = new Date();
-                // old7Datetimestample
-                var days7before = currentDate.setDate( currentDate.getDate() - 90 );     //  最终获得的 old7Date 是时间戳 
-                //console.log(days7before)    
-                  
-                var truejsonData=jsonData.weight.filter(obj => {return obj.timestamp>days7before});
-                //console.log(truejsonData)
-
+                // timestamp before 90 days
+                var days90before = currentDate.setDate( currentDate.getDate() - 90 );     //  最终获得的 old7Date 是时间戳 
+                //filter the jsondata in 90 days
+                var truejsonData=jsonData.weight.filter(obj => {return obj.timestamp>days90before});
+          
+                //function for timestamp to yyyy.mm.dd
                 function timeformater(ts){
                     let date = new Date(ts);
                     let Y = date.getFullYear() + '.';
@@ -48,25 +49,31 @@ export default class Weight extends React.PureComponent {
                     return result; 
                 }
 
-
+                //initialize the x-axis values 
                 var timelist=new Array(90);
+                //in correct format
                 for(let i=0;i<90;i++){
                     let currentDate = new Date();
                     let data = currentDate.setDate( currentDate.getDate() - i); 
                     timelist[i]=timeformater(data)
                 }
+                //in correct order
                 timelist=timelist.reverse()
 
-
+                //initialize the y-axis array
+                //templist1= weight
+                //templist2= differ
                 var templist1=new Array(90)
                 var templist2=new Array(90)
+                //Base value for differ
                 var hilfsweight=null
-                truejsonData.forEach(function(item,index,arr){//db中近90天的array 可能只有3天
-                    let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-                    if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+                //y-values locate
+                truejsonData.forEach(function(item,index,arr){
+                    let i=timelist.indexOf(timeformater(item.timestamp))
+                    if(i>-1){
                         if (item.measured!==false){ 
                         templist1[i]=(item.weight*0.1).toFixed(2)   
-                        }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
+                        }
                         if (i===0 && item.measured!==false){
                             hilfsweight=item.weight 
                         }
@@ -76,15 +83,17 @@ export default class Weight extends React.PureComponent {
                             }
                             else {
                                 templist2[i]=((item.weight-hilfsweight)).toFixed(2)
-                                //hilfsweight=((item.weight)).toFixed(2)//falls den Unterschied je zwei Tage sein solltet
                             }
                         }
 
                     }
                 })
+
+                //for min and max value
                 var pos=(hilfsweight*0.1).toFixed(2)
                 var neg=-(hilfsweight*0.1).toFixed(2)
-                console.log(pos)
+                
+                //graph infos
                 var option ={
                                 title: { 
                                     left: 'center',
@@ -160,28 +169,17 @@ export default class Weight extends React.PureComponent {
                                 ],
                                 
                             }
-
+        //set the graph with id
         var myChart = echarts.init(document.getElementById('weight_graph'));
+        //defined the graph with option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
 
   render() {
 

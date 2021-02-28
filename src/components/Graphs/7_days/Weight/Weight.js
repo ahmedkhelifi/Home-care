@@ -19,12 +19,9 @@ export default class Weight extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-
-
   componentDidMount(){
     this.create_graph()
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       this.create_graph()
@@ -32,20 +29,22 @@ export default class Weight extends React.PureComponent {
   }
 
   create_graph = () => {
+    //get Jsondata from select Patient with his weights in history
     let history = this.props.weights.history;
     if(!history) return
+    //in passed format
     let jsonData = {weight: history}
     if(jsonData.weight.length === 0) return
         
     //  currentDate
     var currentDate = new Date();
-    // old7Datetimestample
-    var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳    
-    
+    // timestamp before last 7 days
+    var days7before = currentDate.setDate( currentDate.getDate() - 7 );    
+    //filter content of jsonData from the last 7 days 
     var truejsonData = jsonData.weight.filter(obj => {return obj.timestamp>days7before});
 
 
-
+        //function for change format of timestamp: timestamp->YYYY-MM-DD 
     function timeformater(ts){
         let date = new Date(ts);
         let Y = date.getFullYear() + '-';
@@ -56,28 +55,35 @@ export default class Weight extends React.PureComponent {
     }
 
 
-
+    // initialize the x-axis values
     var timelist=[null,null,null,null,null,null,null];
+    //format
     timelist.forEach(function(item, index,timelist){
         let currentDate = new Date();
         let data = currentDate.setDate( currentDate.getDate() - index); 
         timelist[index]=timeformater(data)
     })
+    // in correct order
     timelist=timelist.reverse()
 
-
+    //templist 1 = weight values 
+    //templist 2 = weight differ
+    //initialize the arrays for y-axis
     var templist1=[null,null,null,null,null,null,null]
     var templist2=[null,null,null,null,null,null,null]
+    //Base value for differ
     var hilfsweight=null
-    truejsonData.forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-        let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-        if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+    
+    //let the weight and differs values find the correct position (identical with the timestamp) depends on their timestamps in Database
+    truejsonData.forEach(function(item,index,arr){
+        let i=timelist.indexOf(timeformater(item.timestamp))
+        if(i>-1){
             if (item.measured!==false){ 
             templist1[i]=(item.weight*0.1).toFixed(2)   
-            }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
+            }
             if (i===0 && item.measured!==false){
                     hilfsweight=(item.weight).toFixed(2) 
-            }//first keine Aenderung erst ab zweite, wenn erste value hat dann hilfswert weist hinzu
+            }
             else if(item.measured!==false){
                 if (hilfsweight===null){
                     hilfsweight=Number(item.weight).toFixed(2) 
@@ -89,7 +95,7 @@ export default class Weight extends React.PureComponent {
             }
         }
     })
-
+    //graphs infos 
     var option ={
 
                     title: { 
@@ -155,31 +161,18 @@ export default class Weight extends React.PureComponent {
                         },     
                     },
                 ]
-                }
-
+            }
+        //graphs id
         var myChart = echarts.init(document.getElementById('weight_graph'));
+        //set the option for the graph
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for the flexible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
   }
-
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
-
   render() {
 
     return (

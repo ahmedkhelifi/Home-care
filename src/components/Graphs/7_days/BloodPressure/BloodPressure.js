@@ -12,43 +12,38 @@ import 'echarts/lib/component/markLine'
 import $ from  'jquery';
 import 'jquery';
 
-
 export default class BloodPressure extends React.Component {
-
   constructor(props) {
     super(props);
   }
-
-
   componentDidMount(){
     this.create_graph()
   }
-
   componentShouldUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       return true
     }
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       this.create_graph()
     }
   }
-
-    create_graph = ()  => {
+  
+  create_graph = ()  => {
                 //  currentDate
                 var currentDate = new Date();
-                // old7Datetimestample
-                var days7before = currentDate.setDate( currentDate.getDate() - 7 );     //  最终获得的 old7Date 是时间戳 
+                //  timestample before 7 days
+                var days7before = currentDate.setDate( currentDate.getDate() - 7 );   
+                //get Jsondata from select Patient with his blood_pressures in history
                 let history = this.props.blood_pressures.history;
                 if(!history) return
                 let jsonData = {bloodpres: history}
                 if(jsonData.bloodpres.length === 0) return
 
-                  
+                // Keep content of jsonData from the last 7 days  
                 var truejsonData=jsonData.bloodpres.filter(obj => {return obj.timestamp>days7before});
-
+                //function for change format of timestamp: timestamp->YYYY-MM-DD 
                 function timeformater(ts){
                     let date = new Date(ts);
                     let Y = date.getFullYear() + '-';
@@ -57,36 +52,35 @@ export default class BloodPressure extends React.Component {
                     let result = Y+M+D
                     return result; 
                 }
-
-
+                //Initialize the value of x-axis for the graph (7days)
                 var timelist=[null,null,null,null,null,null,null];
+                //make the x-axis with last 7 days datas with YYYY-MM-DD format
                 timelist.forEach(function(item, index,timelist){
                     let currentDate = new Date();
                     let data = currentDate.setDate( currentDate.getDate() - index); 
                     timelist[index]=timeformater(data)
                 })
+                //correct order
                 timelist=timelist.reverse()
-
-
+                
+                //Initialize the value of y-axis for the graph (7days)  
+                //  templist1 bloodpres_sys
+                //  templist2 bloodpres_dia
                 var templist1=[null,null,null,null,null,null,null]
                 var templist2=[null,null,null,null,null,null,null]
-
-                truejsonData.forEach(function(item,index,arr){//db中近7天的array 可能只有3天
-                    let i=timelist.indexOf(timeformater(item.timestamp))//richtige x axis daten value index
-                    if(i>-1){//wenn an dem Tag etwas in DB erschienen 
+                //let the values find the correct position (identical with the timestamp) depends on their timestamps in Database
+                truejsonData.forEach(function(item,index,arr){
+                    let i=timelist.indexOf(timeformater(item.timestamp))
+                    //i>-1 means the data was existed and item.measured!==false means the patient has not forget to give values
+                    if(i>-1){
                         if (item.measured!==false){ 
-                            if(typeof(item.bloodpres_dia)=='string'  ){
-                                item.bloodpres_dia=parseFloat(item.bloodpres_dia)
-                              }
-                            if(typeof(item.bloodpres_sys)=='string'  ){
-                            item.bloodpres_sys=parseFloat(item.bloodpres_sys)
-                            }
+                        //save in the y-axis arrays in the correct position
                         templist2[i]=item.bloodpres_dia
                         templist1[i]=item.bloodpres_sys
-                        }// wenn measured nicht false dann ersetzt die richtige weight dadrauf
+                        }
                     }
                 })
-
+                // graphs infos
                 var option = {
                     title: [{
                         left: 'center',
@@ -141,13 +135,13 @@ export default class BloodPressure extends React.Component {
                         label: {
                           show: true,
                           position: 'top',
-                          formatter: '{c}'//echarts selbst build in variable fuer valu
+                          formatter: '{c}'
                           
                         },　　
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -175,13 +169,13 @@ export default class BloodPressure extends React.Component {
                         label: {
                           show: true,
                           position: 'top',
-                          formatter: '{c}'//echarts selbst build in variable fuer valu
+                          formatter: '{c}'
                           
                         },　　
                         markLine : {
                             symbol:"none",
                             data : [{
-                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                lineStyle:{               
                                     type:"solid",
                                     color:"#FA3934",
                                 },
@@ -200,30 +194,19 @@ export default class BloodPressure extends React.Component {
                         }　　
                     }]
                 };
-
+        //define the id of the graph
         var myChart = echarts.init(document.getElementById('blood_pressure_graph'));
+        //set the graph with infos in option
         myChart.setOption(option);
-        //fuer bootstrap layout
+        //for fleible layout
         $(window).on('resize', function(){
             if(myChart !== null && myChart !== undefined){
                 myChart.resize();
             }
-            });
+        });
     }
-
-  beautify_timestamp = (unix_timestamp) => {
-    let a = new Date( Number(unix_timestamp));
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = date + ' ' + month + ' ' + year ;
-    
-    return time;
-  } 
-
-
   render() {
+    // location for the graph on the html page
     return (
            <div className="patient_health_status" style={{marginTop: '50px', paddingRight: '0', paddingLeft: '0'}}>
              <div className="row">
