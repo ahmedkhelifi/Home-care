@@ -48,6 +48,7 @@ class PatientList extends React.Component {
   }
 
   fetch_patient = () => {
+    this.setState({patients: []})
         fetch('/api/doctor/getPatients') // GET request
             .then(blob => blob.json())
             .then(

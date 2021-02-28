@@ -1,5 +1,4 @@
 import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -118,6 +117,7 @@ class Edit extends React.Component {
       item.ammount = 0
       item.duration = 0
       item.history = []
+      item.assigned_on = new Date().valueOf()
       medicaments.push(item)
       this.setState({ medicaments: medicaments })
       // this.props.handleSelectedChapters(selectedChapters)

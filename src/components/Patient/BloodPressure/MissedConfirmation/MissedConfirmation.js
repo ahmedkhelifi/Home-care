@@ -32,7 +32,7 @@ export default class MissedConfirmation extends PureComponent {
     return (
     <div className="container-fluid" style={{backgroundColor: '#f7f7f7', marginTop: '-20px', paddingTop: '30px', minHeight: '100vh'}}>
       <p className="patient_back" style={{marginTop: '0px', marginLeft: '20px'}} onClick={() => this.props.goBack() }>&#10230;</p>
-      <p className="patient_tasks" style={{marginLeft: '25px'}}>Did you measured your blood pressure between {this.props.popupMissedTimestampFrom} and {this.props.popupMissedTimestampTo} ?</p>
+      <p className="patient_tasks" style={{marginLeft: '25px'}}>Have you measured your blood pressure on {this.props.popupMissedTimestampFrom} ?</p>
       <input className="userinput" type="text" placeholder="sys" name="blood_pressure" value={this.state.sys} onChange={this.handleBloodPressureChangeSys} style={{width: '100%', marginTop: '30px'}} onBlur={ this.onBlurSys } />
       <input className="userinput" type="text" placeholder="dia" name="blood_pressure" value={this.state.dia} onChange={this.handleBloodPressureChangeDia} style={{width: '100%', marginTop: '30px'}} onBlur={ this.onBlurDia } />
       <button className="no_im_not" onClick={e => this.props.addBloodPressureMissed(this.state.blood_pressure, false)}>I Forgot</button>
